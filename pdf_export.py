@@ -61,15 +61,22 @@ class CountryBriefPDF(FPDF):
         self.set_text_color(*TEXT_MUTED)
         self.cell(0, 10, "Research/screening tool - not investment advice. Not a live feed; see in-app Methodology for sourcing details.", align="C")
 
-    def section_title(self, text):
+    def section_title(self, text, x_start=None):
+        """x_start anchors the heading and its gold underline to a fixed
+        left edge, so it renders correctly inside a non-default column
+        (e.g. the right half of a two-column layout) instead of always
+        underlining at the page's left margin."""
+        x_start = self.l_margin if x_start is None else x_start
+        self.set_xy(x_start, self.get_y())
         self.set_font("Helvetica", "B", 12)
         self.set_text_color(*NAVY)
         self.cell(0, 8, sanitize_text(text), new_x="LMARGIN", new_y="NEXT")
         self.set_draw_color(*GOLD)
         self.set_line_width(0.6)
         y = self.get_y()
-        self.line(self.l_margin, y, self.l_margin + 30, y)
+        self.line(x_start, y, x_start + 30, y)
         self.ln(4)
+        self.set_x(x_start)
 
     def body_text(self, text, size=9.5):
         self.set_font("Helvetica", "", size)
@@ -77,22 +84,28 @@ class CountryBriefPDF(FPDF):
         self.multi_cell(0, 5.2, sanitize_text(text))
         self.ln(1)
 
-    def simple_table(self, rows, col_widths=None):
+    def simple_table(self, rows, col_widths=None, x_start=None):
+        """x_start anchors every row to a fixed left edge — needed so a table
+        placed in a non-default column (e.g. the right half of a two-column
+        layout) doesn't drift back to the page's left margin after row 1,
+        which is what happens if each row's x is re-read from the cursor
+        after a multi_cell(new_x='LMARGIN') resets it."""
         self.set_font("Helvetica", "", 9)
         self.set_text_color(*TEXT_DARK)
         if col_widths is None:
             col_widths = [45, 135]
+        x_start = self.l_margin if x_start is None else x_start
         for row in rows:
             y_before = self.get_y()
-            x_before = self.get_x()
+            self.set_xy(x_start, y_before)
             self.set_font("Helvetica", "B", 9)
             self.multi_cell(col_widths[0], 5, sanitize_text(str(row[0])), new_x="RIGHT", new_y="TOP")
             y_after_label = self.get_y()
-            self.set_xy(x_before + col_widths[0], y_before)
+            self.set_xy(x_start + col_widths[0], y_before)
             self.set_font("Helvetica", "", 9)
             self.multi_cell(col_widths[1], 5, sanitize_text(str(row[1])), new_x="LMARGIN", new_y="NEXT")
             y_after_value = self.get_y()
-            self.set_y(max(y_after_label, y_after_value))
+            self.set_xy(x_start, max(y_after_label, y_after_value))
         self.ln(2)
 
 
@@ -117,27 +130,41 @@ def generate_country_pdf(
     pdf.cell(0, 6, sanitize_text(f"Generated {generated} | Data last refreshed {last_refreshed} | MENASA Sovereign Risk Scorecard"), new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
 
-    # ---- Score summary ----
-    pdf.section_title("Composite Risk Score")
+    # ---- Score summary + credit ratings, side by side ----
     score_display = f"{row['risk_score']:.1f} / 100" if row.get("risk_score") == row.get("risk_score") else "N/A"
+    factors_used = int(row.get("risk_score_factors_used", 0))
     summary_rows = [
         ["Score", score_display],
         ["Risk Tier", str(row.get("risk_tier", "N/A"))],
         ["Regional Rank", f"{int(row['risk_rank'])} of 26" if row.get("risk_rank") == row.get("risk_rank") else "N/A"],
-        ["Factors Used", f"{int(row.get('risk_score_factors_used', 0))} of 10"],
+        ["Confidence", f"{factors_used} of 10 factors reported" + (" (lower confidence)" if factors_used < 8 else "")],
     ]
     if row.get("yoy_change") == row.get("yoy_change"):
         direction = "worsening" if row["yoy_change"] > 0 else "improving"
         summary_rows.append(["YoY Change", f"{row['yoy_change']:+.1f} ({direction})"])
-    pdf.simple_table(summary_rows)
+
+    col_width = (pdf.w - pdf.l_margin - pdf.r_margin) / 2 - 3
+    left_x = pdf.l_margin
+    right_x = pdf.l_margin + col_width + 6
+    top_y = pdf.get_y()
+
+    pdf.set_xy(left_x, top_y)
+    pdf.section_title("Composite Risk Score", x_start=left_x)
+    pdf.simple_table(summary_rows, col_widths=[38, col_width - 38], x_start=left_x)
+    left_bottom_y = pdf.get_y()
 
     if ratings:
-        pdf.section_title("Actual Credit Ratings (S&P / Moody's / Fitch)")
-        pdf.simple_table([
-            ["S&P", ratings["sp"]],
-            ["Moody's", ratings["moodys"]],
-            ["Fitch", ratings["fitch"]],
-        ])
+        pdf.set_xy(right_x, top_y)
+        pdf.section_title("Credit Ratings", x_start=right_x)
+        pdf.simple_table(
+            [["S&P", ratings["sp"]], ["Moody's", ratings["moodys"]], ["Fitch", ratings["fitch"]]],
+            col_widths=[28, col_width - 28], x_start=right_x,
+        )
+        right_bottom_y = pdf.get_y()
+    else:
+        right_bottom_y = top_y
+
+    pdf.set_xy(pdf.l_margin, max(left_bottom_y, right_bottom_y))
 
     # ---- Country brief narrative ----
     pdf.section_title("Analyst Brief")

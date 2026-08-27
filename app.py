@@ -711,24 +711,50 @@ with tab2:
         radar_factors = [f for f in FACTOR_COLS if pd.notna(driver_row[f])]
         radar_values = [driver_row[f] for f in radar_factors]
         radar_labels = [FACTOR_LABELS[f] for f in radar_factors]
+        missing_factors = [f for f in FACTOR_COLS if pd.isna(driver_row[f])]
 
         if radar_factors:
+            # Always plot all 10 axis labels, in FACTOR_COLS order, so a missing
+            # factor shows as a visible gap rather than silently shrinking the
+            # shape — no value is ever invented to fill it.
+            all_labels = [FACTOR_LABELS[f] for f in FACTOR_COLS]
             fig3 = go.Figure()
             fig3.add_trace(go.Scatterpolar(
                 r=radar_values + [radar_values[0]],
                 theta=radar_labels + [radar_labels[0]],
                 fill="toself", fillcolor="rgba(34,211,238,0.18)",
                 line=dict(color=ACCENT, width=2),
+                name="Reported",
             ))
+            if missing_factors:
+                fig3.add_trace(go.Scatterpolar(
+                    r=[0] * len(missing_factors),
+                    theta=[FACTOR_LABELS[f] for f in missing_factors],
+                    mode="markers",
+                    marker=dict(color="#fbbf24", size=10, symbol="x"),
+                    line=dict(color="#fbbf24", dash="dot"),
+                    name="Not reported",
+                    hovertemplate="%{theta}: not reported to the World Bank — excluded from this country's "
+                                  "score, weights rescaled among available factors<extra></extra>",
+                ))
             fig3.update_layout(
                 polar=dict(
                     bgcolor="rgba(0,0,0,0)",
                     radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(148,163,184,0.12)", color=TEXT_MUTED),
-                    angularaxis=dict(gridcolor="rgba(148,163,184,0.12)", color=TEXT),
+                    angularaxis=dict(
+                        gridcolor="rgba(148,163,184,0.12)", color=TEXT,
+                        categoryorder="array", categoryarray=all_labels,
+                    ),
                 ),
-                showlegend=False,
+                showlegend=bool(missing_factors),
+                legend=dict(orientation="h", y=-0.1, font=dict(color=TEXT_MUTED, size=10)),
             )
             st.plotly_chart(style_chart(fig3, height=380), use_container_width=True)
+            if missing_factors:
+                st.caption(
+                    f"⚠️ Marked with an amber ✕: {', '.join(FACTOR_LABELS[f] for f in missing_factors)} — "
+                    f"not reported to the World Bank for {selected}, not silently assumed or estimated."
+                )
         else:
             st.caption("No factor data available for radar chart.")
 
@@ -897,6 +923,67 @@ with tab3:
 
     code_to_name = dict(zip(scored["country_code"], scored["country"]))
 
+    # Representative point per conflict for the map below — a single lat/lon
+    # standing in for what is often a multi-country or border-spanning event,
+    # not a claim about an exact front line.
+    CONFLICT_COORDS = {
+        "2026 Iran-Israel-US War": (35.6892, 51.3890),
+        "Red Sea Shipping Crisis & Houthi-Saudi Blockade": (12.6, 43.4),
+        "Gaza War Aftermath & Fragile Ceasefire": (31.5, 34.47),
+        "Syria's Post-Assad Transition": (33.51, 36.28),
+        "Sudan Civil War (regional spillover)": (15.5, 32.55),
+        "Israel-Hezbollah War & Lebanon Front": (33.37, 35.48),
+        "Libya's Rival Governments Standoff": (31.2, 16.6),
+        "2026 Pakistan-Afghanistan War": (34.0, 70.0),
+        "India-Pakistan Kashmir Crisis": (34.08, 74.80),
+        "Balochistan Insurgency & CPEC Attacks": (25.13, 62.33),
+        "Iran-Aligned Militia Attacks on US Forces in Iraq": (33.31, 44.36),
+        "Egypt-Ethiopia Nile Dam (GERD) Dispute": (11.22, 35.09),
+        "Western Sahara Conflict & Algeria-Morocco Rupture": (27.15, -13.20),
+    }
+    STATUS_COLORS = {"active": "#f87171", "ceasefire": "#fbbf24", "frozen": "#7d8aa0"}
+
+    def _status_color(status_text):
+        s = status_text.lower()
+        if "active" in s or "escalat" in s or "unresolved" in s:
+            return STATUS_COLORS["active"]
+        if "ceasefire" in s or "fragile" in s or "frozen" in s or "stalemate" in s:
+            return STATUS_COLORS["ceasefire"]
+        return STATUS_COLORS["frozen"]
+
+    st.markdown('<div class="section-tag">SPATIAL_VIEW</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title" style="font-size:1.05rem;">Conflict Map</div>', unsafe_allow_html=True)
+    map_conflicts = [c for c in LIVE_CONFLICTS if c["name"] in CONFLICT_COORDS]
+    if map_conflicts:
+        lats = [CONFLICT_COORDS[c["name"]][0] for c in map_conflicts]
+        lons = [CONFLICT_COORDS[c["name"]][1] for c in map_conflicts]
+        colors = [_status_color(c["status"]) for c in map_conflicts]
+        hover_texts = [
+            f"<b>{c['name']}</b><br>Status: {c['status']}<br>"
+            f"Actors: {c.get('groups', 'n/a')[:120]}{'…' if len(c.get('groups', '')) > 120 else ''}<br>"
+            f"Impact: {c['market_impact'][:160]}…"
+            for c in map_conflicts
+        ]
+        conflict_map_fig = go.Figure(go.Scattergeo(
+            lat=lats, lon=lons, mode="markers",
+            marker=dict(size=14, color=colors, line=dict(width=1, color="#0a0e14"), opacity=0.9),
+            text=hover_texts, hoverinfo="text",
+        ))
+        conflict_map_fig.update_geos(
+            scope="world", lataxis_range=[-5, 42], lonaxis_range=[-18, 100],
+            bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.25)",
+            showland=True, landcolor="#161d2c", showocean=True, oceancolor="#0a0e14",
+            showframe=False,
+        )
+        conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
+        st.plotly_chart(style_chart(conflict_map_fig, height=380), use_container_width=True)
+        st.caption(
+            "🔴 Active/unresolved · 🟡 Ceasefire/fragile · ⚪ Frozen or stalemated — "
+            "hover a node for actors and market impact. One point per conflict; a single "
+            "marker stands in for what is often a multi-country or border-spanning event."
+        )
+    st.markdown("<br>", unsafe_allow_html=True)
+
     for i, conflict in enumerate(LIVE_CONFLICTS):
         with st.container(border=True):
             st.markdown(
@@ -939,6 +1026,46 @@ with tab3:
             st.markdown("<br>", unsafe_allow_html=True)
 
 # ================= TAB 4: SCENARIO EXPLORER =================
+SHOCK_PRESETS = {
+    "Red Sea / Shipping Shock": {
+        "weights": {
+            "debt_to_gdp": 5, "current_account_pct_gdp": 20, "reserves_months_imports": 20,
+            "gdp_growth": 10, "inflation": 15, "political_stability": 15,
+            "government_effectiveness": 5, "rule_of_law": 5, "regulatory_quality": 0, "control_of_corruption": 5,
+        },
+        "rationale": (
+            "Models a Bab el-Mandeb/Suez shipping disruption: overweights current account, reserves, "
+            "and inflation (higher import costs pass through fast) and political stability (conflict-adjacent "
+            "risk), while de-emphasizing longer-run institutional-quality factors that a shipping shock "
+            "doesn't move on its own."
+        ),
+    },
+    "Commodity Price Cycle": {
+        "weights": {
+            "debt_to_gdp": 15, "current_account_pct_gdp": 25, "reserves_months_imports": 15,
+            "gdp_growth": 20, "inflation": 10, "political_stability": 5,
+            "government_effectiveness": 5, "rule_of_law": 0, "regulatory_quality": 0, "control_of_corruption": 5,
+        },
+        "rationale": (
+            "Models an oil/commodity terms-of-trade swing: overweights current account and GDP growth "
+            "(the two factors a commodity cycle hits hardest and fastest for both exporters and importers), "
+            "with debt sustainability following behind and governance factors weighted down."
+        ),
+    },
+    "Capital Flight / Sudden Stop": {
+        "weights": {
+            "debt_to_gdp": 20, "current_account_pct_gdp": 10, "reserves_months_imports": 25,
+            "gdp_growth": 5, "inflation": 5, "political_stability": 15,
+            "government_effectiveness": 10, "rule_of_law": 5, "regulatory_quality": 0, "control_of_corruption": 5,
+        },
+        "rationale": (
+            "Models an investor-confidence sudden stop: overweights reserves cover and debt sustainability "
+            "(what a fleeing investor actually checks first) plus political and institutional stability, "
+            "since capital flight is a confidence event more than a growth or inflation one."
+        ),
+    },
+}
+
 with tab4:
     st.markdown('<div class="section-tag">INTERACTIVE_REWEIGHTING</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
@@ -948,13 +1075,37 @@ with tab4:
         "sustainability, or a consultancy weighting governance more heavily — and watch the "
         "ranking update live. This does not change the saved default score anywhere else in the app."
     )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">GEOPOLITICAL_SHOCK_TESTER</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title" style="font-size:1.05rem;">Load a Shock Scenario</div>', unsafe_allow_html=True)
+    preset_choice = st.selectbox(
+        "Load a preset scenario",
+        ["Custom / Manual"] + list(SHOCK_PRESETS.keys()),
+        label_visibility="collapsed",
+        key="preset_choice",
+    )
+    if preset_choice != st.session_state.get("_applied_preset"):
+        if preset_choice in SHOCK_PRESETS:
+            for f, w in SHOCK_PRESETS[preset_choice]["weights"].items():
+                st.session_state[f"w_{f}"] = w
+        st.session_state["_applied_preset"] = preset_choice
+        st.rerun()
+
+    if preset_choice in SHOCK_PRESETS:
+        st.caption(SHOCK_PRESETS[preset_choice]["rationale"])
+
     st.markdown("<br>", unsafe_allow_html=True)
 
     slider_cols = st.columns(2)
     custom_weights = {}
     for i, (factor, label) in enumerate(FACTOR_LABELS.items()):
         with slider_cols[i % 2]:
-            custom_weights[factor] = st.slider(label, 0, 100, 10, key=f"w_{factor}")
+            slider_key = f"w_{factor}"
+            slider_kwargs = {"key": slider_key}
+            if slider_key not in st.session_state:
+                slider_kwargs["value"] = 10
+            custom_weights[factor] = st.slider(label, 0, 100, **slider_kwargs)
 
     total_w = sum(custom_weights.values())
     st.markdown(f'<div class="stat-sub">Total weight: {total_w}% {"✓" if total_w == 100 else "(auto-normalized to 100%)"}</div>', unsafe_allow_html=True)
