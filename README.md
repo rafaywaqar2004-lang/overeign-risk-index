@@ -165,3 +165,39 @@ public API (no key required).
   rupture, a major MENASA conflict that had been missing entirely — with
   full actor breakdown, the 2021 diplomatic break, and the Maghreb-Europe
   gas pipeline shutdown's cost to Morocco.
+- **Deep-expanded all 13 Live Conflicts** to full analytical depth (6-10
+  sentence summaries and market-impact sections with specific dollar/
+  percentage figures, 5-8 stats and 5-7 sources each), catching that the
+  "2026 Iran-Israel-US War" entry was itself out of date — a second, larger
+  war phase (Feb 2026 onward) was still active and unresolved, not the
+  earlier, already-concluded phase the entry previously described.
+- **Added a data-driven Regional Snapshot** to the Overview tab: a synthesis
+  paragraph (avg score, spread, biggest YoY movers, share of the region
+  exposed to a live conflict) computed from the actual data each run,
+  rather than the tab being pure charts with no narrative.
+
+## v8 additions — Scenario Explorer presets & visual transparency
+
+Two proposed modules (a real-time market-sentiment overlay, and Bayesian/EM
+imputation of missing data) were evaluated and deliberately **not** built:
+reliable free market data doesn't exist for most of these 26 economies
+(several have no tradable sovereign debt instrument at all), and imputing
+missing values would reverse this project's core "never silently fill a
+gap" design principle. Building either as originally specified risked
+misrepresenting coverage or quietly blurring real data with modeled
+guesses. What *was* built:
+
+- **Scenario Explorer shock presets**: three one-click stress-test
+  scenarios (Red Sea / Shipping Shock, Commodity Price Cycle, Capital
+  Flight / Sudden Stop) that reweight all 10 factors to a documented,
+  analyst-reasoned configuration, with the rationale shown inline.
+- **Radar chart transparency**: a country's missing factors now render as
+  a visible amber "not reported" marker on their own axis, rather than
+  silently shrinking the shape — no value is ever invented to fill a gap.
+- **Conflict map**: all 13 Live Conflicts plotted on an interactive map
+  (color-coded by status, hoverable for actors and market impact) using
+  Plotly to stay visually consistent with the rest of the app, rather than
+  a separate mapping library that would look like a different product.
+- **Two-column PDF layout**: the country brief's score summary and credit
+  ratings now render side by side on the page, matching the denser,
+  structured look of an actual analyst one-pager.
