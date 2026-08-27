@@ -72,15 +72,15 @@ st.markdown(f"""
         margin-bottom: 1.4rem;
     }}
     .section-tag {{
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.66rem;
-        font-weight: 500;
-        letter-spacing: 0.06em;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
         color: {ACCENT};
         opacity: 0.85;
         margin-bottom: 0.4rem;
     }}
-    .section-tag::before {{ content: "// "; opacity: 0.55; }}
     .section-title {{
         font-family: 'Inter', sans-serif;
         font-size: 1.3rem;
@@ -474,7 +474,7 @@ except FileNotFoundError:
 # ============================================================
 # MASTHEAD
 # ============================================================
-st.markdown('<div class="tag-label">SOVEREIGN-RISK/v4 · FULL MENASA COVERAGE</div>', unsafe_allow_html=True)
+st.markdown('<div class="tag-label">Sovereign Risk Analysis · Full MENASA Coverage</div>', unsafe_allow_html=True)
 st.markdown('<div class="masthead-title">Sovereign Risk <span>Scorecard</span></div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="masthead-sub">A composite risk score for all 26 MENA &amp; South Asia economies, '
@@ -483,7 +483,7 @@ st.markdown(
     'dedicated tracker for the region\'s most consequential live conflicts.</div>',
     unsafe_allow_html=True,
 )
-st.markdown(f'<div class="stat-sub" style="margin-bottom:1.2rem;">DATA_LAST_REFRESHED: {LAST_REFRESHED}</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="stat-sub" style="margin-bottom:1.2rem;">Data last refreshed: {LAST_REFRESHED}</div>', unsafe_allow_html=True)
 
 # ============================================================
 # TOP-LINE STAT ROW
@@ -504,17 +504,17 @@ with c4:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["REGIONAL_OVERVIEW", "COUNTRY_DEEP_DIVE", "LIVE_CONFLICTS", "SCENARIO_EXPLORER", "METHODOLOGY"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Regional Overview", "Country Deep Dive", "Live Conflicts", "Scenario Explorer", "Methodology"])
 
 # ================= TAB 1: OVERVIEW =================
 with tab1:
-    st.markdown('<div class="section-tag">ANALYST_BRIEF</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Analyst Brief</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Regional Snapshot</div>', unsafe_allow_html=True)
     regional_brief_text = build_regional_brief(scored, history, LIVE_CONFLICTS)
     st.markdown(f'<div class="narrative-box">{regional_brief_text}</div>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">GEOGRAPHIC_DISTRIBUTION</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Geographic Distribution</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Risk Map</div>', unsafe_allow_html=True)
     map_df = scored.dropna(subset=["risk_score"])
     map_fig = px.choropleth(
@@ -536,7 +536,7 @@ with tab1:
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.markdown('<div class="section-tag">RANKED_ALL_26</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">All 26 Ranked</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title">Risk Ranking</div>', unsafe_allow_html=True)
         chart_df = scored.dropna(subset=["risk_score"]).sort_values("risk_score", ascending=True)
         fig = px.bar(
@@ -550,7 +550,7 @@ with tab1:
 
     with col2:
         with st.container(border=True):
-            st.markdown('<div class="section-tag">LEGEND</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-tag">Legend</div>', unsafe_allow_html=True)
             st.markdown('<div class="section-title" style="font-size:1rem;">Reading the Scores</div>', unsafe_allow_html=True)
             st.markdown(tier_badge_html("Lower Risk") + " score &lt; 33", unsafe_allow_html=True)
             st.markdown("<br>" + tier_badge_html("Moderate Risk") + " score 33–66", unsafe_allow_html=True)
@@ -560,7 +560,7 @@ with tab1:
         st.markdown("<br>", unsafe_allow_html=True)
 
         with st.container(border=True):
-            st.markdown('<div class="section-tag">BY_SUBREGION</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-tag">By Subregion</div>', unsafe_allow_html=True)
             st.markdown('<div class="section-title" style="font-size:1rem;">Regional Snapshot</div>', unsafe_allow_html=True)
             gulf = scored[scored["country_code"].isin(["SAU", "ARE", "KWT", "QAT", "BHR", "OMN"])]["risk_score"].mean()
             north_africa = scored[scored["country_code"].isin(["DZA", "EGY", "LBY", "MAR", "TUN"])]["risk_score"].mean()
@@ -587,7 +587,7 @@ with tab1:
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">2010_2024</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">2010-2024</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Historical Trend</div>', unsafe_allow_html=True)
     trend_countries = st.multiselect(
         "Compare countries over time",
@@ -616,7 +616,7 @@ with tab2:
     country_code = row["country_code"]
     events = HISTORICAL_CONTEXT.get(country_code, [])
 
-    st.markdown('<div class="section-tag">ANALYST_BRIEF</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Analyst Brief</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Country Brief</div>', unsafe_allow_html=True)
     brief_text = build_country_brief(selected, country_code, row, driver_row, events, LIVE_CONFLICTS)
     st.markdown(f'<div class="narrative-box">{brief_text}</div>', unsafe_allow_html=True)
@@ -644,7 +644,7 @@ with tab2:
     c1, c2 = st.columns([1, 2])
     with c1:
         with st.container(border=True):
-            st.markdown('<div class="section-tag">COMPOSITE_SCORE</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-tag">Composite Score</div>', unsafe_allow_html=True)
             score_display = f"{row['risk_score']:.1f}" if pd.notna(row["risk_score"]) else "N/A"
             st.markdown(f'<div class="stat-value" style="font-size:2.1rem;">{score_display}</div>', unsafe_allow_html=True)
             st.markdown(tier_badge_html(row["risk_tier"]), unsafe_allow_html=True)
@@ -673,7 +673,7 @@ with tab2:
         st.markdown("<br>", unsafe_allow_html=True)
 
         with st.container(border=True):
-            st.markdown('<div class="section-tag">SANITY_CHECK</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-tag">Sanity Check</div>', unsafe_allow_html=True)
             st.markdown('<div class="section-title" style="font-size:1.05rem;">Actual Credit Ratings</div>', unsafe_allow_html=True)
             ratings = CREDIT_RATINGS.get(country_code)
             if ratings:
@@ -700,13 +700,13 @@ with tab2:
             risk_names = " and ".join(FACTOR_LABELS[f] for f, v in top_risks)
             strength_name = FACTOR_LABELS[top_strength[0]]
             st.markdown(
-                f'<div class="narrative-box"><b>KEY_DRIVERS</b><br>{selected}\'s risk profile is driven '
+                f'<div class="narrative-box"><b>Key Drivers</b><br>{selected}\'s risk profile is driven '
                 f'primarily by <b>{risk_names}</b>, while <b>{strength_name}</b> is a relative strength.</div>',
                 unsafe_allow_html=True,
             )
 
     with c2:
-        st.markdown('<div class="section-tag">ALL_10_FACTORS</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">All 10 Factors</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title">Risk Factor Breakdown</div>', unsafe_allow_html=True)
         radar_factors = [f for f in FACTOR_COLS if pd.notna(driver_row[f])]
         radar_values = [driver_row[f] for f in radar_factors]
@@ -759,7 +759,7 @@ with tab2:
             st.caption("No factor data available for radar chart.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown(f'<div class="section-tag">2010_2024</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-tag">2010-2024</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="section-title">{selected}: Risk Score Over Time</div>', unsafe_allow_html=True)
     country_history = history[history["country"] == selected].sort_values("year")
     if not country_history.empty:
@@ -770,7 +770,7 @@ with tab2:
         st.caption("Not enough historical data for a trend line.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">RAW_VALUES</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Raw Values</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Underlying Indicators</div>', unsafe_allow_html=True)
     raw_rows = []
     for factor, (label, unit) in RAW_LABELS.items():
@@ -785,7 +785,7 @@ with tab2:
     custom_table(raw_rows, ["Indicator", "Value", "Unit", "As Of"])
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">CURATED_AND_SOURCED</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Curated &amp; Sourced</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Key Historical Context</div>', unsafe_allow_html=True)
     if events:
         st.markdown(
@@ -801,7 +801,7 @@ with tab2:
         st.caption("No curated events on file for this country yet.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">WHAT_THE_ECONOMY_RUNS_ON</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">What the Economy Runs On</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Key Sectors &amp; Trade Profile</div>', unsafe_allow_html=True)
     trade_profile = COUNTRY_TRADE_PROFILE.get(country_code)
     if trade_profile:
@@ -824,7 +824,7 @@ with tab2:
         st.caption("No trade/sector profile on file for this country yet.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">TRADE_AND_INVESTMENT</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Trade &amp; Investment</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Investment &amp; Trade Context</div>', unsafe_allow_html=True)
     st.markdown(
         "Shown as descriptive context only — **not** inputs to the risk score above. Investment and "
@@ -869,14 +869,14 @@ with tab2:
             st.caption("No trade (exports/imports) data available for this country.")
 
     with inv_col2:
-        st.markdown('<div class="section-tag">REFERENCE</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Reference</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title" style="font-size:1.05rem;">Primary Market</div>', unsafe_allow_html=True)
         exchange, index = STOCK_EXCHANGES.get(country_code, ("N/A", "N/A"))
         custom_table([["Exchange", exchange], ["Benchmark Index", index]], ["Field", "Value"])
         st.caption("Reference only — not live pricing.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">WHO_ITS_BORROWED_FROM</div>', unsafe_allow_html=True)
+    st.markdown("<div class=\"section-tag\">Who It's Borrowed From</div>", unsafe_allow_html=True)
     st.markdown('<div class="section-title">Financing Arrangements</div>', unsafe_allow_html=True)
     st.markdown(
         "Verified IMF/multilateral financing arrangements for this country — amount, approval date, "
@@ -891,7 +891,7 @@ with tab2:
         st.caption("No verified arrangement on file for this country — see Methodology for scope.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">WHO_INVESTS_WHO_LENDS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Who Invests, Who Lends</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Key Economic Partners</div>', unsafe_allow_html=True)
     partner_info = KEY_ECONOMIC_PARTNERS.get(country_code)
     if partner_info:
@@ -908,7 +908,7 @@ with tab2:
 
 # ================= TAB 3: LIVE CONFLICTS =================
 with tab3:
-    st.markdown('<div class="section-tag">CURATED_AND_SOURCED_NOT_LIVE_FEED</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Curated &amp; Sourced, Not a Live Feed</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Live Conflicts &amp; Regional Flashpoints</div>', unsafe_allow_html=True)
     st.markdown(
         "The 10-factor composite score above is built on **annual** World Bank data, which by nature "
@@ -951,7 +951,7 @@ with tab3:
             return STATUS_COLORS["ceasefire"]
         return STATUS_COLORS["frozen"]
 
-    st.markdown('<div class="section-tag">SPATIAL_VIEW</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Map View</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="font-size:1.05rem;">Conflict Map</div>', unsafe_allow_html=True)
     map_conflicts = [c for c in LIVE_CONFLICTS if c["name"] in CONFLICT_COORDS]
     if map_conflicts:
@@ -987,7 +987,7 @@ with tab3:
     for i, conflict in enumerate(LIVE_CONFLICTS):
         with st.container(border=True):
             st.markdown(
-                f'<div class="section-tag">{conflict["status"].upper()}</div>'
+                f'<div class="section-tag">{conflict["status"]}</div>'
                 f'<div class="section-title" style="font-size:1.25rem;">{conflict["name"]}</div>',
                 unsafe_allow_html=True,
             )
@@ -1001,12 +1001,12 @@ with tab3:
             if conflict.get("groups"):
                 st.markdown(
                     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:{TEXT_MUTED};margin-bottom:0.8rem;">'
-                    f'<b style="color:{ACCENT};">GROUPS INVOLVED:</b> {conflict["groups"]}</div>',
+                    f'<b style="color:{ACCENT};">Groups Involved:</b> {conflict["groups"]}</div>',
                     unsafe_allow_html=True,
                 )
-            st.markdown(f'<div class="narrative-box"><b>SUMMARY</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="narrative-box"><b>Summary</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
             st.markdown("<br>", unsafe_allow_html=True)
-            st.markdown(f'<div class="narrative-box"><b>MARKET_&amp;_TRADE_IMPACT</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="narrative-box"><b>Market &amp; Trade Impact</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
             if conflict.get("stats"):
                 st.markdown("<br>", unsafe_allow_html=True)
                 stat_cols = st.columns(len(conflict["stats"]))
@@ -1067,7 +1067,7 @@ SHOCK_PRESETS = {
 }
 
 with tab4:
-    st.markdown('<div class="section-tag">INTERACTIVE_REWEIGHTING</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Interactive Reweighting</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
     st.markdown(
         "The default methodology weights all 10 factors equally (10% each). Adjust the sliders "
@@ -1077,7 +1077,7 @@ with tab4:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">GEOPOLITICAL_SHOCK_TESTER</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Geopolitical Shock Tester</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="font-size:1.05rem;">Load a Shock Scenario</div>', unsafe_allow_html=True)
     preset_choice = st.selectbox(
         "Load a preset scenario",
@@ -1111,7 +1111,7 @@ with tab4:
     st.markdown(f'<div class="stat-sub">Total weight: {total_w}% {"✓" if total_w == 100 else "(auto-normalized to 100%)"}</div>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">LIVE_RESULT</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Live Result</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Re-Ranked Under Your Weights</div>', unsafe_allow_html=True)
 
     if total_w > 0:
@@ -1143,7 +1143,7 @@ with tab4:
 
 # ================= TAB 5: METHODOLOGY =================
 with tab5:
-    st.markdown('<div class="section-tag">HOW_ITS_BUILT</div>', unsafe_allow_html=True)
+    st.markdown("<div class=\"section-tag\">How It's Built</div>", unsafe_allow_html=True)
     st.markdown('<div class="section-title">Methodology</div>', unsafe_allow_html=True)
     st.markdown(
         "Each country is scored **0–100** (100 = highest risk) on a weighted composite "
@@ -1173,7 +1173,7 @@ with tab5:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">CONTEXT_ONLY</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Context Only</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="font-size:1.1rem;">Investment/Trade Context Indicators</div>', unsafe_allow_html=True)
     sourced_table(
         [
@@ -1193,7 +1193,7 @@ with tab5:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">V4</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Scope Notes</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Known Limitations</div>', unsafe_allow_html=True)
     st.markdown(
         """
@@ -1227,7 +1227,7 @@ with tab5:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">BEYOND_WORLD_BANK_AND_IMF</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Beyond World Bank &amp; IMF</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
     st.markdown(
         "The 10-factor risk score is built primarily on World Bank data, with IMF World Economic "
@@ -1256,7 +1256,7 @@ with tab5:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">SOURCES</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Sources</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Data &amp; Code</div>', unsafe_allow_html=True)
     st.markdown(
         '<a class="pill-link" href="https://data.worldbank.org/" target="_blank">World Bank Data ↗</a>'
@@ -1268,7 +1268,7 @@ with tab5:
 # FOOTER
 # ============================================================
 st.markdown(
-    '<div class="site-footer">BUILT_BY: Muhammad Rafay Waqar &nbsp;·&nbsp; '
+    '<div class="site-footer">Built by Muhammad Rafay Waqar &nbsp;·&nbsp; '
     '<a href="https://rafaywaqar2004-lang.github.io/rafaywaqar-portfolio/" target="_blank">portfolio</a> &nbsp;·&nbsp; '
     '<a href="https://github.com/rafaywaqar2004-lang/overeign-risk-index" target="_blank">source</a> &nbsp;·&nbsp; '
     "not investment advice.</div>",
