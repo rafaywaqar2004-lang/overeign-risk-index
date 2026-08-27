@@ -1,5 +1,5 @@
 """
-Pulls sovereign risk indicators (full historical series, 2010-2024) from the
+Pulls sovereign risk indicators (full historical series, 2010-present) from the
 World Bank's public API for a set of MENA / South Asia economies.
 """
 import subprocess
@@ -69,10 +69,17 @@ INDICATORS = {**ECON_INDICATORS, **GOV_INDICATORS, **CONTEXT_INDICATORS}
 BASE_URL = "https://api.worldbank.org/v2/country/{country}/indicator/{indicator}"
 
 
+CURRENT_YEAR = datetime.now(timezone.utc).year
+
+
 def fetch_indicator_series(country_code, indicator_code, retries=3):
-    """Returns a dict of {year: value} for all available years 2010-2024."""
+    """Returns a dict of {year: value} for all available years 2010-present.
+    The upper bound tracks the current year rather than a fixed cutoff, since
+    fast-updating indicators (GDP growth, inflation, etc.) are often available
+    close to real time even when slower ones (WGI governance scores) lag by a
+    year or two — the World Bank API simply omits years it has no data for."""
     url = BASE_URL.format(country=country_code, indicator=indicator_code)
-    full_url = f"{url}?format=json&date=2010:2024&per_page=100"
+    full_url = f"{url}?format=json&date=2010:{CURRENT_YEAR}&per_page=100"
 
     result = None
     for attempt in range(retries):
@@ -109,7 +116,8 @@ def fetch_imf_debt_fallback(country_codes, retries=3):
     """Fetches IMF World Economic Outlook general government gross debt
     (% of GDP) for all countries in one call, used as a fallback where the
     World Bank has no debt_to_gdp figure. Returns {country_code: (year, value)}
-    using the latest non-projection-heavy year available (capped at 2025)."""
+    using the latest year at or before the current year, to avoid relying on
+    the IMF's forward-looking WEO projection years."""
     result = None
     for attempt in range(retries):
         result = subprocess.run(
@@ -134,8 +142,8 @@ def fetch_imf_debt_fallback(country_codes, retries=3):
         series = values.get(code)
         if not series:
             continue
-        # Use the latest year <= 2025 to avoid relying on IMF's forward projections
-        eligible_years = [int(y) for y in series if int(y) <= 2025]
+        # Use the latest year <= current year to avoid relying on IMF's forward projections
+        eligible_years = [int(y) for y in series if int(y) <= CURRENT_YEAR]
         if not eligible_years:
             continue
         latest_year = max(eligible_years)

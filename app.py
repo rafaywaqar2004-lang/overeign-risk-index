@@ -309,8 +309,9 @@ def sourced_table(rows, headers):
 
 
 def build_country_brief(country_name, country_code, row, driver_row, events, conflicts):
-    """Synthesizes score + top historical events + investment context into a
-    flowing analyst-style paragraph, rather than disconnected bullet points."""
+    """Synthesizes score + trajectory + top historical events + conflict exposure
+    into a flowing analyst-style paragraph that explains *why* the score is what
+    it is and *where it's headed*, rather than stating disconnected facts."""
     parts = []
 
     score = row.get("risk_score")
@@ -323,26 +324,55 @@ def build_country_brief(country_name, country_code, row, driver_row, events, con
             f"<b>{tier}</b> tier and ranked <b>{int(rank)} of {n_countries}</b> tracked MENASA economies."
         )
 
+    yoy = row.get("yoy_change")
+    yoy_latest_year = row.get("yoy_latest_year")
+    yoy_prior_year = row.get("yoy_prior_year")
+    if pd.notna(yoy):
+        if yoy > 1.5:
+            traj = f"risk has <b>worsened by {yoy:.1f} points</b>"
+        elif yoy < -1.5:
+            traj = f"risk has <b>eased by {abs(yoy):.1f} points</b>"
+        else:
+            traj = f"risk has been <b>broadly stable ({yoy:+.1f} points)</b>"
+        if pd.notna(yoy_latest_year) and pd.notna(yoy_prior_year):
+            parts.append(
+                f"Since {int(yoy_prior_year)}, {traj} — the trajectory matters as much as the "
+                f"level, since a country moving deeper into a tier is a different story from one "
+                f"that has simply always sat there."
+            )
+
     factor_scores = {f: driver_row[f] for f in FACTOR_COLS if pd.notna(driver_row[f])}
     if factor_scores:
         sorted_factors = sorted(factor_scores.items(), key=lambda x: x[1], reverse=True)
         top_risk = FACTOR_LABELS[sorted_factors[0][0]]
         top_strength = FACTOR_LABELS[sorted_factors[-1][0]]
+        link_clause = ""
+        if events:
+            most_recent = sorted(events, key=lambda e: e[0], reverse=True)[0]
+            link_clause = (
+                f" — consistent with {most_recent[1][0].lower()}{most_recent[1][1:]} ({most_recent[0]}), "
+                f"which is still working through the economy"
+            )
         parts.append(
-            f"The single largest driver of that score is <b>{top_risk}</b>, while <b>{top_strength}</b> "
-            f"stands out as its strongest relative pillar."
+            f"The single largest driver of that score is <b>{top_risk}</b>{link_clause}, while "
+            f"<b>{top_strength}</b> stands out as its strongest relative pillar."
         )
 
     if events:
         recent_events = sorted(events, key=lambda e: e[0], reverse=True)[:2]
         event_phrases = [f"{e[1][0].lower()}{e[1][1:]} ({e[0]})" for e in recent_events]
-        parts.append("Recent history has been shaped by " + " and ".join(event_phrases) + ".")
+        parts.append("Recent history has been shaped by " + " and ".join(event_phrases) + " — see Key Historical Context below for the full sourced timeline.")
 
     relevant_conflicts = [c["name"] for c in conflicts if country_code in c["affected"]]
     if relevant_conflicts:
         parts.append(
             f"It is directly exposed to the following live regional flashpoint(s), covered in more "
-            f"depth in the Live Conflicts tab: <b>{', '.join(relevant_conflicts)}</b>."
+            f"depth in the Live Conflicts tab: <b>{', '.join(relevant_conflicts)}</b> — a channel of "
+            f"risk this annual, backward-looking score cannot yet reflect."
+        )
+    else:
+        parts.append(
+            "It is not currently listed as directly exposed to any of the tracked regional flashpoints."
         )
 
     return " ".join(parts)

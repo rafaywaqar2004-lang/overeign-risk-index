@@ -123,6 +123,16 @@ def main():
     driver_df.to_csv("driver_data.csv", index=False)
 
     # ---------- 3. HISTORICAL SCORE PER YEAR (cross-sectional normalization each year) ----------
+    # A year only qualifies as a valid trend/YoY point for a country if BOTH pillars
+    # have at least one reporting factor that year. Without this guard, a year where
+    # only fast-moving economic indicators have been published yet (governance
+    # indicators like WGI lag ~1-2 years behind) would silently produce a composite
+    # built from a completely different, much narrower factor set than neighboring
+    # years — creating a fake-looking swing in the trend/YoY that reflects a change
+    # in what's being measured, not real-world risk.
+    ECON_FACTORS = ["debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports", "gdp_growth", "inflation"]
+    GOV_FACTORS = ["political_stability", "government_effectiveness", "rule_of_law", "regulatory_quality", "control_of_corruption"]
+
     history_rows = []
     years = sorted(long_df["year"].unique())
     for year in years:
@@ -140,9 +150,14 @@ def main():
         year_risk_df = pd.DataFrame(year_risk_cols, index=pivot.index)
 
         year_scores = compute_weighted_score(year_risk_df)
+        econ_coverage = year_risk_df[ECON_FACTORS].notna().sum(axis=1)
+        gov_coverage = year_risk_df[GOV_FACTORS].notna().sum(axis=1)
         for country_code, score in year_scores.items():
-            if score is not None and not pd.isna(score):
-                history_rows.append({"country_code": country_code, "year": year, "risk_score": score})
+            if score is None or pd.isna(score):
+                continue
+            if econ_coverage.get(country_code, 0) == 0 or gov_coverage.get(country_code, 0) == 0:
+                continue  # one whole pillar missing this year — not a comparable composite
+            history_rows.append({"country_code": country_code, "year": year, "risk_score": score})
 
     history_df = pd.DataFrame(history_rows)
     country_lookup = df[["country_code", "country"]].drop_duplicates()

@@ -258,7 +258,6 @@ QAT,2019,27.0,Qatar
 SAU,2019,33.4,Saudi Arabia
 SYR,2019,77.2,Syria
 TUN,2019,46.6,Tunisia
-YEM,2019,95.9,Yemen
 AFG,2020,68.7,Afghanistan
 ARE,2020,11.2,UAE
 BGD,2020,51.3,Bangladesh
@@ -284,7 +283,6 @@ QAT,2020,22.7,Qatar
 SAU,2020,34.7,Saudi Arabia
 SYR,2020,79.0,Syria
 TUN,2020,42.1,Tunisia
-YEM,2020,96.8,Yemen
 AFG,2021,78.5,Afghanistan
 ARE,2021,15.2,UAE
 BGD,2021,59.2,Bangladesh
@@ -310,7 +308,6 @@ QAT,2021,24.7,Qatar
 SAU,2021,33.7,Saudi Arabia
 SYR,2021,89.3,Syria
 TUN,2021,47.9,Tunisia
-YEM,2021,96.5,Yemen
 AFG,2022,79.4,Afghanistan
 ARE,2022,11.4,UAE
 BGD,2022,57.4,Bangladesh
@@ -336,7 +333,6 @@ QAT,2022,21.6,Qatar
 SAU,2022,26.5,Saudi Arabia
 SYR,2022,91.2,Syria
 TUN,2022,49.3,Tunisia
-YEM,2022,96.1,Yemen
 AFG,2023,74.9,Afghanistan
 ARE,2023,22.7,UAE
 BGD,2023,56.8,Bangladesh
@@ -360,9 +356,7 @@ OMN,2023,36.3,Oman
 PAK,2023,66.0,Pakistan
 QAT,2023,25.0,Qatar
 SAU,2023,33.5,Saudi Arabia
-SYR,2023,95.9,Syria
 TUN,2023,51.8,Tunisia
-YEM,2023,95.3,Yemen
 AFG,2024,71.2,Afghanistan
 ARE,2024,19.8,UAE
 BGD,2024,60.5,Bangladesh
@@ -386,6 +380,4 @@ OMN,2024,32.1,Oman
 PAK,2024,62.9,Pakistan
 QAT,2024,20.3,Qatar
 SAU,2024,25.3,Saudi Arabia
-SYR,2024,95.6,Syria
 TUN,2024,50.6,Tunisia
-YEM,2024,96.3,Yemen

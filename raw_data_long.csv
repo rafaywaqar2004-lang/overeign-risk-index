@@ -29,6 +29,7 @@ DZA,Algeria,reserves_months_imports,2013,32.7812904978346
 DZA,Algeria,reserves_months_imports,2012,34.3073971199894
 DZA,Algeria,reserves_months_imports,2011,34.8238177143754
 DZA,Algeria,reserves_months_imports,2010,36.7819414773254
+DZA,Algeria,gdp_growth,2025,3.815543719231
 DZA,Algeria,gdp_growth,2024,3.69999999907979
 DZA,Algeria,gdp_growth,2023,4.10000000005964
 DZA,Algeria,gdp_growth,2022,3.60000000094915
@@ -44,6 +45,7 @@ DZA,Algeria,gdp_growth,2013,2.60000000061164
 DZA,Algeria,gdp_growth,2012,2.40000000034432
 DZA,Algeria,gdp_growth,2011,2.99999999941909
 DZA,Algeria,gdp_growth,2010,4.80000000093564
+DZA,Algeria,inflation,2025,1.41835151429016
 DZA,Algeria,inflation,2024,4.04611455313434
 DZA,Algeria,inflation,2023,9.32217375928322
 DZA,Algeria,inflation,2022,9.26551551551553
@@ -149,6 +151,7 @@ DZA,Algeria,fdi_net_inflows_pct_gdp,2013,0.736559065111634
 DZA,Algeria,fdi_net_inflows_pct_gdp,2012,0.660551953898791
 DZA,Algeria,fdi_net_inflows_pct_gdp,2011,1.17767329101171
 DZA,Algeria,fdi_net_inflows_pct_gdp,2010,1.29390467487817
+DZA,Algeria,exports_pct_gdp,2025,16.8347751595565
 DZA,Algeria,exports_pct_gdp,2024,19.8523800653814
 DZA,Algeria,exports_pct_gdp,2023,23.7900604738163
 DZA,Algeria,exports_pct_gdp,2022,30.7915561763341
@@ -164,6 +167,7 @@ DZA,Algeria,exports_pct_gdp,2013,30.7993649290893
 DZA,Algeria,exports_pct_gdp,2012,34.3827920015035
 DZA,Algeria,exports_pct_gdp,2011,35.9880864093259
 DZA,Algeria,exports_pct_gdp,2010,34.988229614912
+DZA,Algeria,imports_pct_gdp,2025,22.1441688566065
 DZA,Algeria,imports_pct_gdp,2024,20.2821940516889
 DZA,Algeria,imports_pct_gdp,2023,19.9497379768844
 DZA,Algeria,imports_pct_gdp,2022,20.3985331920556
@@ -220,6 +224,7 @@ BHR,Bahrain,reserves_months_imports,2013,2.09918116055192
 BHR,Bahrain,reserves_months_imports,2012,2.27248354641055
 BHR,Bahrain,reserves_months_imports,2011,2.34120217230767
 BHR,Bahrain,reserves_months_imports,2010,3.75492330902566
+BHR,Bahrain,gdp_growth,2025,3.48137573668635
 BHR,Bahrain,gdp_growth,2024,2.89710543153512
 BHR,Bahrain,gdp_growth,2023,3.87811614845566
 BHR,Bahrain,gdp_growth,2022,6.18016125475185
@@ -235,6 +240,7 @@ BHR,Bahrain,gdp_growth,2013,5.29262224906203
 BHR,Bahrain,gdp_growth,2012,3.80302899043062
 BHR,Bahrain,gdp_growth,2011,1.92815791170796
 BHR,Bahrain,gdp_growth,2010,4.3342989754845
+BHR,Bahrain,inflation,2025,-0.137708855447902
 BHR,Bahrain,inflation,2024,0.919635459817651
 BHR,Bahrain,inflation,2023,0.0746206782192256
 BHR,Bahrain,inflation,2022,3.62574104304482
@@ -370,6 +376,7 @@ BHR,Bahrain,imports_pct_gdp,2013,83.7628572125021
 BHR,Bahrain,imports_pct_gdp,2012,80.5583845887584
 BHR,Bahrain,imports_pct_gdp,2011,71.8932922709265
 BHR,Bahrain,imports_pct_gdp,2010,48.8587714119882
+EGY,Egypt,current_account_pct_gdp,2025,-3.81547628555514
 EGY,Egypt,current_account_pct_gdp,2024,-5.68596234093524
 EGY,Egypt,current_account_pct_gdp,2023,-3.17338763053558
 EGY,Egypt,current_account_pct_gdp,2022,-2.2100904275198
@@ -385,6 +392,7 @@ EGY,Egypt,current_account_pct_gdp,2013,-1.22513249838744
 EGY,Egypt,current_account_pct_gdp,2012,-2.49788021735236
 EGY,Egypt,current_account_pct_gdp,2011,-2.32378812632193
 EGY,Egypt,current_account_pct_gdp,2010,-2.05668307641306
+EGY,Egypt,reserves_months_imports,2025,4.35960492991794
 EGY,Egypt,reserves_months_imports,2024,4.53950764706678
 EGY,Egypt,reserves_months_imports,2023,3.87390992001782
 EGY,Egypt,reserves_months_imports,2022,3.32738146369502
@@ -400,6 +408,7 @@ EGY,Egypt,reserves_months_imports,2013,2.73003963526374
 EGY,Egypt,reserves_months_imports,2012,2.48779534146603
 EGY,Egypt,reserves_months_imports,2011,3.28531568230903
 EGY,Egypt,reserves_months_imports,2010,6.70121378987163
+EGY,Egypt,gdp_growth,2025,4.39201068570188
 EGY,Egypt,gdp_growth,2024,2.3991692678251
 EGY,Egypt,gdp_growth,2023,3.76028052279247
 EGY,Egypt,gdp_growth,2022,6.58784560870467
@@ -415,6 +424,7 @@ EGY,Egypt,gdp_growth,2013,2.18546605363386
 EGY,Egypt,gdp_growth,2012,2.22619979818487
 EGY,Egypt,gdp_growth,2011,1.76457194806041
 EGY,Egypt,gdp_growth,2010,5.14723485746742
+EGY,Egypt,inflation,2025,14.0735136645934
 EGY,Egypt,inflation,2024,28.2705899322083
 EGY,Egypt,inflation,2023,33.8847763115546
 EGY,Egypt,inflation,2022,13.8956609775178
@@ -505,6 +515,7 @@ EGY,Egypt,control_of_corruption,2013,-0.5658677
 EGY,Egypt,control_of_corruption,2012,-0.5175138
 EGY,Egypt,control_of_corruption,2011,-0.5611174
 EGY,Egypt,control_of_corruption,2010,-0.608266
+EGY,Egypt,fdi_net_inflows_pct_gdp,2025,4.23066505478546
 EGY,Egypt,fdi_net_inflows_pct_gdp,2024,11.9719351009449
 EGY,Egypt,fdi_net_inflows_pct_gdp,2023,2.48546400695984
 EGY,Egypt,fdi_net_inflows_pct_gdp,2022,2.39118080969079
@@ -520,6 +531,7 @@ EGY,Egypt,fdi_net_inflows_pct_gdp,2013,1.45343420769727
 EGY,Egypt,fdi_net_inflows_pct_gdp,2012,1.00234071774049
 EGY,Egypt,fdi_net_inflows_pct_gdp,2011,-0.204542848807527
 EGY,Egypt,fdi_net_inflows_pct_gdp,2010,2.91601657550141
+EGY,Egypt,exports_pct_gdp,2025,19.8200284513845
 EGY,Egypt,exports_pct_gdp,2024,16.3762422101126
 EGY,Egypt,exports_pct_gdp,2023,19.1060913405676
 EGY,Egypt,exports_pct_gdp,2022,15.0870258208479
@@ -535,6 +547,7 @@ EGY,Egypt,exports_pct_gdp,2013,17.0178456245969
 EGY,Egypt,exports_pct_gdp,2012,16.3969666208873
 EGY,Egypt,exports_pct_gdp,2011,20.5674276128656
 EGY,Egypt,exports_pct_gdp,2010,21.3492458146859
+EGY,Egypt,imports_pct_gdp,2025,31.5143194274435
 EGY,Egypt,imports_pct_gdp,2024,23.2245098772607
 EGY,Egypt,imports_pct_gdp,2023,21.3443094314355
 EGY,Egypt,imports_pct_gdp,2022,21.8960790564233
@@ -550,6 +563,7 @@ EGY,Egypt,imports_pct_gdp,2013,23.3551924317351
 EGY,Egypt,imports_pct_gdp,2012,24.3148026512211
 EGY,Egypt,imports_pct_gdp,2011,24.6882065494858
 EGY,Egypt,imports_pct_gdp,2010,26.5871042599039
+IRN,Iran,gdp_growth,2025,-2.82597163290347
 IRN,Iran,gdp_growth,2024,3.66312057949303
 IRN,Iran,gdp_growth,2023,5.33235116079808
 IRN,Iran,gdp_growth,2022,4.35281087521344
@@ -565,6 +579,7 @@ IRN,Iran,gdp_growth,2013,-1.52197920494184
 IRN,Iran,gdp_growth,2012,-3.74717139864109
 IRN,Iran,gdp_growth,2011,2.6457179180628
 IRN,Iran,gdp_growth,2010,5.79793830169604
+IRN,Iran,inflation,2025,42.1712244965444
 IRN,Iran,inflation,2024,32.455871402917
 IRN,Iran,inflation,2023,44.5791857572797
 IRN,Iran,inflation,2022,43.4884641742179
@@ -670,6 +685,7 @@ IRN,Iran,fdi_net_inflows_pct_gdp,2013,0.609501593960532
 IRN,Iran,fdi_net_inflows_pct_gdp,2012,0.723850091355471
 IRN,Iran,fdi_net_inflows_pct_gdp,2011,0.679834574763516
 IRN,Iran,fdi_net_inflows_pct_gdp,2010,0.74916862626536
+IRN,Iran,exports_pct_gdp,2025,25.754375261588
 IRN,Iran,exports_pct_gdp,2024,23.5514720983508
 IRN,Iran,exports_pct_gdp,2023,23.9216475542357
 IRN,Iran,exports_pct_gdp,2022,25.5666185174995
@@ -685,6 +701,7 @@ IRN,Iran,exports_pct_gdp,2013,25.1829067419072
 IRN,Iran,exports_pct_gdp,2012,22.4753001992586
 IRN,Iran,exports_pct_gdp,2011,24.9333131264674
 IRN,Iran,exports_pct_gdp,2010,24.399653282909
+IRN,Iran,imports_pct_gdp,2025,34.4882471351587
 IRN,Iran,imports_pct_gdp,2024,28.5106585810839
 IRN,Iran,imports_pct_gdp,2023,25.4719025417845
 IRN,Iran,imports_pct_gdp,2022,23.3517323048057
@@ -734,6 +751,7 @@ IRQ,Iraq,reserves_months_imports,2013,12.7980431197862
 IRQ,Iraq,reserves_months_imports,2012,13.0907943504895
 IRQ,Iraq,reserves_months_imports,2011,13.7756734191734
 IRQ,Iraq,reserves_months_imports,2010,12.7409467178946
+IRQ,Iraq,gdp_growth,2025,-2.15574219066178
 IRQ,Iraq,gdp_growth,2024,-1.54525198319173
 IRQ,Iraq,gdp_growth,2023,0.517705525140073
 IRQ,Iraq,gdp_growth,2022,7.95904804990212
@@ -749,6 +767,7 @@ IRQ,Iraq,gdp_growth,2013,7.62828592298754
 IRQ,Iraq,gdp_growth,2012,13.9364301737537
 IRQ,Iraq,gdp_growth,2011,7.546471200426
 IRQ,Iraq,gdp_growth,2010,6.40256484471193
+IRQ,Iraq,inflation,2025,0.303454715219382
 IRQ,Iraq,inflation,2024,2.6116961151764
 IRQ,Iraq,inflation,2023,4.35835351089595
 IRQ,Iraq,inflation,2022,4.9947659638103
@@ -884,6 +903,7 @@ IRQ,Iraq,imports_pct_gdp,2013,27.7464818743646
 IRQ,Iraq,imports_pct_gdp,2012,29.1002492300431
 IRQ,Iraq,imports_pct_gdp,2011,27.7538051840835
 IRQ,Iraq,imports_pct_gdp,2010,34.0806504059643
+ISR,Israel,current_account_pct_gdp,2025,1.39698911798375
 ISR,Israel,current_account_pct_gdp,2024,2.85372348964758
 ISR,Israel,current_account_pct_gdp,2023,3.06182357194891
 ISR,Israel,current_account_pct_gdp,2022,2.68995260709171
@@ -899,6 +919,7 @@ ISR,Israel,current_account_pct_gdp,2013,2.24341717352294
 ISR,Israel,current_account_pct_gdp,2012,-0.314623011758788
 ISR,Israel,current_account_pct_gdp,2011,0.959067083330991
 ISR,Israel,current_account_pct_gdp,2010,2.69529305304405
+ISR,Israel,reserves_months_imports,2025,14.5416215671135
 ISR,Israel,reserves_months_imports,2024,15.8333842967618
 ISR,Israel,reserves_months_imports,2023,15.1429856008329
 ISR,Israel,reserves_months_imports,2022,13.4105701419856
@@ -914,6 +935,7 @@ ISR,Israel,reserves_months_imports,2013,9.41650885394767
 ISR,Israel,reserves_months_imports,2012,8.75846190779544
 ISR,Israel,reserves_months_imports,2011,8.81396403077087
 ISR,Israel,reserves_months_imports,2010,9.95126312641563
+ISR,Israel,gdp_growth,2025,2.93114966387968
 ISR,Israel,gdp_growth,2024,0.953618469238535
 ISR,Israel,gdp_growth,2023,2.06272504731618
 ISR,Israel,gdp_growth,2022,6.36407234798706
@@ -929,6 +951,7 @@ ISR,Israel,gdp_growth,2013,4.09013743330735
 ISR,Israel,gdp_growth,2012,2.40993765217618
 ISR,Israel,gdp_growth,2011,5.51341969081251
 ISR,Israel,gdp_growth,2010,5.54470607068944
+ISR,Israel,inflation,2025,3.0414132155654
 ISR,Israel,inflation,2024,3.07480889805025
 ISR,Israel,inflation,2023,4.22522603168918
 ISR,Israel,inflation,2022,4.41162725488371
@@ -1019,6 +1042,7 @@ ISR,Israel,control_of_corruption,2013,0.7521332
 ISR,Israel,control_of_corruption,2012,0.7558579
 ISR,Israel,control_of_corruption,2011,0.722372
 ISR,Israel,control_of_corruption,2010,0.6767019
+ISR,Israel,fdi_net_inflows_pct_gdp,2025,4.29339412127743
 ISR,Israel,fdi_net_inflows_pct_gdp,2024,2.7251194069041
 ISR,Israel,fdi_net_inflows_pct_gdp,2023,3.14968991459396
 ISR,Israel,fdi_net_inflows_pct_gdp,2022,4.35745092445992
@@ -1034,6 +1058,7 @@ ISR,Israel,fdi_net_inflows_pct_gdp,2013,3.9732882944923
 ISR,Israel,fdi_net_inflows_pct_gdp,2012,3.42638899025665
 ISR,Israel,fdi_net_inflows_pct_gdp,2011,3.23187455100204
 ISR,Israel,fdi_net_inflows_pct_gdp,2010,2.91791645550029
+ISR,Israel,exports_pct_gdp,2025,27.5583636636004
 ISR,Israel,exports_pct_gdp,2024,28.399007008222
 ISR,Israel,exports_pct_gdp,2023,30.3284744013966
 ISR,Israel,exports_pct_gdp,2022,31.3653023276254
@@ -1049,6 +1074,7 @@ ISR,Israel,exports_pct_gdp,2013,32.8527519137225
 ISR,Israel,exports_pct_gdp,2012,34.7734390454533
 ISR,Israel,exports_pct_gdp,2011,34.2274243361125
 ISR,Israel,exports_pct_gdp,2010,33.5712633456599
+ISR,Israel,imports_pct_gdp,2025,25.4308527107197
 ISR,Israel,imports_pct_gdp,2024,25.9832493695112
 ISR,Israel,imports_pct_gdp,2023,27.6493079272484
 ISR,Israel,imports_pct_gdp,2022,29.2705404990247
@@ -1107,6 +1133,7 @@ JOR,Jordan,reserves_months_imports,2013,6.55665747795074
 JOR,Jordan,reserves_months_imports,2012,4.40545435759904
 JOR,Jordan,reserves_months_imports,2011,6.51551435816016
 JOR,Jordan,reserves_months_imports,2010,8.45757169717942
+JOR,Jordan,gdp_growth,2025,2.82660839845745
 JOR,Jordan,gdp_growth,2024,2.55605891810194
 JOR,Jordan,gdp_growth,2023,3.12900102017251
 JOR,Jordan,gdp_growth,2022,2.7468615450031
@@ -1122,6 +1149,7 @@ JOR,Jordan,gdp_growth,2013,2.72311205964112
 JOR,Jordan,gdp_growth,2012,2.40465716535539
 JOR,Jordan,gdp_growth,2011,2.90729315392207
 JOR,Jordan,gdp_growth,2010,2.6377158262256
+JOR,Jordan,inflation,2025,1.76646490894206
 JOR,Jordan,inflation,2024,1.55659611283953
 JOR,Jordan,inflation,2023,2.08486986327134
 JOR,Jordan,inflation,2022,4.22915568897117
@@ -1227,6 +1255,7 @@ JOR,Jordan,fdi_net_inflows_pct_gdp,2013,5.1397527233423
 JOR,Jordan,fdi_net_inflows_pct_gdp,2012,4.4426748997237
 JOR,Jordan,fdi_net_inflows_pct_gdp,2011,4.5528280155948
 JOR,Jordan,fdi_net_inflows_pct_gdp,2010,5.59019642688163
+KWT,Kuwait,current_account_pct_gdp,2025,22.6972052506544
 KWT,Kuwait,current_account_pct_gdp,2024,29.025293802042
 KWT,Kuwait,current_account_pct_gdp,2023,31.0620887768465
 KWT,Kuwait,current_account_pct_gdp,2022,34.3743300781264
@@ -1242,6 +1271,7 @@ KWT,Kuwait,current_account_pct_gdp,2013,39.89983649926
 KWT,Kuwait,current_account_pct_gdp,2012,45.4600006397631
 KWT,Kuwait,current_account_pct_gdp,2011,42.9408981326277
 KWT,Kuwait,current_account_pct_gdp,2010,32.0485537270105
+KWT,Kuwait,reserves_months_imports,2025,8.4055579755159
 KWT,Kuwait,reserves_months_imports,2024,8.95073906369193
 KWT,Kuwait,reserves_months_imports,2023,9.16572725223109
 KWT,Kuwait,reserves_months_imports,2022,10.3160929642549
@@ -1257,6 +1287,7 @@ KWT,Kuwait,reserves_months_imports,2013,8.10687874184372
 KWT,Kuwait,reserves_months_imports,2012,8.51843721530013
 KWT,Kuwait,reserves_months_imports,2011,8.27693096964217
 KWT,Kuwait,reserves_months_imports,2010,8.12731623049244
+KWT,Kuwait,gdp_growth,2025,2.731825804492
 KWT,Kuwait,gdp_growth,2024,-1.47401818168846
 KWT,Kuwait,gdp_growth,2023,-1.64087799968877
 KWT,Kuwait,gdp_growth,2022,6.75866711966617
@@ -1272,6 +1303,7 @@ KWT,Kuwait,gdp_growth,2013,1.14946552780648
 KWT,Kuwait,gdp_growth,2012,6.62587485078971
 KWT,Kuwait,gdp_growth,2011,9.62863419534361
 KWT,Kuwait,gdp_growth,2010,-2.37054804425912
+KWT,Kuwait,inflation,2025,2.36195936682045
 KWT,Kuwait,inflation,2024,2.89855072463762
 KWT,Kuwait,inflation,2023,3.64216403030709
 KWT,Kuwait,inflation,2022,3.98064961990313
@@ -1362,6 +1394,7 @@ KWT,Kuwait,control_of_corruption,2013,-0.123960599999999
 KWT,Kuwait,control_of_corruption,2012,-0.1357484
 KWT,Kuwait,control_of_corruption,2011,-0.0793826
 KWT,Kuwait,control_of_corruption,2010,0.1131822
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2025,0.262764598716339
 KWT,Kuwait,fdi_net_inflows_pct_gdp,2024,0.381956730773215
 KWT,Kuwait,fdi_net_inflows_pct_gdp,2023,1.277994317906
 KWT,Kuwait,fdi_net_inflows_pct_gdp,2022,0.409943823254394
@@ -1450,6 +1483,7 @@ LBN,Lebanon,gdp_growth,2013,3.8278734986016
 LBN,Lebanon,gdp_growth,2012,2.56479133680038
 LBN,Lebanon,gdp_growth,2011,0.86733987855277
 LBN,Lebanon,gdp_growth,2010,7.97513555844932
+LBN,Lebanon,inflation,2025,14.597595869611
 LBN,Lebanon,inflation,2024,45.2430422716718
 LBN,Lebanon,inflation,2023,221.341644023365
 LBN,Lebanon,inflation,2022,171.205491336641
@@ -1613,6 +1647,7 @@ LBY,Libya,reserves_months_imports,2013,31.6920933071623
 LBY,Libya,reserves_months_imports,2012,40.5251370265739
 LBY,Libya,reserves_months_imports,2011,79.2372182724926
 LBY,Libya,reserves_months_imports,2010,38.5577154593852
+LBY,Libya,gdp_growth,2025,13.3717080516958
 LBY,Libya,gdp_growth,2024,1.89995052025442
 LBY,Libya,gdp_growth,2023,10.2000497852517
 LBY,Libya,gdp_growth,2022,-8.29981811198795
@@ -1628,6 +1663,7 @@ LBY,Libya,gdp_growth,2013,-17.9979615745681
 LBY,Libya,gdp_growth,2012,86.8267484395784
 LBY,Libya,gdp_growth,2011,-50.3385151384986
 LBY,Libya,gdp_growth,2010,5.0272476723775
+LBY,Libya,inflation,2025,1.84166666666702
 LBY,Libya,inflation,2024,2.12615766885021
 LBY,Libya,inflation,2023,2.3731753143518
 LBY,Libya,inflation,2022,4.51030149235695
@@ -1724,6 +1760,7 @@ LBY,Libya,fdi_net_inflows_pct_gdp,2021,1.71219284038518
 LBY,Libya,fdi_net_inflows_pct_gdp,2013,0.931638601844643
 LBY,Libya,fdi_net_inflows_pct_gdp,2012,1.53985903839829
 LBY,Libya,fdi_net_inflows_pct_gdp,2010,2.36664960687642
+LBY,Libya,exports_pct_gdp,2025,71.7134746269549
 LBY,Libya,exports_pct_gdp,2024,71.7293179684166
 LBY,Libya,exports_pct_gdp,2023,85.6010032090609
 LBY,Libya,exports_pct_gdp,2022,91.9809235078212
@@ -1739,6 +1776,7 @@ LBY,Libya,exports_pct_gdp,2013,59.8886075843687
 LBY,Libya,exports_pct_gdp,2012,66.8678568492024
 LBY,Libya,exports_pct_gdp,2011,38.1458963988027
 LBY,Libya,exports_pct_gdp,2010,66.2720071713114
+LBY,Libya,imports_pct_gdp,2025,65.9450985743532
 LBY,Libya,imports_pct_gdp,2024,65.7818127187367
 LBY,Libya,imports_pct_gdp,2023,75.4692294006607
 LBY,Libya,imports_pct_gdp,2022,64.3407611745263
@@ -1756,6 +1794,7 @@ LBY,Libya,imports_pct_gdp,2011,24.8595388907261
 LBY,Libya,imports_pct_gdp,2010,31.8052059029276
 MAR,Morocco,debt_to_gdp,2011,51.2263215704569
 MAR,Morocco,debt_to_gdp,2010,47.0982656739638
+MAR,Morocco,current_account_pct_gdp,2025,-2.49808221535456
 MAR,Morocco,current_account_pct_gdp,2024,-1.23072108998601
 MAR,Morocco,current_account_pct_gdp,2023,-1.04767760599469
 MAR,Morocco,current_account_pct_gdp,2022,-3.6574911910038
@@ -1771,6 +1810,7 @@ MAR,Morocco,current_account_pct_gdp,2013,-6.77731894447504
 MAR,Morocco,current_account_pct_gdp,2012,-8.95034696939187
 MAR,Morocco,current_account_pct_gdp,2011,-7.26703537698178
 MAR,Morocco,current_account_pct_gdp,2010,-3.89149487244856
+MAR,Morocco,reserves_months_imports,2025,5.92686959641173
 MAR,Morocco,reserves_months_imports,2024,5.26170979299897
 MAR,Morocco,reserves_months_imports,2023,5.63476498950226
 MAR,Morocco,reserves_months_imports,2022,5.06212133329447
@@ -1786,6 +1826,7 @@ MAR,Morocco,reserves_months_imports,2013,4.54168416711332
 MAR,Morocco,reserves_months_imports,2012,4.12037435216039
 MAR,Morocco,reserves_months_imports,2011,4.96289903192589
 MAR,Morocco,reserves_months_imports,2010,7.27489844884876
+MAR,Morocco,gdp_growth,2025,4.59524349182247
 MAR,Morocco,gdp_growth,2024,3.79336515978963
 MAR,Morocco,gdp_growth,2023,3.65564411017931
 MAR,Morocco,gdp_growth,2022,1.81269242194809
@@ -1801,6 +1842,7 @@ MAR,Morocco,gdp_growth,2013,4.12221286860944
 MAR,Morocco,gdp_growth,2012,3.06234368502997
 MAR,Morocco,gdp_growth,2011,5.52464523319847
 MAR,Morocco,gdp_growth,2010,3.49955709403216
+MAR,Morocco,inflation,2025,0.701902154839545
 MAR,Morocco,inflation,2024,0.985256592004507
 MAR,Morocco,inflation,2023,6.09114152504141
 MAR,Morocco,inflation,2022,6.65704202759067
@@ -1891,6 +1933,7 @@ MAR,Morocco,control_of_corruption,2013,-0.4173212
 MAR,Morocco,control_of_corruption,2012,-0.5029325
 MAR,Morocco,control_of_corruption,2011,-0.5058263
 MAR,Morocco,control_of_corruption,2010,-0.3011276
+MAR,Morocco,fdi_net_inflows_pct_gdp,2025,1.81954513887835
 MAR,Morocco,fdi_net_inflows_pct_gdp,2024,1.08850441035779
 MAR,Morocco,fdi_net_inflows_pct_gdp,2023,0.725864122672683
 MAR,Morocco,fdi_net_inflows_pct_gdp,2022,1.74814323662076
@@ -1906,6 +1949,7 @@ MAR,Morocco,fdi_net_inflows_pct_gdp,2013,2.9038626404404
 MAR,Morocco,fdi_net_inflows_pct_gdp,2012,2.65758712641507
 MAR,Morocco,fdi_net_inflows_pct_gdp,2011,2.29046840496639
 MAR,Morocco,fdi_net_inflows_pct_gdp,2010,1.2299824583835
+MAR,Morocco,exports_pct_gdp,2025,41.9692139163022
 MAR,Morocco,exports_pct_gdp,2024,41.9985232956684
 MAR,Morocco,exports_pct_gdp,2023,42.4176033594569
 MAR,Morocco,exports_pct_gdp,2022,44.7116282313453
@@ -1921,6 +1965,7 @@ MAR,Morocco,exports_pct_gdp,2013,30.2532656391617
 MAR,Morocco,exports_pct_gdp,2012,32.0970961451136
 MAR,Morocco,exports_pct_gdp,2011,31.9544842646976
 MAR,Morocco,exports_pct_gdp,2010,29.7889486802284
+MAR,Morocco,imports_pct_gdp,2025,51.1324428826402
 MAR,Morocco,imports_pct_gdp,2024,50.188721310572
 MAR,Morocco,imports_pct_gdp,2023,50.7002810585209
 MAR,Morocco,imports_pct_gdp,2022,56.1946819703061
@@ -1966,6 +2011,7 @@ OMN,Oman,reserves_months_imports,2013,4.07750628970272
 OMN,Oman,reserves_months_imports,2012,4.36417390706347
 OMN,Oman,reserves_months_imports,2011,5.05999040118844
 OMN,Oman,reserves_months_imports,2010,5.47673202539588
+OMN,Oman,gdp_growth,2025,2.39787382295398
 OMN,Oman,gdp_growth,2024,1.63163231397978
 OMN,Oman,gdp_growth,2023,1.41401383200161
 OMN,Oman,gdp_growth,2022,7.98570728354278
@@ -1981,6 +2027,7 @@ OMN,Oman,gdp_growth,2013,5.22770408145942
 OMN,Oman,gdp_growth,2012,8.86312225557018
 OMN,Oman,gdp_growth,2011,2.89460973541192
 OMN,Oman,gdp_growth,2010,2.47199856582773
+OMN,Oman,inflation,2025,0.967741935483928
 OMN,Oman,inflation,2024,0.593589236248469
 OMN,Oman,inflation,2023,0.950782997762827
 OMN,Oman,inflation,2022,2.5061425061425
@@ -2116,6 +2163,7 @@ OMN,Oman,imports_pct_gdp,2013,46.511896912702
 OMN,Oman,imports_pct_gdp,2012,39.3529056464546
 OMN,Oman,imports_pct_gdp,2011,37.7242615226627
 OMN,Oman,imports_pct_gdp,2010,37.2909163665466
+QAT,Qatar,current_account_pct_gdp,2025,14.8111802018003
 QAT,Qatar,current_account_pct_gdp,2024,17.5152925396793
 QAT,Qatar,current_account_pct_gdp,2023,17.1136863378173
 QAT,Qatar,current_account_pct_gdp,2022,26.7778361978623
@@ -2130,6 +2178,7 @@ QAT,Qatar,current_account_pct_gdp,2014,23.9592611415734
 QAT,Qatar,current_account_pct_gdp,2013,30.4240457483909
 QAT,Qatar,current_account_pct_gdp,2012,33.1847245628586
 QAT,Qatar,current_account_pct_gdp,2011,31.0675107947676
+QAT,Qatar,reserves_months_imports,2025,7.45258764673881
 QAT,Qatar,reserves_months_imports,2024,6.69567627121726
 QAT,Qatar,reserves_months_imports,2023,6.48104847137267
 QAT,Qatar,reserves_months_imports,2022,5.86304657389892
@@ -2144,6 +2193,7 @@ QAT,Qatar,reserves_months_imports,2014,6.42598128516767
 QAT,Qatar,reserves_months_imports,2013,6.67015979671203
 QAT,Qatar,reserves_months_imports,2012,5.43006082958833
 QAT,Qatar,reserves_months_imports,2011,3.19016206908009
+QAT,Qatar,gdp_growth,2025,2.90166036660493
 QAT,Qatar,gdp_growth,2024,3.10963283242745
 QAT,Qatar,gdp_growth,2023,1.18715991623776
 QAT,Qatar,gdp_growth,2022,4.18500970982862
@@ -2249,6 +2299,7 @@ QAT,Qatar,control_of_corruption,2013,1.1766023
 QAT,Qatar,control_of_corruption,2012,1.1558661
 QAT,Qatar,control_of_corruption,2011,1.1504795
 QAT,Qatar,control_of_corruption,2010,1.3446901
+QAT,Qatar,fdi_net_inflows_pct_gdp,2025,1.40702006150615
 QAT,Qatar,fdi_net_inflows_pct_gdp,2024,0.212749202349259
 QAT,Qatar,fdi_net_inflows_pct_gdp,2023,-0.222614821674707
 QAT,Qatar,fdi_net_inflows_pct_gdp,2022,0.0322850616403459
@@ -2290,6 +2341,7 @@ QAT,Qatar,imports_pct_gdp,2013,29.6653730820309
 QAT,Qatar,imports_pct_gdp,2012,29.2739243592311
 QAT,Qatar,imports_pct_gdp,2011,26.1019286002011
 QAT,Qatar,imports_pct_gdp,2010,23.7506175279123
+SAU,Saudi Arabia,current_account_pct_gdp,2025,-2.56365940191401
 SAU,Saudi Arabia,current_account_pct_gdp,2024,-1.29603148573183
 SAU,Saudi Arabia,current_account_pct_gdp,2023,2.12936729495784
 SAU,Saudi Arabia,current_account_pct_gdp,2022,11.7294510759777
@@ -2305,6 +2357,7 @@ SAU,Saudi Arabia,current_account_pct_gdp,2013,18.3253067776542
 SAU,Saudi Arabia,current_account_pct_gdp,2012,22.8484723061974
 SAU,Saudi Arabia,current_account_pct_gdp,2011,23.8816335912652
 SAU,Saudi Arabia,current_account_pct_gdp,2010,13.5423706949189
+SAU,Saudi Arabia,reserves_months_imports,2025,15.5945460088131
 SAU,Saudi Arabia,reserves_months_imports,2024,15.0571337423468
 SAU,Saudi Arabia,reserves_months_imports,2023,16.5690894253073
 SAU,Saudi Arabia,reserves_months_imports,2022,20.0230345579448
@@ -2320,6 +2373,7 @@ SAU,Saudi Arabia,reserves_months_imports,2013,37.373716349245
 SAU,Saudi Arabia,reserves_months_imports,2012,36.4747145801621
 SAU,Saudi Arabia,reserves_months_imports,2011,32.6137729985206
 SAU,Saudi Arabia,reserves_months_imports,2010,30.5395328882404
+SAU,Saudi Arabia,gdp_growth,2025,4.50246560191663
 SAU,Saudi Arabia,gdp_growth,2024,2.64893068308965
 SAU,Saudi Arabia,gdp_growth,2023,0.542592439393161
 SAU,Saudi Arabia,gdp_growth,2022,12.0005874752929
@@ -2335,6 +2389,7 @@ SAU,Saudi Arabia,gdp_growth,2013,2.94563789152025
 SAU,Saudi Arabia,gdp_growth,2012,5.76157382270968
 SAU,Saudi Arabia,gdp_growth,2011,11.758820686671
 SAU,Saudi Arabia,gdp_growth,2010,5.0395150823517
+SAU,Saudi Arabia,inflation,2025,2.08420853585036
 SAU,Saudi Arabia,inflation,2024,1.68792112375809
 SAU,Saudi Arabia,inflation,2023,2.32708518362706
 SAU,Saudi Arabia,inflation,2022,2.47407371925372
@@ -2425,6 +2480,7 @@ SAU,Saudi Arabia,control_of_corruption,2013,-0.1775677
 SAU,Saudi Arabia,control_of_corruption,2012,-0.1950621
 SAU,Saudi Arabia,control_of_corruption,2011,-0.2131986
 SAU,Saudi Arabia,control_of_corruption,2010,-0.121664399999999
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2025,2.55517254024168
 SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2024,1.70136894275871
 SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2023,1.87130991298946
 SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2022,2.1556449627378
@@ -2440,6 +2496,7 @@ SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2013,0.437984195574321
 SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2012,0.669626013751334
 SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2011,0.688133631504519
 SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2010,0.923670092367435
+SAU,Saudi Arabia,exports_pct_gdp,2025,29.7448740074211
 SAU,Saudi Arabia,exports_pct_gdp,2024,29.3880027930942
 SAU,Saudi Arabia,exports_pct_gdp,2023,30.7559610678442
 SAU,Saudi Arabia,exports_pct_gdp,2022,35.9850098955522
@@ -2455,6 +2512,7 @@ SAU,Saudi Arabia,exports_pct_gdp,2013,50.3725164415794
 SAU,Saudi Arabia,exports_pct_gdp,2012,53.1198476436365
 SAU,Saudi Arabia,exports_pct_gdp,2011,55.2733461365779
 SAU,Saudi Arabia,exports_pct_gdp,2010,49.5697145263124
+SAU,Saudi Arabia,imports_pct_gdp,2025,28.1733498505598
 SAU,Saudi Arabia,imports_pct_gdp,2024,27.0169346216948
 SAU,Saudi Arabia,imports_pct_gdp,2023,25.0415071647045
 SAU,Saudi Arabia,imports_pct_gdp,2022,20.839154879381
@@ -2631,6 +2689,7 @@ TUN,Tunisia,reserves_months_imports,2013,3.16318920380025
 TUN,Tunisia,reserves_months_imports,2012,3.67437262137286
 TUN,Tunisia,reserves_months_imports,2011,3.30881115159635
 TUN,Tunisia,reserves_months_imports,2010,4.40578092536965
+TUN,Tunisia,gdp_growth,2025,2.49311010666248
 TUN,Tunisia,gdp_growth,2024,1.61444564976986
 TUN,Tunisia,gdp_growth,2023,0.184015548469745
 TUN,Tunisia,gdp_growth,2022,2.75228761004381
@@ -2646,6 +2705,7 @@ TUN,Tunisia,gdp_growth,2013,2.42993096446429
 TUN,Tunisia,gdp_growth,2012,4.21667711535632
 TUN,Tunisia,gdp_growth,2011,-2.04663389535644
 TUN,Tunisia,gdp_growth,2010,2.97113275066512
+TUN,Tunisia,inflation,2025,5.15100197572676
 TUN,Tunisia,inflation,2024,7.20661657168794
 TUN,Tunisia,inflation,2023,9.32899597507865
 TUN,Tunisia,inflation,2022,8.30646124447623
@@ -2751,6 +2811,7 @@ TUN,Tunisia,fdi_net_inflows_pct_gdp,2013,2.1744128074392
 TUN,Tunisia,fdi_net_inflows_pct_gdp,2012,3.28518933963283
 TUN,Tunisia,fdi_net_inflows_pct_gdp,2011,0.899077534980039
 TUN,Tunisia,fdi_net_inflows_pct_gdp,2010,2.88814231758981
+TUN,Tunisia,exports_pct_gdp,2025,46.6517326028796
 TUN,Tunisia,exports_pct_gdp,2024,50.0016900287054
 TUN,Tunisia,exports_pct_gdp,2023,53.0393939110608
 TUN,Tunisia,exports_pct_gdp,2022,51.325939710781
@@ -2766,6 +2827,7 @@ TUN,Tunisia,exports_pct_gdp,2013,44.889705324588
 TUN,Tunisia,exports_pct_gdp,2012,45.9128477724564
 TUN,Tunisia,exports_pct_gdp,2011,46.0546537716688
 TUN,Tunisia,exports_pct_gdp,2010,47.9597286942428
+TUN,Tunisia,imports_pct_gdp,2025,54.7944728488274
 TUN,Tunisia,imports_pct_gdp,2024,56.2968591755414
 TUN,Tunisia,imports_pct_gdp,2023,59.0894641022935
 TUN,Tunisia,imports_pct_gdp,2022,64.7698546733647
@@ -2801,6 +2863,7 @@ ARE,UAE,gdp_growth,2013,4.9184505919085
 ARE,UAE,gdp_growth,2012,4.68325642918792
 ARE,UAE,gdp_growth,2011,6.73651167897515
 ARE,UAE,gdp_growth,2010,1.60285004336325
+ARE,UAE,inflation,2025,1.250865245598
 ARE,UAE,inflation,2024,1.66336510224894
 ARE,UAE,inflation,2023,1.62670837213248
 ARE,UAE,inflation,2022,5.29122604376849
@@ -3213,6 +3276,7 @@ AFG,Afghanistan,imports_pct_gdp,2023,50.764299620256
 AFG,Afghanistan,imports_pct_gdp,2022,54.5054272070161
 AFG,Afghanistan,imports_pct_gdp,2021,37.06956357719
 AFG,Afghanistan,imports_pct_gdp,2020,36.2890774127896
+BGD,Bangladesh,current_account_pct_gdp,2025,-0.0524732355435052
 BGD,Bangladesh,current_account_pct_gdp,2024,-0.669466607987832
 BGD,Bangladesh,current_account_pct_gdp,2023,-1.64602823544154
 BGD,Bangladesh,current_account_pct_gdp,2022,-3.81010813041237
@@ -3228,6 +3292,7 @@ BGD,Bangladesh,current_account_pct_gdp,2013,1.3723251518825
 BGD,Bangladesh,current_account_pct_gdp,2012,1.93195276968292
 BGD,Bangladesh,current_account_pct_gdp,2011,-0.125842241657654
 BGD,Bangladesh,current_account_pct_gdp,2010,1.82909794723498
+BGD,Bangladesh,reserves_months_imports,2025,3.91092137452087
 BGD,Bangladesh,reserves_months_imports,2024,3.07374348965567
 BGD,Bangladesh,reserves_months_imports,2023,3.3558121828929
 BGD,Bangladesh,reserves_months_imports,2022,4.18907976493715
@@ -3243,6 +3308,7 @@ BGD,Bangladesh,reserves_months_imports,2013,4.90974781514545
 BGD,Bangladesh,reserves_months_imports,2012,3.85125480802239
 BGD,Bangladesh,reserves_months_imports,2011,2.78355229779506
 BGD,Bangladesh,reserves_months_imports,2010,4.32087922221628
+BGD,Bangladesh,gdp_growth,2025,3.48990671836833
 BGD,Bangladesh,gdp_growth,2024,4.22325911250161
 BGD,Bangladesh,gdp_growth,2023,5.77511237007889
 BGD,Bangladesh,gdp_growth,2022,7.09982877575158
@@ -3258,6 +3324,7 @@ BGD,Bangladesh,gdp_growth,2013,6.01360565834344
 BGD,Bangladesh,gdp_growth,2012,6.52145877906443
 BGD,Bangladesh,gdp_growth,2011,6.46437912497728
 BGD,Bangladesh,gdp_growth,2010,5.57178818533122
+BGD,Bangladesh,inflation,2025,8.7687628116114
 BGD,Bangladesh,inflation,2024,10.4657482763412
 BGD,Bangladesh,inflation,2023,9.8835030377921
 BGD,Bangladesh,inflation,2022,7.69695437176898
@@ -3348,6 +3415,7 @@ BGD,Bangladesh,control_of_corruption,2013,-1.1326018
 BGD,Bangladesh,control_of_corruption,2012,-1.12133289999999
 BGD,Bangladesh,control_of_corruption,2011,-1.0523775
 BGD,Bangladesh,control_of_corruption,2010,-1.0218466
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2025,0.404544313117544
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2024,0.283870773350074
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2023,0.335721505298968
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2022,0.347960024540439
@@ -3363,6 +3431,7 @@ BGD,Bangladesh,fdi_net_inflows_pct_gdp,2013,1.73532012481503
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2012,1.18850391920183
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2011,0.983399364184761
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2010,1.06896766308322
+BGD,Bangladesh,exports_pct_gdp,2025,11.1161085689856
 BGD,Bangladesh,exports_pct_gdp,2024,10.4611878291715
 BGD,Bangladesh,exports_pct_gdp,2023,13.1571638341204
 BGD,Bangladesh,exports_pct_gdp,2022,12.8822264348985
@@ -3378,6 +3447,7 @@ BGD,Bangladesh,exports_pct_gdp,2013,19.5378741098798
 BGD,Bangladesh,exports_pct_gdp,2012,20.1615888640625
 BGD,Bangladesh,exports_pct_gdp,2011,19.9220749554939
 BGD,Bangladesh,exports_pct_gdp,2010,16.0241126856916
+BGD,Bangladesh,imports_pct_gdp,2025,16.8344754735707
 BGD,Bangladesh,imports_pct_gdp,2024,16.3168879748762
 BGD,Bangladesh,imports_pct_gdp,2023,17.8258075763392
 BGD,Bangladesh,imports_pct_gdp,2022,20.897740835675
@@ -3434,6 +3504,7 @@ BTN,Bhutan,reserves_months_imports,2013,9.26353916294235
 BTN,Bhutan,reserves_months_imports,2012,8.55745154197408
 BTN,Bhutan,reserves_months_imports,2011,6.64779532318253
 BTN,Bhutan,reserves_months_imports,2010,11.746972451322
+BTN,Bhutan,gdp_growth,2025,8.00502716233098
 BTN,Bhutan,gdp_growth,2024,7.49856206754038
 BTN,Bhutan,gdp_growth,2023,4.63215702969933
 BTN,Bhutan,gdp_growth,2022,5.21386783786224
@@ -3449,6 +3520,7 @@ BTN,Bhutan,gdp_growth,2013,1.73634039505693
 BTN,Bhutan,gdp_growth,2012,5.16482012683895
 BTN,Bhutan,gdp_growth,2011,8.4892584842808
 BTN,Bhutan,gdp_growth,2010,11.9318738376229
+BTN,Bhutan,inflation,2025,3.55513663074987
 BTN,Bhutan,inflation,2024,2.76131569624098
 BTN,Bhutan,inflation,2023,4.22934419929251
 BTN,Bhutan,inflation,2022,5.6391667139637
@@ -3593,6 +3665,7 @@ IND,India,debt_to_gdp,2013,50.3118273627008
 IND,India,debt_to_gdp,2012,50.6780305618952
 IND,India,debt_to_gdp,2011,51.5565536600977
 IND,India,debt_to_gdp,2010,51.5919103003897
+IND,India,current_account_pct_gdp,2025,-0.416854153498652
 IND,India,current_account_pct_gdp,2024,-0.851289719084462
 IND,India,current_account_pct_gdp,2023,-0.912777939495827
 IND,India,current_account_pct_gdp,2022,-2.43238270956779
@@ -3608,6 +3681,7 @@ IND,India,current_account_pct_gdp,2013,-2.64566711733892
 IND,India,current_account_pct_gdp,2012,-5.00488971805303
 IND,India,current_account_pct_gdp,2011,-3.42928468606061
 IND,India,current_account_pct_gdp,2010,-3.25348368945179
+IND,India,reserves_months_imports,2025,7.8761457217327
 IND,India,reserves_months_imports,2024,7.52136088188696
 IND,India,reserves_months_imports,2023,7.97237314389747
 IND,India,reserves_months_imports,2022,7.00951210544359
@@ -3623,6 +3697,7 @@ IND,India,reserves_months_imports,2013,6.02774649537524
 IND,India,reserves_months_imports,2012,5.90371509588661
 IND,India,reserves_months_imports,2011,6.18879010347658
 IND,India,reserves_months_imports,2010,7.76063411026838
+IND,India,gdp_growth,2025,7.56666179284244
 IND,India,gdp_growth,2024,7.09927893176518
 IND,India,gdp_growth,2023,7.210224629335
 IND,India,gdp_growth,2022,7.6093649776932
@@ -3638,6 +3713,7 @@ IND,India,gdp_growth,2013,6.38610640091713
 IND,India,gdp_growth,2012,5.45638755164772
 IND,India,gdp_growth,2011,5.24131620024293
 IND,India,gdp_growth,2010,8.49758470165625
+IND,India,inflation,2025,2.39884954182294
 IND,India,inflation,2024,4.95303550973661
 IND,India,inflation,2023,5.64914318907925
 IND,India,inflation,2022,6.69903414079858
@@ -3728,6 +3804,7 @@ IND,India,control_of_corruption,2013,-0.4708017
 IND,India,control_of_corruption,2012,-0.5029878
 IND,India,control_of_corruption,2011,-0.4906967
 IND,India,control_of_corruption,2010,-0.3618247
+IND,India,fdi_net_inflows_pct_gdp,2025,0.988285383995246
 IND,India,fdi_net_inflows_pct_gdp,2024,0.721648483526777
 IND,India,fdi_net_inflows_pct_gdp,2023,0.802254995836756
 IND,India,fdi_net_inflows_pct_gdp,2022,1.53665241748393
@@ -3743,6 +3820,7 @@ IND,India,fdi_net_inflows_pct_gdp,2013,1.5162764665975
 IND,India,fdi_net_inflows_pct_gdp,2012,1.31293453035323
 IND,India,fdi_net_inflows_pct_gdp,2011,2.0020634629993
 IND,India,fdi_net_inflows_pct_gdp,2010,1.6350340943491
+IND,India,exports_pct_gdp,2025,22.2630410669804
 IND,India,exports_pct_gdp,2024,22.0639816354399
 IND,India,exports_pct_gdp,2023,22.354801966733
 IND,India,exports_pct_gdp,2022,24.0401716365956
@@ -3758,6 +3836,7 @@ IND,India,exports_pct_gdp,2013,25.430861300519
 IND,India,exports_pct_gdp,2012,24.534430661418
 IND,India,exports_pct_gdp,2011,24.5404113195713
 IND,India,exports_pct_gdp,2010,22.4009332487945
+IND,India,imports_pct_gdp,2025,24.0051596190103
 IND,India,imports_pct_gdp,2024,23.8527091324349
 IND,India,imports_pct_gdp,2023,23.9681500915008
 IND,India,imports_pct_gdp,2022,26.6577666392086
@@ -3805,6 +3884,7 @@ MDV,Maldives,reserves_months_imports,2013,1.59704253211411
 MDV,Maldives,reserves_months_imports,2012,1.5082286570409
 MDV,Maldives,reserves_months_imports,2011,1.54809073830576
 MDV,Maldives,reserves_months_imports,2010,2.09173932917729
+MDV,Maldives,gdp_growth,2025,6.31092335003081
 MDV,Maldives,gdp_growth,2024,3.49440422654285
 MDV,Maldives,gdp_growth,2023,4.94286301229583
 MDV,Maldives,gdp_growth,2022,13.8260895184139
@@ -3820,6 +3900,7 @@ MDV,Maldives,gdp_growth,2013,6.97496226412528
 MDV,Maldives,gdp_growth,2012,2.38928797963442
 MDV,Maldives,gdp_growth,2011,8.84342600490342
 MDV,Maldives,gdp_growth,2010,6.7854678229144
+MDV,Maldives,inflation,2025,4.00578494118752
 MDV,Maldives,inflation,2024,1.41093527910134
 MDV,Maldives,inflation,2023,2.90372427754586
 MDV,Maldives,inflation,2022,2.3305404647725
@@ -3981,6 +4062,7 @@ NPL,Nepal,reserves_months_imports,2013,8.56836277441355
 NPL,Nepal,reserves_months_imports,2012,7.60892634309321
 NPL,Nepal,reserves_months_imports,2011,6.74453820987915
 NPL,Nepal,reserves_months_imports,2010,6.01052214363673
+NPL,Nepal,gdp_growth,2025,4.43073194983359
 NPL,Nepal,gdp_growth,2024,3.67787459697703
 NPL,Nepal,gdp_growth,2023,1.98254843461849
 NPL,Nepal,gdp_growth,2022,5.6313145568451
@@ -3996,6 +4078,7 @@ NPL,Nepal,gdp_growth,2013,3.52515317129149
 NPL,Nepal,gdp_growth,2012,4.67014192446953
 NPL,Nepal,gdp_growth,2011,3.42180870116162
 NPL,Nepal,gdp_growth,2010,4.81641464694573
+NPL,Nepal,inflation,2025,2.65334269811436
 NPL,Nepal,inflation,2024,4.6850965426577
 NPL,Nepal,inflation,2023,7.11587261530826
 NPL,Nepal,inflation,2022,7.6702057938028
@@ -4101,6 +4184,7 @@ NPL,Nepal,fdi_net_inflows_pct_gdp,2013,0.334712330597339
 NPL,Nepal,fdi_net_inflows_pct_gdp,2012,0.42369151125933
 NPL,Nepal,fdi_net_inflows_pct_gdp,2011,0.435814930594323
 NPL,Nepal,fdi_net_inflows_pct_gdp,2010,0.548294665887946
+NPL,Nepal,exports_pct_gdp,2025,8.82763359925247
 NPL,Nepal,exports_pct_gdp,2024,7.55423347172655
 NPL,Nepal,exports_pct_gdp,2023,7.00596728086136
 NPL,Nepal,exports_pct_gdp,2022,6.7023908652401
@@ -4116,6 +4200,7 @@ NPL,Nepal,exports_pct_gdp,2013,9.2946586776145
 NPL,Nepal,exports_pct_gdp,2012,8.75029128721577
 NPL,Nepal,exports_pct_gdp,2011,7.80613567968357
 NPL,Nepal,exports_pct_gdp,2010,9.58253617198229
+NPL,Nepal,imports_pct_gdp,2025,33.7244112435844
 NPL,Nepal,imports_pct_gdp,2024,32.6157766909588
 NPL,Nepal,imports_pct_gdp,2023,34.5641830123854
 NPL,Nepal,imports_pct_gdp,2022,42.27101061478
@@ -4131,6 +4216,7 @@ NPL,Nepal,imports_pct_gdp,2013,32.5707170600577
 NPL,Nepal,imports_pct_gdp,2012,29.1716147715423
 NPL,Nepal,imports_pct_gdp,2011,28.4906232102531
 NPL,Nepal,imports_pct_gdp,2010,36.4023696022884
+PAK,Pakistan,current_account_pct_gdp,2025,-0.109990064562897
 PAK,Pakistan,current_account_pct_gdp,2024,0.124893414067427
 PAK,Pakistan,current_account_pct_gdp,2023,-0.308630136387276
 PAK,Pakistan,current_account_pct_gdp,2022,-3.25858181478804
@@ -4146,6 +4232,7 @@ PAK,Pakistan,current_account_pct_gdp,2013,-1.70727876868057
 PAK,Pakistan,current_account_pct_gdp,2012,-0.936399348037174
 PAK,Pakistan,current_account_pct_gdp,2011,-0.957124213324854
 PAK,Pakistan,current_account_pct_gdp,2010,-0.688324235118166
+PAK,Pakistan,reserves_months_imports,2025,3.75530612751488
 PAK,Pakistan,reserves_months_imports,2024,2.84569889190225
 PAK,Pakistan,reserves_months_imports,2023,2.50011507119078
 PAK,Pakistan,reserves_months_imports,2022,1.44062158684771
@@ -4161,6 +4248,7 @@ PAK,Pakistan,reserves_months_imports,2013,1.71197854264599
 PAK,Pakistan,reserves_months_imports,2012,3.10654658664889
 PAK,Pakistan,reserves_months_imports,2011,4.15696352930241
 PAK,Pakistan,reserves_months_imports,2010,4.71850424926723
+PAK,Pakistan,gdp_growth,2025,3.69842668749033
 PAK,Pakistan,gdp_growth,2024,3.08176295579301
 PAK,Pakistan,gdp_growth,2023,-0.414935997088406
 PAK,Pakistan,gdp_growth,2022,4.7781068690358
@@ -4176,6 +4264,7 @@ PAK,Pakistan,gdp_growth,2013,4.36686504978387
 PAK,Pakistan,gdp_growth,2012,3.02758391088629
 PAK,Pakistan,gdp_growth,2011,2.68011685421705
 PAK,Pakistan,gdp_growth,2010,1.50171752152883
+PAK,Pakistan,inflation,2025,3.54555214890893
 PAK,Pakistan,inflation,2024,12.6325318530452
 PAK,Pakistan,inflation,2023,30.7681280657005
 PAK,Pakistan,inflation,2022,19.8738599646655
@@ -4266,6 +4355,7 @@ PAK,Pakistan,control_of_corruption,2013,-1.1290617
 PAK,Pakistan,control_of_corruption,2012,-1.24519539999999
 PAK,Pakistan,control_of_corruption,2011,-1.2203431
 PAK,Pakistan,control_of_corruption,2010,-1.2022076
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2025,0.454693640126553
 PAK,Pakistan,fdi_net_inflows_pct_gdp,2024,0.716885239403099
 PAK,Pakistan,fdi_net_inflows_pct_gdp,2023,0.608281270820624
 PAK,Pakistan,fdi_net_inflows_pct_gdp,2022,0.389980753542853
@@ -4281,6 +4371,7 @@ PAK,Pakistan,fdi_net_inflows_pct_gdp,2013,0.515353849332245
 PAK,Pakistan,fdi_net_inflows_pct_gdp,2012,0.343453048660945
 PAK,Pakistan,fdi_net_inflows_pct_gdp,2011,0.575055145839944
 PAK,Pakistan,fdi_net_inflows_pct_gdp,2010,1.02791108080423
+PAK,Pakistan,exports_pct_gdp,2025,9.98520671042165
 PAK,Pakistan,exports_pct_gdp,2024,10.3855031331012
 PAK,Pakistan,exports_pct_gdp,2023,10.4939587511564
 PAK,Pakistan,exports_pct_gdp,2022,10.5405902721041
@@ -4296,6 +4387,7 @@ PAK,Pakistan,exports_pct_gdp,2013,12.1774992040696
 PAK,Pakistan,exports_pct_gdp,2012,11.8739641473238
 PAK,Pakistan,exports_pct_gdp,2011,13.4825548617217
 PAK,Pakistan,exports_pct_gdp,2010,12.6372245592948
+PAK,Pakistan,imports_pct_gdp,2025,17.2083306683448
 PAK,Pakistan,imports_pct_gdp,2024,17.1798277774783
 PAK,Pakistan,imports_pct_gdp,2023,17.9737337958273
 PAK,Pakistan,imports_pct_gdp,2022,22.4907632059279
@@ -4347,6 +4439,7 @@ LKA,Sri Lanka,reserves_months_imports,2013,3.84760389405601
 LKA,Sri Lanka,reserves_months_imports,2012,3.68897815263594
 LKA,Sri Lanka,reserves_months_imports,2011,3.46079601554795
 LKA,Sri Lanka,reserves_months_imports,2010,5.34354431776972
+LKA,Sri Lanka,gdp_growth,2025,4.9534339114043
 LKA,Sri Lanka,gdp_growth,2024,4.99241614398109
 LKA,Sri Lanka,gdp_growth,2023,-2.0289296690344
 LKA,Sri Lanka,gdp_growth,2022,-7.34919311146656
@@ -4362,6 +4455,7 @@ LKA,Sri Lanka,gdp_growth,2013,4.0517463303875
 LKA,Sri Lanka,gdp_growth,2012,8.6321813769906
 LKA,Sri Lanka,gdp_growth,2011,8.66948301160571
 LKA,Sri Lanka,gdp_growth,2010,8.01596737040464
+LKA,Sri Lanka,inflation,2025,-4.76386036960983
 LKA,Sri Lanka,inflation,2024,-0.42936004906973
 LKA,Sri Lanka,inflation,2023,16.5411742279832
 LKA,Sri Lanka,inflation,2022,49.7211021114327
@@ -4467,6 +4561,7 @@ LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2013,1.21148000059153
 LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2012,1.33591734742632
 LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2011,1.41088360151362
 LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2010,0.814446067583227
+LKA,Sri Lanka,exports_pct_gdp,2025,18.9673796128721
 LKA,Sri Lanka,exports_pct_gdp,2024,19.7559774138192
 LKA,Sri Lanka,exports_pct_gdp,2023,20.5995283672112
 LKA,Sri Lanka,exports_pct_gdp,2022,21.5595624612904
@@ -4477,6 +4572,7 @@ LKA,Sri Lanka,exports_pct_gdp,2018,21.4462486145463
 LKA,Sri Lanka,exports_pct_gdp,2017,20.2242000359935
 LKA,Sri Lanka,exports_pct_gdp,2016,19.824036042668
 LKA,Sri Lanka,exports_pct_gdp,2015,19.893383820467
+LKA,Sri Lanka,imports_pct_gdp,2025,22.8416230396327
 LKA,Sri Lanka,imports_pct_gdp,2024,22.3636324192921
 LKA,Sri Lanka,imports_pct_gdp,2023,22.7481397523022
 LKA,Sri Lanka,imports_pct_gdp,2022,25.1230455566456
