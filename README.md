@@ -134,3 +134,34 @@ public API (no key required).
   credit ratings) remains a periodically-refreshed curated snapshot by
   design — a true real-time feed for that would require a paid/authenticated
   news API, which is out of scope here.
+
+## v7 additions
+
+- **Fixed a stale date cutoff** in the World Bank fetch that was silently
+  discarding already-published 2025 data for fast-moving indicators (GDP
+  growth, inflation, current account, reserves, FDI, trade); the cutoff now
+  tracks the current year automatically instead of a hardcoded year.
+- **Fixed a year-over-year methodology bug**: once 2025-partial data existed,
+  the trend/YoY calculation was briefly comparing a 4-factor "2025" (before
+  governance indicators had published) against a full 10-factor "2024,"
+  producing misleading swings. A year now only counts toward the trend/YoY
+  series if both the economic and governance pillars have data for it.
+- **Rewrote the Country Brief generator** to do real synthesis instead of
+  template-filling: it now states risk trajectory (worsening/easing/stable,
+  using real year-over-year data) and explicitly links the top risk driver
+  to the historical event still driving it.
+- **Deep-research expansion across all 26 countries**: Key Historical
+  Context entries rewritten from one-line headlines into 6-9 sourced,
+  2-4-sentence analytical events per country (cause → consequence → why it
+  matters); Trade Profiles expanded from single phrases into detailed,
+  figure-backed descriptions; Key Economic Partners rewritten into 5-8
+  sentence summaries covering creditors, major foreign investors, debt
+  rollover support, key allies/rivals, and recent deals, each backed by
+  4-6 named sources. Financing Arrangements now explicitly cover all 26
+  countries (a verified program, or a sourced explanation of why none
+  exists), and the per-country tab copy was trimmed to cut repetitive
+  disclaimer text.
+- **Added a 13th Live Conflict**: the Western Sahara / Algeria-Morocco
+  rupture, a major MENASA conflict that had been missing entirely — with
+  full actor breakdown, the 2021 diplomatic break, and the Maghreb-Europe
+  gas pipeline shutdown's cost to Morocco.
