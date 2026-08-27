@@ -9,21 +9,34 @@ import time
 from datetime import datetime, timezone
 
 COUNTRIES = {
-    "PAK": "Pakistan",
-    "EGY": "Egypt",
-    "MAR": "Morocco",
-    "TUN": "Tunisia",
+    # MENA
     "DZA": "Algeria",
-    "JOR": "Jordan",
-    "SAU": "Saudi Arabia",
-    "ARE": "UAE",
+    "BHR": "Bahrain",
+    "EGY": "Egypt",
     "IRN": "Iran",
-    "BGD": "Bangladesh",
-    "LKA": "Sri Lanka",
     "IRQ": "Iraq",
-    "LBN": "Lebanon",
+    "ISR": "Israel",
+    "JOR": "Jordan",
     "KWT": "Kuwait",
+    "LBN": "Lebanon",
+    "LBY": "Libya",
+    "MAR": "Morocco",
+    "OMN": "Oman",
     "QAT": "Qatar",
+    "SAU": "Saudi Arabia",
+    "SYR": "Syria",
+    "TUN": "Tunisia",
+    "ARE": "UAE",
+    "YEM": "Yemen",
+    # South Asia
+    "AFG": "Afghanistan",
+    "BGD": "Bangladesh",
+    "BTN": "Bhutan",
+    "IND": "India",
+    "MDV": "Maldives",
+    "NPL": "Nepal",
+    "PAK": "Pakistan",
+    "LKA": "Sri Lanka",
 }
 
 # Economic pillar
@@ -35,9 +48,11 @@ ECON_INDICATORS = {
     "FP.CPI.TOTL.ZG": "inflation",
 }
 
-# Investment context (descriptive only — NOT part of the risk score)
+# Investment/trade context (descriptive only — NOT part of the risk score)
 CONTEXT_INDICATORS = {
     "BX.KLT.DINV.WD.GD.ZS": "fdi_net_inflows_pct_gdp",
+    "NE.EXP.GNFS.ZS": "exports_pct_gdp",
+    "NE.IMP.GNFS.ZS": "imports_pct_gdp",
 }
 
 # Governance pillar (World Bank Worldwide Governance Indicators)

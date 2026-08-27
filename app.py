@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
-from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES
+from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS
 
 st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
 
@@ -32,9 +32,17 @@ st.markdown(f"""
 
     html, body, [class*="css"] {{
         font-family: 'Inter', -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }}
 
     h1, h2, h3 {{ font-family: 'Inter', sans-serif !important; }}
+
+    /* subtle depth instead of a flat background */
+    [data-testid="stAppViewContainer"] > .main {{
+        background: radial-gradient(ellipse 1400px 800px at 50% -10%, rgba(34,211,238,0.05), transparent),
+                    linear-gradient(180deg, {BG} 0%, #0c1119 100%);
+    }}
 
     /* ---- masthead ---- */
     .tag-label {{
@@ -59,35 +67,42 @@ st.markdown(f"""
         font-size: 0.96rem;
         color: {TEXT_MUTED};
         max-width: 660px;
-        line-height: 1.6;
+        line-height: 1.65;
         margin-bottom: 1.4rem;
     }}
     .section-tag {{
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.66rem;
         font-weight: 500;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.06em;
         color: {ACCENT};
-        margin-bottom: 0.35rem;
+        opacity: 0.85;
+        margin-bottom: 0.4rem;
     }}
-    .section-tag::before {{ content: "// "; opacity: 0.6; }}
+    .section-tag::before {{ content: "// "; opacity: 0.55; }}
     .section-title {{
         font-family: 'Inter', sans-serif;
         font-size: 1.3rem;
         font-weight: 700;
         color: {TEXT};
-        margin-bottom: 1rem;
+        margin-bottom: 1.1rem;
         letter-spacing: -0.01em;
     }}
 
     /* ---- stat cards ---- */
     .stat-card {{
-        background: {SURFACE};
+        background: linear-gradient(160deg, {SURFACE_ALT} 0%, {SURFACE} 100%);
         border: 1px solid {BORDER};
-        border-left: 2px solid {ACCENT};
-        border-radius: 2px;
-        padding: 1rem 1.25rem;
+        border-left: 3px solid {ACCENT};
+        border-radius: 12px;
+        padding: 1.15rem 1.4rem;
         height: 100%;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.24);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }}
+    .stat-card:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.32);
     }}
     .stat-label {{
         font-family: 'JetBrains Mono', monospace;
@@ -96,31 +111,31 @@ st.markdown(f"""
         letter-spacing: 0.09em;
         text-transform: uppercase;
         color: {TEXT_MUTED};
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.55rem;
     }}
     .stat-value {{
         font-family: 'JetBrains Mono', monospace;
         font-size: 1.65rem;
         font-weight: 700;
         color: {TEXT};
-        line-height: 1.1;
+        line-height: 1.15;
     }}
     .stat-sub {{
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.76rem;
         color: {ACCENT};
-        margin-top: 0.4rem;
+        margin-top: 0.45rem;
     }}
 
     /* ---- narrative callout ---- */
     .narrative-box {{
-        background: {ACCENT_DIM};
-        border-left: 2px solid {ACCENT};
-        padding: 1rem 1.3rem;
+        background: linear-gradient(135deg, {ACCENT_DIM} 0%, rgba(34,211,238,0.04) 100%);
+        border-left: 3px solid {ACCENT};
+        padding: 1.15rem 1.4rem;
         font-size: 0.9rem;
-        line-height: 1.65;
+        line-height: 1.7;
         color: {TEXT};
-        border-radius: 0 2px 2px 0;
+        border-radius: 4px 12px 12px 4px;
     }}
     .narrative-box b {{ color: {ACCENT}; font-weight: 600; }}
 
@@ -132,17 +147,21 @@ st.markdown(f"""
         font-weight: 600;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        padding: 0.28rem 0.65rem;
-        border-radius: 2px;
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
         margin-top: 0.4rem;
     }}
 
     /* ---- custom html table ---- */
     .custom-table {{
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         font-size: 0.85rem;
         margin-bottom: 1rem;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid {BORDER};
     }}
     .custom-table th {{
         text-align: left;
@@ -152,18 +171,20 @@ st.markdown(f"""
         letter-spacing: 0.06em;
         text-transform: uppercase;
         color: {ACCENT};
+        background: {SURFACE};
         border-bottom: 1px solid {BORDER};
-        padding: 0.6rem 0.8rem;
+        padding: 0.7rem 0.9rem;
     }}
     .custom-table td {{
-        padding: 0.6rem 0.8rem;
+        padding: 0.65rem 0.9rem;
         border-bottom: 1px solid rgba(255,255,255,0.04);
         color: {TEXT};
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.82rem;
+        transition: background 0.12s ease;
     }}
     .custom-table tr:last-child td {{ border-bottom: none; }}
-    .custom-table tr:hover td {{ background: rgba(34,211,238,0.04); }}
+    .custom-table tr:hover td {{ background: rgba(34,211,238,0.05); }}
 
     /* ---- pill link buttons ---- */
     .pill-link {{
@@ -176,11 +197,17 @@ st.markdown(f"""
         letter-spacing: 0.03em;
         color: {BG} !important;
         background: {ACCENT};
-        padding: 0.55rem 1.1rem;
-        border-radius: 2px;
+        padding: 0.55rem 1.15rem;
+        border-radius: 20px;
         text-decoration: none !important;
         margin-right: 0.75rem;
         margin-bottom: 0.5rem;
+        box-shadow: 0 2px 10px rgba(34,211,238,0.18);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }}
+    .pill-link:hover {{
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(34,211,238,0.3);
     }}
 
     /* ---- streamlit widget overrides ---- */
@@ -189,16 +216,22 @@ st.markdown(f"""
         font-size: 0.76rem;
         font-weight: 500;
         letter-spacing: 0.04em;
+        transition: color 0.15s ease;
     }}
     [data-testid="stAlert"] {{
         background: {ACCENT_DIM} !important;
-        border-left: 2px solid {ACCENT} !important;
-        border-radius: 0 2px 2px 0 !important;
+        border-left: 3px solid {ACCENT} !important;
+        border-radius: 4px 12px 12px 4px !important;
     }}
     [data-testid="stVerticalBlockBorderWrapper"] {{
         border-color: {BORDER} !important;
-        border-radius: 2px !important;
+        border-radius: 12px !important;
+        transition: border-color 0.15s ease;
     }}
+    [data-baseweb="select"] > div {{
+        border-radius: 10px !important;
+    }}
+    [data-testid="stSlider"] {{ padding-top: 0.2rem; }}
     hr {{ border-color: {BORDER} !important; }}
     footer {{ visibility: hidden; }}
 
@@ -260,6 +293,60 @@ def style_chart(fig, height=420):
     return fig
 
 
+def sourced_table(rows, headers):
+    """Like custom_table, but the last column of each row is rendered as a link."""
+    html = '<table class="custom-table"><thead><tr>'
+    html += "".join(f"<th>{h}</th>" for h in headers)
+    html += "</tr></thead><tbody>"
+    for row in rows:
+        cells = row[:-1]
+        source_name, source_url = row[-1]
+        html += "<tr>" + "".join(f"<td>{c}</td>" for c in cells)
+        html += f'<td><a href="{source_url}" target="_blank" rel="noopener noreferrer" style="color:{ACCENT};">{source_name} ↗</a></td></tr>'
+    html += "</tbody></table>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def build_country_brief(country_name, country_code, row, driver_row, events, conflicts):
+    """Synthesizes score + top historical events + investment context into a
+    flowing analyst-style paragraph, rather than disconnected bullet points."""
+    parts = []
+
+    score = row.get("risk_score")
+    tier = row.get("risk_tier", "").lower()
+    rank = row.get("risk_rank")
+    n_countries = 26
+    if pd.notna(score):
+        parts.append(
+            f"{country_name} scores <b>{score:.1f}/100</b> on the composite index, placing it in the "
+            f"<b>{tier}</b> tier and ranked <b>{int(rank)} of {n_countries}</b> tracked MENASA economies."
+        )
+
+    factor_scores = {f: driver_row[f] for f in FACTOR_COLS if pd.notna(driver_row[f])}
+    if factor_scores:
+        sorted_factors = sorted(factor_scores.items(), key=lambda x: x[1], reverse=True)
+        top_risk = FACTOR_LABELS[sorted_factors[0][0]]
+        top_strength = FACTOR_LABELS[sorted_factors[-1][0]]
+        parts.append(
+            f"The single largest driver of that score is <b>{top_risk}</b>, while <b>{top_strength}</b> "
+            f"stands out as its strongest relative pillar."
+        )
+
+    if events:
+        recent_events = sorted(events, key=lambda e: e[0], reverse=True)[:2]
+        event_phrases = [f"{e[1][0].lower()}{e[1][1:]} ({e[0]})" for e in recent_events]
+        parts.append("Recent history has been shaped by " + " and ".join(event_phrases) + ".")
+
+    relevant_conflicts = [c["name"] for c in conflicts if country_code in c["affected"]]
+    if relevant_conflicts:
+        parts.append(
+            f"It is directly exposed to the following live regional flashpoint(s), covered in more "
+            f"depth in the Live Conflicts tab: <b>{', '.join(relevant_conflicts)}</b>."
+        )
+
+    return " ".join(parts)
+
+
 # ============================================================
 # DATA
 # ============================================================
@@ -304,12 +391,13 @@ except FileNotFoundError:
 # ============================================================
 # MASTHEAD
 # ============================================================
-st.markdown('<div class="tag-label">SOVEREIGN-RISK/v2 · MENA &amp; SOUTH ASIA</div>', unsafe_allow_html=True)
+st.markdown('<div class="tag-label">SOVEREIGN-RISK/v4 · FULL MENASA COVERAGE</div>', unsafe_allow_html=True)
 st.markdown('<div class="masthead-title">Sovereign Risk <span>Scorecard</span></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="masthead-sub">A composite risk score for 15 MENA &amp; South Asia economies, '
+    '<div class="masthead-sub">A composite risk score for all 26 MENA &amp; South Asia economies, '
     'built on live World Bank data across 10 factors spanning economic and governance pillars, '
-    'with curated historical context and a live scenario-weighting explorer.</div>',
+    'with curated and sourced historical context, a live scenario-weighting explorer, and a '
+    'dedicated tracker for the region\'s most consequential live conflicts.</div>',
     unsafe_allow_html=True,
 )
 st.markdown(f'<div class="stat-sub" style="margin-bottom:1.2rem;">DATA_LAST_REFRESHED: {LAST_REFRESHED}</div>', unsafe_allow_html=True)
@@ -329,11 +417,11 @@ with c2:
 with c3:
     stat_card("Lowest Risk", lowest["country"], f"Score {lowest['risk_score']:.1f}")
 with c4:
-    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 15")
+    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 26")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4 = st.tabs(["REGIONAL_OVERVIEW", "COUNTRY_DEEP_DIVE", "SCENARIO_EXPLORER", "METHODOLOGY"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["REGIONAL_OVERVIEW", "COUNTRY_DEEP_DIVE", "LIVE_CONFLICTS", "SCENARIO_EXPLORER", "METHODOLOGY"])
 
 # ================= TAB 1: OVERVIEW =================
 with tab1:
@@ -359,7 +447,7 @@ with tab1:
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.markdown('<div class="section-tag">RANKED_ALL_15</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">RANKED_ALL_26</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title">Risk Ranking</div>', unsafe_allow_html=True)
         chart_df = scored.dropna(subset=["risk_score"]).sort_values("risk_score", ascending=True)
         fig = px.bar(
@@ -385,11 +473,19 @@ with tab1:
         with st.container(border=True):
             st.markdown('<div class="section-tag">BY_SUBREGION</div>', unsafe_allow_html=True)
             st.markdown('<div class="section-title" style="font-size:1rem;">Regional Snapshot</div>', unsafe_allow_html=True)
-            gulf = scored[scored["country_code"].isin(["SAU", "ARE", "KWT", "QAT"])]["risk_score"].mean()
-            south_asia = scored[scored["country_code"].isin(["PAK", "BGD", "LKA"])]["risk_score"].mean()
-            levant = scored[scored["country_code"].isin(["JOR", "LBN", "IRQ"])]["risk_score"].mean()
+            gulf = scored[scored["country_code"].isin(["SAU", "ARE", "KWT", "QAT", "BHR", "OMN"])]["risk_score"].mean()
+            north_africa = scored[scored["country_code"].isin(["DZA", "EGY", "LBY", "MAR", "TUN"])]["risk_score"].mean()
+            levant_iraq = scored[scored["country_code"].isin(["JOR", "LBN", "SYR", "ISR", "IRQ"])]["risk_score"].mean()
+            iran_yemen = scored[scored["country_code"].isin(["IRN", "YEM"])]["risk_score"].mean()
+            south_asia = scored[scored["country_code"].isin(["PAK", "BGD", "LKA", "IND", "AFG", "BTN", "MDV", "NPL"])]["risk_score"].mean()
             custom_table(
-                [["Gulf States", f"{gulf:.1f}"], ["South Asia", f"{south_asia:.1f}"], ["Levant", f"{levant:.1f}"]],
+                [
+                    ["Gulf (GCC)", f"{gulf:.1f}"],
+                    ["North Africa", f"{north_africa:.1f}"],
+                    ["Levant & Iraq", f"{levant_iraq:.1f}"],
+                    ["Iran & Yemen", f"{iran_yemen:.1f}"],
+                    ["South Asia", f"{south_asia:.1f}"],
+                ],
                 ["Sub-Region", "Avg. Score"],
             )
 
@@ -402,7 +498,7 @@ with tab1:
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">2015_2024</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">2010_2024</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Historical Trend</div>', unsafe_allow_html=True)
     trend_countries = st.multiselect(
         "Compare countries over time",
@@ -428,6 +524,14 @@ with tab2:
 
     row = scored[scored["country"] == selected].iloc[0]
     driver_row = drivers[drivers["country"] == selected].iloc[0]
+    country_code = row["country_code"]
+    events = HISTORICAL_CONTEXT.get(country_code, [])
+
+    st.markdown('<div class="section-tag">ANALYST_BRIEF</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Country Brief</div>', unsafe_allow_html=True)
+    brief_text = build_country_brief(selected, country_code, row, driver_row, events, LIVE_CONFLICTS)
+    st.markdown(f'<div class="narrative-box">{brief_text}</div>', unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     c1, c2 = st.columns([1, 2])
     with c1:
@@ -443,7 +547,7 @@ with tab2:
                 st.markdown(
                     f'<div class="stat-label" style="margin-top:0.6rem;">Regional Rank</div>'
                     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1.1rem;color:{ACCENT};">'
-                    f'{int(row["risk_rank"])} / 15</div>',
+                    f'{int(row["risk_rank"])} / 26</div>',
                     unsafe_allow_html=True,
                 )
             with yoy_col:
@@ -501,7 +605,7 @@ with tab2:
             st.caption("No factor data available for radar chart.")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown(f'<div class="section-tag">2015_2024</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-tag">2010_2024</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="section-title">{selected}: Risk Score Over Time</div>', unsafe_allow_html=True)
     country_history = history[history["country"] == selected].sort_values("year")
     if not country_history.empty:
@@ -527,45 +631,154 @@ with tab2:
     custom_table(raw_rows, ["Indicator", "Value", "Unit", "As Of"])
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">CURATED_NOT_LIVE</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">CURATED_AND_SOURCED</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Key Historical Context</div>', unsafe_allow_html=True)
-    country_code = row["country_code"]
-    events = HISTORICAL_CONTEXT.get(country_code, [])
     if events:
-        event_html = '<table class="custom-table"><thead><tr><th>Year</th><th>Event</th></tr></thead><tbody>'
-        for year, event in events:
-            event_html += f"<tr><td style='white-space:nowrap;'>{year}</td><td>{event}</td></tr>"
-        event_html += "</tbody></table>"
-        st.markdown(event_html, unsafe_allow_html=True)
-        st.caption("Curated highlights fact-checked against IMF/news sources as of Aug 2026 — not a live feed.")
+        st.markdown(
+            f"The table below traces the major economic, political, and conflict-driven events that "
+            f"have shaped {selected}'s risk profile, each fact-checked against the linked primary or "
+            f"news source. This is deliberately broader than pure macro data — a debt figure alone "
+            f"doesn't explain *why* reserves fell or *why* a currency collapsed; these events do."
+        )
+        sourced_rows = [[str(year), event, (src_name, src_url)] for year, event, src_name, src_url in events]
+        sourced_table(sourced_rows, ["Year", "Event", "Source"])
+        st.caption("Curated highlights fact-checked via web search against primary/news sources as of Aug 2026 — not a live feed.")
     else:
         st.caption("No curated events on file for this country yet.")
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">TRADE_AND_INVESTMENT</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Investment &amp; Trade Context</div>', unsafe_allow_html=True)
+    st.markdown(
+        "Shown as descriptive context only — **not** inputs to the risk score above. Investment and "
+        "trade direction aren't unambiguously 'safe' or 'risky' the way a debt ratio is, so they're "
+        "kept analytically separate."
+    )
+
     inv_col1, inv_col2 = st.columns([3, 2])
     with inv_col1:
-        st.markdown('<div class="section-tag">FDI_NET_INFLOWS</div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">Investment Context</div>', unsafe_allow_html=True)
         fdi_hist = long_df[(long_df["country_code"] == country_code) & (long_df["indicator"] == "fdi_net_inflows_pct_gdp")].sort_values("year")
         if not fdi_hist.empty:
             fig5 = px.bar(fdi_hist, x="year", y="value", labels={"value": "FDI Net Inflows (% GDP)", "year": "Year"})
             fig5.update_traces(marker_color=ACCENT)
-            st.plotly_chart(style_chart(fig5, height=280), use_container_width=True)
-            st.caption(
-                "Foreign direct investment, net inflows as % of GDP (World Bank). Shown as descriptive "
-                "context, not a risk-score input — investment direction isn't unambiguously 'safe' or 'risky.'"
-            )
+            fig5.update_layout(title=dict(text="FDI Net Inflows (% GDP)", font=dict(size=13)))
+            st.plotly_chart(style_chart(fig5, height=260), use_container_width=True)
         else:
             st.caption("No FDI data available for this country.")
+
+        exports_hist = long_df[(long_df["country_code"] == country_code) & (long_df["indicator"] == "exports_pct_gdp")].sort_values("year")
+        imports_hist = long_df[(long_df["country_code"] == country_code) & (long_df["indicator"] == "imports_pct_gdp")].sort_values("year")
+        if not exports_hist.empty or not imports_hist.empty:
+            fig6 = go.Figure()
+            if not exports_hist.empty:
+                fig6.add_trace(go.Scatter(x=exports_hist["year"], y=exports_hist["value"], mode="lines+markers", name="Exports (% GDP)", line=dict(color=ACCENT)))
+            if not imports_hist.empty:
+                fig6.add_trace(go.Scatter(x=imports_hist["year"], y=imports_hist["value"], mode="lines+markers", name="Imports (% GDP)", line=dict(color="#f87171")))
+            fig6.update_layout(title=dict(text="Exports vs. Imports (% GDP)", font=dict(size=13)), yaxis_title="% of GDP")
+            st.plotly_chart(style_chart(fig6, height=260), use_container_width=True)
+
+            if not exports_hist.empty and not imports_hist.empty:
+                latest_exp = exports_hist.iloc[-1]
+                latest_imp = imports_hist.iloc[-1]
+                if latest_exp["year"] == latest_imp["year"]:
+                    balance = latest_exp["value"] - latest_imp["value"]
+                    direction = "trade surplus" if balance > 0 else "trade deficit"
+                    st.caption(
+                        f"Latest available ({int(latest_exp['year'])}): exports {latest_exp['value']:.1f}% "
+                        f"of GDP vs. imports {latest_imp['value']:.1f}% — a {abs(balance):.1f} pt "
+                        f"{direction} on a goods-and-services basis."
+                    )
+        else:
+            st.caption("No trade (exports/imports) data available for this country.")
+
     with inv_col2:
         st.markdown('<div class="section-tag">REFERENCE</div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">Primary Market</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Primary Market</div>', unsafe_allow_html=True)
         exchange, index = STOCK_EXCHANGES.get(country_code, ("N/A", "N/A"))
         custom_table([["Exchange", exchange], ["Benchmark Index", index]], ["Field", "Value"])
         st.caption("Reference only — not live pricing.")
 
-# ================= TAB 3: SCENARIO EXPLORER =================
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">WHO_ITS_BORROWED_FROM</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Financing Arrangements</div>', unsafe_allow_html=True)
+    st.markdown(
+        "When was current external financing established, and roughly when is it due back? "
+        "This tracks verified multilateral (IMF) financing arrangements — amount, approval date, "
+        "and program length — which is the most reliable public proxy for 'when was it established, "
+        "till when do they have to pay it back.' **Instrument-level Eurobond and bilateral-loan "
+        "maturity schedules are not included** — that level of detail requires a specialized debt "
+        "database (e.g. Bloomberg, the IMF's sovereign debt investor relations portal, or a national "
+        "debt management office), which is out of scope for this tool. Only countries with a verified "
+        "arrangement on file are shown below; if a country has no arrangement listed, it means none "
+        "was independently confirmed in this research pass — not that no debt exists."
+    )
+    arrangements = FINANCING_ARRANGEMENTS.get(country_code)
+    if arrangements:
+        arr_rows = [[a["program"], a["amount"], a["approved"], a["status"]] for a in arrangements]
+        custom_table(arr_rows, ["Program", "Amount", "Approved", "Status"])
+    else:
+        st.caption("No verified IMF/multilateral financing arrangement on file for this country in this research pass.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">WHO_INVESTS_WHO_LENDS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Key Economic Partners</div>', unsafe_allow_html=True)
+    partner_info = KEY_ECONOMIC_PARTNERS.get(country_code)
+    if partner_info:
+        st.markdown(f'<div class="narrative-box">{partner_info["summary"]}</div>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        for name, url in partner_info["sources"]:
+            st.markdown(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>', unsafe_allow_html=True)
+    else:
+        st.caption(
+            "No independently verified creditor/investor/trade-partner summary on file for this "
+            "country yet — this section is deliberately scoped to cases with solid sourcing rather "
+            "than filled in with unverified claims. See Methodology for the full scope note."
+        )
+
+# ================= TAB 3: LIVE CONFLICTS =================
 with tab3:
+    st.markdown('<div class="section-tag">CURATED_AND_SOURCED_NOT_LIVE_FEED</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Live Conflicts &amp; Regional Flashpoints</div>', unsafe_allow_html=True)
+    st.markdown(
+        "The 10-factor composite score above is built on **annual** World Bank data, which by nature "
+        "lags acute, fast-moving events — a war that started two months ago won't yet show up in a "
+        "debt-to-GDP or governance figure. This tab is the qualitative complement: the region's most "
+        "consequential live conflicts and flashpoints, each mapped to the specific tracked countries "
+        "it affects, with sourced detail on market/trade impact. **Curated and fact-checked as of "
+        "August 2026 — not a live news feed**, and ranked here roughly by breadth of economic impact "
+        "across tracked countries."
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    code_to_name = dict(zip(scored["country_code"], scored["country"]))
+
+    for i, conflict in enumerate(LIVE_CONFLICTS):
+        with st.container(border=True):
+            st.markdown(
+                f'<div class="section-tag">{conflict["status"].upper()}</div>'
+                f'<div class="section-title" style="font-size:1.25rem;">{conflict["name"]}</div>',
+                unsafe_allow_html=True,
+            )
+            affected_names = [code_to_name.get(c, c) for c in conflict["affected"]]
+            st.markdown(
+                "<div style='margin-bottom:0.8rem;'>" +
+                "".join(f'<span class="tier-badge" style="background:rgba(34,211,238,0.12);color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
+                "</div>",
+                unsafe_allow_html=True,
+            )
+            st.markdown(f'<div class="narrative-box"><b>SUMMARY</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown(f'<div class="narrative-box"><b>MARKET_&amp;_TRADE_IMPACT</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown(
+                "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in conflict["sources"]),
+                unsafe_allow_html=True,
+            )
+        if i < len(LIVE_CONFLICTS) - 1:
+            st.markdown("<br>", unsafe_allow_html=True)
+
+# ================= TAB 4: SCENARIO EXPLORER =================
+with tab4:
     st.markdown('<div class="section-tag">INTERACTIVE_REWEIGHTING</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
     st.markdown(
@@ -616,8 +829,8 @@ with tab3:
     else:
         st.caption("Set at least one factor weight above zero to see a ranking.")
 
-# ================= TAB 4: METHODOLOGY =================
-with tab4:
+# ================= TAB 5: METHODOLOGY =================
+with tab5:
     st.markdown('<div class="section-tag">HOW_ITS_BUILT</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Methodology</div>', unsafe_allow_html=True)
     st.markdown(
@@ -625,20 +838,38 @@ with tab4:
         "of 10 factors across two pillars, weighted equally at 10% by default — adjustable "
         "live in the Scenario Explorer tab:"
     )
-    custom_table(
+    sourced_table(
         [
-            ["Debt (% of GDP)", "Economic", "10%", "World Bank WDI"],
-            ["Current Account (% of GDP)", "Economic", "10%", "World Bank WDI"],
-            ["Reserves (months of imports)", "Economic", "10%", "World Bank WDI"],
-            ["GDP Growth", "Economic", "10%", "World Bank WDI"],
-            ["Inflation", "Economic", "10%", "World Bank WDI"],
-            ["Political Stability", "Governance", "10%", "World Bank WGI"],
-            ["Government Effectiveness", "Governance", "10%", "World Bank WGI"],
-            ["Rule of Law", "Governance", "10%", "World Bank WGI"],
-            ["Regulatory Quality", "Governance", "10%", "World Bank WGI"],
-            ["Control of Corruption", "Governance", "10%", "World Bank WGI"],
+            ["Debt (% of GDP)", "Economic", "10%", ("World Bank WDI: GC.DOD.TOTL.GD.ZS", "https://data.worldbank.org/indicator/GC.DOD.TOTL.GD.ZS")],
+            ["Current Account (% of GDP)", "Economic", "10%", ("World Bank WDI: BN.CAB.XOKA.GD.ZS", "https://data.worldbank.org/indicator/BN.CAB.XOKA.GD.ZS")],
+            ["Reserves (months of imports)", "Economic", "10%", ("World Bank WDI: FI.RES.TOTL.MO", "https://data.worldbank.org/indicator/FI.RES.TOTL.MO")],
+            ["GDP Growth", "Economic", "10%", ("World Bank WDI: NY.GDP.MKTP.KD.ZG", "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG")],
+            ["Inflation", "Economic", "10%", ("World Bank WDI: FP.CPI.TOTL.ZG", "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG")],
+            ["Political Stability", "Governance", "10%", ("World Bank WGI: PV.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/PV.EST")],
+            ["Government Effectiveness", "Governance", "10%", ("World Bank WGI: GE.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/GE.EST")],
+            ["Rule of Law", "Governance", "10%", ("World Bank WGI: RL.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/RL.EST")],
+            ["Regulatory Quality", "Governance", "10%", ("World Bank WGI: RQ.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/RQ.EST")],
+            ["Control of Corruption", "Governance", "10%", ("World Bank WGI: CC.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/CC.EST")],
         ],
         ["Factor", "Pillar", "Weight", "Source"],
+    )
+    st.caption(
+        "All 10 factors are pulled live from the World Bank's public API (WDI = World Development "
+        "Indicators, WGI = Worldwide Governance Indicators) — the same underlying database the IMF, "
+        "credit rating agencies, and academic researchers use as a baseline. Click any source link "
+        "above to see the indicator's full definition and country coverage on the World Bank's own site."
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">CONTEXT_ONLY</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title" style="font-size:1.1rem;">Investment/Trade Context Indicators</div>', unsafe_allow_html=True)
+    sourced_table(
+        [
+            ["FDI Net Inflows (% GDP)", ("World Bank WDI: BX.KLT.DINV.WD.GD.ZS", "https://data.worldbank.org/indicator/BX.KLT.DINV.WD.GD.ZS")],
+            ["Exports of Goods & Services (% GDP)", ("World Bank WDI: NE.EXP.GNFS.ZS", "https://data.worldbank.org/indicator/NE.EXP.GNFS.ZS")],
+            ["Imports of Goods & Services (% GDP)", ("World Bank WDI: NE.IMP.GNFS.ZS", "https://data.worldbank.org/indicator/NE.IMP.GNFS.ZS")],
+        ],
+        ["Indicator", "Source"],
     )
     st.markdown(
         "Each factor is **min-max normalized to 0–100** relative to the other countries "
@@ -650,18 +881,28 @@ with tab4:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">V3</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">V4</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Known Limitations</div>', unsafe_allow_html=True)
     st.markdown(
         """
-- **Debt-to-GDP coverage is sparse** for Gulf states and Iran — only 6 of 15 countries report
-  it consistently to the World Bank. A future improvement would add IMF World Economic Outlook
-  debt data as a fallback source.
+- **Debt-to-GDP coverage is sparse** for several Gulf states and conflict/sanctions-affected
+  countries — only 11 of 26 report it consistently to the World Bank. A future improvement would
+  add IMF World Economic Outlook debt data as a fallback source.
 - **Iran's score is lower-confidence** — only 7 of 10 factors are available, likely due to
   sanctions limiting fiscal data reporting.
+- **The composite score is annual and backward-looking** — it will not reflect an event from the
+  last few months (e.g. the February 2026 Iran war) until World Bank data catches up. See the
+  Live Conflicts tab for the qualitative, currently-relevant complement to this gap.
 - **Historical context is curated, not live** — the event list in each country's Deep Dive tab
-  was hand-researched and fact-checked as of August 2026, not pulled from a live news feed.
-  It highlights major events but is not exhaustive.
+  and the Live Conflicts tab were hand-researched and fact-checked via web search as of August
+  2026, not pulled from a live news feed. They highlight major events but are not exhaustive.
+- **Financing Arrangements and Key Economic Partners are intentionally partial** — only 7
+  countries have a verified IMF financing arrangement on file, and only 5 have a sourced "key
+  economic partners" summary. This is a deliberate scope decision: it's better to show verified
+  detail for a subset than unverified claims for all 26. Instrument-level bond/loan maturity
+  schedules (a true "debt rollover wall") are out of scope entirely — that needs a specialized
+  debt database (Bloomberg, the IMF's sovereign debt investor relations portal, or national debt
+  management offices), not a research pass over public web sources.
 - Weights are a transparent, reasonable starting point — not a backtested or econometrically
   validated model. Research/screening tool, not investment advice.
 """
