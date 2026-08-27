@@ -759,6 +759,11 @@ LIVE_CONFLICTS = [
             ("Civil war duration before Assad's fall", "13 years (2011-2024)"),
             ("Rebel offensive to capture Damascus", "~11 days"),
             ("Transition timeline set by interim constitution", "5 years to elections"),
+            ("World Bank reconstruction cost estimate, Oct 2025", "$216bn (range $140-345bn)"),
+            ("Share of pre-conflict capital stock destroyed", "~1/3"),
+            ("Investment commitments attracted in 2025", "$28bn (incl. $14bn MOUs at Aug 2025 Damascus ceremony)"),
+            ("Registered Syrian refugees remaining in Jordan, Apr 2026", "~411,760 (down sharply from pre-2025)"),
+            ("Lebanon-to-Syria cross-border return movements by Jun 22, 2026", "464,562+"),
         ],
         "groups": "Hay'at Tahrir al-Sham (HTS) / transitional government under Ahmed al-Sharaa, remnant Assad-era militias, Kurdish SDF",
         "affected": ["SYR", "LBN", "JOR", "IRQ"],
@@ -767,19 +772,40 @@ LIVE_CONFLICTS = [
             "Tahrir al-Sham captured Damascus, ending a 13-year civil war. Ahmed al-Sharaa was declared "
             "transitional president in January 2025, and an interim constitutional declaration took "
             "effect in March 2025, setting out a 5-year path to elections. One year on, the transition "
-            "remains disputed — no single national armed force yet exists, and localized violence has "
-            "continued into 2026."
+            "remains disputed — no single national armed force yet exists, and localized violence "
+            "(including renewed hostilities from March 2026) has continued. On the sanctions side, "
+            "Washington repealed the Caesar Act via the FY2026 National Defense Authorization Act in "
+            "December 2025 and the EU has lifted most broad-based economic restrictions from the Assad "
+            "era, though targeted sanctions on regime-linked individuals and heavy compliance risk for "
+            "banks and contractors remain — meaning sanctions relief is real but partial, not a clean "
+            "reopening."
         ),
         "market_impact": (
-            "Syria's own reconstruction need is enormous after 13 years of civil war, but the "
-            "transition's fragility also carries spillover risk for neighboring Lebanon, Jordan, and "
-            "Iraq, all of which hosted large Syrian refugee populations and share long, historically "
-            "porous borders."
+            "The World Bank's October 2025 assessment put Syria's reconstruction need at roughly $216bn "
+            "(a range of $140-345bn, which the Bank itself calls a likely underestimate; Syrian officials "
+            "have cited figures as high as $600-900bn), with infrastructure alone accounting for 48% of "
+            "the roughly $108bn in direct physical damage assessed so far. Investors have moved faster "
+            "than the sanctions picture might suggest — Syria drew about $28bn in investment commitments "
+            "in 2025, including $14bn in MOUs signed at a single August 2025 Damascus ceremony, led by "
+            "Turkey ($11bn in energy/infrastructure), Saudi Arabia ($6.4bn), and the UAE ($800m for "
+            "Tartus port development) — though MOUs are non-binding and actual disbursement will take "
+            "years. For neighbors, the fiscal picture is now shifting: the World Bank estimates hosting "
+            "Syrian refugees costs Lebanon's economy roughly $1.5bn a year, but returns have accelerated "
+            "sharply since renewed Lebanon-Syria border hostilities began March 2, 2026 (464,562+ "
+            "cross-border movements by late June), and Jordan's registered Syrian refugee population has "
+            "fallen to roughly 411,760 by April 2026. That easing of the refugee-hosting burden is "
+            "genuine relief for Lebanon's and Jordan's budgets, but the 2026 regional refugee response "
+            "plan is itself operating on a $2.8bn ask — already cut 40% from 2025 — leaving those still "
+            "displaced, and the returnees rebuilding inside Syria, with materially less international "
+            "support than a year earlier."
         ),
         "sources": [
             ("Wikipedia: Fall of the Assad regime", "https://en.wikipedia.org/wiki/Fall_of_the_Assad_regime"),
             ("Belfer Center, Harvard Kennedy School", "https://www.belfercenter.org/research-analysis/external-states-and-syrias-challenge-reunification-under-transitional-president"),
             ("UK House of Commons Library: Syria one year after Assad", "https://commonslibrary.parliament.uk/research-briefings/cbp-10430/"),
+            ("World Bank: Syria's Post-Conflict Reconstruction Costs Estimated at $216 Billion", "https://www.worldbank.org/en/news/press-release/2025/10/21/syria-s-post-conflict-reconstruction-costs-estimated-at-216-billion"),
+            ("The Arab Weekly: Syria hopes for full lifting of US sanctions to push ahead with $216bn reconstruction", "https://thearabweekly.com/syria-hopes-full-lifting-us-sanctions-push-ahead-216-billion-reconstruction"),
+            ("EUAA: Syria Country Focus — Impact on Civilian Population, Returns Abroad", "https://www.euaa.europa.eu/coi/syria/2025/country-focus/45-impact-violence-civilian-population/456-returns-abroad"),
         ],
     },
     {
@@ -789,25 +815,42 @@ LIVE_CONFLICTS = [
             ("People requiring humanitarian assistance (early war)", "~25 million"),
             ("Forcibly displaced", "~12 million"),
             ("Refugees fleeing across borders", "3 million+"),
-            ("Sudanese refugees hosted by Egypt", "1 million+"),
+            ("Sudanese refugees hosted by Egypt (incl. unregistered)", "~1.2 million"),
+            ("Registered with UNHCR in Egypt, as of Jan 2025", "890,000+"),
+            ("Newly arrived Sudanese children out of school (UNICEF/World Bank)", "54%"),
+            ("Refugee families left without cash assistance after 2025 funding cuts", "~50,000 families / 164,000 people"),
         ],
         "groups": "Sudanese Armed Forces (SAF) under Abdul Fattah al-Burhan, Rapid Support Forces (RSF) under Mohamed Hamdan Dagalo",
         "affected": ["EGY"],
         "summary": (
             "Though Sudan is outside this tool's 26-country MENASA tracking scope, its civil war "
-            "(erupted Apr 15, 2023, between the Sudanese Armed Forces and the Rapid Support Forces) is "
-            "one of the world's largest displacement crises — roughly 12 million people forcibly "
-            "displaced, with over 3 million fleeing across borders. Egypt has become the primary host, "
-            "sheltering more than 1 million Sudanese refugees, a meaningful fiscal and social strain "
-            "layered on top of Egypt's own currency and Suez Canal-driven pressures."
+            "(erupted Apr 15, 2023, between the Sudanese Armed Forces and the Rapid Support Forces after "
+            "a power struggle following their joint 2021 coup) is one of the world's largest displacement "
+            "crises — roughly 12 million people forcibly displaced, with over 3 million fleeing across "
+            "borders. Egypt has become the single largest host, sheltering an estimated 1.2 million "
+            "Sudanese, of whom more than 890,000 were formally registered with UNHCR as of January 2025 "
+            "(the remainder informal). A UNICEF/World Bank socioeconomic assessment found 54% of newly "
+            "arrived Sudanese children are out of school, and UNHCR was forced to cut monthly cash "
+            "assistance in 2025, leaving roughly 50,000 vulnerable refugee families — about 164,000 "
+            "people — without reliable means to cover rent or food, pushing more of the burden onto "
+            "Egypt's already-strained public services and informal labor market."
         ),
         "market_impact": (
-            "Refugee-hosting costs and informal-labor-market strain in Egypt compound its existing "
-            "balance-of-payments fragility, even though Sudan itself isn't a scored country here."
+            "The refugee influx lands directly on top of Egypt's own currency and Suez Canal-driven "
+            "fragility rather than in isolation: absorbing over a million additional residents strains "
+            "subsidized bread, fuel, and school places at the exact moment Egypt's government is trying "
+            "to hold the line on IMF-mandated subsidy reform, and the largely informal Sudanese labor "
+            "market participation adds downward pressure on already-low wages in Egypt's informal sector. "
+            "Because international humanitarian funding for the Sudan response has been cut rather than "
+            "expanded through 2025, more of this cost is being absorbed directly by Egyptian host "
+            "communities and the state rather than offset by donor aid — a slow-burn fiscal drag layered "
+            "on top of Egypt's debt and reserves picture that shows up nowhere in a single macro indicator."
         ),
         "sources": [
             ("Wikipedia: Sudanese civil war (2023-present)", "https://en.wikipedia.org/wiki/Sudanese_civil_war_(2023%E2%80%93present)"),
             ("Wikipedia: Humanitarian impact of the Sudanese civil war", "https://en.wikipedia.org/wiki/Humanitarian_impact_of_the_Sudanese_civil_war_(2023%E2%80%93present)"),
+            ("UNHCR: Egypt Sudan Situation — Country Socioeconomic Profile, Jan 2025", "https://data.unhcr.org/en/documents/download/114065"),
+            ("Development Action Platform: Egypt — Sudan Regional Crisis", "https://developmentactionrefugees.org/country-responses/egypt"),
         ],
     },
     {
@@ -1058,6 +1101,58 @@ LIVE_CONFLICTS = [
             ("Atlantic Council: The Nile at a crossroads", "https://www.atlanticcouncil.org/blogs/menasource/the-nile-at-a-crossroads-navigating-the-gerd-dispute-as-egypts-floodwaters-rise/"),
             ("Al Jazeera: After GERD, can Egypt shape Ethiopia's next Nile dams?", "https://www.aljazeera.com/news/2026/8/21/after-gerd-can-egypt-shape-ethiopias-next-nile-dams"),
             ("Foreign Policy Research Institute: The GERD Dispute", "https://www.fpri.org/article/2025/10/the-gerd-dispute-lessons-for-water-governance-and-the-future-of-the-nile-basin/"),
+        ],
+    },
+    {
+        "name": "Western Sahara Conflict & Algeria-Morocco Rupture",
+        "status": "Low-intensity conflict since the 2020 ceasefire collapse; diplomatic track shifting toward Morocco through 2025-2026",
+        "groups": "Moroccan Royal Armed Forces, Polisario Front / Sahrawi Arab Democratic Republic government-in-exile (Algeria-backed), Algerian government",
+        "affected": ["MAR", "DZA"],
+        "stats": [
+            ("Years since the 1991 UN ceasefire collapsed", "6 (since Nov 2020)"),
+            ("Years of full Algeria-Morocco diplomatic rupture", "5 (since Aug 2021)"),
+            ("UN Security Council resolution endorsing Morocco's autonomy plan", "Resolution 2797, Oct 31, 2025"),
+            ("Countries Morocco says now back its autonomy plan (Oct 2025)", "118, incl. US, France, Spain, Germany"),
+            ("Morocco's annual Maghreb-Europe pipeline transit fees lost", "~€50m/year, plus 800m m³ of subsidized gas"),
+        ],
+        "summary": (
+            "Morocco and the Polisario Front fought an open war over Western Sahara from 1975 until a "
+            "1991 UN-brokered ceasefire, which held for nearly three decades pending a self-determination "
+            "referendum that was never held. The Polisario declared the ceasefire over in November 2020 "
+            "after Moroccan forces moved to clear a blockade at the Guerguerat border crossing, and "
+            "intermittent low-intensity exchanges — Polisario rocket and drone fire, Moroccan strikes — "
+            "have continued along Morocco's defensive sand berm since. The conflict has increasingly "
+            "moved to the diplomatic track and shifted toward Morocco: the UN Security Council's Resolution "
+            "2797 (Oct 31, 2025) endorsed Rabat's 2007 autonomy proposal as the negotiating basis rather "
+            "than an independence referendum, the EU aligned behind that position in January 2026, and "
+            "previously secret Madrid talks in February 2026 brought Morocco, the Polisario, Algeria, "
+            "and mediators together for the first time in years. Algeria and the Polisario continue to "
+            "reject any outcome short of a full referendum, and Algeria — which hosts the Polisario's "
+            "government-in-exile and the Sahrawi refugee camps near Tindouf — has made this the central "
+            "issue in its own foreign policy."
+        ),
+        "market_impact": (
+            "The dispute triggered a full Algeria-Morocco diplomatic rupture in August 2021, when Algiers "
+            "cut ties, closed its airspace and land border to Morocco, and ordered state energy firm "
+            "Sonatrach to stop supplying gas through the Maghreb-Europe Pipeline (GME), which had carried "
+            "Algerian gas across Morocco to Spain since 1996. That single decision cost Morocco roughly "
+            "€50m a year in transit fees plus 800 million cubic meters of gas it had received at a "
+            "discounted, stable price for its own power stations, forcing Rabat to lean more heavily on "
+            "LNG imports and a separate Spain-Morocco gas arrangement. The rupture has stayed diplomatic "
+            "and economic rather than reigniting open war, but it has hardened North Africa's two largest "
+            "economies into rival blocs — closing off intra-Maghreb trade and investment integration that "
+            "would otherwise be a natural growth lever for both, and phosphate exports from the "
+            "Western Sahara territory itself (mined by Morocco's state operator OCP) remain a recurring "
+            "target of activist-led boycotts and legal challenges from firms sourcing it, given the "
+            "territory's disputed status."
+        ),
+        "sources": [
+            ("Human Rights Watch: World Report 2026 — Morocco and Western Sahara", "https://www.hrw.org/world-report/2026/country-chapters/morocco-and-western-sahara"),
+            ("International Crisis Group: Western Sahara", "https://www.crisisgroup.org/middle-east-north-africa/north-africa/western-sahara"),
+            ("Council on Foreign Relations: Morocco's Victory on the Western Sahara", "https://www.cfr.org/articles/moroccos-victory-western-sahara"),
+            ("Atalayar: Polisario Front and Algeria reject US resolution on Western Sahara", "https://www.atalayar.com/en/articulo/politics/polisario-front-and-algeria-reject-us-resolution-on-western-sahara/20251027160000219827.html"),
+            ("The New Arab: Why Algeria's gas pipeline closure will prove costly for all", "https://www.newarab.com/analysis/why-algerias-gas-pipeline-closure-will-prove-costly-all"),
+            ("VOA: Diplomatic Dispute Between Algeria and Morocco Prompts Energy Crisis in Spain", "https://www.voanews.com/a/diplomatic-dispute-between-algeria-and-morocco-prompts-energy-crisis-in-spain/6298213.html"),
         ],
     },
 ]

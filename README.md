@@ -28,14 +28,15 @@ useful as a genuine research reference, not just a scorecard.
     summaries for all 26 countries
   - FDI and exports/imports trade-context charts
   - Primary stock exchange reference
-- **Live Conflicts** — 12 major current MENASA flashpoints (the 2026
+- **Live Conflicts** — 13 major current MENASA flashpoints (the 2026
   Iran-Israel-US war, the Red Sea/Houthi-Saudi blockade, the Gaza ceasefire,
   the Israel-Hezbollah/Lebanon front, Syria's post-Assad transition, Sudan's
   spillover, Libya's rival-government standoff, the 2026 Pakistan-Afghanistan
   war, the 2025 India-Pakistan Kashmir crisis, the Balochistan/CPEC
-  insurgency, Iran-aligned militia attacks on US forces in Iraq, and the
-  Egypt-Ethiopia Nile dam dispute) — each with the armed/political groups
-  involved, affected countries, a sourced summary, and market/trade impact
+  insurgency, Iran-aligned militia attacks on US forces in Iraq, the
+  Egypt-Ethiopia Nile dam dispute, and the Western Sahara/Algeria-Morocco
+  rupture) — each with the armed/political groups involved, affected
+  countries, a sourced summary, and market/trade impact
 - **Scenario Explorer** — live sliders to reweight all 10 factors and watch
   the ranking recompute in real time
 - **Methodology & Data** — full transparency on weights, normalization,
