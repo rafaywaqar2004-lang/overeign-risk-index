@@ -3,8 +3,265 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="🌍", layout="wide")
+st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
 
+# ============================================================
+# DESIGN SYSTEM — "Analyst Terminal": dark, data-dense, monospace
+# numerals, cyan accent. Deliberately distinct from the portfolio's
+# editorial navy/gold/serif identity — this is a standalone product.
+# ============================================================
+BG = "#0a0e14"
+SURFACE = "#111826"
+SURFACE_ALT = "#161d2c"
+BORDER = "rgba(148,163,184,0.14)"
+ACCENT = "#22d3ee"
+ACCENT_DIM = "rgba(34,211,238,0.10)"
+TEXT = "#e6edf3"
+TEXT_MUTED = "#7d8aa0"
+TIER_COLORS = {
+    "Lower Risk": "#34d399",
+    "Moderate Risk": "#fbbf24",
+    "Higher Risk": "#f87171",
+    "Insufficient data": "#64748b",
+}
+
+st.markdown(f"""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+    html, body, [class*="css"] {{
+        font-family: 'Inter', -apple-system, sans-serif;
+    }}
+
+    h1, h2, h3 {{ font-family: 'Inter', sans-serif !important; }}
+
+    /* ---- masthead ---- */
+    .tag-label {{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: {ACCENT};
+        margin-bottom: 0.7rem;
+    }}
+    .masthead-title {{
+        font-family: 'Inter', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: {TEXT};
+        line-height: 1.1;
+        margin: 0 0 0.7rem 0;
+        letter-spacing: -0.02em;
+    }}
+    .masthead-title span {{ color: {ACCENT}; }}
+    .masthead-sub {{
+        font-size: 0.96rem;
+        color: {TEXT_MUTED};
+        max-width: 660px;
+        line-height: 1.6;
+        margin-bottom: 1.4rem;
+    }}
+    .section-tag {{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.66rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: {ACCENT};
+        margin-bottom: 0.35rem;
+    }}
+    .section-tag::before {{ content: "// "; opacity: 0.6; }}
+    .section-title {{
+        font-family: 'Inter', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: {TEXT};
+        margin-bottom: 1rem;
+        letter-spacing: -0.01em;
+    }}
+
+    /* ---- stat cards ---- */
+    .stat-card {{
+        background: {SURFACE};
+        border: 1px solid {BORDER};
+        border-left: 2px solid {ACCENT};
+        border-radius: 2px;
+        padding: 1rem 1.25rem;
+        height: 100%;
+    }}
+    .stat-label {{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.62rem;
+        font-weight: 500;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: {TEXT_MUTED};
+        margin-bottom: 0.5rem;
+    }}
+    .stat-value {{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.65rem;
+        font-weight: 700;
+        color: {TEXT};
+        line-height: 1.1;
+    }}
+    .stat-sub {{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.76rem;
+        color: {ACCENT};
+        margin-top: 0.4rem;
+    }}
+
+    /* ---- narrative callout ---- */
+    .narrative-box {{
+        background: {ACCENT_DIM};
+        border-left: 2px solid {ACCENT};
+        padding: 1rem 1.3rem;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        color: {TEXT};
+        border-radius: 0 2px 2px 0;
+    }}
+    .narrative-box b {{ color: {ACCENT}; font-weight: 600; }}
+
+    /* ---- risk tier badge ---- */
+    .tier-badge {{
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.28rem 0.65rem;
+        border-radius: 2px;
+        margin-top: 0.4rem;
+    }}
+
+    /* ---- custom html table ---- */
+    .custom-table {{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }}
+    .custom-table th {{
+        text-align: left;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.64rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: {ACCENT};
+        border-bottom: 1px solid {BORDER};
+        padding: 0.6rem 0.8rem;
+    }}
+    .custom-table td {{
+        padding: 0.6rem 0.8rem;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        color: {TEXT};
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.82rem;
+    }}
+    .custom-table tr:last-child td {{ border-bottom: none; }}
+    .custom-table tr:hover td {{ background: rgba(34,211,238,0.04); }}
+
+    /* ---- pill link buttons ---- */
+    .pill-link {{
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: {BG} !important;
+        background: {ACCENT};
+        padding: 0.55rem 1.1rem;
+        border-radius: 2px;
+        text-decoration: none !important;
+        margin-right: 0.75rem;
+        margin-bottom: 0.5rem;
+    }}
+
+    /* ---- streamlit widget overrides ---- */
+    [data-testid="stTabs"] button[role="tab"] {{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.76rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+    }}
+    [data-testid="stAlert"] {{
+        background: {ACCENT_DIM} !important;
+        border-left: 2px solid {ACCENT} !important;
+        border-radius: 0 2px 2px 0 !important;
+    }}
+    [data-testid="stVerticalBlockBorderWrapper"] {{
+        border-color: {BORDER} !important;
+        border-radius: 2px !important;
+    }}
+    hr {{ border-color: {BORDER} !important; }}
+    footer {{ visibility: hidden; }}
+
+    .site-footer {{
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid {BORDER};
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        color: {TEXT_MUTED};
+    }}
+    .site-footer a {{ color: {ACCENT}; text-decoration: none; }}
+</style>
+""", unsafe_allow_html=True)
+
+
+def tier_badge_html(tier):
+    colors = {
+        "Lower Risk": ("rgba(52,211,153,0.14)", "#34d399"),
+        "Moderate Risk": ("rgba(251,191,36,0.14)", "#fbbf24"),
+        "Higher Risk": ("rgba(248,113,113,0.14)", "#f87171"),
+        "Insufficient data": ("rgba(100,116,139,0.14)", "#94a3b8"),
+    }
+    bg, fg = colors.get(tier, colors["Insufficient data"])
+    return f'<span class="tier-badge" style="background:{bg};color:{fg};">{tier}</span>'
+
+
+def stat_card(label, value, sub=None):
+    sub_html = f'<div class="stat-sub">{sub}</div>' if sub else ""
+    st.markdown(
+        f'<div class="stat-card"><div class="stat-label">{label}</div>'
+        f'<div class="stat-value">{value}</div>{sub_html}</div>',
+        unsafe_allow_html=True,
+    )
+
+
+def custom_table(rows, headers):
+    html = '<table class="custom-table"><thead><tr>'
+    html += "".join(f"<th>{h}</th>" for h in headers)
+    html += "</tr></thead><tbody>"
+    for row in rows:
+        html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
+    html += "</tbody></table>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def style_chart(fig, height=420):
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="JetBrains Mono, monospace", color=TEXT, size=12),
+        height=height,
+        margin=dict(t=30, b=30, l=10, r=10),
+        legend=dict(bgcolor="rgba(0,0,0,0)"),
+        hoverlabel=dict(bgcolor=SURFACE_ALT, font_color=TEXT, bordercolor=ACCENT),
+    )
+    fig.update_xaxes(gridcolor="rgba(148,163,184,0.10)", zerolinecolor="rgba(148,163,184,0.16)")
+    fig.update_yaxes(gridcolor="rgba(148,163,184,0.10)", zerolinecolor="rgba(148,163,184,0.16)")
+    return fig
+
+
+# ============================================================
+# DATA
+# ============================================================
 scored = pd.read_csv("scored_data.csv")
 history = pd.read_csv("scored_history.csv")
 drivers = pd.read_csv("driver_data.csv")
@@ -30,99 +287,124 @@ RAW_LABELS = {
     "government_effectiveness": ("Govt. Effectiveness", "WGI estimate, -2.5 to +2.5"),
 }
 
-tier_colors = {
-    "Lower Risk": "#2e7d32",
-    "Moderate Risk": "#c9a227",
-    "Higher Risk": "#b3261e",
-    "Insufficient data": "#9e9e9e",
-}
-
-st.title("Sovereign Risk Scorecard")
-st.caption(
-    "MENA & South Asia · 15 economies · 7-factor composite across economic and "
-    "governance pillars · Built on public IMF/World Bank data"
+# ============================================================
+# MASTHEAD
+# ============================================================
+st.markdown('<div class="tag-label">SOVEREIGN-RISK/v2 · MENA &amp; SOUTH ASIA</div>', unsafe_allow_html=True)
+st.markdown('<div class="masthead-title">Sovereign Risk <span>Scorecard</span></div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="masthead-sub">A composite risk score for 15 MENA &amp; South Asia economies, '
+    'built on live IMF/World Bank data across 7 factors spanning economic and governance pillars.</div>',
+    unsafe_allow_html=True,
 )
 
-# ---------------- TOP-LINE METRICS ----------------
+# ============================================================
+# TOP-LINE STAT ROW
+# ============================================================
 valid_scores = scored.dropna(subset=["risk_score"])
-m1, m2, m3, m4 = st.columns(4)
-m1.metric("Countries Covered", len(scored))
-m2.metric("Highest Risk", f"{valid_scores.iloc[0]['country']}", f"{valid_scores.iloc[0]['risk_score']:.1f}")
+highest = valid_scores.iloc[0]
 lowest = valid_scores.sort_values("risk_score").iloc[0]
-m3.metric("Lowest Risk", f"{lowest['country']}", f"{lowest['risk_score']:.1f}")
-m4.metric("Regional Average", f"{valid_scores['risk_score'].mean():.1f}")
 
-tab1, tab2, tab3 = st.tabs(["📊 Regional Overview", "🔎 Country Deep Dive", "📋 Methodology & Data"])
+c1, c2, c3, c4 = st.columns(4)
+with c1:
+    stat_card("Countries Covered", len(scored), "MENA + South Asia")
+with c2:
+    stat_card("Highest Risk", highest["country"], f"Score {highest['risk_score']:.1f}")
+with c3:
+    stat_card("Lowest Risk", lowest["country"], f"Score {lowest['risk_score']:.1f}")
+with c4:
+    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 15")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+tab1, tab2, tab3 = st.tabs(["REGIONAL_OVERVIEW", "COUNTRY_DEEP_DIVE", "METHODOLOGY"])
 
 # ================= TAB 1: OVERVIEW =================
 with tab1:
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.subheader("Risk Ranking")
+        st.markdown('<div class="section-tag">RANKED_ALL_15</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Risk Ranking</div>', unsafe_allow_html=True)
         chart_df = scored.dropna(subset=["risk_score"]).sort_values("risk_score", ascending=True)
         fig = px.bar(
             chart_df, x="risk_score", y="country", orientation="h",
-            color="risk_tier", color_discrete_map=tier_colors, text="risk_score",
+            color="risk_tier", color_discrete_map=TIER_COLORS, text="risk_score",
             labels={"risk_score": "Risk Score (0-100)", "country": ""},
         )
         fig.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-        fig.update_layout(height=560, showlegend=True, legend_title_text="")
-        st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(showlegend=True, legend_title_text="")
+        st.plotly_chart(style_chart(fig, height=560), use_container_width=True)
 
     with col2:
-        st.subheader("Legend")
-        st.markdown("🟢 **Lower Risk** — score < 33")
-        st.markdown("🟡 **Moderate Risk** — score 33-66")
-        st.markdown("🔴 **Higher Risk** — score > 66")
-        st.markdown("⚪ **Insufficient data** — fewer than 2 of 7 factors available")
-        st.divider()
-        st.subheader("Regional Snapshot")
-        gulf = scored[scored["country_code"].isin(["SAU", "ARE", "KWT", "QAT"])]["risk_score"].mean()
-        south_asia = scored[scored["country_code"].isin(["PAK", "BGD", "LKA"])]["risk_score"].mean()
-        levant = scored[scored["country_code"].isin(["JOR", "LBN", "IRQ"])]["risk_score"].mean()
-        st.markdown(f"**Gulf states avg:** {gulf:.1f}")
-        st.markdown(f"**South Asia avg:** {south_asia:.1f}")
-        st.markdown(f"**Levant avg:** {levant:.1f}")
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">LEGEND</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Reading the Scores</div>', unsafe_allow_html=True)
+            st.markdown(tier_badge_html("Lower Risk") + " score &lt; 33", unsafe_allow_html=True)
+            st.markdown("<br>" + tier_badge_html("Moderate Risk") + " score 33–66", unsafe_allow_html=True)
+            st.markdown("<br>" + tier_badge_html("Higher Risk") + " score &gt; 66", unsafe_allow_html=True)
+            st.markdown("<br>" + tier_badge_html("Insufficient data") + " &lt; 2 of 7 factors", unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">BY_SUBREGION</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Regional Snapshot</div>', unsafe_allow_html=True)
+            gulf = scored[scored["country_code"].isin(["SAU", "ARE", "KWT", "QAT"])]["risk_score"].mean()
+            south_asia = scored[scored["country_code"].isin(["PAK", "BGD", "LKA"])]["risk_score"].mean()
+            levant = scored[scored["country_code"].isin(["JOR", "LBN", "IRQ"])]["risk_score"].mean()
+            custom_table(
+                [["Gulf States", f"{gulf:.1f}"], ["South Asia", f"{south_asia:.1f}"], ["Levant", f"{levant:.1f}"]],
+                ["Sub-Region", "Avg. Score"],
+            )
+
+        st.markdown("<br>", unsafe_allow_html=True)
         st.info(
-            "Iran's score is based on only 4 of 7 factors — debt, current account, "
-            "and reserves data are not consistently reported to the World Bank, "
-            "likely due to sanctions. Treat that score as lower-confidence.",
+            "Iran's score is based on only 4 of 7 factors — debt, current account, and reserves "
+            "data are not consistently reported to the World Bank, likely due to sanctions. "
+            "Treat that score as lower-confidence.",
             icon="⚠️",
         )
 
-    st.divider()
-    st.subheader("Historical Trend (2015-2024)")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">2015_2024</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Historical Trend</div>', unsafe_allow_html=True)
     trend_countries = st.multiselect(
         "Compare countries over time",
         options=sorted(scored["country"].tolist()),
         default=["Pakistan", "Lebanon", "UAE", "Egypt"],
+        label_visibility="collapsed",
     )
     if trend_countries:
         trend_df = history[history["country"].isin(trend_countries)]
         fig2 = px.line(
             trend_df.sort_values("year"), x="year", y="risk_score", color="country",
             markers=True, labels={"risk_score": "Risk Score", "year": "Year"},
+            color_discrete_sequence=[ACCENT, "#f87171", "#fbbf24", "#34d399", "#a78bfa", "#fb923c"],
         )
-        fig2.update_layout(height=420)
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(style_chart(fig2), use_container_width=True)
     else:
         st.caption("Select at least one country to see its risk trend over time.")
 
 # ================= TAB 2: COUNTRY DEEP DIVE =================
 with tab2:
     country_list = scored.sort_values("country")["country"].tolist()
-    selected = st.selectbox("Select a country", country_list)
+    selected = st.selectbox("Select a country", country_list, label_visibility="collapsed")
 
     row = scored[scored["country"] == selected].iloc[0]
     driver_row = drivers[drivers["country"] == selected].iloc[0]
 
     c1, c2 = st.columns([1, 2])
     with c1:
-        st.metric("Composite Risk Score", f"{row['risk_score']:.1f}" if pd.notna(row["risk_score"]) else "N/A", row["risk_tier"])
-        st.caption(f"Based on {int(row['risk_score_factors_used'])} of 7 factors")
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">COMPOSITE_SCORE</div>', unsafe_allow_html=True)
+            score_display = f"{row['risk_score']:.1f}" if pd.notna(row["risk_score"]) else "N/A"
+            st.markdown(f'<div class="stat-value" style="font-size:2.1rem;">{score_display}</div>', unsafe_allow_html=True)
+            st.markdown(tier_badge_html(row["risk_tier"]), unsafe_allow_html=True)
+            st.caption(f"Based on {int(row['risk_score_factors_used'])} of 7 factors")
 
-        # ---- Narrative generation ----
+        st.markdown("<br>", unsafe_allow_html=True)
+
         factor_scores = {f: driver_row[f] for f in FACTOR_COLS if pd.notna(driver_row[f])}
         if factor_scores:
             sorted_factors = sorted(factor_scores.items(), key=lambda x: x[1], reverse=True)
@@ -131,12 +413,14 @@ with tab2:
             risk_names = " and ".join(FACTOR_LABELS[f] for f, v in top_risks)
             strength_name = FACTOR_LABELS[top_strength[0]]
             st.markdown(
-                f"**Key drivers:** {selected}'s risk profile is driven primarily by "
-                f"**{risk_names}**, while **{strength_name}** is a relative strength."
+                f'<div class="narrative-box"><b>KEY_DRIVERS</b><br>{selected}\'s risk profile is driven '
+                f'primarily by <b>{risk_names}</b>, while <b>{strength_name}</b> is a relative strength.</div>',
+                unsafe_allow_html=True,
             )
 
     with c2:
-        st.subheader("Risk Factor Breakdown")
+        st.markdown('<div class="section-tag">ALL_7_FACTORS</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Risk Factor Breakdown</div>', unsafe_allow_html=True)
         radar_factors = [f for f in FACTOR_COLS if pd.notna(driver_row[f])]
         radar_values = [driver_row[f] for f in radar_factors]
         radar_labels = [FACTOR_LABELS[f] for f in radar_factors]
@@ -146,90 +430,105 @@ with tab2:
             fig3.add_trace(go.Scatterpolar(
                 r=radar_values + [radar_values[0]],
                 theta=radar_labels + [radar_labels[0]],
-                fill="toself", fillcolor="rgba(201,168,76,0.25)",
-                line=dict(color="#c9a84c"),
+                fill="toself", fillcolor="rgba(34,211,238,0.18)",
+                line=dict(color=ACCENT, width=2),
             ))
             fig3.update_layout(
-                polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
-                showlegend=False, height=400,
+                polar=dict(
+                    bgcolor="rgba(0,0,0,0)",
+                    radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(148,163,184,0.12)", color=TEXT_MUTED),
+                    angularaxis=dict(gridcolor="rgba(148,163,184,0.12)", color=TEXT),
+                ),
+                showlegend=False,
             )
-            st.plotly_chart(fig3, use_container_width=True)
+            st.plotly_chart(style_chart(fig3, height=380), use_container_width=True)
         else:
             st.caption("No factor data available for radar chart.")
 
-    st.divider()
-    st.subheader(f"{selected}: Risk Score Over Time")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(f'<div class="section-tag">2015_2024</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-title">{selected}: Risk Score Over Time</div>', unsafe_allow_html=True)
     country_history = history[history["country"] == selected].sort_values("year")
     if not country_history.empty:
         fig4 = px.line(country_history, x="year", y="risk_score", markers=True)
-        fig4.update_traces(line_color="#c9a84c")
-        fig4.update_layout(height=320)
-        st.plotly_chart(fig4, use_container_width=True)
+        fig4.update_traces(line_color=ACCENT, marker=dict(color=ACCENT, size=7))
+        st.plotly_chart(style_chart(fig4, height=320), use_container_width=True)
     else:
         st.caption("Not enough historical data for a trend line.")
 
-    st.divider()
-    st.subheader("Underlying Raw Indicators")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">RAW_VALUES</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Underlying Indicators</div>', unsafe_allow_html=True)
     raw_rows = []
     for factor, (label, unit) in RAW_LABELS.items():
         value = row.get(factor)
         year = row.get(f"{factor}_year")
-        raw_rows.append({
-            "Indicator": label,
-            "Value": f"{value:.2f}" if pd.notna(value) else "No data",
-            "Unit": unit,
-            "As of": int(year) if pd.notna(year) else "—",
-        })
-    st.dataframe(pd.DataFrame(raw_rows), use_container_width=True, hide_index=True)
+        raw_rows.append([
+            label,
+            f"{value:.2f}" if pd.notna(value) else "No data",
+            unit,
+            int(year) if pd.notna(year) else "—",
+        ])
+    custom_table(raw_rows, ["Indicator", "Value", "Unit", "As Of"])
 
 # ================= TAB 3: METHODOLOGY =================
 with tab3:
-    st.subheader("Methodology")
+    st.markdown('<div class="section-tag">HOW_ITS_BUILT</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Methodology</div>', unsafe_allow_html=True)
     st.markdown(
-        """
-Each country is scored **0-100** (100 = highest risk) on a weighted composite
-of 7 factors across two pillars:
-"""
+        "Each country is scored **0–100** (100 = highest risk) on a weighted composite "
+        "of 7 factors across two pillars:"
     )
-    weights_table = pd.DataFrame([
-        {"Factor": "Debt (% of GDP)", "Pillar": "Economic", "Weight": "20%", "Source": "World Bank WDI"},
-        {"Factor": "Current Account (% of GDP)", "Pillar": "Economic", "Weight": "15%", "Source": "World Bank WDI"},
-        {"Factor": "Reserves (months of imports)", "Pillar": "Economic", "Weight": "15%", "Source": "World Bank WDI"},
-        {"Factor": "GDP Growth", "Pillar": "Economic", "Weight": "10%", "Source": "World Bank WDI"},
-        {"Factor": "Inflation", "Pillar": "Economic", "Weight": "10%", "Source": "World Bank WDI"},
-        {"Factor": "Political Stability", "Pillar": "Governance", "Weight": "20%", "Source": "World Bank WGI"},
-        {"Factor": "Government Effectiveness", "Pillar": "Governance", "Weight": "10%", "Source": "World Bank WGI"},
-    ])
-    st.dataframe(weights_table, use_container_width=True, hide_index=True)
-
+    custom_table(
+        [
+            ["Debt (% of GDP)", "Economic", "20%", "World Bank WDI"],
+            ["Current Account (% of GDP)", "Economic", "15%", "World Bank WDI"],
+            ["Reserves (months of imports)", "Economic", "15%", "World Bank WDI"],
+            ["GDP Growth", "Economic", "10%", "World Bank WDI"],
+            ["Inflation", "Economic", "10%", "World Bank WDI"],
+            ["Political Stability", "Governance", "20%", "World Bank WGI"],
+            ["Government Effectiveness", "Governance", "10%", "World Bank WGI"],
+        ],
+        ["Factor", "Pillar", "Weight", "Source"],
+    )
     st.markdown(
-        """
-Each factor is **min-max normalized to 0-100** relative to the other countries
-in the sample (for that same year, when building the historical trend). If a
-country is missing a factor, that factor is dropped for that country and the
-remaining weights are **rescaled proportionally** — missing data is never
-silently treated as "safe."
-"""
+        "Each factor is **min-max normalized to 0–100** relative to the other countries "
+        "in the sample. If a country is missing a factor, that factor is dropped and the "
+        "remaining weights are **rescaled proportionally** — missing data is never silently "
+        "treated as \"safe.\""
     )
 
-    st.subheader("Known Limitations (v2)")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">V2</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Known Limitations</div>', unsafe_allow_html=True)
     st.markdown(
         """
-- **Debt-to-GDP coverage is sparse** for Gulf states and Iran in the World
-  Bank's WDI dataset — only 6 of 15 countries report it consistently. A v3
-  improvement would pull IMF World Economic Outlook debt data as a fallback
-  source for fuller coverage.
-- **Iran's score is lower-confidence** — only 4 of 7 factors are available,
-  likely due to sanctions limiting what fiscal data gets reported.
-- Weights are a transparent, reasonable starting point — not a backtested or
-  econometrically validated model. Treat this as a research/screening tool,
-  not investment advice.
+- **Debt-to-GDP coverage is sparse** for Gulf states and Iran — only 6 of 15 countries report
+  it consistently to the World Bank. A v3 improvement would add IMF World Economic Outlook
+  debt data as a fallback source.
+- **Iran's score is lower-confidence** — only 4 of 7 factors are available, likely due to
+  sanctions limiting fiscal data reporting.
+- Weights are a transparent, reasonable starting point — not a backtested or econometrically
+  validated model. Research/screening tool, not investment advice.
 """
     )
 
-    st.subheader("Data & Code")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">SOURCES</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Data &amp; Code</div>', unsafe_allow_html=True)
     st.markdown(
-        "- Data: [World Bank World Development Indicators & Worldwide Governance Indicators](https://data.worldbank.org/)\n"
-        "- Source code: [GitHub](https://github.com/rafaywaqar2004-lang/overeign-risk-index)\n"
-        "- Not investment advice."
+        '<a class="pill-link" href="https://data.worldbank.org/" target="_blank">World Bank Data ↗</a>'
+        '<a class="pill-link" href="https://github.com/rafaywaqar2004-lang/overeign-risk-index" target="_blank">GitHub Repo ↗</a>',
+        unsafe_allow_html=True,
     )
+
+# ============================================================
+# FOOTER
+# ============================================================
+st.markdown(
+    '<div class="site-footer">BUILT_BY: Muhammad Rafay Waqar &nbsp;·&nbsp; '
+    '<a href="https://rafaywaqar2004-lang.github.io/rafaywaqar-portfolio/" target="_blank">portfolio</a> &nbsp;·&nbsp; '
+    '<a href="https://github.com/rafaywaqar2004-lang/overeign-risk-index" target="_blank">source</a> &nbsp;·&nbsp; '
+    "not investment advice.</div>",
+    unsafe_allow_html=True,
+)
