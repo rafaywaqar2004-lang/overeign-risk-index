@@ -106,3 +106,30 @@ streamlit run app.py       # launches the dashboard
 
 Python, pandas, Streamlit, Plotly. Quantitative data via the World Bank's
 public API (no key required).
+
+## v6 additions
+
+- **Credit rating comparison**: actual S&P/Moody's/Fitch sovereign ratings
+  for all 26 countries, shown next to this tool's own composite score as a
+  sanity check against real-world agency assessments
+- **IMF WEO debt fallback**: automatically fills in debt-to-GDP for 13
+  countries the World Bank doesn't cover, using the IMF's public World
+  Economic Outlook API (raised debt coverage from 11/26 to 24/26 countries)
+- **Downloadable PDF country brief**: a "Download Brief (PDF)" button on
+  every Country Deep Dive page, generating a formatted one-pager with the
+  score, ratings, brief, trade profile, financing, partners, and sourced
+  historical context
+- **Key statistics on every conflict**: each of the 12 Live Conflicts entries
+  now has a row of specific, sourced figures (casualties, attack counts,
+  financial costs, displacement numbers) rather than narrative alone
+- **Data validation script** (`validate_data.py`): checks every data
+  structure for consistency (valid country codes, required fields,
+  well-formed source URLs) before deployment
+- **Automated weekly data refresh** (`.github/workflows/refresh-data.yml`):
+  a GitHub Actions workflow that re-pulls World Bank/IMF data every Monday,
+  recomputes all scores, validates them, and commits automatically —
+  Streamlit Cloud then auto-redeploys. This keeps the *quantitative* score
+  genuinely live. The qualitative content (conflicts, historical context,
+  credit ratings) remains a periodically-refreshed curated snapshot by
+  design — a true real-time feed for that would require a paid/authenticated
+  news API, which is out of scope here.

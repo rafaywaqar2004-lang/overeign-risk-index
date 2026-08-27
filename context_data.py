@@ -643,6 +643,12 @@ LIVE_CONFLICTS = [
     {
         "name": "2026 Iran-Israel-US War",
         "status": "Active / unresolved",
+        "stats": [
+            ("Strikes in Operation Epic Fury", "~900 in 12 hours (Feb 28, 2026)"),
+            ("School strike casualties", "~170 killed, Minab"),
+            ("Duration of active operations", "Feb 28 - May 5, 2026"),
+            ("US military aid to Israel since Oct 2023", "$16.3bn+"),
+        ],
         "groups": "Israel Defense Forces, United States military, Islamic Revolutionary Guard Corps (IRGC), Iran's Assembly of Experts (Khamenei succession)",
         "affected": ["IRN", "ISR", "SAU", "QAT", "ARE", "KWT", "BHR", "OMN", "IRQ"],
         "summary": (
@@ -680,6 +686,12 @@ LIVE_CONFLICTS = [
     {
         "name": "Red Sea Shipping Crisis & Houthi-Saudi Blockade",
         "status": "Active, re-escalating",
+        "stats": [
+            ("Egypt's Suez Canal revenue, 2023 vs 2024", "$10.3bn → $4bn (-61%)"),
+            ("Estimated 2024 revenue loss", "~$7bn"),
+            ("Ships transiting Suez, 2023 vs 2024", "26,000+ → 13,213 (-50%)"),
+            ("Houthi attacks on shipping by Oct 2024", "190+"),
+        ],
         "groups": "Houthi movement / Ansar Allah (Iran-aligned), Saudi-led coalition, Egyptian Suez Canal Authority",
         "affected": ["YEM", "EGY", "SAU", "ARE", "QAT", "ISR"],
         "summary": (
@@ -709,6 +721,13 @@ LIVE_CONFLICTS = [
     {
         "name": "Gaza War Aftermath & Fragile Ceasefire",
         "status": "Ceasefire holding but repeatedly violated",
+        "stats": [
+            ("War duration before ceasefire", "~2 years (Oct 2023 - Oct 2025)"),
+            ("Ceasefire violations documented, 6 months in", "2,000+"),
+            ("Palestinian deaths over the war", "72,000+"),
+            ("Israel's Q4 2023 GDP contraction (annualized)", "-19.4%"),
+            ("Bank of Israel est. total war cost, 2023-2025", "~$55.6bn"),
+        ],
         "groups": "Hamas, Israel Defense Forces, US-brokered mediation team",
         "affected": ["ISR", "EGY", "JOR", "LBN"],
         "summary": (
@@ -736,6 +755,11 @@ LIVE_CONFLICTS = [
     {
         "name": "Syria's Post-Assad Transition",
         "status": "Fragile, ongoing",
+        "stats": [
+            ("Civil war duration before Assad's fall", "13 years (2011-2024)"),
+            ("Rebel offensive to capture Damascus", "~11 days"),
+            ("Transition timeline set by interim constitution", "5 years to elections"),
+        ],
         "groups": "Hay'at Tahrir al-Sham (HTS) / transitional government under Ahmed al-Sharaa, remnant Assad-era militias, Kurdish SDF",
         "affected": ["SYR", "LBN", "JOR", "IRQ"],
         "summary": (
@@ -761,6 +785,12 @@ LIVE_CONFLICTS = [
     {
         "name": "Sudan Civil War (regional spillover)",
         "status": "Active — not a tracked country, but a major regional shock",
+        "stats": [
+            ("People requiring humanitarian assistance (early war)", "~25 million"),
+            ("Forcibly displaced", "~12 million"),
+            ("Refugees fleeing across borders", "3 million+"),
+            ("Sudanese refugees hosted by Egypt", "1 million+"),
+        ],
         "groups": "Sudanese Armed Forces (SAF) under Abdul Fattah al-Burhan, Rapid Support Forces (RSF) under Mohamed Hamdan Dagalo",
         "affected": ["EGY"],
         "summary": (
@@ -783,6 +813,12 @@ LIVE_CONFLICTS = [
     {
         "name": "Israel-Hezbollah War & Lebanon Front",
         "status": "Ceasefire re-established Apr 2026, fragile",
+        "stats": [
+            ("Killed in Lebanon by mid-April 2026", "2,000+"),
+            ("Displaced in Lebanon", "1 million+"),
+            ("First ceasefire withdrawal window", "60 days (from Nov 27, 2024)"),
+            ("Time between ceasefires", "~1 year, 5 months"),
+        ],
         "groups": "Hezbollah (Iran-aligned), Israel Defense Forces, Lebanese Armed Forces, US/French mediators",
         "affected": ["LBN", "ISR"],
         "summary": (
@@ -813,6 +849,12 @@ LIVE_CONFLICTS = [
     {
         "name": "Libya's Rival Governments Standoff",
         "status": "Frozen stalemate, no resolution in sight",
+        "stats": [
+            ("2011 real GDP decline (civil war year)", "-62%"),
+            ("Oil exports, 2012 vs 2014", "1.3 million b/d → 375,000 b/d"),
+            ("Oil production during worst 2011 fighting", "as low as 22,000 b/d"),
+            ("Years the political split has persisted", "12+ (since 2014)"),
+        ],
         "groups": "Government of National Unity (GNU, Tripoli, PM Abdul Hamid Dbeibah), Government of National Stability (GNS, east, PM Osama Hamad), Libyan National Army (LNA, Gen. Khalifa Haftar), House of Representatives (HoR)",
         "affected": ["LBY"],
         "summary": (
@@ -841,6 +883,12 @@ LIVE_CONFLICTS = [
     {
         "name": "2026 Pakistan-Afghanistan War",
         "status": "Active, following Feb 2026 escalation",
+        "stats": [
+            ("Pakistani soldiers killed, Oct 2025 clash", "23+"),
+            ("Afghan soldiers killed, Oct 2025 clash", "9+"),
+            ("Cross-border offensive date", "Feb 26, 2026"),
+            ("Pakistani counter-strike date", "Feb 27, 2026 (Kabul, Kandahar)"),
+        ],
         "groups": "Tehreek-e-Taliban Pakistan (TTP), Islamic State — Khorasan Province (ISIS-K), Afghan Taliban government forces, Pakistani military",
         "affected": ["PAK", "AFG"],
         "summary": (
@@ -871,6 +919,12 @@ LIVE_CONFLICTS = [
     {
         "name": "India-Pakistan Kashmir Crisis",
         "status": "Ceasefire since May 2025, relations still frozen",
+        "stats": [
+            ("Killed in Pahalgam attack (trigger)", "26"),
+            ("Civilians killed in Pakistani retaliation, Poonch", "16"),
+            ("Time from attack to ceasefire", "18 days (Apr 22 - May 10, 2025)"),
+            ("Most serious confrontation since", "1971 war"),
+        ],
         "groups": "Indian Armed Forces, Pakistani Armed Forces, Kashmir-based militant groups",
         "affected": ["IND", "PAK"],
         "summary": (
@@ -899,19 +953,28 @@ LIVE_CONFLICTS = [
     {
         "name": "Balochistan Insurgency & CPEC Attacks",
         "status": "Sharply escalating through 2025-2026",
+        "stats": [
+            ("Violent incidents, Jan-Jul 2026", "765 (1,600 fatalities)"),
+            ("BLA attacks in 2026 (CRSS count)", "181 (708 casualties)"),
+            ("Militants killed in 2026 counter-ops", "216 (plus 22 security, 36 civilians)"),
+            ("July 4-8, 2026 coordinated assault toll", "42 killed (38 security, 4 civilians)"),
+            ("2025 full-year attack count (for comparison)", "254 (+26% vs 2024)"),
+            ("Jaffar Express hostages taken, Mar 11, 2025", "400+ (26+ killed)"),
+        ],
         "groups": "Balochistan Liberation Army (BLA) and its Jeeyand faction (BLA-J), Pakistani military and paramilitary forces",
         "affected": ["PAK"],
         "summary": (
             "A long-running separatist insurgency in Pakistan's resource-rich but underdeveloped "
             "Balochistan province has increasingly targeted Chinese nationals and China-Pakistan "
             "Economic Corridor (CPEC) infrastructure specifically, viewing Chinese investment as "
-            "extracting local resources without local benefit. The Pakistan Institute for Peace "
-            "Studies recorded at least 254 attacks in Balochistan in 2025, roughly 26% more than 2024, "
-            "with IED and grenade attacks on convoys and police stations up over 65% in the first 11 "
-            "months of 2025 alone. The most dramatic single incident was the BLA-J's hijacking of the "
+            "extracting local resources without local benefit. The violence has escalated sharply "
+            "through 2026: The Diplomat now calls Balochistan 'Pakistan's most dangerous province,' "
+            "citing 765 violent incidents and roughly 1,600 fatalities between January and July 2026 "
+            "alone. A single coordinated assault from July 4-8, 2026 killed 42 people, including 38 "
+            "security personnel. This builds on a 2025 baseline that was already a marked escalation — "
+            "254 attacks for the full year (+26% vs 2024) — punctuated by the BLA-J's hijacking of the "
             "Jaffar Express train on March 11, 2025, taking 400+ passengers hostage and killing at "
-            "least 26. A 2026 offensive ('Herof II') saw the group deploy a new drone unit, "
-            "demonstrating rising technical sophistication."
+            "least 26."
         ),
         "market_impact": (
             "This directly threatens the CPEC investment relationship that is central to Pakistan's "
@@ -921,6 +984,7 @@ LIVE_CONFLICTS = [
             "a direct threat to one of Pakistan's most important external financing relationships."
         ),
         "sources": [
+            ("The Diplomat: Balochistan Is Now Pakistan's Most Dangerous Province (Aug 2026)", "https://thediplomat.com/2026/08/balochistan-is-now-pakistans-most-dangerous-province/"),
             ("Al Jazeera: Train bomb in Pakistan's Baloch region", "https://www.aljazeera.com/news/2026/5/25/train-bomb-in-pakistans-baloch-region-why-violence-is-on-the-rise"),
             ("Jamestown Foundation: Baloch Militant Attacks Undermine Sino-Pakistan Projects", "https://jamestown.org/amid-geopolitical-tensions-baloch-militant-attacks-undermine-sino-pakistan-projects/"),
             ("Combating Terrorism Center, West Point: The Baloch Insurgency in Pakistan", "https://ctc.westpoint.edu/the-baloch-insurgency-in-pakistan-evolution-tactics-and-regional-security-implications/"),
@@ -931,6 +995,12 @@ LIVE_CONFLICTS = [
         "status": "Recurring, intensified during the 2026 Iran war",
         "groups": "Iran-aligned Iraqi militias (Popular Mobilization Forces/PMF factions), US military, Iraqi government",
         "affected": ["IRQ", "IRN"],
+        "stats": [
+            ("US service members killed, Jan 28, 2024 Jordan strike", "3 (25 injured)"),
+            ("Incidents triggered by the 2026 Iran war", "~300"),
+            ("US Embassy Baghdad strikes", "4+ times"),
+            ("Relocation of most US forces since 2025", "Erbil, Kurdistan region"),
+        ],
         "summary": (
             "Iran-aligned militias operating within Iraq's Popular Mobilization Forces have "
             "intermittently attacked US military positions since the Gaza war began, including a "
@@ -959,6 +1029,12 @@ LIVE_CONFLICTS = [
         "status": "Unresolved, no binding agreement despite dam's completion",
         "groups": "Egyptian government, Ethiopian government, Sudan (secondary party); not a tracked country but central to the dispute",
         "affected": ["EGY"],
+        "stats": [
+            ("GERD capacity — Africa's largest hydro dam", "5,150 MW"),
+            ("Years of negotiation without binding deal", "13+ (since 2011 construction start)"),
+            ("Share of Egypt's fresh water from the Nile", "~90%+"),
+            ("New Ethiopian dams planned since GERD's opening", "3 more on the Blue Nile"),
+        ],
         "summary": (
             "Ethiopia completed and formally inaugurated the Grand Ethiopian Renaissance Dam (GERD) — "
             "Africa's largest hydroelectric dam at 5,150 MW capacity — on September 9, 2025, after the "
@@ -984,4 +1060,54 @@ LIVE_CONFLICTS = [
             ("Foreign Policy Research Institute: The GERD Dispute", "https://www.fpri.org/article/2025/10/the-gerd-dispute-lessons-for-water-governance-and-the-future-of-the-nile-basin/"),
         ],
     },
+]
+
+
+# ============================================================
+# SOVEREIGN CREDIT RATINGS — actual S&P / Moody's / Fitch letter grades,
+# for sanity-checking this tool's own composite score against the real
+# rating agencies' independent assessments. Pulled from countryeconomy.com's
+# aggregated ratings table (a secondary aggregator, not the primary agency
+# reports) and cross-checked against individual agency news coverage for
+# the most consequential/newsworthy cases (e.g. Israel's 2024 downgrades).
+# "Not Rated" means the country doesn't have a widely reported rating from
+# these three agencies — common for countries without international bond
+# market access (conflict-affected or heavily aid-dependent economies) —
+# not that the country is necessarily riskier or safer than a rated peer.
+# ============================================================
+CREDIT_RATINGS = {
+    "DZA": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "BHR": {"sp": "B+", "moodys": "B2", "fitch": "B+"},
+    "EGY": {"sp": "B", "moodys": "Caa1", "fitch": "B"},
+    "IRN": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "IRQ": {"sp": "B-", "moodys": "Caa1", "fitch": "B-"},
+    "ISR": {"sp": "A", "moodys": "Baa1", "fitch": "A"},
+    "JOR": {"sp": "BB-", "moodys": "Ba3", "fitch": "BB-"},
+    "KWT": {"sp": "AA-", "moodys": "A1", "fitch": "AA-"},
+    "LBN": {"sp": "SD", "moodys": "C", "fitch": "RD"},
+    "LBY": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "MAR": {"sp": "BB+", "moodys": "Ba1", "fitch": "BB+"},
+    "OMN": {"sp": "BBB-", "moodys": "Baa3", "fitch": "BB"},
+    "QAT": {"sp": "AA", "moodys": "Aa2", "fitch": "AA-"},
+    "SAU": {"sp": "A+", "moodys": "Aa3", "fitch": "A+"},
+    "SYR": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "TUN": {"sp": "Not Rated", "moodys": "Caa1", "fitch": "CCC+"},
+    "ARE": {"sp": "AA", "moodys": "Aa2", "fitch": "AA-"},
+    "YEM": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "AFG": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "BGD": {"sp": "B+", "moodys": "B2", "fitch": "BB-"},
+    "BTN": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "IND": {"sp": "BBB", "moodys": "Baa3", "fitch": "BBB-"},
+    "MDV": {"sp": "B-", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "NPL": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
+    "PAK": {"sp": "B-", "moodys": "Caa1", "fitch": "CCC-"},
+    "LKA": {"sp": "CCC+", "moodys": "Caa1", "fitch": "RD"},
+}
+
+CREDIT_RATINGS_SOURCES = [
+    ("countryeconomy.com: Sovereign Ratings List 2026 (aggregator)", "https://countryeconomy.com/ratings"),
+    ("Haaretz: S&P Affirms Israel's Rating With Negative Outlook", "https://www.haaretz.com/israel-news/2025-05-10/ty-article/.premium/s-p-affirms-israels-rating-with-negative-outlook-citing-war-risks-and-rising-debt/00000196-b90e-d1bb-a5d6-bffe44b00000"),
+    ("Moody's Ratings: Israel downgrade notice", "https://ratings.moodys.com/ratings-news/415081"),
+    ("Bloomberg: Israel's Rating Cut by Fitch as War Seen Lasting Into 2025", "https://www.bloomberg.com/news/articles/2024-08-12/israel-s-rating-cut-by-fitch-as-gaza-war-seen-lasting-into-2025"),
+    ("Business Standard: S&P raises Pakistan's sovereign rating to 'B-'", "https://www.business-standard.com/amp/world-news/sp-rating-upgrades-pakistan-sovereign-rating-b-125072401514_1.html"),
 ]

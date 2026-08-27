@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
-from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE
+from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES
+from pdf_export import generate_country_pdf
 
 st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
 
@@ -531,6 +532,25 @@ with tab2:
     st.markdown('<div class="section-title">Country Brief</div>', unsafe_allow_html=True)
     brief_text = build_country_brief(selected, country_code, row, driver_row, events, LIVE_CONFLICTS)
     st.markdown(f'<div class="narrative-box">{brief_text}</div>', unsafe_allow_html=True)
+
+    pdf_bytes = generate_country_pdf(
+        country_name=selected,
+        country_code=country_code,
+        row=row.to_dict(),
+        brief_text=brief_text,
+        ratings=CREDIT_RATINGS.get(country_code),
+        trade_profile=COUNTRY_TRADE_PROFILE.get(country_code),
+        events=events,
+        arrangements=FINANCING_ARRANGEMENTS.get(country_code),
+        partner_info=KEY_ECONOMIC_PARTNERS.get(country_code),
+        last_refreshed=LAST_REFRESHED,
+    )
+    st.download_button(
+        label=f"Download {selected} Brief (PDF)",
+        data=pdf_bytes,
+        file_name=f"{selected.replace(' ', '_')}_Sovereign_Risk_Brief.pdf",
+        mime="application/pdf",
+    )
     st.markdown("<br>", unsafe_allow_html=True)
 
     c1, c2 = st.columns([1, 2])
@@ -561,6 +581,26 @@ with tab2:
                         f'{arrow} {abs(yoy):.1f}</div>',
                         unsafe_allow_html=True,
                     )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">SANITY_CHECK</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1.05rem;">Actual Credit Ratings</div>', unsafe_allow_html=True)
+            ratings = CREDIT_RATINGS.get(country_code)
+            if ratings:
+                custom_table(
+                    [["S&P", ratings["sp"]], ["Moody's", ratings["moodys"]], ["Fitch", ratings["fitch"]]],
+                    ["Agency", "Rating"],
+                )
+                st.caption(
+                    "How this tool's own score compares to the real rating agencies — a way to "
+                    "sanity-check the composite model against independent professional assessments. "
+                    "'Not Rated' means no widely reported rating from these three agencies, common for "
+                    "countries without international bond market access."
+                )
+            else:
+                st.caption("No rating data on file.")
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -798,6 +838,16 @@ with tab3:
             st.markdown(f'<div class="narrative-box"><b>SUMMARY</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown(f'<div class="narrative-box"><b>MARKET_&amp;_TRADE_IMPACT</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
+            if conflict.get("stats"):
+                st.markdown("<br>", unsafe_allow_html=True)
+                stat_cols = st.columns(len(conflict["stats"]))
+                for col, (label, value) in zip(stat_cols, conflict["stats"]):
+                    with col:
+                        st.markdown(
+                            f'<div class="stat-label" style="font-size:0.58rem;">{label}</div>'
+                            f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1rem;color:{ACCENT};font-weight:700;">{value}</div>',
+                            unsafe_allow_html=True,
+                        )
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown(
                 "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in conflict["sources"]),
@@ -946,21 +996,29 @@ with tab5:
     st.markdown('<div class="section-tag">BEYOND_WORLD_BANK_AND_IMF</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
     st.markdown(
-        "The 10-factor risk score is built entirely on World Bank data for consistency and "
-        "reproducibility. The qualitative layers — Historical Context, Live Conflicts, Key Economic "
-        "Partners, and Trade/Sector Profiles — draw on a much broader set of reputable sources, "
-        "reflecting how real political risk research actually works: no single database covers "
-        "conflict dynamics, trade relationships, *and* fiscal data at once."
+        "The 10-factor risk score is built primarily on World Bank data, with IMF World Economic "
+        "Outlook debt figures used as an automatic fallback for the 13 countries where the World Bank "
+        "has no debt-to-GDP figure on file (see below) — for consistency and reproducibility. The "
+        "qualitative layers — Historical Context, Live Conflicts, Key Economic Partners, Trade/Sector "
+        "Profiles, and Credit Ratings — draw on a much broader set of reputable sources, reflecting "
+        "how real political risk research actually works: no single database covers conflict "
+        "dynamics, trade relationships, credit ratings, *and* fiscal data at once."
     )
     custom_table(
         [
             ["News & wire services", "Reuters, Bloomberg, Al Jazeera, Associated Press, Times of Israel, France24, Middle East Eye"],
             ["Think tanks & policy research", "Brookings Institution, Council on Foreign Relations (CFR) Global Conflict Tracker, Center for Strategic and International Studies (CSIS), Carnegie Endowment, Atlantic Council, International Crisis Group, Belfer Center (Harvard), Chatham House, Stimson Center, Washington Institute, Soufan Center"],
-            ["Government & multilateral bodies", "IMF press releases, US Congress.gov (CRS reports), UK House of Commons Library, UN Security Council Report, UNHCR/OCHA"],
+            ["Government & multilateral bodies", "IMF press releases and World Economic Outlook database, US Congress.gov (CRS reports), UK House of Commons Library, UN Security Council Report, UNHCR/OCHA"],
             ["Encyclopedic reference", "Wikipedia (used as a starting point and cross-checked against primary sources, not a sole source), Britannica"],
             ["Economic/trade data", "CIA World Factbook, Observatory of Economic Complexity (OEC), UN Comtrade, EIA (energy)"],
+            ["Credit rating agencies", "S&P Global Ratings, Moody's Ratings, Fitch Ratings (via countryeconomy.com aggregation, cross-checked against individual agency press coverage)"],
         ],
         ["Category", "Examples Used"],
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(
+        "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in CREDIT_RATINGS_SOURCES),
+        unsafe_allow_html=True,
     )
 
     st.markdown("<br>", unsafe_allow_html=True)

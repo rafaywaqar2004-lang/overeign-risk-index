@@ -102,6 +102,47 @@ def fetch_indicator_series(country_code, indicator_code, retries=3):
     return series
 
 
+IMF_WEO_URL = "https://www.imf.org/external/datamapper/api/v1/GGXWDG_NGDP"
+
+
+def fetch_imf_debt_fallback(country_codes, retries=3):
+    """Fetches IMF World Economic Outlook general government gross debt
+    (% of GDP) for all countries in one call, used as a fallback where the
+    World Bank has no debt_to_gdp figure. Returns {country_code: (year, value)}
+    using the latest non-projection-heavy year available (capped at 2025)."""
+    result = None
+    for attempt in range(retries):
+        result = subprocess.run(
+            ["curl", "-s", "-m", "20", IMF_WEO_URL],
+            capture_output=True, text=True, timeout=25
+        )
+        if result.returncode == 0 and result.stdout:
+            break
+        time.sleep(1)
+
+    if result is None or result.returncode != 0 or not result.stdout:
+        return {}
+
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return {}
+
+    values = data.get("values", {}).get("GGXWDG_NGDP", {})
+    fallback = {}
+    for code in country_codes:
+        series = values.get(code)
+        if not series:
+            continue
+        # Use the latest year <= 2025 to avoid relying on IMF's forward projections
+        eligible_years = [int(y) for y in series if int(y) <= 2025]
+        if not eligible_years:
+            continue
+        latest_year = max(eligible_years)
+        fallback[code] = (latest_year, series[str(latest_year)])
+    return fallback
+
+
 def main():
     all_rows = []
     for code, name in COUNTRIES.items():
@@ -137,6 +178,24 @@ def main():
         latest_rows.append(row)
 
     wide_df = pd.DataFrame(latest_rows)
+
+    # ---------- IMF WEO debt fallback for countries missing World Bank debt data ----------
+    print("\nFetching IMF WEO debt fallback...")
+    imf_fallback = fetch_imf_debt_fallback(list(COUNTRIES.keys()))
+    fallback_used = []
+    for i, row in wide_df.iterrows():
+        if pd.isna(row["debt_to_gdp"]) and row["country_code"] in imf_fallback:
+            year, value = imf_fallback[row["country_code"]]
+            wide_df.at[i, "debt_to_gdp"] = value
+            wide_df.at[i, "debt_to_gdp_year"] = year
+            wide_df.at[i, "debt_to_gdp_source"] = "IMF WEO (fallback)"
+            fallback_used.append(row["country"])
+        else:
+            wide_df.at[i, "debt_to_gdp_source"] = "World Bank WDI" if pd.notna(row["debt_to_gdp"]) else None
+
+    if fallback_used:
+        print(f"Used IMF WEO fallback for: {', '.join(fallback_used)}")
+
     wide_df.to_csv("raw_data.csv", index=False)
 
     with open("last_refreshed.txt", "w") as f:
