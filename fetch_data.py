@@ -1,6 +1,6 @@
 """
-Pulls sovereign risk indicators from the World Bank's public API
-(no API key needed) for a set of MENA / South Asia countries.
+Pulls sovereign risk indicators (full historical series, 2010-2024) from the
+World Bank's public API for a set of MENA / South Asia economies.
 """
 import subprocess
 import json
@@ -19,19 +19,34 @@ COUNTRIES = {
     "IRN": "Iran",
     "BGD": "Bangladesh",
     "LKA": "Sri Lanka",
+    "IRQ": "Iraq",
+    "LBN": "Lebanon",
+    "KWT": "Kuwait",
+    "QAT": "Qatar",
 }
 
-INDICATORS = {
+# Economic pillar
+ECON_INDICATORS = {
     "GC.DOD.TOTL.GD.ZS": "debt_to_gdp",
     "BN.CAB.XOKA.GD.ZS": "current_account_pct_gdp",
     "FI.RES.TOTL.MO": "reserves_months_imports",
-    "GOV_WGI_PV.EST": "political_stability",
+    "NY.GDP.MKTP.KD.ZG": "gdp_growth",
+    "FP.CPI.TOTL.ZG": "inflation",
 }
+
+# Governance pillar (World Bank Worldwide Governance Indicators)
+GOV_INDICATORS = {
+    "GOV_WGI_PV.EST": "political_stability",
+    "GOV_WGI_GE.EST": "government_effectiveness",
+}
+
+INDICATORS = {**ECON_INDICATORS, **GOV_INDICATORS}
 
 BASE_URL = "https://api.worldbank.org/v2/country/{country}/indicator/{indicator}"
 
 
-def fetch_indicator(country_code, indicator_code, retries=3):
+def fetch_indicator_series(country_code, indicator_code, retries=3):
+    """Returns a dict of {year: value} for all available years 2010-2024."""
     url = BASE_URL.format(country=country_code, indicator=indicator_code)
     full_url = f"{url}?format=json&date=2010:2024&per_page=100"
 
@@ -46,43 +61,61 @@ def fetch_indicator(country_code, indicator_code, retries=3):
         time.sleep(1)
 
     if result is None or result.returncode != 0 or not result.stdout:
-        return None
+        return {}
 
     try:
         data = json.loads(result.stdout)
     except json.JSONDecodeError:
-        return None
+        return {}
 
     if len(data) < 2 or data[1] is None:
-        return None
+        return {}
 
-    # Find the most recent non-null value
+    series = {}
     for entry in data[1]:
         if entry["value"] is not None:
-            return {"year": entry["date"], "value": entry["value"]}
-    return None
+            series[int(entry["date"])] = entry["value"]
+    return series
 
 
 def main():
-    rows = []
+    all_rows = []
+    for code, name in COUNTRIES.items():
+        for indicator_code, col_name in INDICATORS.items():
+            series = fetch_indicator_series(code, indicator_code)
+            for year, value in series.items():
+                all_rows.append({
+                    "country_code": code,
+                    "country": name,
+                    "indicator": col_name,
+                    "year": year,
+                    "value": value,
+                })
+            time.sleep(0.15)
+        print(f"Fetched: {name}")
+
+    long_df = pd.DataFrame(all_rows)
+    long_df.to_csv("raw_data_long.csv", index=False)
+
+    # Also produce a "latest available value per indicator" wide table for convenience
+    latest_rows = []
     for code, name in COUNTRIES.items():
         row = {"country_code": code, "country": name}
-        for indicator_code, col_name in INDICATORS.items():
-            result = fetch_indicator(code, indicator_code)
-            if result:
-                row[col_name] = result["value"]
-                row[f"{col_name}_year"] = result["year"]
+        sub = long_df[long_df["country_code"] == code]
+        for col_name in INDICATORS.values():
+            ind_sub = sub[sub["indicator"] == col_name].sort_values("year", ascending=False)
+            if not ind_sub.empty:
+                row[col_name] = ind_sub.iloc[0]["value"]
+                row[f"{col_name}_year"] = ind_sub.iloc[0]["year"]
             else:
                 row[col_name] = None
                 row[f"{col_name}_year"] = None
-            time.sleep(0.2)  # be polite to the free API
-        rows.append(row)
-        print(f"Fetched: {name}")
+        latest_rows.append(row)
 
-    df = pd.DataFrame(rows)
-    df.to_csv("raw_data.csv", index=False)
-    print("\nSaved raw_data.csv")
-    print(df)
+    wide_df = pd.DataFrame(latest_rows)
+    wide_df.to_csv("raw_data.csv", index=False)
+
+    print(f"\nSaved raw_data_long.csv ({len(long_df)} rows) and raw_data.csv ({len(wide_df)} countries)")
 
 
 if __name__ == "__main__":

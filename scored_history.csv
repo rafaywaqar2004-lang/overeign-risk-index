@@ -1,0 +1,226 @@
+country_code,year,risk_score,country
+ARE,2010,25.4,UAE
+BGD,2010,74.0,Bangladesh
+DZA,2010,48.4,Algeria
+EGY,2010,71.9,Egypt
+IRN,2010,72.4,Iran
+IRQ,2010,70.2,Iraq
+JOR,2010,59.0,Jordan
+KWT,2010,43.7,Kuwait
+LBN,2010,66.4,Lebanon
+LKA,2010,70.7,Sri Lanka
+MAR,2010,52.6,Morocco
+PAK,2010,88.0,Pakistan
+QAT,2010,0.0,Qatar
+SAU,2010,39.5,Saudi Arabia
+TUN,2010,47.3,Tunisia
+ARE,2011,11.4,UAE
+BGD,2011,70.8,Bangladesh
+DZA,2011,48.1,Algeria
+EGY,2011,74.1,Egypt
+IRN,2011,73.6,Iran
+IRQ,2011,61.0,Iraq
+JOR,2011,57.4,Jordan
+KWT,2011,30.9,Kuwait
+LBN,2011,65.0,Lebanon
+LKA,2011,68.1,Sri Lanka
+MAR,2011,52.7,Morocco
+PAK,2011,81.9,Pakistan
+QAT,2011,22.6,Qatar
+SAU,2011,27.3,Saudi Arabia
+TUN,2011,50.6,Tunisia
+ARE,2012,14.2,UAE
+BGD,2012,65.6,Bangladesh
+DZA,2012,50.0,Algeria
+EGY,2012,70.3,Egypt
+IRN,2012,80.1,Iran
+IRQ,2012,57.0,Iraq
+JOR,2012,62.1,Jordan
+KWT,2012,34.9,Kuwait
+LBN,2012,65.1,Lebanon
+LKA,2012,68.1,Sri Lanka
+MAR,2012,59.4,Morocco
+PAK,2012,77.9,Pakistan
+QAT,2012,28.8,Qatar
+SAU,2012,30.8,Saudi Arabia
+TUN,2012,47.1,Tunisia
+ARE,2013,6.8,UAE
+BGD,2013,62.5,Bangladesh
+DZA,2013,47.2,Algeria
+EGY,2013,70.5,Egypt
+IRN,2013,79.8,Iran
+IRQ,2013,56.4,Iraq
+JOR,2013,64.0,Jordan
+KWT,2013,37.9,Kuwait
+LBN,2013,62.8,Lebanon
+LKA,2013,65.9,Sri Lanka
+MAR,2013,55.5,Morocco
+PAK,2013,72.7,Pakistan
+QAT,2013,24.3,Qatar
+SAU,2013,32.2,Saudi Arabia
+TUN,2013,60.5,Tunisia
+ARE,2014,10.6,UAE
+BGD,2014,59.0,Bangladesh
+DZA,2014,46.7,Algeria
+EGY,2014,73.8,Egypt
+IRN,2014,59.4,Iran
+IRQ,2014,67.7,Iraq
+JOR,2014,63.2,Jordan
+KWT,2014,43.5,Kuwait
+LBN,2014,65.2,Lebanon
+LKA,2014,39.5,Sri Lanka
+MAR,2014,56.8,Morocco
+PAK,2014,75.2,Pakistan
+QAT,2014,28.5,Qatar
+SAU,2014,30.7,Saudi Arabia
+TUN,2014,61.2,Tunisia
+ARE,2015,11.2,UAE
+BGD,2015,56.8,Bangladesh
+DZA,2015,55.3,Algeria
+EGY,2015,71.6,Egypt
+IRN,2015,73.5,Iran
+IRQ,2015,53.7,Iraq
+JOR,2015,61.6,Jordan
+KWT,2015,45.5,Kuwait
+LBN,2015,62.9,Lebanon
+LKA,2015,60.3,Sri Lanka
+MAR,2015,50.7,Morocco
+PAK,2015,68.6,Pakistan
+QAT,2015,25.7,Qatar
+SAU,2015,36.6,Saudi Arabia
+TUN,2015,65.0,Tunisia
+ARE,2016,17.3,UAE
+BGD,2016,55.0,Bangladesh
+DZA,2016,59.6,Algeria
+EGY,2016,73.8,Egypt
+IRN,2016,50.0,Iran
+IRQ,2016,40.6,Iraq
+JOR,2016,60.8,Jordan
+KWT,2016,43.7,Kuwait
+LBN,2016,64.0,Lebanon
+LKA,2016,48.8,Sri Lanka
+MAR,2016,53.4,Morocco
+PAK,2016,66.1,Pakistan
+QAT,2016,37.9,Qatar
+SAU,2016,34.5,Saudi Arabia
+TUN,2016,63.1,Tunisia
+ARE,2017,16.9,UAE
+BGD,2017,52.1,Bangladesh
+DZA,2017,51.0,Algeria
+EGY,2017,66.3,Egypt
+IRN,2017,45.0,Iran
+IRQ,2017,47.2,Iraq
+JOR,2017,58.4,Jordan
+KWT,2017,43.8,Kuwait
+LBN,2017,60.2,Lebanon
+LKA,2017,43.7,Sri Lanka
+MAR,2017,44.6,Morocco
+PAK,2017,64.6,Pakistan
+QAT,2017,32.7,Qatar
+SAU,2017,28.5,Saudi Arabia
+TUN,2017,56.3,Tunisia
+ARE,2018,14.1,UAE
+BGD,2018,54.3,Bangladesh
+DZA,2018,50.5,Algeria
+EGY,2018,63.8,Egypt
+IRN,2018,77.7,Iran
+IRQ,2018,54.4,Iraq
+JOR,2018,51.0,Jordan
+KWT,2018,32.2,Kuwait
+LBN,2018,67.5,Lebanon
+LKA,2018,51.1,Sri Lanka
+MAR,2018,51.7,Morocco
+PAK,2018,66.8,Pakistan
+QAT,2018,30.3,Qatar
+SAU,2018,28.3,Saudi Arabia
+TUN,2018,58.9,Tunisia
+ARE,2019,9.6,UAE
+BGD,2019,53.4,Bangladesh
+DZA,2019,53.6,Algeria
+EGY,2019,56.7,Egypt
+IRN,2019,75.9,Iran
+IRQ,2019,58.7,Iraq
+JOR,2019,46.9,Jordan
+KWT,2019,32.8,Kuwait
+LBN,2019,67.3,Lebanon
+LKA,2019,53.0,Sri Lanka
+MAR,2019,50.2,Morocco
+PAK,2019,69.6,Pakistan
+QAT,2019,33.3,Qatar
+SAU,2019,30.4,Saudi Arabia
+TUN,2019,56.2,Tunisia
+ARE,2020,11.1,UAE
+BGD,2020,53.5,Bangladesh
+DZA,2020,55.4,Algeria
+EGY,2020,56.2,Egypt
+IRN,2020,50.5,Iran
+IRQ,2020,72.9,Iraq
+JOR,2020,46.7,Jordan
+KWT,2020,28.6,Kuwait
+LBN,2020,71.6,Lebanon
+LKA,2020,51.8,Sri Lanka
+MAR,2020,49.9,Morocco
+PAK,2020,64.3,Pakistan
+QAT,2020,33.6,Qatar
+SAU,2020,37.0,Saudi Arabia
+TUN,2020,55.8,Tunisia
+ARE,2021,6.3,UAE
+BGD,2021,53.2,Bangladesh
+DZA,2021,47.6,Algeria
+EGY,2021,56.3,Egypt
+IRN,2021,52.9,Iran
+IRQ,2021,57.1,Iraq
+JOR,2021,45.6,Jordan
+KWT,2021,28.4,Kuwait
+LBN,2021,76.3,Lebanon
+LKA,2021,53.2,Sri Lanka
+MAR,2021,43.8,Morocco
+PAK,2021,60.7,Pakistan
+QAT,2021,24.0,Qatar
+SAU,2021,25.0,Saudi Arabia
+TUN,2021,50.7,Tunisia
+ARE,2022,5.9,UAE
+BGD,2022,55.0,Bangladesh
+DZA,2022,37.8,Algeria
+EGY,2022,52.6,Egypt
+IRN,2022,54.7,Iran
+IRQ,2022,47.9,Iraq
+JOR,2022,45.6,Jordan
+KWT,2022,24.0,Kuwait
+LBN,2022,74.0,Lebanon
+LKA,2022,66.7,Sri Lanka
+MAR,2022,50.0,Morocco
+PAK,2022,65.5,Pakistan
+QAT,2022,21.3,Qatar
+SAU,2022,19.8,Saudi Arabia
+TUN,2022,54.1,Tunisia
+ARE,2023,25.7,UAE
+BGD,2023,53.0,Bangladesh
+DZA,2023,33.5,Algeria
+EGY,2023,53.9,Egypt
+IRN,2023,48.7,Iran
+IRQ,2023,54.1,Iraq
+JOR,2023,42.1,Jordan
+KWT,2023,32.4,Kuwait
+LBN,2023,75.5,Lebanon
+LKA,2023,61.9,Sri Lanka
+MAR,2023,46.6,Morocco
+PAK,2023,72.2,Pakistan
+QAT,2023,26.1,Qatar
+SAU,2023,30.7,Saudi Arabia
+TUN,2023,56.7,Tunisia
+ARE,2024,26.3,UAE
+BGD,2024,68.1,Bangladesh
+DZA,2024,40.3,Algeria
+EGY,2024,68.8,Egypt
+IRN,2024,66.6,Iran
+IRQ,2024,66.3,Iraq
+JOR,2024,49.8,Jordan
+KWT,2024,28.3,Kuwait
+LBN,2024,91.1,Lebanon
+LKA,2024,52.6,Sri Lanka
+MAR,2024,50.6,Morocco
+PAK,2024,74.6,Pakistan
+QAT,2024,22.8,Qatar
+SAU,2024,32.2,Saudi Arabia
+TUN,2024,61.9,Tunisia
