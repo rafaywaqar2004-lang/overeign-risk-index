@@ -378,6 +378,58 @@ def build_country_brief(country_name, country_code, row, driver_row, events, con
     return " ".join(parts)
 
 
+def build_regional_brief(scored_df, history_df, conflicts):
+    """Synthesizes the current regional snapshot into an analyst-style paragraph:
+    the spread, who's moved most and why, and how much of the region sits inside
+    a live conflict this year's backward-looking score can't yet capture."""
+    parts = []
+    valid = scored_df.dropna(subset=["risk_score"])
+    n = len(valid)
+    avg = valid["risk_score"].mean()
+    highest = valid.loc[valid["risk_score"].idxmax()]
+    lowest = valid.loc[valid["risk_score"].idxmin()]
+    higher_tier_n = (valid["risk_tier"] == "Higher Risk").sum()
+
+    parts.append(
+        f"Across the {n} tracked MENASA economies, the composite score averages <b>{avg:.1f}/100</b>, "
+        f"spanning <b>{lowest['country']}</b> at {lowest['risk_score']:.1f} on the low end to "
+        f"<b>{highest['country']}</b> at {highest['risk_score']:.1f} on the high end. "
+        f"<b>{higher_tier_n} of {n}</b> economies currently sit in the Higher Risk tier."
+    )
+
+    yoy = valid.dropna(subset=["yoy_change"])
+    if not yoy.empty:
+        worsened = yoy.loc[yoy["yoy_change"].idxmax()]
+        eased = yoy.loc[yoy["yoy_change"].idxmin()]
+        if worsened["yoy_change"] > 1.5:
+            sentence = (
+                f"Year-over-year, <b>{worsened['country']}</b> has moved the most in the wrong "
+                f"direction (+{worsened['yoy_change']:.1f} points)"
+            )
+            if eased["yoy_change"] < -1.5:
+                sentence += (
+                    f", while <b>{eased['country']}</b> has eased the most ({eased['yoy_change']:.1f} points) "
+                    f"— a reminder that this composite moves in both directions, not just downward."
+                )
+            else:
+                sentence += "."
+            parts.append(sentence)
+
+    exposed_codes = {code for c in conflicts for code in c["affected"]} & set(valid["country_code"])
+    if exposed_codes:
+        pct = 100 * len(exposed_codes) / n
+        parts.append(
+            f"<b>{len(exposed_codes)} of {n}</b> tracked economies ({pct:.0f}%) are directly listed as "
+            f"exposed to at least one live regional flashpoint in the Live Conflicts tab below — exposure "
+            f"this annual, World Bank-driven score structurally lags, since a conflict that started months "
+            f"ago won't move a debt-to-GDP or governance figure until the next reporting cycle catches up."
+        )
+
+    return " ".join(parts)
+
+    return " ".join(parts)
+
+
 # ============================================================
 # DATA
 # ============================================================
@@ -456,6 +508,12 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(["REGIONAL_OVERVIEW", "COUNTRY_DEEP_DIVE"
 
 # ================= TAB 1: OVERVIEW =================
 with tab1:
+    st.markdown('<div class="section-tag">ANALYST_BRIEF</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Regional Snapshot</div>', unsafe_allow_html=True)
+    regional_brief_text = build_regional_brief(scored, history, LIVE_CONFLICTS)
+    st.markdown(f'<div class="narrative-box">{regional_brief_text}</div>', unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">GEOGRAPHIC_DISTRIBUTION</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Risk Map</div>', unsafe_allow_html=True)
     map_df = scored.dropna(subset=["risk_score"])
