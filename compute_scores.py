@@ -5,25 +5,32 @@ Computes:
   3. driver_data.csv       - each country's normalized 0-100 risk sub-score per
                              factor (for radar charts + "what's driving this score")
 
-Methodology (v2):
-- 7 factors across two pillars: Economic (debt, current account, reserves,
-  GDP growth, inflation) and Governance (political stability, government
-  effectiveness).
+Methodology (v3):
+- 10 factors across two pillars, 5 each:
+    Economic:   debt, current account, reserves, GDP growth, inflation
+    Governance: political stability, government effectiveness, rule of
+                law, regulatory quality, control of corruption
 - Each factor is min-max normalized to 0-100 (100 = riskiest) CROSS-SECTIONALLY
   (i.e. relative to the other countries in the sample, for that same year).
 - Missing factors are dropped per-country and remaining weights rescaled
   proportionally, so missing data never silently reads as "safe."
+- FDI (net inflows, % GDP) is tracked separately as descriptive investment
+  context — it is NOT part of the risk score, since investment direction
+  isn't unambiguously "risk," it's a related but distinct signal.
 """
 import pandas as pd
 
 WEIGHTS = {
-    "debt_to_gdp": 0.20,
-    "current_account_pct_gdp": 0.15,
-    "reserves_months_imports": 0.15,
+    "debt_to_gdp": 0.10,
+    "current_account_pct_gdp": 0.10,
+    "reserves_months_imports": 0.10,
     "gdp_growth": 0.10,
     "inflation": 0.10,
-    "political_stability": 0.20,
+    "political_stability": 0.10,
     "government_effectiveness": 0.10,
+    "rule_of_law": 0.10,
+    "regulatory_quality": 0.10,
+    "control_of_corruption": 0.10,
 }
 
 HIGHER_IS_RISKIER = {
@@ -34,6 +41,9 @@ HIGHER_IS_RISKIER = {
     "inflation": True,
     "political_stability": False,
     "government_effectiveness": False,
+    "rule_of_law": False,
+    "regulatory_quality": False,
+    "control_of_corruption": False,
 }
 
 FACTOR_LABELS = {
@@ -44,6 +54,9 @@ FACTOR_LABELS = {
     "inflation": "Inflation",
     "political_stability": "Political Stability",
     "government_effectiveness": "Govt. Effectiveness",
+    "rule_of_law": "Rule of Law",
+    "regulatory_quality": "Regulatory Quality",
+    "control_of_corruption": "Control of Corruption",
 }
 
 
@@ -98,6 +111,7 @@ def main():
     df["risk_score"] = compute_weighted_score(risk_df)
     df["risk_score_factors_used"] = risk_df.notna().sum(axis=1)
     df["risk_tier"] = df["risk_score"].apply(risk_tier)
+    df["risk_rank"] = df["risk_score"].rank(ascending=False, method="min")
 
     df_sorted = df.sort_values("risk_score", ascending=False, na_position="last")
     df_sorted.to_csv("scored_data.csv", index=False)
@@ -135,8 +149,28 @@ def main():
     history_df = history_df.merge(country_lookup, on="country_code", how="left")
     history_df.to_csv("scored_history.csv", index=False)
 
+    # ---------- 4. YEAR-OVER-YEAR CHANGE (latest year in history vs. prior year) ----------
+    yoy_rows = []
+    for code in df["country_code"]:
+        c_hist = history_df[history_df["country_code"] == code].sort_values("year")
+        if len(c_hist) >= 2:
+            latest = c_hist.iloc[-1]
+            prior = c_hist.iloc[-2]
+            yoy_rows.append({
+                "country_code": code,
+                "yoy_change": round(latest["risk_score"] - prior["risk_score"], 1),
+                "yoy_latest_year": int(latest["year"]),
+                "yoy_prior_year": int(prior["year"]),
+            })
+        else:
+            yoy_rows.append({"country_code": code, "yoy_change": None, "yoy_latest_year": None, "yoy_prior_year": None})
+
+    yoy_df = pd.DataFrame(yoy_rows)
+    df_sorted = df_sorted.merge(yoy_df, on="country_code", how="left")
+    df_sorted.to_csv("scored_data.csv", index=False)
+
     # ---------- Console summary ----------
-    print(df_sorted[["country", "risk_score", "risk_tier", "risk_score_factors_used"]].to_string(index=False))
+    print(df_sorted[["country", "risk_score", "risk_tier", "risk_rank", "yoy_change"]].to_string(index=False))
     print(f"\nSaved scored_data.csv, driver_data.csv, scored_history.csv ({len(history_df)} country-year rows)")
 
 

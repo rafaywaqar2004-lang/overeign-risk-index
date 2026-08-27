@@ -89,6 +89,66 @@ PAK,Pakistan,government_effectiveness,2013,-0.6600164
 PAK,Pakistan,government_effectiveness,2012,-0.650064499999999
 PAK,Pakistan,government_effectiveness,2011,-0.8257262
 PAK,Pakistan,government_effectiveness,2010,-0.7771494
+PAK,Pakistan,rule_of_law,2024,-1.017096
+PAK,Pakistan,rule_of_law,2023,-1.0042887
+PAK,Pakistan,rule_of_law,2022,-0.9108794
+PAK,Pakistan,rule_of_law,2021,-0.8231206
+PAK,Pakistan,rule_of_law,2020,-0.812966099999999
+PAK,Pakistan,rule_of_law,2019,-0.8122676
+PAK,Pakistan,rule_of_law,2018,-0.8396216
+PAK,Pakistan,rule_of_law,2017,-0.865480199999999
+PAK,Pakistan,rule_of_law,2016,-0.9129583
+PAK,Pakistan,rule_of_law,2015,-0.914828299999999
+PAK,Pakistan,rule_of_law,2014,-0.970695
+PAK,Pakistan,rule_of_law,2013,-1.04881279999999
+PAK,Pakistan,rule_of_law,2012,-1.0639182
+PAK,Pakistan,rule_of_law,2011,-1.15049009999999
+PAK,Pakistan,rule_of_law,2010,-0.8136536
+PAK,Pakistan,regulatory_quality,2024,-0.7928043
+PAK,Pakistan,regulatory_quality,2023,-0.821984199999999
+PAK,Pakistan,regulatory_quality,2022,-0.7653493
+PAK,Pakistan,regulatory_quality,2021,-0.6543467
+PAK,Pakistan,regulatory_quality,2020,-0.7006155
+PAK,Pakistan,regulatory_quality,2019,-0.620266299999999
+PAK,Pakistan,regulatory_quality,2018,-0.662304799999999
+PAK,Pakistan,regulatory_quality,2017,-0.664221899999999
+PAK,Pakistan,regulatory_quality,2016,-0.6596324
+PAK,Pakistan,regulatory_quality,2015,-0.6860082
+PAK,Pakistan,regulatory_quality,2014,-0.7484896
+PAK,Pakistan,regulatory_quality,2013,-0.8058791
+PAK,Pakistan,regulatory_quality,2012,-0.80848
+PAK,Pakistan,regulatory_quality,2011,-0.758093999999999
+PAK,Pakistan,regulatory_quality,2010,-0.687742299999999
+PAK,Pakistan,control_of_corruption,2024,-1.0656237
+PAK,Pakistan,control_of_corruption,2023,-1.0461855
+PAK,Pakistan,control_of_corruption,2022,-0.9459689
+PAK,Pakistan,control_of_corruption,2021,-0.906181199999999
+PAK,Pakistan,control_of_corruption,2020,-0.9370003
+PAK,Pakistan,control_of_corruption,2019,-0.9714617
+PAK,Pakistan,control_of_corruption,2018,-0.9640896
+PAK,Pakistan,control_of_corruption,2017,-0.935033999999999
+PAK,Pakistan,control_of_corruption,2016,-0.9729255
+PAK,Pakistan,control_of_corruption,2015,-0.981116999999999
+PAK,Pakistan,control_of_corruption,2014,-1.0043761
+PAK,Pakistan,control_of_corruption,2013,-1.1290617
+PAK,Pakistan,control_of_corruption,2012,-1.24519539999999
+PAK,Pakistan,control_of_corruption,2011,-1.2203431
+PAK,Pakistan,control_of_corruption,2010,-1.2022076
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2024,0.716885239403099
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2023,0.608281270820624
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2022,0.389980753542853
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2021,0.616039439073827
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2020,0.684695289874347
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2019,0.696146480411465
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2018,0.487745750658143
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2017,0.735837049658425
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2016,0.821349998064174
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2015,0.557734356032139
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2014,0.695308116834202
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2013,0.515353849332245
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2012,0.343453048660945
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2011,0.575055145839944
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2010,1.02791108080423
 EGY,Egypt,current_account_pct_gdp,2024,-5.68596234093524
 EGY,Egypt,current_account_pct_gdp,2023,-3.17338763053558
 EGY,Egypt,current_account_pct_gdp,2022,-2.2100904275198
@@ -179,6 +239,66 @@ EGY,Egypt,government_effectiveness,2013,-0.764836299999999
 EGY,Egypt,government_effectiveness,2012,-0.5323164
 EGY,Egypt,government_effectiveness,2011,-0.493349
 EGY,Egypt,government_effectiveness,2010,-0.482093799999999
+EGY,Egypt,rule_of_law,2024,-0.751539899999999
+EGY,Egypt,rule_of_law,2023,-0.7776875
+EGY,Egypt,rule_of_law,2022,-0.772813099999999
+EGY,Egypt,rule_of_law,2021,-0.8185251
+EGY,Egypt,rule_of_law,2020,-0.789880599999999
+EGY,Egypt,rule_of_law,2019,-0.749387999999999
+EGY,Egypt,rule_of_law,2018,-0.739756099999999
+EGY,Egypt,rule_of_law,2017,-0.774614199999999
+EGY,Egypt,rule_of_law,2016,-0.8445636
+EGY,Egypt,rule_of_law,2015,-0.8381446
+EGY,Egypt,rule_of_law,2014,-0.839702699999999
+EGY,Egypt,rule_of_law,2013,-0.795294
+EGY,Egypt,rule_of_law,2012,-0.5396816
+EGY,Egypt,rule_of_law,2011,-0.51085
+EGY,Egypt,rule_of_law,2010,-0.2849681
+EGY,Egypt,regulatory_quality,2024,-0.499469399999999
+EGY,Egypt,regulatory_quality,2023,-0.5731672
+EGY,Egypt,regulatory_quality,2022,-0.6685017
+EGY,Egypt,regulatory_quality,2021,-0.5701379
+EGY,Egypt,regulatory_quality,2020,-0.6355909
+EGY,Egypt,regulatory_quality,2019,-0.7028437
+EGY,Egypt,regulatory_quality,2018,-0.742675299999999
+EGY,Egypt,regulatory_quality,2017,-0.7082554
+EGY,Egypt,regulatory_quality,2016,-0.7670926
+EGY,Egypt,regulatory_quality,2015,-0.7363711
+EGY,Egypt,regulatory_quality,2014,-0.7425351
+EGY,Egypt,regulatory_quality,2013,-0.738630799999999
+EGY,Egypt,regulatory_quality,2012,-0.5120719
+EGY,Egypt,regulatory_quality,2011,-0.2206717
+EGY,Egypt,regulatory_quality,2010,-0.0846898
+EGY,Egypt,control_of_corruption,2024,-0.8269898
+EGY,Egypt,control_of_corruption,2023,-0.816904499999999
+EGY,Egypt,control_of_corruption,2022,-0.7776624
+EGY,Egypt,control_of_corruption,2021,-0.7873199
+EGY,Egypt,control_of_corruption,2020,-0.7914606
+EGY,Egypt,control_of_corruption,2019,-0.652109199999999
+EGY,Egypt,control_of_corruption,2018,-0.4749757
+EGY,Egypt,control_of_corruption,2017,-0.4059653
+EGY,Egypt,control_of_corruption,2016,-0.4472655
+EGY,Egypt,control_of_corruption,2015,-0.5639736
+EGY,Egypt,control_of_corruption,2014,-0.576257999999999
+EGY,Egypt,control_of_corruption,2013,-0.5658677
+EGY,Egypt,control_of_corruption,2012,-0.5175138
+EGY,Egypt,control_of_corruption,2011,-0.5611174
+EGY,Egypt,control_of_corruption,2010,-0.608266
+EGY,Egypt,fdi_net_inflows_pct_gdp,2024,11.9719351009449
+EGY,Egypt,fdi_net_inflows_pct_gdp,2023,2.48546400695984
+EGY,Egypt,fdi_net_inflows_pct_gdp,2022,2.39118080969079
+EGY,Egypt,fdi_net_inflows_pct_gdp,2021,1.20617861055665
+EGY,Egypt,fdi_net_inflows_pct_gdp,2020,1.52462948997172
+EGY,Egypt,fdi_net_inflows_pct_gdp,2019,2.82732944960686
+EGY,Egypt,fdi_net_inflows_pct_gdp,2018,3.10040077579187
+EGY,Egypt,fdi_net_inflows_pct_gdp,2017,2.98301550917695
+EGY,Egypt,fdi_net_inflows_pct_gdp,2016,2.43856278142762
+EGY,Egypt,fdi_net_inflows_pct_gdp,2015,2.10258128401326
+EGY,Egypt,fdi_net_inflows_pct_gdp,2014,1.50925042253521
+EGY,Egypt,fdi_net_inflows_pct_gdp,2013,1.45343420769727
+EGY,Egypt,fdi_net_inflows_pct_gdp,2012,1.00234071774049
+EGY,Egypt,fdi_net_inflows_pct_gdp,2011,-0.204542848807527
+EGY,Egypt,fdi_net_inflows_pct_gdp,2010,2.91601657550141
 MAR,Morocco,debt_to_gdp,2011,51.2263215704569
 MAR,Morocco,debt_to_gdp,2010,47.0982656739638
 MAR,Morocco,current_account_pct_gdp,2024,-1.23072108998601
@@ -271,6 +391,66 @@ MAR,Morocco,government_effectiveness,2013,-0.2189575
 MAR,Morocco,government_effectiveness,2012,-0.2011827
 MAR,Morocco,government_effectiveness,2011,-0.1652959
 MAR,Morocco,government_effectiveness,2010,-0.116891399999999
+MAR,Morocco,rule_of_law,2024,-0.3678036
+MAR,Morocco,rule_of_law,2023,-0.3934002
+MAR,Morocco,rule_of_law,2022,-0.4491939
+MAR,Morocco,rule_of_law,2021,-0.4447944
+MAR,Morocco,rule_of_law,2020,-0.314662899999999
+MAR,Morocco,rule_of_law,2019,-0.3198643
+MAR,Morocco,rule_of_law,2018,-0.3248223
+MAR,Morocco,rule_of_law,2017,-0.3713857
+MAR,Morocco,rule_of_law,2016,-0.2935249
+MAR,Morocco,rule_of_law,2015,-0.3687701
+MAR,Morocco,rule_of_law,2014,-0.372493199999999
+MAR,Morocco,rule_of_law,2013,-0.4333613
+MAR,Morocco,rule_of_law,2012,-0.3317303
+MAR,Morocco,rule_of_law,2011,-0.381967699999999
+MAR,Morocco,rule_of_law,2010,-0.3848819
+MAR,Morocco,regulatory_quality,2024,-0.0266854999999999
+MAR,Morocco,regulatory_quality,2023,-0.0473438
+MAR,Morocco,regulatory_quality,2022,-0.0811815999999999
+MAR,Morocco,regulatory_quality,2021,-0.0751135
+MAR,Morocco,regulatory_quality,2020,0.0648279
+MAR,Morocco,regulatory_quality,2019,0.0271992
+MAR,Morocco,regulatory_quality,2018,-0.1157961
+MAR,Morocco,regulatory_quality,2017,0.0044748
+MAR,Morocco,regulatory_quality,2016,0.0139184
+MAR,Morocco,regulatory_quality,2015,0.0585252
+MAR,Morocco,regulatory_quality,2014,0.0501017
+MAR,Morocco,regulatory_quality,2013,0.0197469
+MAR,Morocco,regulatory_quality,2012,-0.0055365
+MAR,Morocco,regulatory_quality,2011,-0.0756699
+MAR,Morocco,regulatory_quality,2010,0.0236412
+MAR,Morocco,control_of_corruption,2024,-0.5186913
+MAR,Morocco,control_of_corruption,2023,-0.5521901
+MAR,Morocco,control_of_corruption,2022,-0.4879114
+MAR,Morocco,control_of_corruption,2021,-0.4783966
+MAR,Morocco,control_of_corruption,2020,-0.408551999999999
+MAR,Morocco,control_of_corruption,2019,-0.425659399999999
+MAR,Morocco,control_of_corruption,2018,-0.475142299999999
+MAR,Morocco,control_of_corruption,2017,-0.3911459
+MAR,Morocco,control_of_corruption,2016,-0.3146541
+MAR,Morocco,control_of_corruption,2015,-0.352055199999999
+MAR,Morocco,control_of_corruption,2014,-0.4165717
+MAR,Morocco,control_of_corruption,2013,-0.4173212
+MAR,Morocco,control_of_corruption,2012,-0.5029325
+MAR,Morocco,control_of_corruption,2011,-0.5058263
+MAR,Morocco,control_of_corruption,2010,-0.3011276
+MAR,Morocco,fdi_net_inflows_pct_gdp,2024,1.08850441035779
+MAR,Morocco,fdi_net_inflows_pct_gdp,2023,0.725864122672683
+MAR,Morocco,fdi_net_inflows_pct_gdp,2022,1.74814323662076
+MAR,Morocco,fdi_net_inflows_pct_gdp,2021,1.59422321445366
+MAR,Morocco,fdi_net_inflows_pct_gdp,2020,1.16907334587558
+MAR,Morocco,fdi_net_inflows_pct_gdp,2019,1.33479789567415
+MAR,Morocco,fdi_net_inflows_pct_gdp,2018,2.78337936840164
+MAR,Morocco,fdi_net_inflows_pct_gdp,2017,2.26092196120538
+MAR,Morocco,fdi_net_inflows_pct_gdp,2016,1.93000540251056
+MAR,Morocco,fdi_net_inflows_pct_gdp,2015,2.94611108390154
+MAR,Morocco,fdi_net_inflows_pct_gdp,2014,2.95925435484489
+MAR,Morocco,fdi_net_inflows_pct_gdp,2013,2.9038626404404
+MAR,Morocco,fdi_net_inflows_pct_gdp,2012,2.65758712641507
+MAR,Morocco,fdi_net_inflows_pct_gdp,2011,2.29046840496639
+MAR,Morocco,fdi_net_inflows_pct_gdp,2010,1.2299824583835
 TUN,Tunisia,debt_to_gdp,2012,42.5197543010178
 TUN,Tunisia,debt_to_gdp,2011,42.4807224505219
 TUN,Tunisia,debt_to_gdp,2010,38.7660002963438
@@ -364,6 +544,66 @@ TUN,Tunisia,government_effectiveness,2013,-0.0619573
 TUN,Tunisia,government_effectiveness,2012,0.1317565
 TUN,Tunisia,government_effectiveness,2011,0.1431788
 TUN,Tunisia,government_effectiveness,2010,0.351978
+TUN,Tunisia,rule_of_law,2024,-0.3644942
+TUN,Tunisia,rule_of_law,2023,-0.3148235
+TUN,Tunisia,rule_of_law,2022,-0.236793299999999
+TUN,Tunisia,rule_of_law,2021,-0.0151282999999999
+TUN,Tunisia,rule_of_law,2020,-0.0116452999999999
+TUN,Tunisia,rule_of_law,2019,-0.0268576999999999
+TUN,Tunisia,rule_of_law,2018,-0.0574128
+TUN,Tunisia,rule_of_law,2017,-0.0902866
+TUN,Tunisia,rule_of_law,2016,-0.1019524
+TUN,Tunisia,rule_of_law,2015,-0.1094928
+TUN,Tunisia,rule_of_law,2014,-0.152277399999999
+TUN,Tunisia,rule_of_law,2013,-0.2216627
+TUN,Tunisia,rule_of_law,2012,-0.175204
+TUN,Tunisia,rule_of_law,2011,-0.4029909
+TUN,Tunisia,rule_of_law,2010,-0.217492599999999
+TUN,Tunisia,regulatory_quality,2024,-0.3901173
+TUN,Tunisia,regulatory_quality,2023,-0.4344534
+TUN,Tunisia,regulatory_quality,2022,-0.3336702
+TUN,Tunisia,regulatory_quality,2021,-0.199470099999999
+TUN,Tunisia,regulatory_quality,2020,-0.1095893
+TUN,Tunisia,regulatory_quality,2019,-0.143639
+TUN,Tunisia,regulatory_quality,2018,-0.1170001
+TUN,Tunisia,regulatory_quality,2017,-0.120353499999999
+TUN,Tunisia,regulatory_quality,2016,-0.4256004
+TUN,Tunisia,regulatory_quality,2015,-0.376347899999999
+TUN,Tunisia,regulatory_quality,2014,-0.3534173
+TUN,Tunisia,regulatory_quality,2013,-0.231884899999999
+TUN,Tunisia,regulatory_quality,2012,-0.1699356
+TUN,Tunisia,regulatory_quality,2011,-0.2172419
+TUN,Tunisia,regulatory_quality,2010,0.0242836
+TUN,Tunisia,control_of_corruption,2024,-0.220154599999999
+TUN,Tunisia,control_of_corruption,2023,-0.192361099999999
+TUN,Tunisia,control_of_corruption,2022,-0.1992466
+TUN,Tunisia,control_of_corruption,2021,-0.1415165
+TUN,Tunisia,control_of_corruption,2020,-0.019263
+TUN,Tunisia,control_of_corruption,2019,-0.0286669999999999
+TUN,Tunisia,control_of_corruption,2018,0.00133739999999999
+TUN,Tunisia,control_of_corruption,2017,-0.0490023999999999
+TUN,Tunisia,control_of_corruption,2016,-0.0577612999999999
+TUN,Tunisia,control_of_corruption,2015,-0.0143711
+TUN,Tunisia,control_of_corruption,2014,0.012509
+TUN,Tunisia,control_of_corruption,2013,-0.0117731
+TUN,Tunisia,control_of_corruption,2012,0.0016466
+TUN,Tunisia,control_of_corruption,2011,0.0507
+TUN,Tunisia,control_of_corruption,2010,-0.1941292
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2024,1.47747574805229
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2023,1.46351333844229
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2022,1.43159199894021
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2021,1.16289301361367
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2020,1.46634304906862
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2019,1.94487649950903
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2018,2.32248034984414
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2017,1.9233125677007
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2016,1.40344558640993
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2015,2.11999260597179
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2014,2.03842746868013
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2013,2.1744128074392
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2012,3.28518933963283
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2011,0.899077534980039
+TUN,Tunisia,fdi_net_inflows_pct_gdp,2010,2.88814231758981
 DZA,Algeria,current_account_pct_gdp,2024,-1.0224994485325
 DZA,Algeria,current_account_pct_gdp,2023,2.62033732399996
 DZA,Algeria,current_account_pct_gdp,2022,8.62297009518782
@@ -454,6 +694,66 @@ DZA,Algeria,government_effectiveness,2013,-0.5509556
 DZA,Algeria,government_effectiveness,2012,-0.659519699999999
 DZA,Algeria,government_effectiveness,2011,-0.722398099999999
 DZA,Algeria,government_effectiveness,2010,-0.6027467
+DZA,Algeria,rule_of_law,2024,-0.6967772
+DZA,Algeria,rule_of_law,2023,-0.7329544
+DZA,Algeria,rule_of_law,2022,-0.798385
+DZA,Algeria,rule_of_law,2021,-0.7553319
+DZA,Algeria,rule_of_law,2020,-0.7746944
+DZA,Algeria,rule_of_law,2019,-0.845730299999999
+DZA,Algeria,rule_of_law,2018,-0.853582899999999
+DZA,Algeria,rule_of_law,2017,-0.8676221
+DZA,Algeria,rule_of_law,2016,-0.860594099999999
+DZA,Algeria,rule_of_law,2015,-0.8774318
+DZA,Algeria,rule_of_law,2014,-0.836116699999999
+DZA,Algeria,rule_of_law,2013,-0.7149392
+DZA,Algeria,rule_of_law,2012,-0.820280599999999
+DZA,Algeria,rule_of_law,2011,-0.833268
+DZA,Algeria,rule_of_law,2010,-0.7700849
+DZA,Algeria,regulatory_quality,2024,-0.7526468
+DZA,Algeria,regulatory_quality,2023,-0.7856434
+DZA,Algeria,regulatory_quality,2022,-0.8782506
+DZA,Algeria,regulatory_quality,2021,-0.9720042
+DZA,Algeria,regulatory_quality,2020,-1.08103289999999
+DZA,Algeria,regulatory_quality,2019,-1.1291834
+DZA,Algeria,regulatory_quality,2018,-1.0402376
+DZA,Algeria,regulatory_quality,2017,-0.945913999999999
+DZA,Algeria,regulatory_quality,2016,-0.9245888
+DZA,Algeria,regulatory_quality,2015,-0.910741399999999
+DZA,Algeria,regulatory_quality,2014,-1.0284052
+DZA,Algeria,regulatory_quality,2013,-0.799061399999999
+DZA,Algeria,regulatory_quality,2012,-1.088001
+DZA,Algeria,regulatory_quality,2011,-1.13479399999999
+DZA,Algeria,regulatory_quality,2010,-0.9696248
+DZA,Algeria,control_of_corruption,2024,-0.5933952
+DZA,Algeria,control_of_corruption,2023,-0.6397452
+DZA,Algeria,control_of_corruption,2022,-0.6430769
+DZA,Algeria,control_of_corruption,2021,-0.6509952
+DZA,Algeria,control_of_corruption,2020,-0.635634599999999
+DZA,Algeria,control_of_corruption,2019,-0.620545999999999
+DZA,Algeria,control_of_corruption,2018,-0.538513599999999
+DZA,Algeria,control_of_corruption,2017,-0.5404682
+DZA,Algeria,control_of_corruption,2016,-0.6412808
+DZA,Algeria,control_of_corruption,2015,-0.6299526
+DZA,Algeria,control_of_corruption,2014,-0.6220502
+DZA,Algeria,control_of_corruption,2013,-0.4058013
+DZA,Algeria,control_of_corruption,2012,-0.453743099999999
+DZA,Algeria,control_of_corruption,2011,-0.4094732
+DZA,Algeria,control_of_corruption,2010,-0.3918564
+DZA,Algeria,fdi_net_inflows_pct_gdp,2024,0.455370730483787
+DZA,Algeria,fdi_net_inflows_pct_gdp,2023,0.489819143410423
+DZA,Algeria,fdi_net_inflows_pct_gdp,2022,0.107187812155079
+DZA,Algeria,fdi_net_inflows_pct_gdp,2021,0.466728479682941
+DZA,Algeria,fdi_net_inflows_pct_gdp,2020,0.693816014772836
+DZA,Algeria,fdi_net_inflows_pct_gdp,2019,0.713947308015691
+DZA,Algeria,fdi_net_inflows_pct_gdp,2018,0.753576088552125
+DZA,Algeria,fdi_net_inflows_pct_gdp,2017,0.647902696344894
+DZA,Algeria,fdi_net_inflows_pct_gdp,2016,0.906300705997455
+DZA,Algeria,fdi_net_inflows_pct_gdp,2015,-0.286832290676438
+DZA,Algeria,fdi_net_inflows_pct_gdp,2014,0.628688968391006
+DZA,Algeria,fdi_net_inflows_pct_gdp,2013,0.736559065111634
+DZA,Algeria,fdi_net_inflows_pct_gdp,2012,0.660551953898791
+DZA,Algeria,fdi_net_inflows_pct_gdp,2011,1.17767329101171
+DZA,Algeria,fdi_net_inflows_pct_gdp,2010,1.29390467487817
 JOR,Jordan,debt_to_gdp,2023,93.6205554347008
 JOR,Jordan,debt_to_gdp,2022,91.9482623432231
 JOR,Jordan,debt_to_gdp,2021,90.3915021239108
@@ -557,6 +857,66 @@ JOR,Jordan,government_effectiveness,2013,0.2411636
 JOR,Jordan,government_effectiveness,2012,0.2203515
 JOR,Jordan,government_effectiveness,2011,0.1349915
 JOR,Jordan,government_effectiveness,2010,0.0759657
+JOR,Jordan,rule_of_law,2024,0.1685335
+JOR,Jordan,rule_of_law,2023,0.1232268
+JOR,Jordan,rule_of_law,2022,0.0764869
+JOR,Jordan,rule_of_law,2021,0.0436082
+JOR,Jordan,rule_of_law,2020,0.1081792
+JOR,Jordan,rule_of_law,2019,0.1365134
+JOR,Jordan,rule_of_law,2018,0.1458763
+JOR,Jordan,rule_of_law,2017,0.1933843
+JOR,Jordan,rule_of_law,2016,0.1691297
+JOR,Jordan,rule_of_law,2015,0.1375421
+JOR,Jordan,rule_of_law,2014,0.111905
+JOR,Jordan,rule_of_law,2013,0.1297285
+JOR,Jordan,rule_of_law,2012,0.1782421
+JOR,Jordan,rule_of_law,2011,0.1505452
+JOR,Jordan,rule_of_law,2010,0.0570422
+JOR,Jordan,regulatory_quality,2024,0.2760104
+JOR,Jordan,regulatory_quality,2023,0.3141122
+JOR,Jordan,regulatory_quality,2022,0.2117071
+JOR,Jordan,regulatory_quality,2021,0.1917529
+JOR,Jordan,regulatory_quality,2020,0.1930478
+JOR,Jordan,regulatory_quality,2019,0.159713
+JOR,Jordan,regulatory_quality,2018,0.0851019
+JOR,Jordan,regulatory_quality,2017,0.1335964
+JOR,Jordan,regulatory_quality,2016,0.1178125
+JOR,Jordan,regulatory_quality,2015,0.1682906
+JOR,Jordan,regulatory_quality,2014,0.104591
+JOR,Jordan,regulatory_quality,2013,0.0995895
+JOR,Jordan,regulatory_quality,2012,0.1819511
+JOR,Jordan,regulatory_quality,2011,0.1908722
+JOR,Jordan,regulatory_quality,2010,0.1073349
+JOR,Jordan,control_of_corruption,2024,0.2721934
+JOR,Jordan,control_of_corruption,2023,0.1060315
+JOR,Jordan,control_of_corruption,2022,0.0226578
+JOR,Jordan,control_of_corruption,2021,0.0177108
+JOR,Jordan,control_of_corruption,2020,0.1409154
+JOR,Jordan,control_of_corruption,2019,0.0894230999999999
+JOR,Jordan,control_of_corruption,2018,0.0742478
+JOR,Jordan,control_of_corruption,2017,0.1776447
+JOR,Jordan,control_of_corruption,2016,0.2009082
+JOR,Jordan,control_of_corruption,2015,0.2644497
+JOR,Jordan,control_of_corruption,2014,0.0942006
+JOR,Jordan,control_of_corruption,2013,0.0969314999999999
+JOR,Jordan,control_of_corruption,2012,0.0948384999999999
+JOR,Jordan,control_of_corruption,2011,0.150624
+JOR,Jordan,control_of_corruption,2010,0.0263631
+JOR,Jordan,fdi_net_inflows_pct_gdp,2024,2.78862682935517
+JOR,Jordan,fdi_net_inflows_pct_gdp,2023,3.57486440635924
+JOR,Jordan,fdi_net_inflows_pct_gdp,2022,1.79856207883079
+JOR,Jordan,fdi_net_inflows_pct_gdp,2021,1.22641995478769
+JOR,Jordan,fdi_net_inflows_pct_gdp,2020,1.58617483665323
+JOR,Jordan,fdi_net_inflows_pct_gdp,2019,1.50023479065386
+JOR,Jordan,fdi_net_inflows_pct_gdp,2018,2.01309678009089
+JOR,Jordan,fdi_net_inflows_pct_gdp,2017,4.45743038303198
+JOR,Jordan,fdi_net_inflows_pct_gdp,2016,3.554614581726
+JOR,Jordan,fdi_net_inflows_pct_gdp,2015,3.77477904735167
+JOR,Jordan,fdi_net_inflows_pct_gdp,2014,5.37423314588782
+JOR,Jordan,fdi_net_inflows_pct_gdp,2013,5.1397527233423
+JOR,Jordan,fdi_net_inflows_pct_gdp,2012,4.4426748997237
+JOR,Jordan,fdi_net_inflows_pct_gdp,2011,4.5528280155948
+JOR,Jordan,fdi_net_inflows_pct_gdp,2010,5.59019642688163
 SAU,Saudi Arabia,current_account_pct_gdp,2024,-1.29603148573183
 SAU,Saudi Arabia,current_account_pct_gdp,2023,2.12936729495784
 SAU,Saudi Arabia,current_account_pct_gdp,2022,11.7294510759777
@@ -647,6 +1007,66 @@ SAU,Saudi Arabia,government_effectiveness,2013,-0.0761056
 SAU,Saudi Arabia,government_effectiveness,2012,-0.00699619999999999
 SAU,Saudi Arabia,government_effectiveness,2011,0.0088158
 SAU,Saudi Arabia,government_effectiveness,2010,0.0891481
+SAU,Saudi Arabia,rule_of_law,2024,0.2103549
+SAU,Saudi Arabia,rule_of_law,2023,0.1165635
+SAU,Saudi Arabia,rule_of_law,2022,0.0393234
+SAU,Saudi Arabia,rule_of_law,2021,-0.1658751
+SAU,Saudi Arabia,rule_of_law,2020,-0.1793363
+SAU,Saudi Arabia,rule_of_law,2019,-0.169569499999999
+SAU,Saudi Arabia,rule_of_law,2018,-0.2326451
+SAU,Saudi Arabia,rule_of_law,2017,-0.3327389
+SAU,Saudi Arabia,rule_of_law,2016,-0.199981599999999
+SAU,Saudi Arabia,rule_of_law,2015,-0.267793
+SAU,Saudi Arabia,rule_of_law,2014,-0.434598
+SAU,Saudi Arabia,rule_of_law,2013,-0.2026797
+SAU,Saudi Arabia,rule_of_law,2012,-0.186143299999999
+SAU,Saudi Arabia,rule_of_law,2011,-0.1576511
+SAU,Saudi Arabia,rule_of_law,2010,-0.1795887
+SAU,Saudi Arabia,regulatory_quality,2024,0.7102575
+SAU,Saudi Arabia,regulatory_quality,2023,0.6101083
+SAU,Saudi Arabia,regulatory_quality,2022,0.554186
+SAU,Saudi Arabia,regulatory_quality,2021,0.3876301
+SAU,Saudi Arabia,regulatory_quality,2020,0.1732095
+SAU,Saudi Arabia,regulatory_quality,2019,0.1793192
+SAU,Saudi Arabia,regulatory_quality,2018,0.0805221
+SAU,Saudi Arabia,regulatory_quality,2017,0.1004204
+SAU,Saudi Arabia,regulatory_quality,2016,0.1880057
+SAU,Saudi Arabia,regulatory_quality,2015,0.2373094
+SAU,Saudi Arabia,regulatory_quality,2014,0.1946553
+SAU,Saudi Arabia,regulatory_quality,2013,0.2721716
+SAU,Saudi Arabia,regulatory_quality,2012,0.2391932
+SAU,Saudi Arabia,regulatory_quality,2011,0.3943428
+SAU,Saudi Arabia,regulatory_quality,2010,0.3480315
+SAU,Saudi Arabia,control_of_corruption,2024,0.7528275
+SAU,Saudi Arabia,control_of_corruption,2023,0.476953
+SAU,Saudi Arabia,control_of_corruption,2022,0.2767396
+SAU,Saudi Arabia,control_of_corruption,2021,0.2365231
+SAU,Saudi Arabia,control_of_corruption,2020,0.32153
+SAU,Saudi Arabia,control_of_corruption,2019,0.2130276
+SAU,Saudi Arabia,control_of_corruption,2018,0.1556309
+SAU,Saudi Arabia,control_of_corruption,2017,0.1100011
+SAU,Saudi Arabia,control_of_corruption,2016,0.1203849
+SAU,Saudi Arabia,control_of_corruption,2015,-0.140992099999999
+SAU,Saudi Arabia,control_of_corruption,2014,-0.2508778
+SAU,Saudi Arabia,control_of_corruption,2013,-0.1775677
+SAU,Saudi Arabia,control_of_corruption,2012,-0.1950621
+SAU,Saudi Arabia,control_of_corruption,2011,-0.2131986
+SAU,Saudi Arabia,control_of_corruption,2010,-0.121664399999999
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2024,1.70136894275871
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2023,1.87130991298946
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2022,2.1556449627378
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2021,2.8850612174452
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2020,0.211115523412857
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2019,0.346411455797861
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2018,1.36945683303735
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2017,0.136801407151884
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2016,3.18518611850268
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2015,0.572622097928938
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2014,0.191711517264834
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2013,0.437984195574321
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2012,0.669626013751334
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2011,0.688133631504519
+SAU,Saudi Arabia,fdi_net_inflows_pct_gdp,2010,0.923670092367435
 ARE,UAE,debt_to_gdp,2013,1.80326819075483
 ARE,UAE,current_account_pct_gdp,2024,14.4792979326645
 ARE,UAE,current_account_pct_gdp,2023,13.1295797567307
@@ -712,6 +1132,66 @@ ARE,UAE,government_effectiveness,2013,1.1923106
 ARE,UAE,government_effectiveness,2012,1.1560961
 ARE,UAE,government_effectiveness,2011,0.9928203
 ARE,UAE,government_effectiveness,2010,0.8322561
+ARE,UAE,rule_of_law,2024,0.4968448
+ARE,UAE,rule_of_law,2023,0.4492886
+ARE,UAE,rule_of_law,2022,0.409903
+ARE,UAE,rule_of_law,2021,0.338504
+ARE,UAE,rule_of_law,2020,0.3974987
+ARE,UAE,rule_of_law,2019,0.4262682
+ARE,UAE,rule_of_law,2018,0.3893195
+ARE,UAE,rule_of_law,2017,0.3834887
+ARE,UAE,rule_of_law,2016,0.4205051
+ARE,UAE,rule_of_law,2015,0.3509975
+ARE,UAE,rule_of_law,2014,0.3502594
+ARE,UAE,rule_of_law,2013,0.41415
+ARE,UAE,rule_of_law,2012,0.3671791
+ARE,UAE,rule_of_law,2011,0.4251627
+ARE,UAE,rule_of_law,2010,0.0791468
+ARE,UAE,regulatory_quality,2024,1.1257177
+ARE,UAE,regulatory_quality,2023,1.105352
+ARE,UAE,regulatory_quality,2022,1.0576162
+ARE,UAE,regulatory_quality,2021,1.0613347
+ARE,UAE,regulatory_quality,2020,1.0663206
+ARE,UAE,regulatory_quality,2019,1.1457173
+ARE,UAE,regulatory_quality,2018,1.079234
+ARE,UAE,regulatory_quality,2017,1.1113817
+ARE,UAE,regulatory_quality,2016,1.0781755
+ARE,UAE,regulatory_quality,2015,1.1787876
+ARE,UAE,regulatory_quality,2014,1.0740464
+ARE,UAE,regulatory_quality,2013,0.9903687
+ARE,UAE,regulatory_quality,2012,0.8455589
+ARE,UAE,regulatory_quality,2011,0.8903942
+ARE,UAE,regulatory_quality,2010,0.740264
+ARE,UAE,control_of_corruption,2024,1.1702182
+ARE,UAE,control_of_corruption,2023,0.9918577
+ARE,UAE,control_of_corruption,2022,1.0223468
+ARE,UAE,control_of_corruption,2021,1.0349829
+ARE,UAE,control_of_corruption,2020,1.0614313
+ARE,UAE,control_of_corruption,2019,1.0878297
+ARE,UAE,control_of_corruption,2018,1.0948106
+ARE,UAE,control_of_corruption,2017,1.0762151
+ARE,UAE,control_of_corruption,2016,1.1064348
+ARE,UAE,control_of_corruption,2015,0.9199437
+ARE,UAE,control_of_corruption,2014,0.9856797
+ARE,UAE,control_of_corruption,2013,1.1513193
+ARE,UAE,control_of_corruption,2012,1.0894763
+ARE,UAE,control_of_corruption,2011,1.1319379
+ARE,UAE,control_of_corruption,2010,0.9100894
+ARE,UAE,fdi_net_inflows_pct_gdp,2024,8.26261604873876
+ARE,UAE,fdi_net_inflows_pct_gdp,2023,5.87183983564899
+ARE,UAE,fdi_net_inflows_pct_gdp,2022,4.44591398367961
+ARE,UAE,fdi_net_inflows_pct_gdp,2021,4.89230595097426
+ARE,UAE,fdi_net_inflows_pct_gdp,2020,5.56735667729859
+ARE,UAE,fdi_net_inflows_pct_gdp,2019,4.11928554446951
+ARE,UAE,fdi_net_inflows_pct_gdp,2018,2.35729206588897
+ARE,UAE,fdi_net_inflows_pct_gdp,2017,2.5669608321193
+ARE,UAE,fdi_net_inflows_pct_gdp,2016,2.51620120421066
+ARE,UAE,fdi_net_inflows_pct_gdp,2015,2.23861341413826
+ARE,UAE,fdi_net_inflows_pct_gdp,2014,2.60546090290076
+ARE,UAE,fdi_net_inflows_pct_gdp,2013,2.3838227555723
+ARE,UAE,fdi_net_inflows_pct_gdp,2012,2.43554180804761
+ARE,UAE,fdi_net_inflows_pct_gdp,2011,1.93886244385384
+ARE,UAE,fdi_net_inflows_pct_gdp,2010,2.85854098227163
 IRN,Iran,gdp_growth,2024,3.66312057949303
 IRN,Iran,gdp_growth,2023,5.33235116079808
 IRN,Iran,gdp_growth,2022,4.35281087521344
@@ -772,6 +1252,66 @@ IRN,Iran,government_effectiveness,2013,-0.5687029
 IRN,Iran,government_effectiveness,2012,-0.5324399
 IRN,Iran,government_effectiveness,2011,-0.536930599999999
 IRN,Iran,government_effectiveness,2010,-0.6340289
+IRN,Iran,rule_of_law,2024,-1.2348012
+IRN,Iran,rule_of_law,2023,-1.20046299999999
+IRN,Iran,rule_of_law,2022,-1.1257877
+IRN,Iran,rule_of_law,2021,-1.06900019999999
+IRN,Iran,rule_of_law,2020,-1.0270682
+IRN,Iran,rule_of_law,2019,-1.0537229
+IRN,Iran,rule_of_law,2018,-0.969023
+IRN,Iran,rule_of_law,2017,-0.928377599999999
+IRN,Iran,rule_of_law,2016,-0.973579499999999
+IRN,Iran,rule_of_law,2015,-0.9741059
+IRN,Iran,rule_of_law,2014,-1.2547891
+IRN,Iran,rule_of_law,2013,-1.2057757
+IRN,Iran,rule_of_law,2012,-0.9840127
+IRN,Iran,rule_of_law,2011,-1.01296569999999
+IRN,Iran,rule_of_law,2010,-1.1024424
+IRN,Iran,regulatory_quality,2024,-1.5113535
+IRN,Iran,regulatory_quality,2023,-1.4684049
+IRN,Iran,regulatory_quality,2022,-1.3976255
+IRN,Iran,regulatory_quality,2021,-1.39362039999999
+IRN,Iran,regulatory_quality,2020,-1.39295869999999
+IRN,Iran,regulatory_quality,2019,-1.36056169999999
+IRN,Iran,regulatory_quality,2018,-1.2929956
+IRN,Iran,regulatory_quality,2017,-1.08286669999999
+IRN,Iran,regulatory_quality,2016,-1.05587229999999
+IRN,Iran,regulatory_quality,2015,-1.0907749
+IRN,Iran,regulatory_quality,2014,-1.3019342
+IRN,Iran,regulatory_quality,2013,-1.3745965
+IRN,Iran,regulatory_quality,2012,-1.24873909999999
+IRN,Iran,regulatory_quality,2011,-1.1976073
+IRN,Iran,regulatory_quality,2010,-1.42150619999999
+IRN,Iran,control_of_corruption,2024,-1.14723819999999
+IRN,Iran,control_of_corruption,2023,-1.17112979999999
+IRN,Iran,control_of_corruption,2022,-1.13191439999999
+IRN,Iran,control_of_corruption,2021,-1.1267612
+IRN,Iran,control_of_corruption,2020,-1.1044169
+IRN,Iran,control_of_corruption,2019,-0.9919553
+IRN,Iran,control_of_corruption,2018,-0.9420795
+IRN,Iran,control_of_corruption,2017,-0.7011486
+IRN,Iran,control_of_corruption,2016,-0.656176099999999
+IRN,Iran,control_of_corruption,2015,-0.7596233
+IRN,Iran,control_of_corruption,2014,-0.816847099999999
+IRN,Iran,control_of_corruption,2013,-0.9147814
+IRN,Iran,control_of_corruption,2012,-0.98264
+IRN,Iran,control_of_corruption,2011,-0.9423621
+IRN,Iran,control_of_corruption,2010,-1.15665139999999
+IRN,Iran,fdi_net_inflows_pct_gdp,2024,0.304914200880697
+IRN,Iran,fdi_net_inflows_pct_gdp,2023,0.310885408088419
+IRN,Iran,fdi_net_inflows_pct_gdp,2022,0.354893288694741
+IRN,Iran,fdi_net_inflows_pct_gdp,2021,0.34982143161472
+IRN,Iran,fdi_net_inflows_pct_gdp,2020,0.47769170946132
+IRN,Iran,fdi_net_inflows_pct_gdp,2019,0.433347777066285
+IRN,Iran,fdi_net_inflows_pct_gdp,2018,0.576106085876311
+IRN,Iran,fdi_net_inflows_pct_gdp,2017,0.983654956177998
+IRN,Iran,fdi_net_inflows_pct_gdp,2016,0.70452835935243
+IRN,Iran,fdi_net_inflows_pct_gdp,2015,0.500987695412685
+IRN,Iran,fdi_net_inflows_pct_gdp,2014,0.45545387401938
+IRN,Iran,fdi_net_inflows_pct_gdp,2013,0.609501593960532
+IRN,Iran,fdi_net_inflows_pct_gdp,2012,0.723850091355471
+IRN,Iran,fdi_net_inflows_pct_gdp,2011,0.679834574763516
+IRN,Iran,fdi_net_inflows_pct_gdp,2010,0.74916862626536
 BGD,Bangladesh,current_account_pct_gdp,2024,-0.669466607987832
 BGD,Bangladesh,current_account_pct_gdp,2023,-1.64602823544154
 BGD,Bangladesh,current_account_pct_gdp,2022,-3.81010813041237
@@ -862,6 +1402,66 @@ BGD,Bangladesh,government_effectiveness,2013,-0.773905699999999
 BGD,Bangladesh,government_effectiveness,2012,-0.7988014
 BGD,Bangladesh,government_effectiveness,2011,-0.8372577
 BGD,Bangladesh,government_effectiveness,2010,-0.807076799999999
+BGD,Bangladesh,rule_of_law,2024,-0.9600594
+BGD,Bangladesh,rule_of_law,2023,-0.9020256
+BGD,Bangladesh,rule_of_law,2022,-0.973641299999999
+BGD,Bangladesh,rule_of_law,2021,-0.974914899999999
+BGD,Bangladesh,rule_of_law,2020,-0.8969166
+BGD,Bangladesh,rule_of_law,2019,-0.9419472
+BGD,Bangladesh,rule_of_law,2018,-0.9096266
+BGD,Bangladesh,rule_of_law,2017,-0.924304999999999
+BGD,Bangladesh,rule_of_law,2016,-0.9068902
+BGD,Bangladesh,rule_of_law,2015,-0.856926099999999
+BGD,Bangladesh,rule_of_law,2014,-0.851857499999999
+BGD,Bangladesh,rule_of_law,2013,-0.9749211
+BGD,Bangladesh,rule_of_law,2012,-0.9887756
+BGD,Bangladesh,rule_of_law,2011,-0.6998395
+BGD,Bangladesh,rule_of_law,2010,-0.8477644
+BGD,Bangladesh,regulatory_quality,2024,-0.9500708
+BGD,Bangladesh,regulatory_quality,2023,-0.9009111
+BGD,Bangladesh,regulatory_quality,2022,-0.9240476
+BGD,Bangladesh,regulatory_quality,2021,-0.871176499999999
+BGD,Bangladesh,regulatory_quality,2020,-0.8942304
+BGD,Bangladesh,regulatory_quality,2019,-0.8895369
+BGD,Bangladesh,regulatory_quality,2018,-0.7854912
+BGD,Bangladesh,regulatory_quality,2017,-0.7430899
+BGD,Bangladesh,regulatory_quality,2016,-0.7592301
+BGD,Bangladesh,regulatory_quality,2015,-0.776809499999999
+BGD,Bangladesh,regulatory_quality,2014,-0.8964974
+BGD,Bangladesh,regulatory_quality,2013,-0.9494963
+BGD,Bangladesh,regulatory_quality,2012,-0.978781999999999
+BGD,Bangladesh,regulatory_quality,2011,-0.8270946
+BGD,Bangladesh,regulatory_quality,2010,-0.8368896
+BGD,Bangladesh,control_of_corruption,2024,-1.1021569
+BGD,Bangladesh,control_of_corruption,2023,-1.1987203
+BGD,Bangladesh,control_of_corruption,2022,-1.17834859999999
+BGD,Bangladesh,control_of_corruption,2021,-1.0928915
+BGD,Bangladesh,control_of_corruption,2020,-1.07605779999999
+BGD,Bangladesh,control_of_corruption,2019,-1.1006451
+BGD,Bangladesh,control_of_corruption,2018,-1.0964787
+BGD,Bangladesh,control_of_corruption,2017,-1.062185
+BGD,Bangladesh,control_of_corruption,2016,-1.0667924
+BGD,Bangladesh,control_of_corruption,2015,-1.0798121
+BGD,Bangladesh,control_of_corruption,2014,-1.1845563
+BGD,Bangladesh,control_of_corruption,2013,-1.1326018
+BGD,Bangladesh,control_of_corruption,2012,-1.12133289999999
+BGD,Bangladesh,control_of_corruption,2011,-1.0523775
+BGD,Bangladesh,control_of_corruption,2010,-1.0218466
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2024,0.283870773350074
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2023,0.335721505298968
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2022,0.347960024540439
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2021,0.414118154040593
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2020,0.407859894856915
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2019,0.543244141585063
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2018,0.75354913412869
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2017,0.616341784631384
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2016,0.879528340271998
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2015,1.4507824552936
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2014,1.46870305074204
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2013,1.73532012481503
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2012,1.18850391920183
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2011,0.983399364184761
+BGD,Bangladesh,fdi_net_inflows_pct_gdp,2010,1.06896766308322
 LKA,Sri Lanka,debt_to_gdp,2015,73.5126591623625
 LKA,Sri Lanka,debt_to_gdp,2014,68.5910423360777
 LKA,Sri Lanka,debt_to_gdp,2013,68.353616559854
@@ -958,6 +1558,66 @@ LKA,Sri Lanka,government_effectiveness,2013,-0.1437062
 LKA,Sri Lanka,government_effectiveness,2012,-0.1739743
 LKA,Sri Lanka,government_effectiveness,2011,-0.1636119
 LKA,Sri Lanka,government_effectiveness,2010,-0.185523
+LKA,Sri Lanka,rule_of_law,2024,-0.2577461
+LKA,Sri Lanka,rule_of_law,2023,-0.31553
+LKA,Sri Lanka,rule_of_law,2022,-0.3299184
+LKA,Sri Lanka,rule_of_law,2021,-0.2315397
+LKA,Sri Lanka,rule_of_law,2020,-0.1909487
+LKA,Sri Lanka,rule_of_law,2019,-0.0781005999999999
+LKA,Sri Lanka,rule_of_law,2018,-0.0575940999999999
+LKA,Sri Lanka,rule_of_law,2017,-0.111659899999999
+LKA,Sri Lanka,rule_of_law,2016,-0.1066651
+LKA,Sri Lanka,rule_of_law,2015,-0.110513199999999
+LKA,Sri Lanka,rule_of_law,2014,-0.3605151
+LKA,Sri Lanka,rule_of_law,2013,-0.3561281
+LKA,Sri Lanka,rule_of_law,2012,-0.1436392
+LKA,Sri Lanka,rule_of_law,2011,-0.2864777
+LKA,Sri Lanka,rule_of_law,2010,-0.2305758
+LKA,Sri Lanka,regulatory_quality,2024,-0.299213499999999
+LKA,Sri Lanka,regulatory_quality,2023,-0.3799918
+LKA,Sri Lanka,regulatory_quality,2022,-0.456906
+LKA,Sri Lanka,regulatory_quality,2021,-0.1629445
+LKA,Sri Lanka,regulatory_quality,2020,-0.1122765
+LKA,Sri Lanka,regulatory_quality,2019,-0.186002
+LKA,Sri Lanka,regulatory_quality,2018,-0.1897983
+LKA,Sri Lanka,regulatory_quality,2017,-0.1170039
+LKA,Sri Lanka,regulatory_quality,2016,-0.0445476
+LKA,Sri Lanka,regulatory_quality,2015,0.0306457
+LKA,Sri Lanka,regulatory_quality,2014,-0.0063463
+LKA,Sri Lanka,regulatory_quality,2013,-0.0763977
+LKA,Sri Lanka,regulatory_quality,2012,0.00718909999999999
+LKA,Sri Lanka,regulatory_quality,2011,0.0210493
+LKA,Sri Lanka,regulatory_quality,2010,-0.0753803
+LKA,Sri Lanka,control_of_corruption,2024,-0.384770899999999
+LKA,Sri Lanka,control_of_corruption,2023,-0.3868314
+LKA,Sri Lanka,control_of_corruption,2022,-0.3533578
+LKA,Sri Lanka,control_of_corruption,2021,-0.3367364
+LKA,Sri Lanka,control_of_corruption,2020,-0.2760375
+LKA,Sri Lanka,control_of_corruption,2019,-0.1639347
+LKA,Sri Lanka,control_of_corruption,2018,-0.2047049
+LKA,Sri Lanka,control_of_corruption,2017,-0.307832799999999
+LKA,Sri Lanka,control_of_corruption,2016,-0.2510246
+LKA,Sri Lanka,control_of_corruption,2015,-0.3413605
+LKA,Sri Lanka,control_of_corruption,2014,-0.4501459
+LKA,Sri Lanka,control_of_corruption,2013,-0.3103438
+LKA,Sri Lanka,control_of_corruption,2012,-0.3066483
+LKA,Sri Lanka,control_of_corruption,2011,-0.2480769
+LKA,Sri Lanka,control_of_corruption,2010,-0.2614436
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2024,0.764077754153862
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2023,0.848017076796717
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2022,1.19249322162632
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2021,0.668825708548416
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2020,0.514700553944402
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2019,0.835367460265196
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2018,1.70888696252064
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2017,1.45462805110061
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2016,1.01937184801285
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2015,0.798746316666859
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2014,1.08277813405104
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2013,1.21148000059153
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2012,1.33591734742632
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2011,1.41088360151362
+LKA,Sri Lanka,fdi_net_inflows_pct_gdp,2010,0.814446067583227
 IRQ,Iraq,debt_to_gdp,2018,27.438248367378
 IRQ,Iraq,debt_to_gdp,2017,35.8630061595051
 IRQ,Iraq,debt_to_gdp,2016,29.4760678291372
@@ -1052,6 +1712,66 @@ IRQ,Iraq,government_effectiveness,2013,-1.07101239999999
 IRQ,Iraq,government_effectiveness,2012,-1.1168342
 IRQ,Iraq,government_effectiveness,2011,-1.1846155
 IRQ,Iraq,government_effectiveness,2010,-1.17899359999999
+IRQ,Iraq,rule_of_law,2024,-1.3581614
+IRQ,Iraq,rule_of_law,2023,-1.5002727
+IRQ,Iraq,rule_of_law,2022,-1.45504109999999
+IRQ,Iraq,rule_of_law,2021,-1.4374976
+IRQ,Iraq,rule_of_law,2020,-1.512443
+IRQ,Iraq,rule_of_law,2019,-1.37408
+IRQ,Iraq,rule_of_law,2018,-1.43204969999999
+IRQ,Iraq,rule_of_law,2017,-1.5484905
+IRQ,Iraq,rule_of_law,2016,-1.53679029999999
+IRQ,Iraq,rule_of_law,2015,-1.48886679999999
+IRQ,Iraq,rule_of_law,2014,-1.4559635
+IRQ,Iraq,rule_of_law,2013,-1.4740494
+IRQ,Iraq,rule_of_law,2012,-1.4532764
+IRQ,Iraq,rule_of_law,2011,-1.4239293
+IRQ,Iraq,rule_of_law,2010,-1.57079259999999
+IRQ,Iraq,regulatory_quality,2024,-1.030546
+IRQ,Iraq,regulatory_quality,2023,-1.2810271
+IRQ,Iraq,regulatory_quality,2022,-1.2214123
+IRQ,Iraq,regulatory_quality,2021,-1.1622157
+IRQ,Iraq,regulatory_quality,2020,-1.2511236
+IRQ,Iraq,regulatory_quality,2019,-1.1604354
+IRQ,Iraq,regulatory_quality,2018,-1.16118109999999
+IRQ,Iraq,regulatory_quality,2017,-1.06927179999999
+IRQ,Iraq,regulatory_quality,2016,-0.9696252
+IRQ,Iraq,regulatory_quality,2015,-1.01794729999999
+IRQ,Iraq,regulatory_quality,2014,-1.07080859999999
+IRQ,Iraq,regulatory_quality,2013,-1.01449489999999
+IRQ,Iraq,regulatory_quality,2012,-1.0140703
+IRQ,Iraq,regulatory_quality,2011,-0.9193194
+IRQ,Iraq,regulatory_quality,2010,-0.9629582
+IRQ,Iraq,control_of_corruption,2024,-1.2050155
+IRQ,Iraq,control_of_corruption,2023,-1.4169702
+IRQ,Iraq,control_of_corruption,2022,-1.37334849999999
+IRQ,Iraq,control_of_corruption,2021,-1.37400869999999
+IRQ,Iraq,control_of_corruption,2020,-1.3692381
+IRQ,Iraq,control_of_corruption,2019,-1.4433306
+IRQ,Iraq,control_of_corruption,2018,-1.4767763
+IRQ,Iraq,control_of_corruption,2017,-1.4065197
+IRQ,Iraq,control_of_corruption,2016,-1.4012064
+IRQ,Iraq,control_of_corruption,2015,-1.393567
+IRQ,Iraq,control_of_corruption,2014,-1.357674
+IRQ,Iraq,control_of_corruption,2013,-1.26454969999999
+IRQ,Iraq,control_of_corruption,2012,-1.26788219999999
+IRQ,Iraq,control_of_corruption,2011,-1.2387175
+IRQ,Iraq,control_of_corruption,2010,-1.3062258
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2024,-2.73525447039729
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2023,-1.99474822313262
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2022,-0.726653366772653
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2021,-1.25770209772783
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2020,-1.58049696252586
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2019,-1.31640616709339
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2018,-2.14854834807913
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2017,-2.68799428357231
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2016,-3.75180911604806
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2015,-4.54159235443502
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2014,-4.45521124532956
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2013,-0.995279210263068
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2012,1.55961531280073
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2011,1.12086339764167
+IRQ,Iraq,fdi_net_inflows_pct_gdp,2010,1.00796493975113
 LBN,Lebanon,current_account_pct_gdp,2023,-28.103669636709
 LBN,Lebanon,current_account_pct_gdp,2022,-34.606227109401
 LBN,Lebanon,current_account_pct_gdp,2021,-19.6978128626341
@@ -1140,6 +1860,66 @@ LBN,Lebanon,government_effectiveness,2013,-0.325725999999999
 LBN,Lebanon,government_effectiveness,2012,-0.2600992
 LBN,Lebanon,government_effectiveness,2011,-0.2594872
 LBN,Lebanon,government_effectiveness,2010,-0.243552799999999
+LBN,Lebanon,rule_of_law,2024,-1.0853525
+LBN,Lebanon,rule_of_law,2023,-1.0665045
+LBN,Lebanon,rule_of_law,2022,-1.0323318
+LBN,Lebanon,rule_of_law,2021,-1.0028379
+LBN,Lebanon,rule_of_law,2020,-0.918424399999999
+LBN,Lebanon,rule_of_law,2019,-0.8604448
+LBN,Lebanon,rule_of_law,2018,-0.7717368
+LBN,Lebanon,rule_of_law,2017,-0.821323599999999
+LBN,Lebanon,rule_of_law,2016,-0.8515653
+LBN,Lebanon,rule_of_law,2015,-0.8084504
+LBN,Lebanon,rule_of_law,2014,-0.6947778
+LBN,Lebanon,rule_of_law,2013,-0.6166728
+LBN,Lebanon,rule_of_law,2012,-0.5196035
+LBN,Lebanon,rule_of_law,2011,-0.4793095
+LBN,Lebanon,rule_of_law,2010,-0.6539495
+LBN,Lebanon,regulatory_quality,2024,-0.958879399999999
+LBN,Lebanon,regulatory_quality,2023,-0.912561
+LBN,Lebanon,regulatory_quality,2022,-0.943323199999999
+LBN,Lebanon,regulatory_quality,2021,-0.821736999999999
+LBN,Lebanon,regulatory_quality,2020,-0.715552099999999
+LBN,Lebanon,regulatory_quality,2019,-0.5611682
+LBN,Lebanon,regulatory_quality,2018,-0.470461099999999
+LBN,Lebanon,regulatory_quality,2017,-0.357388
+LBN,Lebanon,regulatory_quality,2016,-0.4156822
+LBN,Lebanon,regulatory_quality,2015,-0.3625053
+LBN,Lebanon,regulatory_quality,2014,-0.441824599999999
+LBN,Lebanon,regulatory_quality,2013,-0.2888629
+LBN,Lebanon,regulatory_quality,2012,-0.3620584
+LBN,Lebanon,regulatory_quality,2011,-0.2805478
+LBN,Lebanon,regulatory_quality,2010,0.0121012
+LBN,Lebanon,control_of_corruption,2024,-1.3041344
+LBN,Lebanon,control_of_corruption,2023,-1.2554109
+LBN,Lebanon,control_of_corruption,2022,-1.21762979999999
+LBN,Lebanon,control_of_corruption,2021,-1.2586741
+LBN,Lebanon,control_of_corruption,2020,-1.23052269999999
+LBN,Lebanon,control_of_corruption,2019,-1.2286796
+LBN,Lebanon,control_of_corruption,2018,-1.2208803
+LBN,Lebanon,control_of_corruption,2017,-1.0714014
+LBN,Lebanon,control_of_corruption,2016,-1.069034
+LBN,Lebanon,control_of_corruption,2015,-1.0047914
+LBN,Lebanon,control_of_corruption,2014,-1.1059903
+LBN,Lebanon,control_of_corruption,2013,-0.970074999999999
+LBN,Lebanon,control_of_corruption,2012,-0.938608999999999
+LBN,Lebanon,control_of_corruption,2011,-0.8636085
+LBN,Lebanon,control_of_corruption,2010,-0.9593813
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2024,7.09437049742925
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2023,3.26435467389127
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2022,2.50966160641735
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2021,2.5929006838647
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2020,5.06712986613403
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2019,3.69413245000342
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2018,4.84140308956364
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2017,4.756779140202
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2016,5.02174040562454
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2015,4.32469174487594
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2014,5.95175528625723
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2013,5.67636791033718
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2012,7.06847166156729
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2011,7.85693989450406
+LBN,Lebanon,fdi_net_inflows_pct_gdp,2010,11.1327936305686
 KWT,Kuwait,current_account_pct_gdp,2024,29.025293802042
 KWT,Kuwait,current_account_pct_gdp,2023,31.0620887768465
 KWT,Kuwait,current_account_pct_gdp,2022,34.3743300781264
@@ -1230,6 +2010,66 @@ KWT,Kuwait,government_effectiveness,2013,0.016508
 KWT,Kuwait,government_effectiveness,2012,0.0282044
 KWT,Kuwait,government_effectiveness,2011,0.0334503
 KWT,Kuwait,government_effectiveness,2010,0.1289714
+KWT,Kuwait,rule_of_law,2024,0.2308269
+KWT,Kuwait,rule_of_law,2023,0.1910577
+KWT,Kuwait,rule_of_law,2022,0.2236666
+KWT,Kuwait,rule_of_law,2021,0.1194986
+KWT,Kuwait,rule_of_law,2020,0.146885
+KWT,Kuwait,rule_of_law,2019,0.0662246
+KWT,Kuwait,rule_of_law,2018,-0.0177652
+KWT,Kuwait,rule_of_law,2017,-0.0541277
+KWT,Kuwait,rule_of_law,2016,-0.0688786
+KWT,Kuwait,rule_of_law,2015,7.06e-05
+KWT,Kuwait,rule_of_law,2014,0.0157648
+KWT,Kuwait,rule_of_law,2013,0.2919927
+KWT,Kuwait,rule_of_law,2012,0.3272807
+KWT,Kuwait,rule_of_law,2011,0.3070359
+KWT,Kuwait,rule_of_law,2010,0.3381151
+KWT,Kuwait,regulatory_quality,2024,0.4035133
+KWT,Kuwait,regulatory_quality,2023,0.3224925
+KWT,Kuwait,regulatory_quality,2022,0.2464239
+KWT,Kuwait,regulatory_quality,2021,0.1641701
+KWT,Kuwait,regulatory_quality,2020,0.1356131
+KWT,Kuwait,regulatory_quality,2019,0.1059595
+KWT,Kuwait,regulatory_quality,2018,0.0185723
+KWT,Kuwait,regulatory_quality,2017,-0.0306017
+KWT,Kuwait,regulatory_quality,2016,-0.0488498
+KWT,Kuwait,regulatory_quality,2015,-0.0254842
+KWT,Kuwait,regulatory_quality,2014,-0.0650589
+KWT,Kuwait,regulatory_quality,2013,0.1194098
+KWT,Kuwait,regulatory_quality,2012,0.1507128
+KWT,Kuwait,regulatory_quality,2011,0.2857251
+KWT,Kuwait,regulatory_quality,2010,0.4485081
+KWT,Kuwait,control_of_corruption,2024,0.2183455
+KWT,Kuwait,control_of_corruption,2023,0.1660086
+KWT,Kuwait,control_of_corruption,2022,0.0771437
+KWT,Kuwait,control_of_corruption,2021,-0.0606404
+KWT,Kuwait,control_of_corruption,2020,-0.1551226
+KWT,Kuwait,control_of_corruption,2019,-0.1345999
+KWT,Kuwait,control_of_corruption,2018,-0.2747578
+KWT,Kuwait,control_of_corruption,2017,-0.3931383
+KWT,Kuwait,control_of_corruption,2016,-0.338747099999999
+KWT,Kuwait,control_of_corruption,2015,-0.241923499999999
+KWT,Kuwait,control_of_corruption,2014,-0.2717863
+KWT,Kuwait,control_of_corruption,2013,-0.123960599999999
+KWT,Kuwait,control_of_corruption,2012,-0.1357484
+KWT,Kuwait,control_of_corruption,2011,-0.0793826
+KWT,Kuwait,control_of_corruption,2010,0.1131822
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2024,0.381956730773215
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2023,1.277994317906
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2022,0.409943823254394
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2021,-0.183575378772919
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2020,-0.502546857177858
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2019,0.366059041832984
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2018,-0.0154187787915342
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2017,0.0936402094114043
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2016,0.266918369047007
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2015,0.248414926379679
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2014,0.298681408941651
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2013,0.823130244872496
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2012,1.65046109668041
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2011,2.11573865053541
+KWT,Kuwait,fdi_net_inflows_pct_gdp,2010,1.13036730425536
 QAT,Qatar,current_account_pct_gdp,2024,17.5152925396793
 QAT,Qatar,current_account_pct_gdp,2023,17.1136863378173
 QAT,Qatar,current_account_pct_gdp,2022,26.7778361978623
@@ -1318,3 +2158,63 @@ QAT,Qatar,government_effectiveness,2013,1.1397085
 QAT,Qatar,government_effectiveness,2012,0.9747888
 QAT,Qatar,government_effectiveness,2011,1.0080412
 QAT,Qatar,government_effectiveness,2010,0.964407
+QAT,Qatar,rule_of_law,2024,0.589593
+QAT,Qatar,rule_of_law,2023,0.5728637
+QAT,Qatar,rule_of_law,2022,0.5977458
+QAT,Qatar,rule_of_law,2021,0.5003341
+QAT,Qatar,rule_of_law,2020,0.4786325
+QAT,Qatar,rule_of_law,2019,0.4938622
+QAT,Qatar,rule_of_law,2018,0.4639058
+QAT,Qatar,rule_of_law,2017,0.470148
+QAT,Qatar,rule_of_law,2016,0.5818673
+QAT,Qatar,rule_of_law,2015,0.5358302
+QAT,Qatar,rule_of_law,2014,0.5935569
+QAT,Qatar,rule_of_law,2013,0.7628549
+QAT,Qatar,rule_of_law,2012,0.7277942
+QAT,Qatar,rule_of_law,2011,0.641775
+QAT,Qatar,rule_of_law,2010,0.7067019
+QAT,Qatar,regulatory_quality,2024,0.9663365
+QAT,Qatar,regulatory_quality,2023,0.9412093
+QAT,Qatar,regulatory_quality,2022,0.8839637
+QAT,Qatar,regulatory_quality,2021,0.8424347
+QAT,Qatar,regulatory_quality,2020,0.8435123
+QAT,Qatar,regulatory_quality,2019,0.7893471
+QAT,Qatar,regulatory_quality,2018,0.6770845
+QAT,Qatar,regulatory_quality,2017,0.560855
+QAT,Qatar,regulatory_quality,2016,0.7654833
+QAT,Qatar,regulatory_quality,2015,0.7674283
+QAT,Qatar,regulatory_quality,2014,0.7014796
+QAT,Qatar,regulatory_quality,2013,0.9455132
+QAT,Qatar,regulatory_quality,2012,0.9514299
+QAT,Qatar,regulatory_quality,2011,0.8503316
+QAT,Qatar,regulatory_quality,2010,0.8609387
+QAT,Qatar,control_of_corruption,2024,0.7548293
+QAT,Qatar,control_of_corruption,2023,0.7757739
+QAT,Qatar,control_of_corruption,2022,0.8197673
+QAT,Qatar,control_of_corruption,2021,0.8394432
+QAT,Qatar,control_of_corruption,2020,0.8746817
+QAT,Qatar,control_of_corruption,2019,0.8776184
+QAT,Qatar,control_of_corruption,2018,0.7493739
+QAT,Qatar,control_of_corruption,2017,0.7457912
+QAT,Qatar,control_of_corruption,2016,0.8601436
+QAT,Qatar,control_of_corruption,2015,0.8450167
+QAT,Qatar,control_of_corruption,2014,0.8617689
+QAT,Qatar,control_of_corruption,2013,1.1766023
+QAT,Qatar,control_of_corruption,2012,1.1558661
+QAT,Qatar,control_of_corruption,2011,1.1504795
+QAT,Qatar,control_of_corruption,2010,1.3446901
+QAT,Qatar,fdi_net_inflows_pct_gdp,2024,0.212749202349259
+QAT,Qatar,fdi_net_inflows_pct_gdp,2023,-0.222614821674707
+QAT,Qatar,fdi_net_inflows_pct_gdp,2022,0.0322850616403459
+QAT,Qatar,fdi_net_inflows_pct_gdp,2021,-0.608353846418717
+QAT,Qatar,fdi_net_inflows_pct_gdp,2020,-1.68550858988767
+QAT,Qatar,fdi_net_inflows_pct_gdp,2019,-1.59472537643955
+QAT,Qatar,fdi_net_inflows_pct_gdp,2018,-1.19249695201383
+QAT,Qatar,fdi_net_inflows_pct_gdp,2017,0.612038723345893
+QAT,Qatar,fdi_net_inflows_pct_gdp,2016,0.510044137883475
+QAT,Qatar,fdi_net_inflows_pct_gdp,2015,0.662099304441699
+QAT,Qatar,fdi_net_inflows_pct_gdp,2014,0.504491036758769
+QAT,Qatar,fdi_net_inflows_pct_gdp,2013,-0.422882595917482
+QAT,Qatar,fdi_net_inflows_pct_gdp,2012,0.21188872224358
+QAT,Qatar,fdi_net_inflows_pct_gdp,2011,0.559389030984015
+QAT,Qatar,fdi_net_inflows_pct_gdp,2010,3.73261315829573

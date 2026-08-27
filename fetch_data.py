@@ -6,6 +6,7 @@ import subprocess
 import json
 import pandas as pd
 import time
+from datetime import datetime, timezone
 
 COUNTRIES = {
     "PAK": "Pakistan",
@@ -34,13 +35,21 @@ ECON_INDICATORS = {
     "FP.CPI.TOTL.ZG": "inflation",
 }
 
+# Investment context (descriptive only — NOT part of the risk score)
+CONTEXT_INDICATORS = {
+    "BX.KLT.DINV.WD.GD.ZS": "fdi_net_inflows_pct_gdp",
+}
+
 # Governance pillar (World Bank Worldwide Governance Indicators)
 GOV_INDICATORS = {
     "GOV_WGI_PV.EST": "political_stability",
     "GOV_WGI_GE.EST": "government_effectiveness",
+    "GOV_WGI_RL.EST": "rule_of_law",
+    "GOV_WGI_RQ.EST": "regulatory_quality",
+    "GOV_WGI_CC.EST": "control_of_corruption",
 }
 
-INDICATORS = {**ECON_INDICATORS, **GOV_INDICATORS}
+INDICATORS = {**ECON_INDICATORS, **GOV_INDICATORS, **CONTEXT_INDICATORS}
 
 BASE_URL = "https://api.worldbank.org/v2/country/{country}/indicator/{indicator}"
 
@@ -114,6 +123,9 @@ def main():
 
     wide_df = pd.DataFrame(latest_rows)
     wide_df.to_csv("raw_data.csv", index=False)
+
+    with open("last_refreshed.txt", "w") as f:
+        f.write(datetime.now(timezone.utc).strftime("%Y-%m-%d"))
 
     print(f"\nSaved raw_data_long.csv ({len(long_df)} rows) and raw_data.csv ({len(wide_df)} countries)")
 
