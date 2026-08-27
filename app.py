@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
-from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS
+from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE
 
 st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
 
@@ -647,6 +647,29 @@ with tab2:
         st.caption("No curated events on file for this country yet.")
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">WHAT_THE_ECONOMY_RUNS_ON</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Key Sectors &amp; Trade Profile</div>', unsafe_allow_html=True)
+    trade_profile = COUNTRY_TRADE_PROFILE.get(country_code)
+    if trade_profile:
+        custom_table(
+            [
+                ["Main Sectors", trade_profile["sectors"]],
+                ["Biggest Exports", trade_profile["exports"]],
+                ["Biggest Imports", trade_profile["imports"]],
+                ["Leading Trade Partners", trade_profile["partners"]],
+            ],
+            ["Category", "Detail"],
+        )
+        st.caption(
+            "Compiled from established, stable economic-geography knowledge (the kind found in the "
+            "CIA World Factbook and the Observatory of Economic Complexity / UN Comtrade) rather than "
+            "a single per-country citation — see Methodology for the full source list. Share figures "
+            "are directional, not precise-to-the-decimal statistics."
+        )
+    else:
+        st.caption("No trade/sector profile on file for this country yet.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">TRADE_AND_INVESTMENT</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Investment &amp; Trade Context</div>', unsafe_allow_html=True)
     st.markdown(
@@ -766,6 +789,12 @@ with tab3:
                 "</div>",
                 unsafe_allow_html=True,
             )
+            if conflict.get("groups"):
+                st.markdown(
+                    f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:{TEXT_MUTED};margin-bottom:0.8rem;">'
+                    f'<b style="color:{ACCENT};">GROUPS INVOLVED:</b> {conflict["groups"]}</div>',
+                    unsafe_allow_html=True,
+                )
             st.markdown(f'<div class="narrative-box"><b>SUMMARY</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown(f'<div class="narrative-box"><b>MARKET_&amp;_TRADE_IMPACT</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
@@ -896,16 +925,42 @@ with tab5:
 - **Historical context is curated, not live** — the event list in each country's Deep Dive tab
   and the Live Conflicts tab were hand-researched and fact-checked via web search as of August
   2026, not pulled from a live news feed. They highlight major events but are not exhaustive.
-- **Financing Arrangements and Key Economic Partners are intentionally partial** — only 7
-  countries have a verified IMF financing arrangement on file, and only 5 have a sourced "key
-  economic partners" summary. This is a deliberate scope decision: it's better to show verified
-  detail for a subset than unverified claims for all 26. Instrument-level bond/loan maturity
-  schedules (a true "debt rollover wall") are out of scope entirely — that needs a specialized
-  debt database (Bloomberg, the IMF's sovereign debt investor relations portal, or national debt
-  management offices), not a research pass over public web sources.
+- **Financing Arrangements coverage is partial by design** — 12 of 26 countries have a verified
+  IMF/multilateral arrangement or explicit "net creditor" note on file. The rest simply weren't
+  independently confirmed in this research pass, rather than assumed to have none. Instrument-level
+  bond/loan maturity schedules (a true "debt rollover wall") are out of scope entirely — that needs
+  a specialized debt database (Bloomberg, the IMF's sovereign debt investor relations portal, or
+  national debt management offices), not a research pass over public web sources.
+- **Key Economic Partners and Trade/Sector Profiles now cover all 26 countries**, but at varying
+  depth — some entries (Pakistan, Sri Lanka, Egypt) are backed by multiple named, dated sources;
+  others rely more on general reference material where a specific news event wasn't available.
+  Where a claim cites a specific figure or date, that figure has a named source; general economic
+  structure (e.g. "Kuwait relies on oil exports") reflects well-established economic geography
+  rather than requiring a single citation.
 - Weights are a transparent, reasonable starting point — not a backtested or econometrically
   validated model. Research/screening tool, not investment advice.
 """
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">BEYOND_WORLD_BANK_AND_IMF</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
+    st.markdown(
+        "The 10-factor risk score is built entirely on World Bank data for consistency and "
+        "reproducibility. The qualitative layers — Historical Context, Live Conflicts, Key Economic "
+        "Partners, and Trade/Sector Profiles — draw on a much broader set of reputable sources, "
+        "reflecting how real political risk research actually works: no single database covers "
+        "conflict dynamics, trade relationships, *and* fiscal data at once."
+    )
+    custom_table(
+        [
+            ["News & wire services", "Reuters, Bloomberg, Al Jazeera, Associated Press, Times of Israel, France24, Middle East Eye"],
+            ["Think tanks & policy research", "Brookings Institution, Council on Foreign Relations (CFR) Global Conflict Tracker, Center for Strategic and International Studies (CSIS), Carnegie Endowment, Atlantic Council, International Crisis Group, Belfer Center (Harvard), Chatham House, Stimson Center, Washington Institute, Soufan Center"],
+            ["Government & multilateral bodies", "IMF press releases, US Congress.gov (CRS reports), UK House of Commons Library, UN Security Council Report, UNHCR/OCHA"],
+            ["Encyclopedic reference", "Wikipedia (used as a starting point and cross-checked against primary sources, not a sole source), Britannica"],
+            ["Economic/trade data", "CIA World Factbook, Observatory of Economic Complexity (OEC), UN Comtrade, EIA (energy)"],
+        ],
+        ["Category", "Examples Used"],
     )
 
     st.markdown("<br>", unsafe_allow_html=True)

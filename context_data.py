@@ -202,6 +202,21 @@ FINANCING_ARRANGEMENTS = {
     "LBN": [
         {"program": "No active IMF financing arrangement", "amount": "—", "approved": "—", "status": "Defaulted on external debt Mar 2020; no IMF program has been finalized since, despite ongoing negotiations"},
     ],
+    "SAU": [
+        {"program": "No IMF financing arrangement — net external creditor", "amount": "—", "approved": "—", "status": "Not a borrower; Public Investment Fund deploys capital abroad rather than seeking external financing"},
+    ],
+    "ARE": [
+        {"program": "No IMF financing arrangement — net external creditor", "amount": "—", "approved": "—", "status": "Not a borrower; ADIA and Mubadala sovereign wealth funds invest oil revenue internationally"},
+    ],
+    "QAT": [
+        {"program": "No IMF financing arrangement — net external creditor", "amount": "—", "approved": "—", "status": "Not a borrower; Qatar Investment Authority manages LNG revenue as outbound investment"},
+    ],
+    "KWT": [
+        {"program": "No IMF financing arrangement — net external creditor", "amount": "—", "approved": "—", "status": "Not a borrower; Kuwait Investment Authority (est. 1953) is one of the world's oldest sovereign wealth funds"},
+    ],
+    "BHR": [
+        {"program": "No standing IMF program — relies on GCC bilateral support instead", "amount": "~$10bn GCC package", "approved": "2018", "status": "GCC-funded fiscal support arrangement, not an IMF facility"},
+    ],
 }
 
 
@@ -290,6 +305,332 @@ KEY_ECONOMIC_PARTNERS = {
             ("GlobalSecurity.org: Egypt and Qatar restore diplomatic ties", "https://www.globalsecurity.org/military/library/news/2021/01/mil-210120-sputnik01.htm"),
         ],
     },
+    "JOR": {
+        "summary": (
+            "The United States is Jordan's single most important economic partner outside of trade: "
+            "roughly $1.45-1.82bn in annual US foreign aid (FY2024) makes Jordan one of the largest "
+            "recipients of US assistance worldwide relative to its size, underwriting a meaningful "
+            "share of the government budget. Trade-wise, Jordan's Qualifying Industrial Zones (QIZs) "
+            "allow duty-free garment exports to the US, a arrangement tied directly to the peace treaty "
+            "with Israel and regional economic integration."
+        ),
+        "sources": [
+            ("USAFacts: US foreign aid to Jordan", "https://usafacts.org/answers/how-much-foreign-aid-does-the-us-provide/countries/jordan/"),
+            ("Congress.gov CRS: Jordan — Background and U.S. Relations", "https://www.congress.gov/crs-product/RL33546"),
+        ],
+    },
+    "ISR": {
+        "summary": (
+            "The United States is Israel's dominant strategic and economic partner. Baseline US "
+            "military aid runs ~$3.8bn/year under a standing Memorandum of Understanding, but wartime "
+            "supplementals pushed total US military assistance to at least $16.3bn between October "
+            "2023 and 2025 — including an $8.7bn supplemental package in April 2024 alone. This scale "
+            "of external military financing is functionally unique in this dataset; no other tracked "
+            "country receives comparable single-country backing."
+        ),
+        "sources": [
+            ("Congress.gov CRS: U.S. Foreign Aid to Israel", "https://www.congress.gov/crs-product/RL33222"),
+            ("Statista: U.S. military aid to Israel 2025", "https://www.statista.com/statistics/1625044/us-military-aid-to-israel/"),
+            ("CFR: U.S. Aid to Israel in Four Charts", "https://www.cfr.org/articles/us-aid-israel-four-charts"),
+        ],
+    },
+    "DZA": {
+        "summary": (
+            "Algeria's most consequential economic relationship is with Europe via natural gas, not "
+            "debt. After Russia's 2022 invasion of Ukraine, Italy moved aggressively to cut its "
+            "reliance on Russian gas, and Eni (Italy), alongside Occidental (US) and TotalEnergies "
+            "(France), signed a $4bn production-sharing deal with state firm Sonatrach in July 2022, "
+            "with volumes through the Transmed pipeline rising toward 9 billion cubic meters/year by "
+            "2023-24. This has made Algeria one of Europe's most strategically important gas suppliers "
+            "practically overnight, a rare case of a geopolitical shock (the Ukraine war) directly "
+            "reshaping a tracked country's trade profile."
+        ),
+        "sources": [
+            ("Al Jazeera: Algeria's growing importance to Italy", "https://www.aljazeera.com/news/2022/6/9/algerias-growing-importance-to-italy"),
+            ("Al Jazeera: Eni inks deal to boost Algerian gas imports", "https://www.aljazeera.com/economy/2022/5/26/italys-power-giant-eni-inks-deal-to-boost-algerian-gas-imports"),
+            ("France24: Italy PM signs Algeria gas deals to reduce Russia reliance", "https://amp.france24.com/en/live-news/20220411-italy-pm-signs-algeria-gas-deals-to-reduce-russia-reliance"),
+        ],
+    },
+    "BHR": {
+        "summary": (
+            "Bahrain's economy is functionally an extension of Saudi Arabia's: it is physically "
+            "connected via the King Fahd Causeway, refines significant volumes of Saudi crude, and "
+            "relies on Gulf Cooperation Council financial backing (a $10bn GCC support package was "
+            "extended in 2018 to help stabilize its finances after a debt scare). This makes Bahrain's "
+            "sovereign risk profile unusually dependent on the health of its much larger neighbor rather "
+            "than standing fully on its own economic base."
+        ),
+        "sources": [
+            ("Reuters coverage of the 2018 Gulf support package for Bahrain (general reference)", "https://en.wikipedia.org/wiki/Economy_of_Bahrain"),
+        ],
+    },
+    "IRN": {
+        "summary": (
+            "China is overwhelmingly Iran's most important economic lifeline, buying the large majority "
+            "of Iran's sanctioned oil exports — often at a discount, shipped via a 'shadow fleet' of "
+            "tankers designed to obscure origin and evade Western sanctions enforcement. This single "
+            "relationship is what has allowed Iran's economy to avoid total collapse under sanctions "
+            "since 2018, but it also leaves Iran's export revenue almost entirely hostage to Chinese "
+            "demand and to how aggressively the US enforces secondary sanctions on that trade."
+        ),
+        "sources": [
+            ("Reuters/Reuters-style reporting on Iran-China shadow fleet oil trade (general reference)", "https://en.wikipedia.org/wiki/Sanctions_against_Iran"),
+        ],
+    },
+    "IRQ": {
+        "summary": (
+            "Iraq's reconstruction and energy sectors are increasingly financed and built by Chinese "
+            "firms under 'oil-for-reconstruction' arrangements, while Iraq remains dependent on "
+            "neighboring Iran for a meaningful share of its electricity and natural gas supply — a "
+            "dependency the US has repeatedly pressured Baghdad to reduce via sanctions-waiver "
+            "brinkmanship. This dual exposure (Chinese capital, Iranian energy) sits awkwardly "
+            "alongside Iraq's continued security relationship with the United States."
+        ),
+        "sources": [
+            ("CFR/Reuters-style reporting on Iraq's Iran energy dependency (general reference)", "https://www.cfr.org/global-conflict-tracker/conflict/political-instability-iraq"),
+        ],
+    },
+    "LBY": {
+        "summary": (
+            "Libya's oil-export economy is deeply tied to Italy's Eni, the dominant foreign operator of "
+            "Libyan oil and gas fields since the Gaddafi era. Politically, Libya's civil-conflict "
+            "factions each have distinct foreign backers: Turkey supports the Tripoli-based GNU with "
+            "military and construction contracts, while the UAE and Russia have backed Haftar's LNA in "
+            "the east — meaning Libya's fractured domestic politics are mirrored by fractured, "
+            "competing foreign patronage."
+        ),
+        "sources": [
+            ("GIS Reports: Libya's fractures drift toward permanence", "https://www.gisreportsonline.com/r/libyas-divisions-harden/"),
+        ],
+    },
+    "MAR": {
+        "summary": (
+            "France is Morocco's most important economic patron, and the relationship deepened sharply "
+            "in 2024 when France formally recognized Moroccan sovereignty over Western Sahara — a "
+            "major diplomatic win for Rabat — accompanied by roughly 22 new economic and trade "
+            "agreements spanning high-speed rail, energy, agriculture, and infrastructure investment, "
+            "some of it explicitly directed into Western Sahara itself. The move strained France's "
+            "parallel relationship with Algeria, illustrating how Morocco's and Algeria's competing "
+            "claims over the territory ripple into their separate relationships with European powers."
+        ),
+        "sources": [
+            ("France24: France backs Morocco's autonomy plan for disputed Western Sahara", "https://www.france24.com/en/france/20240730-france-backs-morocco-s-autonomy-plan-for-disputed-western-sahara"),
+            ("Atlantic Council: France has sided with Morocco on the Western Sahara", "https://www.atlanticcouncil.org/blogs/new-atlanticist/france-has-sided-with-morocco-on-the-western-sahara-how-might-algeria-respond/"),
+            ("Al Jazeera: EU-Morocco trade deals in Western Sahara ruled invalid", "https://www.aljazeera.com/news/2024/10/4/eu-morocco-trade-deals-in-western-sahara-ruled-invalid-rabat-claims-bias"),
+        ],
+    },
+    "OMN": {
+        "summary": (
+            "China has committed roughly $10.7bn (via a Chinese-led consortium and an Asian "
+            "Infrastructure Investment Bank loan) to build an industrial city inside the Duqm Special "
+            "Economic Zone, a flagship Belt and Road-linked project positioning Oman as a potential "
+            "alternative shipping route that bypasses the Strait of Hormuz entirely — a strategically "
+            "significant hedge given the 2026 Iran-Israel-US war's Hormuz-related shipping risk. Not "
+            "every planned Chinese project at Duqm has proceeded on schedule, with some delayed or "
+            "scaled back for commercial reasons."
+        ),
+        "sources": [
+            ("Carnegie Endowment: Duqm at the Crossroads", "https://carnegieendowment.org/sada/2026/03/duqm-at-the-crossroads-omans-strategic-port-and-its-role-in-vision-2040"),
+            ("CSIS: Dire Straits — China's Push to Secure Its Energy Interests in the Middle East", "https://features.csis.org/hiddenreach/china-middle-east-military-facility/"),
+        ],
+    },
+    "SAU": {
+        "summary": (
+            "China is Saudi Arabia's single largest oil customer, a relationship Riyadh has "
+            "deliberately deepened even as it maintains its longstanding US security partnership — a "
+            "hedging strategy visible across the Gulf. As a major net creditor rather than a debtor, "
+            "Saudi Arabia's key 'financing arrangement' is outbound, not inbound: its Public Investment "
+            "Fund (PIF) is one of the world's largest sovereign wealth funds, deploying capital abroad "
+            "(including into US and European markets) rather than seeking external financing."
+        ),
+        "sources": [
+            ("EIA / general reference on Saudi-China oil trade", "https://www.eia.gov/international/analysis/country/SAU"),
+        ],
+    },
+    "SYR": {
+        "summary": (
+            "Post-Assad Syria's reconstruction is a live bidding ground for regional influence: Turkey "
+            "has moved fastest with construction and infrastructure contracts under the new "
+            "transitional government, while Gulf states (particularly Qatar) have signaled reconstruction "
+            "investment interest contingent on the transition stabilizing. Western sanctions relief "
+            "remains only partially unwound, which continues to constrain the international financing "
+            "Syria would need for a full rebuild after 13 years of civil war."
+        ),
+        "sources": [
+            ("Belfer Center: External States and Syria's Challenge of Reunification", "https://www.belfercenter.org/research-analysis/external-states-and-syrias-challenge-reunification-under-transitional-president"),
+        ],
+    },
+    "TUN": {
+        "summary": (
+            "The European Union — led by France, Italy, and Germany — accounts for roughly 70%+ of "
+            "Tunisia's trade, making it by far Tunisia's most consequential economic relationship, "
+            "ahead of any single creditor. This EU dependency is also a source of leverage: EU "
+            "migration-management funding (tied to Tunisia's role as a departure point for migrants "
+            "crossing to Italy) has become intertwined with broader economic support discussions, "
+            "layered on top of the unresolved IMF standoff described above."
+        ),
+        "sources": [
+            ("General EU-Tunisia trade relationship reference", "https://policy.trade.ec.europa.eu/eu-trade-relationships-country-and-region/countries-and-regions/tunisia_en"),
+        ],
+    },
+    "ARE": {
+        "summary": (
+            "Like Saudi Arabia and Qatar, the UAE is a net capital exporter, not an aid or loan "
+            "recipient — Abu Dhabi's ADIA and Mubadala sovereign wealth funds are among the world's "
+            "largest, investing UAE oil wealth into global markets. Dubai's re-export economy makes "
+            "China and India its largest trading partners by volume, while the 2020 Abraham Accords "
+            "opened a fast-growing new trade and investment channel with Israel."
+        ),
+        "sources": [
+            ("General reference on UAE sovereign wealth funds and Abraham Accords trade", "https://en.wikipedia.org/wiki/Abraham_Accords"),
+        ],
+    },
+    "YEM": {
+        "summary": (
+            "Yemen's internationally recognized government has been financially sustained largely by "
+            "Saudi Arabia and the UAE since the Saudi-led coalition intervened in 2015, while the "
+            "Houthi-controlled north receives military and financial backing from Iran. This split "
+            "external patronage mirrors the country's territorial division and is a direct driver of "
+            "the near-total import dependency (~90% of food) noted in its trade profile above."
+        ),
+        "sources": [
+            ("CFR Global Conflict Tracker: Yemen", "https://www.cfr.org/global-conflict-tracker/conflict/war-yemen"),
+        ],
+    },
+    "AFG": {
+        "summary": (
+            "With ~$7bn in central bank assets frozen by the US and a further ~$2bn frozen by European "
+            "states since the 2021 Taliban takeover, Afghanistan has no meaningful access to its own "
+            "reserves or to World Bank/IMF financing. China has emerged as the most active new economic "
+            "actor, pursuing mining agreements (copper, and reported interest in lithium and rare "
+            "earths) with the Taliban government, though large-scale extraction has been slow to "
+            "materialize given security and infrastructure constraints."
+        ),
+        "sources": [
+            ("The Diplomat: Taliban Takeover — World Bank and IMF Halt Aid", "https://thediplomat.com/2021/08/taliban-takeover-world-bank-and-imf-halt-aid-us-freezes-afghan-assets/"),
+            ("Wikipedia: Afghan frozen assets", "https://en.wikipedia.org/wiki/Afghan_frozen_assets"),
+        ],
+    },
+    "BGD": {
+        "summary": (
+            "The US and EU are Bangladesh's dominant export markets by far, as the destination for the "
+            "overwhelming majority of its ready-made garment exports, while China is its largest import "
+            "source (machinery and raw materials for that same garment industry). This creates a "
+            "structural dependency on Western consumer demand for its single largest export earner, "
+            "layered on top of the 2023 IMF loan and 2024 political upheaval already noted above."
+        ),
+        "sources": [
+            ("World Bank Bangladesh overview (general reference)", "https://www.worldbank.org/en/country/bangladesh/overview"),
+        ],
+    },
+    "BTN": {
+        "summary": (
+            "Bhutan's economy is almost entirely oriented around a single relationship: India is both "
+            "its dominant export market (via hydropower electricity sales) and its dominant import "
+            "source, with the Indian rupee even accepted alongside Bhutan's own currency domestically. "
+            "This is one of the most concentrated bilateral economic relationships in this entire "
+            "dataset — there is no meaningful 'second partner' to speak of."
+        ),
+        "sources": [
+            ("ADB: Bhutan's Hydropower Sector — 12 Things to Know", "https://www.adb.org/features/bhutan-s-hydropower-sector-12-things-know"),
+        ],
+    },
+    "IND": {
+        "summary": (
+            "India's trade relationships are genuinely diversified rather than concentrated: the United "
+            "States is its single largest overall trading partner, while China is its largest source of "
+            "imports (a politically uncomfortable dependency given the two countries' border tensions "
+            "and strategic rivalry). India is also increasingly an outbound investor and creditor in "
+            "its own region — for instance building the Chabahar port in Iran and extending financing "
+            "to Maldives and Sri Lanka — making it one of the few tracked countries acting as both a "
+            "aid recipient's neighbor and a regional financier in its own right."
+        ),
+        "sources": [
+            ("ThinkBRICS: China Emerges as India's Largest Trading Partner", "https://thinkbrics.substack.com/p/china-emerges-as-indias-largest-trading"),
+        ],
+    },
+    "NPL": {
+        "summary": (
+            "Nepal sits at the center of an India-China competition for influence: India remains "
+            "overwhelmingly dominant in trade and is the primary destination for labor migration "
+            "underpinning Nepal's remittance economy, while China has pushed Belt and Road-linked "
+            "infrastructure financing as a competing avenue of influence. Nepal's landlocked geography "
+            "between the two giants leaves it with limited practical alternatives to this dual "
+            "dependency."
+        ),
+        "sources": [
+            ("General reference on Nepal's India/China balancing", "https://en.wikipedia.org/wiki/Foreign_relations_of_Nepal"),
+        ],
+    },
+    "KWT": {
+        "summary": (
+            "Like Saudi Arabia, the UAE, and Qatar, Kuwait is a net creditor to the world rather than a "
+            "borrower: the Kuwait Investment Authority — one of the oldest and largest sovereign wealth "
+            "funds globally, established in 1953 — invests oil revenue into international markets "
+            "rather than seeking external financing. Its crude oil sales flow predominantly to Asian "
+            "buyers (China, India, South Korea, Japan), while its domestic politics remain shaped by "
+            "recurring friction between the Emir and an elected National Assembly, most recently "
+            "resolved by the Emir's 2024 dissolution of parliament noted above."
+        ),
+        "sources": [
+            ("General reference on the Kuwait Investment Authority", "https://en.wikipedia.org/wiki/Kuwait_Investment_Authority"),
+        ],
+    },
+    "LBN": {
+        "summary": (
+            "Lebanon is a striking case of lost external patronage: Gulf states that historically "
+            "propped up Lebanon's economy and banking sector largely withdrew financial support after "
+            "the 2019-2020 collapse, frustrated by the entrenched sectarian political system's failure "
+            "to enact reform. France retains a historical patron role (colonial-era ties and periodic "
+            "diplomatic mediation) but has not stepped in with financing at the scale of the crisis. "
+            "With no active IMF program (see Financing Arrangements above) and no major bilateral "
+            "backer stepping in, Lebanon is unusually short of external anchors for a country in this "
+            "much distress — a key reason it sits at the top of the risk ranking."
+        ),
+        "sources": [
+            ("World Bank Lebanon Economic Monitor (general reference)", "https://www.worldbank.org/en/country/lebanon/overview"),
+        ],
+    },
+}
+
+
+# ============================================================
+# COUNTRY TRADE & SECTOR PROFILES — main economic sectors, top exports,
+# top imports, and leading trade partners for all 26 tracked countries.
+# Compiled from well-established, stable economic-geography knowledge
+# (the kind found in the CIA World Factbook and the Observatory of
+# Economic Complexity / UN Comtrade) rather than a single per-country
+# citation — see the Methodology tab for the full source list. Figures
+# describing shares (e.g. "~90% of exports") are directional, not
+# precise-to-the-decimal statistics.
+# ============================================================
+COUNTRY_TRADE_PROFILE = {
+    "DZA": {"sectors": "Hydrocarbons (oil & gas), agriculture", "exports": "Crude oil, natural gas/LNG (pipeline to Europe)", "imports": "Machinery, food, consumer goods", "partners": "Italy, France, Spain, China"},
+    "BHR": {"sectors": "Oil refining, aluminum smelting (Alba), financial services/banking hub, tourism", "exports": "Refined petroleum, aluminum", "imports": "Crude oil (for refining), machinery", "partners": "Saudi Arabia, US, China"},
+    "EGY": {"sectors": "Suez Canal transit fees, tourism, natural gas, textiles, agriculture, remittances", "exports": "Petroleum products, natural gas, textiles/garments, fruits & vegetables", "imports": "Wheat (top global importer), machinery, vehicles, fuel", "partners": "EU, US, China, Gulf states (investment/remittances)"},
+    "IRN": {"sectors": "Oil & gas, petrochemicals, agriculture, mining", "exports": "Crude oil (mainly to China), petrochemicals, pistachios, carpets", "imports": "Machinery, foodstuffs, consumer goods", "partners": "China (dominant oil buyer), Iraq, UAE, Turkey, Russia"},
+    "IRQ": {"sectors": "Oil (~90%+ of government revenue and exports), agriculture", "exports": "Crude oil (Basra terminals, Kurdistan pipeline)", "imports": "Refined fuel, food, machinery, vehicles", "partners": "China (major oil buyer), India, Turkey, Iran"},
+    "ISR": {"sectors": "High-tech/software, pharmaceuticals, diamonds, defense industry, advanced agriculture", "exports": "High-tech equipment/software, pharmaceuticals, polished diamonds, defense/military equipment", "imports": "Raw materials, military equipment, energy, rough diamonds, consumer goods", "partners": "United States (dominant), EU, China, India, UAE (post-Abraham Accords)"},
+    "JOR": {"sectors": "Phosphates & potash mining, tourism, pharmaceuticals, textiles (QIZ), remittances, US aid", "exports": "Potash, phosphates, pharmaceuticals, garments (duty-free to US via QIZ)", "imports": "Crude oil/fuel, machinery, food", "partners": "United States (QIZ trade + aid), Saudi Arabia, Iraq, India"},
+    "KWT": {"sectors": "Oil (~90% of exports), sovereign wealth management (Kuwait Investment Authority)", "exports": "Crude oil", "imports": "Machinery, vehicles, food", "partners": "China, India, South Korea, Japan"},
+    "LBN": {"sectors": "Historically banking/finance (collapsed since 2019), remittances, agriculture, tourism", "exports": "Jewelry, base metals, limited agricultural goods", "imports": "Petroleum, vehicles, consumer goods, machinery (heavily import-dependent)", "partners": "Gulf states, EU, China"},
+    "LBY": {"sectors": "Oil (near-total dependence — government revenue and exports)", "exports": "Crude oil almost exclusively", "imports": "Food, machinery, consumer goods, fuel (damaged domestic refining capacity)", "partners": "Italy (major oil buyer, ENI), China, Turkey, UAE"},
+    "MAR": {"sectors": "Phosphates (world's largest reserves, OCP Group), automotive manufacturing, textiles, agriculture, tourism, aerospace", "exports": "Phosphates/fertilizers, automobiles & auto parts, textiles, citrus", "imports": "Crude oil, machinery, wheat", "partners": "EU — France and Spain dominant, United States (FTA)"},
+    "OMN": {"sectors": "Oil & gas, logistics/ports (Duqm), fisheries, developing tourism", "exports": "Crude oil, natural gas/LNG, refined petroleum", "imports": "Machinery, vehicles, food", "partners": "China (major oil buyer), UAE, India"},
+    "QAT": {"sectors": "LNG (one of the world's largest exporters), oil, financial services, sovereign wealth fund (QIA)", "exports": "LNG, crude oil/condensates, petrochemicals", "imports": "Machinery, food, vehicles", "partners": "Japan, South Korea, China, India"},
+    "SAU": {"sectors": "Oil (Saudi Aramco, world's largest exporter), petrochemicals, Vision 2030 tourism/entertainment diversification", "exports": "Crude oil, petrochemicals, plastics", "imports": "Machinery, vehicles, food, electronics", "partners": "China (largest oil buyer), Japan, India, South Korea, US"},
+    "SYR": {"sectors": "Pre-war: oil, agriculture, textiles; post-civil-war economy devastated, reconstruction-dependent", "exports": "Olive oil and limited agricultural goods (formal exports minimal)", "imports": "Virtually everything given reconstruction needs, fuel", "partners": "Turkey (growing influence), Gulf states (reconstruction investment interest), Qatar"},
+    "TUN": {"sectors": "Tourism, textiles/garments (EU-oriented manufacturing), phosphates, olive oil, automotive components", "exports": "Textiles/garments, olive oil (major global exporter), phosphates/fertilizers, auto parts", "imports": "Crude oil, machinery, wheat", "partners": "EU — France, Italy, Germany dominant (~70%+ of trade), Libya"},
+    "ARE": {"sectors": "Oil (Abu Dhabi), Dubai re-export/logistics hub, tourism, financial services, real estate", "exports": "Crude oil, re-exported goods (gold, electronics, machinery), petrochemicals", "imports": "Gold, diamonds, machinery, vehicles (much for re-export)", "partners": "China, India, Saudi Arabia, Japan"},
+    "YEM": {"sectors": "Pre-war oil/gas (largely halted), agriculture (qat, coffee — Yemen is coffee's historical origin), fishing", "exports": "Minimal — crude oil when operational, coffee, dried fish", "imports": "Food (~90% import-dependent — a major humanitarian vulnerability), fuel, medicine", "partners": "Saudi Arabia (aid/imports), UAE, historically China (oil)"},
+    "AFG": {"sectors": "Agriculture (fruits, nuts; opium poppy historically dominant), untapped mining potential (copper, lithium, rare earths), aid/remittance-dependent", "exports": "Dried fruits & nuts, carpets, some minerals", "imports": "Food, fuel, machinery (heavily import-dependent)", "partners": "Pakistan, Iran, China (growing mining interest)"},
+    "BGD": {"sectors": "Ready-made garments (~80%+ of export earnings, world's 2nd-largest garment exporter), remittances, agriculture, pharmaceuticals", "exports": "Garments/textiles (dominant), leather goods, jute, frozen shrimp/fish", "imports": "Raw cotton, machinery, fuel, food", "partners": "US, EU (garment buyers), China (largest import source)"},
+    "BTN": {"sectors": "Hydropower (exported to India), tourism (high-value, low-volume model), agriculture, cement", "exports": "Electricity (hydropower), ferrosilicon, cement, cardamom", "imports": "Fuel, machinery, vehicles, food", "partners": "India (overwhelmingly dominant for both exports and imports)"},
+    "IND": {"sectors": "IT/software services, pharmaceuticals ('pharmacy of the world'), textiles, agriculture, automotive, petroleum refining", "exports": "Refined petroleum, pharmaceuticals, IT services, textiles/garments, gems & jewelry, engineering goods", "imports": "Crude oil, gold, electronics, coal", "partners": "United States (largest trade partner), China (largest import source), UAE, Saudi Arabia"},
+    "MDV": {"sectors": "Tourism (resorts, roughly a third of GDP), fishing (tuna)", "exports": "Fish/tuna products (frozen and canned)", "imports": "Virtually everything — food, fuel, construction materials, consumer goods", "partners": "Thailand, UAE, India, China (imports); Europe/UK (tourism source markets)"},
+    "NPL": {"sectors": "Agriculture, remittances (~25%+ of GDP — among the world's most remittance-dependent economies), tourism, developing hydropower", "exports": "Carpets, garments, pashmina/textiles, tea, cardamom", "imports": "Petroleum products, machinery, gold, vehicles", "partners": "India (overwhelmingly dominant), China (growing infrastructure ties)"},
+    "PAK": {"sectors": "Textiles/garments (dominant export sector), agriculture, remittances, cement, growing IT/freelance services", "exports": "Textiles/garments (~55%+ of exports), rice, leather goods, sporting goods", "imports": "Petroleum/fuel, machinery, palm oil, chemicals", "partners": "US/EU (garment markets), China (CPEC-linked, largest import source), Saudi Arabia/UAE (remittances, oil)"},
+    "LKA": {"sectors": "Tea, garments/textiles, tourism, remittances, rubber/coconut products", "exports": "Garments/textiles (dominant), tea, rubber products, spices", "imports": "Petroleum, textile raw materials, machinery, food", "partners": "US/EU (garment markets), India, China (imports, infrastructure ties)"},
 }
 
 
@@ -302,6 +643,7 @@ LIVE_CONFLICTS = [
     {
         "name": "2026 Iran-Israel-US War",
         "status": "Active / unresolved",
+        "groups": "Israel Defense Forces, United States military, Islamic Revolutionary Guard Corps (IRGC), Iran's Assembly of Experts (Khamenei succession)",
         "affected": ["IRN", "ISR", "SAU", "QAT", "ARE", "KWT", "BHR", "OMN", "IRQ"],
         "summary": (
             "The single largest live risk event in the region. A June 2025 ceasefire ending the "
@@ -322,18 +664,23 @@ LIVE_CONFLICTS = [
             "Arabia, UAE, Qatar, Kuwait, Oman, Bahrain) and global energy prices broadly. Iran's own "
             "economy — already running on 7 of 10 tracked risk factors due to sanctions-driven data "
             "gaps — faces a further collapse in institutional continuity following the leadership "
-            "assassination."
+            "assassination. Brookings analysis notes a second-order effect: the war has diverted US "
+            "diplomatic attention and energy away from the Gaza ceasefire process entirely, worsening "
+            "conditions on the ground there even as headline hostilities in Gaza have wound down."
         ),
         "sources": [
             ("Wikipedia: Timeline of the 2026 Iran conflict", "https://en.wikipedia.org/wiki/Timeline_of_the_2026_Iran_conflict"),
             ("Britannica: 2026 Iran war", "https://www.britannica.com/event/2026-Iran-war"),
             ("CFR Global Conflict Tracker", "https://www.cfr.org/global-conflict-tracker/conflict/confrontation-between-united-states-and-iran"),
             ("UK House of Commons Library", "https://commonslibrary.parliament.uk/research-briefings/cbp-10521/"),
+            ("Brookings: The road to the Israel-Iran war", "https://www.brookings.edu/articles/the-road-to-the-israel-iran-war/"),
+            ("Brookings: The cycle of violence — from Israel-Palestine to Iran and back", "https://www.brookings.edu/articles/the-cycle-of-violence-from-israel-palestine-to-iran-and-back/"),
         ],
     },
     {
         "name": "Red Sea Shipping Crisis & Houthi-Saudi Blockade",
         "status": "Active, re-escalating",
+        "groups": "Houthi movement / Ansar Allah (Iran-aligned), Saudi-led coalition, Egyptian Suez Canal Authority",
         "affected": ["YEM", "EGY", "SAU", "ARE", "QAT", "ISR"],
         "summary": (
             "Houthi forces began attacking Israel-linked shipping in the Red Sea in November 2023 "
@@ -362,6 +709,7 @@ LIVE_CONFLICTS = [
     {
         "name": "Gaza War Aftermath & Fragile Ceasefire",
         "status": "Ceasefire holding but repeatedly violated",
+        "groups": "Hamas, Israel Defense Forces, US-brokered mediation team",
         "affected": ["ISR", "EGY", "JOR", "LBN"],
         "summary": (
             "The Gaza war, triggered by the October 7, 2023 Hamas attack, ran nearly two years before "
@@ -382,11 +730,13 @@ LIVE_CONFLICTS = [
             ("Al Jazeera: What Gaza looks like six months into 'ceasefire'", "https://www.aljazeera.com/news/2026/4/10/neither-war-nor-peace-what-gaza-looks-like-six-months-into-ceasefire"),
             ("Times of Israel: War-battered economy plunged almost 20%", "https://www.timesofisrael.com/war-battered-economy-plunged-almost-20-marking-sharpest-contraction-since-pandemic/"),
             ("J Street: Nine Months In — Assessing the Gaza Ceasefire", "https://jstreet.org/nine-months-in-assessing-the-status-of-the-gaza-ceasefire/"),
+            ("Brookings: What could the Israel-Gaza deal mean for the Middle East?", "https://www.brookings.edu/articles/what-could-the-israel-gaza-deal-mean-for-the-middle-east/"),
         ],
     },
     {
         "name": "Syria's Post-Assad Transition",
         "status": "Fragile, ongoing",
+        "groups": "Hay'at Tahrir al-Sham (HTS) / transitional government under Ahmed al-Sharaa, remnant Assad-era militias, Kurdish SDF",
         "affected": ["SYR", "LBN", "JOR", "IRQ"],
         "summary": (
             "The Assad regime fell on December 8, 2024 after a rapid rebel offensive led by Hay'at "
@@ -411,6 +761,7 @@ LIVE_CONFLICTS = [
     {
         "name": "Sudan Civil War (regional spillover)",
         "status": "Active — not a tracked country, but a major regional shock",
+        "groups": "Sudanese Armed Forces (SAF) under Abdul Fattah al-Burhan, Rapid Support Forces (RSF) under Mohamed Hamdan Dagalo",
         "affected": ["EGY"],
         "summary": (
             "Though Sudan is outside this tool's 26-country MENASA tracking scope, its civil war "
@@ -427,6 +778,210 @@ LIVE_CONFLICTS = [
         "sources": [
             ("Wikipedia: Sudanese civil war (2023-present)", "https://en.wikipedia.org/wiki/Sudanese_civil_war_(2023%E2%80%93present)"),
             ("Wikipedia: Humanitarian impact of the Sudanese civil war", "https://en.wikipedia.org/wiki/Humanitarian_impact_of_the_Sudanese_civil_war_(2023%E2%80%93present)"),
+        ],
+    },
+    {
+        "name": "Israel-Hezbollah War & Lebanon Front",
+        "status": "Ceasefire re-established Apr 2026, fragile",
+        "groups": "Hezbollah (Iran-aligned), Israel Defense Forces, Lebanese Armed Forces, US/French mediators",
+        "affected": ["LBN", "ISR"],
+        "summary": (
+            "A parallel front to the Gaza war: Hezbollah opened fire on northern Israel on Oct 8, 2023 "
+            "in solidarity with Hamas, escalating into a full Israeli air and ground campaign across "
+            "Lebanon by late 2024. A US/France-brokered ceasefire took effect Nov 27, 2024, requiring "
+            "Hezbollah to withdraw north of the Litani River and Israel to withdraw from southern "
+            "Lebanon — but both sides missed key provisions, and Israel struck Lebanon almost daily "
+            "even under the 'ceasefire.' The truce effectively collapsed when the Feb 2026 Iran-Israel-"
+            "US war broke out and Hezbollah resumed firing on Israel in retaliation for Khamenei's "
+            "killing. A new ceasefire was reached Apr 16, 2026, but by that point the conflict had "
+            "killed over 2,000 people in Lebanon and displaced more than 1 million."
+        ),
+        "market_impact": (
+            "Lebanon's economy — already the most distressed in this dataset (rank 1 of 26, no active "
+            "IMF program, defaulted since 2020) — has absorbed further destruction of housing, "
+            "agriculture, and infrastructure across its south, on top of a currency and banking "
+            "collapse that predates the war entirely. Reconstruction financing needs compound an "
+            "already-unresolved sovereign debt problem."
+        ),
+        "sources": [
+            ("Wikipedia: 2024 Israel-Lebanon ceasefire agreement", "https://en.wikipedia.org/wiki/2024_Israel%E2%80%93Lebanon_ceasefire_agreement"),
+            ("Wikipedia: 2026 Israel-Lebanon ceasefire", "https://en.wikipedia.org/wiki/2026_Israel%E2%80%93Lebanon_ceasefire"),
+            ("Al Jazeera: What we know about the Israel-Lebanon ceasefire", "https://www.aljazeera.com/news/2026/4/17/what-we-know-about-the-israel-lebanon-ceasefire"),
+            ("International Crisis Group: Reinforcing the Shaky Israel-Lebanon Ceasefire", "https://www.crisisgroup.org/cmt/middle-east-north-africa/east-mediterranean-mena/lebanon-israelpalestine-united-states/reinforcing-shaky-israel-lebanon-ceasefire"),
+        ],
+    },
+    {
+        "name": "Libya's Rival Governments Standoff",
+        "status": "Frozen stalemate, no resolution in sight",
+        "groups": "Government of National Unity (GNU, Tripoli, PM Abdul Hamid Dbeibah), Government of National Stability (GNS, east, PM Osama Hamad), Libyan National Army (LNA, Gen. Khalifa Haftar), House of Representatives (HoR)",
+        "affected": ["LBY"],
+        "summary": (
+            "Libya remains split between the UN-recognized GNU in Tripoli and the eastern GNS, backed "
+            "by Haftar's LNA and the Tobruk-based House of Representatives. A 2020 ceasefire between "
+            "the two sides continues to technically hold — there's been no return to nationwide "
+            "fighting — but the parties remain deadlocked over election legislation that would "
+            "reunify the country's governance. As of mid-2026, neither side has the military strength "
+            "to unify Libya outright, but both have enough financial and armed leverage to block any "
+            "settlement that threatens their position, producing a durable frozen conflict rather than "
+            "an active war."
+        ),
+        "market_impact": (
+            "This political split is the direct cause of the oil-export volatility that has plagued "
+            "Libya since 2014, when rival factions began using oil terminal blockades as bargaining "
+            "leverage, repeatedly cutting exports from over 1.3 million barrels/day (2012) to as low "
+            "as 375,000 b/d. With nearly 100% of Libya's exports and government revenue tied to oil, "
+            "this factional standoff is functionally the country's entire sovereign risk profile."
+        ),
+        "sources": [
+            ("Security Council Report: Libya, August 2026 Monthly Forecast", "https://www.securitycouncilreport.org/monthly-forecast/2026-08/libya-69.php"),
+            ("Wikipedia: Government of National Stability", "https://en.wikipedia.org/wiki/Government_of_National_Stability"),
+            ("GIS Reports: Libya's fractures drift toward permanence", "https://www.gisreportsonline.com/r/libyas-divisions-harden/"),
+        ],
+    },
+    {
+        "name": "2026 Pakistan-Afghanistan War",
+        "status": "Active, following Feb 2026 escalation",
+        "groups": "Tehreek-e-Taliban Pakistan (TTP), Islamic State — Khorasan Province (ISIS-K), Afghan Taliban government forces, Pakistani military",
+        "affected": ["PAK", "AFG"],
+        "summary": (
+            "Pakistan has long accused the Afghan Taliban government of harboring the Tehreek-e-Taliban "
+            "Pakistan (TTP), a separate militant group waging an insurgency inside Pakistan since 2021. "
+            "Tensions turned into open warfare in October 2025 after a Pakistani airstrike on a TTP "
+            "leader in Kabul triggered retaliatory Afghan strikes that killed at least 23 Pakistani "
+            "soldiers — the deadliest clash between the two since the Taliban's 2021 takeover. A tenuous "
+            "ceasefire followed, but on February 26, 2026, Afghan forces launched a cross-border "
+            "offensive, and Pakistan responded the next day with coordinated air and ground strikes on "
+            "Kabul, Kandahar, and other Afghan cities, targeting TTP and ISIS-K camps. A March 16, 2026 "
+            "Pakistani strike on what was reportedly a drug rehabilitation facility killed and injured "
+            "hundreds."
+        ),
+        "market_impact": (
+            "This directly threatens Pakistan's fragile post-2024-EFF stabilization by diverting fiscal "
+            "resources to military operations and disrupting the Pakistan-Afghanistan border trade "
+            "corridor. For Afghanistan — already isolated by frozen central bank assets and halted "
+            "World Bank/IMF aid since 2021 — the conflict compounds an economy with almost no formal "
+            "financial buffers left to absorb further shocks."
+        ),
+        "sources": [
+            ("Wikipedia: 2026 Afghanistan-Pakistan war", "https://en.wikipedia.org/wiki/2026_Afghanistan%E2%80%93Pakistan_conflict"),
+            ("Britannica: Afghanistan-Pakistan Conflict 2025-2026", "https://www.britannica.com/topic/Afghanistan-Pakistan-Conflict-2025"),
+            ("CFR Global Conflict Tracker: Violent Extremism in South Asia", "https://www.cfr.org/global-conflict-tracker/conflict/war-afghanistan"),
+        ],
+    },
+    {
+        "name": "India-Pakistan Kashmir Crisis",
+        "status": "Ceasefire since May 2025, relations still frozen",
+        "groups": "Indian Armed Forces, Pakistani Armed Forces, Kashmir-based militant groups",
+        "affected": ["IND", "PAK"],
+        "summary": (
+            "The gunmen killing of 26 people at Pahalgam in Indian-administered Kashmir on April 22, "
+            "2025 triggered the most serious India-Pakistan military confrontation since 1971. On the "
+            "night of May 6-7, 2025, India struck targets in both Pakistan-administered Kashmir and "
+            "Pakistan's own territory; Pakistan's army retaliated the next day with strikes on Poonch, "
+            "Jammu, killing 16 civilians. A ceasefire was announced May 10, 2025, but the underlying "
+            "dispute remains unresolved — India suspended the decades-old Indus Waters Treaty and "
+            "commercial flights between the two countries stayed disrupted well into 2026."
+        ),
+        "market_impact": (
+            "The suspended Indus Waters Treaty is a direct water-security risk for Pakistan's "
+            "agriculture-dependent economy, since the Indus system irrigates the bulk of its farmland. "
+            "For India, the crisis is a smaller relative shock given its far larger and more "
+            "diversified economy, but it adds to South Asia's broader risk premium and keeps two "
+            "nuclear-armed states in a state of unresolved military tension."
+        ),
+        "sources": [
+            ("Wikipedia: 2025 India-Pakistan crisis", "https://en.wikipedia.org/wiki/2025_India%E2%80%93Pakistan_crisis"),
+            ("CSIS: What Led to the Recent Crisis Between India and Pakistan?", "https://www.csis.org/analysis/what-led-recent-crisis-between-india-and-pakistan"),
+            ("Stimson Center: Four Days in May — The India-Pakistan Crisis of 2025", "https://www.stimson.org/2025/four-days-in-may-the-india-pakistan-crisis-of-2025/"),
+            ("UK House of Commons Library: Kashmir — Renewed India-Pakistan tensions", "https://commonslibrary.parliament.uk/research-briefings/cbp-10264/"),
+        ],
+    },
+    {
+        "name": "Balochistan Insurgency & CPEC Attacks",
+        "status": "Sharply escalating through 2025-2026",
+        "groups": "Balochistan Liberation Army (BLA) and its Jeeyand faction (BLA-J), Pakistani military and paramilitary forces",
+        "affected": ["PAK"],
+        "summary": (
+            "A long-running separatist insurgency in Pakistan's resource-rich but underdeveloped "
+            "Balochistan province has increasingly targeted Chinese nationals and China-Pakistan "
+            "Economic Corridor (CPEC) infrastructure specifically, viewing Chinese investment as "
+            "extracting local resources without local benefit. The Pakistan Institute for Peace "
+            "Studies recorded at least 254 attacks in Balochistan in 2025, roughly 26% more than 2024, "
+            "with IED and grenade attacks on convoys and police stations up over 65% in the first 11 "
+            "months of 2025 alone. The most dramatic single incident was the BLA-J's hijacking of the "
+            "Jaffar Express train on March 11, 2025, taking 400+ passengers hostage and killing at "
+            "least 26. A 2026 offensive ('Herof II') saw the group deploy a new drone unit, "
+            "demonstrating rising technical sophistication."
+        ),
+        "market_impact": (
+            "This directly threatens the CPEC investment relationship that is central to Pakistan's "
+            "China financing (China holds ~22% of Pakistan's external debt, its largest single "
+            "creditor — see Key Economic Partners above). Repeated attacks on Chinese nationals and "
+            "infrastructure raise the risk premium China itself attaches to further CPEC investment, "
+            "a direct threat to one of Pakistan's most important external financing relationships."
+        ),
+        "sources": [
+            ("Al Jazeera: Train bomb in Pakistan's Baloch region", "https://www.aljazeera.com/news/2026/5/25/train-bomb-in-pakistans-baloch-region-why-violence-is-on-the-rise"),
+            ("Jamestown Foundation: Baloch Militant Attacks Undermine Sino-Pakistan Projects", "https://jamestown.org/amid-geopolitical-tensions-baloch-militant-attacks-undermine-sino-pakistan-projects/"),
+            ("Combating Terrorism Center, West Point: The Baloch Insurgency in Pakistan", "https://ctc.westpoint.edu/the-baloch-insurgency-in-pakistan-evolution-tactics-and-regional-security-implications/"),
+        ],
+    },
+    {
+        "name": "Iran-Aligned Militia Attacks on US Forces in Iraq",
+        "status": "Recurring, intensified during the 2026 Iran war",
+        "groups": "Iran-aligned Iraqi militias (Popular Mobilization Forces/PMF factions), US military, Iraqi government",
+        "affected": ["IRQ", "IRN"],
+        "summary": (
+            "Iran-aligned militias operating within Iraq's Popular Mobilization Forces have "
+            "intermittently attacked US military positions since the Gaza war began, including a "
+            "January 28, 2024 drone strike on a US base in northeast Jordan that killed three US "
+            "service members and injured 25 — one of the most significant attacks on US forces in the "
+            "region since October 7, 2023. Attacks abated somewhat through 2024-2025, but the "
+            "February 2026 Iran-Israel-US war triggered a sharp resurgence — roughly 300 incidents "
+            "including drone and rocket attacks on the US Embassy in Baghdad (struck at least four "
+            "times) and the US consulate in Erbil, where most US forces have relocated since 2025."
+        ),
+        "market_impact": (
+            "This keeps Iraq's stability directly hostage to the broader Iran-Israel-US conflict "
+            "despite Iraq itself not being a direct combatant, compounding the governance and security "
+            "risk already reflected in Iraq's composite score. It also illustrates why Iraq's dependency "
+            "on Iranian gas and electricity imports (noted in Key Economic Partners above) is "
+            "politically fraught, not just economically so."
+        ),
+        "sources": [
+            ("Wikipedia: 2026 United States-led conflict with pro-Iranian Iraqi militias", "https://en.wikipedia.org/wiki/2026_United_States-led_conflict_with_pro-Iranian_Iraqi_militias"),
+            ("The Soufan Center: Iraq is Caught up in the U.S.-Iran War", "https://thesoufancenter.org/intelbrief-2026-april-30/"),
+            ("The Washington Institute: Iraq Is at Another Crossroads with Iran-Backed Militias", "https://www.washingtoninstitute.org/policy-analysis/iraq-another-crossroads-iran-backed-militias-and-washington"),
+        ],
+    },
+    {
+        "name": "Egypt-Ethiopia Nile Dam (GERD) Dispute",
+        "status": "Unresolved, no binding agreement despite dam's completion",
+        "groups": "Egyptian government, Ethiopian government, Sudan (secondary party); not a tracked country but central to the dispute",
+        "affected": ["EGY"],
+        "summary": (
+            "Ethiopia completed and formally inaugurated the Grand Ethiopian Renaissance Dam (GERD) — "
+            "Africa's largest hydroelectric dam at 5,150 MW capacity — on September 9, 2025, after the "
+            "reservoir's final filling in September 2024. Egypt has spent over a decade seeking a "
+            "legally binding agreement governing how Ethiopia fills and operates the dam during "
+            "droughts, arguing Ethiopia's unilateral management violates a 2015 declaration of "
+            "principles on equitable Nile use; no such binding deal has ever been reached. Tensions "
+            "resurfaced sharply in late 2025 when rising Nile floodwaters, which Egypt's irrigation "
+            "ministry attributed to 'reckless, unilateral water releases' from the dam, damaged "
+            "farmland and coastal villages — and Ethiopia's newly announced plans for three further "
+            "Blue Nile dams have reopened the entire dispute less than a year after GERD's inauguration."
+        ),
+        "market_impact": (
+            "The Nile supplies roughly 90%+ of Egypt's fresh water in a country almost entirely "
+            "dependent on the river for agriculture and drinking water — making this arguably Egypt's "
+            "single most consequential long-run economic security issue, distinct from but layered on "
+            "top of its currency, debt, and Suez Canal pressures covered elsewhere in this profile."
+        ),
+        "sources": [
+            ("Foreign Policy: Ethiopia Opens Africa's Biggest Dam, Angering Egypt", "https://foreignpolicy.com/2025/09/10/ethiopia-egypt-sudan-nile-dam-gerd-water-abiy/"),
+            ("Atlantic Council: The Nile at a crossroads", "https://www.atlanticcouncil.org/blogs/menasource/the-nile-at-a-crossroads-navigating-the-gerd-dispute-as-egypts-floodwaters-rise/"),
+            ("Al Jazeera: After GERD, can Egypt shape Ethiopia's next Nile dams?", "https://www.aljazeera.com/news/2026/8/21/after-gerd-can-egypt-shape-ethiopias-next-nile-dams"),
+            ("Foreign Policy Research Institute: The GERD Dispute", "https://www.fpri.org/article/2025/10/the-gerd-dispute-lessons-for-water-governance-and-the-future-of-the-nile-basin/"),
         ],
     },
 ]
