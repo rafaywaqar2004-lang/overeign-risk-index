@@ -765,22 +765,16 @@ with tab2:
     st.markdown('<div class="section-tag">WHO_ITS_BORROWED_FROM</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Financing Arrangements</div>', unsafe_allow_html=True)
     st.markdown(
-        "When was current external financing established, and roughly when is it due back? "
-        "This tracks verified multilateral (IMF) financing arrangements — amount, approval date, "
-        "and program length — which is the most reliable public proxy for 'when was it established, "
-        "till when do they have to pay it back.' **Instrument-level Eurobond and bilateral-loan "
-        "maturity schedules are not included** — that level of detail requires a specialized debt "
-        "database (e.g. Bloomberg, the IMF's sovereign debt investor relations portal, or a national "
-        "debt management office), which is out of scope for this tool. Only countries with a verified "
-        "arrangement on file are shown below; if a country has no arrangement listed, it means none "
-        "was independently confirmed in this research pass — not that no debt exists."
+        "Verified IMF/multilateral financing arrangements for this country — amount, approval date, "
+        "and program length. *Instrument-level Eurobond and bilateral-loan maturity schedules are out "
+        "of scope; see Methodology for the full coverage note.*"
     )
     arrangements = FINANCING_ARRANGEMENTS.get(country_code)
     if arrangements:
         arr_rows = [[a["program"], a["amount"], a["approved"], a["status"]] for a in arrangements]
         custom_table(arr_rows, ["Program", "Amount", "Approved", "Status"])
     else:
-        st.caption("No verified IMF/multilateral financing arrangement on file for this country in this research pass.")
+        st.caption("No verified arrangement on file for this country — see Methodology for scope.")
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">WHO_INVESTS_WHO_LENDS</div>', unsafe_allow_html=True)
