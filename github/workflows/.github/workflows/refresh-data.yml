@@ -1,0 +1,51 @@
+$ cat "/Users/rafaywaqar/claude /sovereign-risk-index/.github/workflows/refresh-data.yml"
+
+name: Refresh sovereign risk data
+
+# Keeps the quantitative risk score genuinely live: pulls fresh data from
+# the World Bank and IMF public APIs on a schedule, recomputes all scores,
+# and commits the result. Streamlit Cloud auto-redeploys on every push to
+# main, so this closes the loop end-to-end without any manual step.
+#
+# This covers the QUANTITATIVE score only. The qualitative content
+# (historical context, conflicts, credit ratings) is a curated research
+# snapshot by design — see the in-app Methodology tab for why that can't
+# be a live feed without a paid/authenticated news API.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"  # Every Monday at 06:00 UTC
+  workflow_dispatch: {}  # Allows manually triggering a refresh from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch latest data
+        run: python fetch_data.py
+
+      - name: Recompute scores
+        run: python compute_scores.py
+
+      - name: Validate data consistency
+        run: python validate_data.py
+
+      - name: Commit refreshed data if anything changed
+        run: |
+          git config user.name "sovereign-risk-bot"
+          git config user.email "actions@github.com"
+          git add raw_data.csv raw_data_long.csv scored_data.csv scored_history.csv driver_data.csv last_refreshed.txt
+          git diff --staged --quiet && echo "No data changes" || git commit -m "Automated data refresh $(date -u +%Y-%m-%d)"
+          git push
