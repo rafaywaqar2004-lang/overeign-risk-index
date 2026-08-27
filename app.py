@@ -999,18 +999,19 @@ with tab5:
 - **Historical context is curated, not live** — the event list in each country's Deep Dive tab
   and the Live Conflicts tab were hand-researched and fact-checked via web search as of August
   2026, not pulled from a live news feed. They highlight major events but are not exhaustive.
-- **Financing Arrangements coverage is partial by design** — 12 of 26 countries have a verified
-  IMF/multilateral arrangement or explicit "net creditor" note on file. The rest simply weren't
-  independently confirmed in this research pass, rather than assumed to have none. Instrument-level
-  bond/loan maturity schedules (a true "debt rollover wall") are out of scope entirely — that needs
-  a specialized debt database (Bloomberg, the IMF's sovereign debt investor relations portal, or
-  national debt management offices), not a research pass over public web sources.
-- **Key Economic Partners and Trade/Sector Profiles now cover all 26 countries**, but at varying
-  depth — some entries (Pakistan, Sri Lanka, Egypt) are backed by multiple named, dated sources;
-  others rely more on general reference material where a specific news event wasn't available.
-  Where a claim cites a specific figure or date, that figure has a named source; general economic
-  structure (e.g. "Kuwait relies on oil exports") reflects well-established economic geography
-  rather than requiring a single citation.
+- **Financing Arrangements now cover all 26 countries explicitly** — either a verified IMF/
+  multilateral program (amount, approval date, status), or a sourced explanation of why none
+  exists (net-creditor Gulf states with no IMF borrowing, or sanctions/arrears-blocked cases like
+  Iran and Syria). Instrument-level bond/loan maturity schedules (a true "debt rollover wall") are
+  still out of scope entirely — that needs a specialized debt database (Bloomberg, the IMF's
+  sovereign debt investor relations portal, or national debt management offices), not a research
+  pass over public web sources.
+- **Key Economic Partners and Trade/Sector Profiles cover all 26 countries in comparable depth**
+  — each entry now runs 5-8 sourced sentences covering creditors, major foreign investors, key
+  allies/rivals, and at least one named recent (2024-2026) development, backed by 4-6 cited
+  sources per country. Where a claim cites a specific figure or date, that figure has a named
+  source; general economic structure (e.g. "Kuwait relies on oil exports") reflects well-
+  established economic geography rather than requiring a single citation.
 - Weights are a transparent, reasonable starting point — not a backtested or econometrically
   validated model. Research/screening tool, not investment advice.
 """
