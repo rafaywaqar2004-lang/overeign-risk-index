@@ -1,0 +1,39 @@
+name: Refresh sovereign risk data
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"  # Every Monday at 06:00 UTC
+  workflow_dispatch: {}  # Allows manually triggering a refresh from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch latest data
+        run: python fetch_data.py
+
+      - name: Recompute scores
+        run: python compute_scores.py
+
+      - name: Validate data consistency
+        run: python validate_data.py
+
+      - name: Commit refreshed data if anything changed
+        run: |
+          git config user.name "sovereign-risk-bot"
+          git config user.email "actions@github.com"
+          git add raw_data.csv raw_data_long.csv scored_data.csv scored_history.csv driver_data.csv last_refreshed.txt
+          git diff --staged --quiet && echo "No data changes" || git commit -m "Automated data refresh $(date -u +%Y-%m-%d)"
+          git push
