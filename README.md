@@ -4,7 +4,7 @@ A composite sovereign risk score for 11 MENA & South Asia economies (Pakistan,
 Egypt, Morocco, Tunisia, Algeria, Jordan, Saudi Arabia, UAE, Iran, Bangladesh,
 Sri Lanka), built on public IMF/World Bank data.
 
-**Live app:** _(add your Streamlit Cloud link here after deploying)_
+**Live app:** https://overeign-risk-index-ql7q7cx9xkcherlpesydmn.streamlit.app
 
 ## Methodology
 
