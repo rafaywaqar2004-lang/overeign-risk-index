@@ -1868,13 +1868,24 @@ with tab3:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        st.markdown('<div class="section-tag">Beyond The Composite Score</div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-title" style="font-size:1.05rem;">Macro &amp; Development Indicators</div>', unsafe_allow_html=True)
-
         def _cmp_cell(r, col, suffix=""):
             v = r.get(col)
             return f"{v:.1f}{suffix}" if pd.notna(v) else "No data"
 
+        st.markdown('<div class="section-tag">State Actors</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Current Ruling Government</div>', unsafe_allow_html=True)
+        gov_rows = [
+            ["Head of State"] + [CURRENT_GOVERNMENT.get(r["country_code"], {}).get("head_of_state", "No data") for r in cmp_rows],
+            ["Head of Government"] + [CURRENT_GOVERNMENT.get(r["country_code"], {}).get("head_of_government", "No data") for r in cmp_rows],
+            ["System Type"] + [CURRENT_GOVERNMENT.get(r["country_code"], {}).get("system_type", "No data") for r in cmp_rows],
+        ]
+        custom_table(gov_rows, ["Field"] + compare_selection)
+        st.caption("Verified via live web search as of the research date — not a live feed; leadership can change. See each country's own Deep Dive for full sourcing.")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown('<div class="section-tag">Beyond The Composite Score</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Macro &amp; Development Indicators</div>', unsafe_allow_html=True)
         macro_rows = [
             ["GDP Growth"] + [_cmp_cell(r, "gdp_growth", "%") for r in cmp_rows],
             ["Inflation"] + [_cmp_cell(r, "inflation", "%") for r in cmp_rows],
@@ -1885,14 +1896,38 @@ with tab3:
                 f"{HDI_DATA[r['country_code']]['hdi']:.3f}" if r["country_code"] in HDI_DATA else "No data"
                 for r in cmp_rows
             ],
+            ["GDP (current US$)"] + [
+                _fmt_usd(r["gdp_current_usd"]) if pd.notna(r.get("gdp_current_usd")) else "No data" for r in cmp_rows
+            ],
+            ["GDP per Capita"] + [
+                _fmt_usd(r["gdp_per_capita_usd"]) if pd.notna(r.get("gdp_per_capita_usd")) else "No data" for r in cmp_rows
+            ],
+            ["Current Account (% GDP)"] + [_cmp_cell(r, "current_account_pct_gdp", "%") for r in cmp_rows],
+            ["FDI Net Inflows (% GDP)"] + [_cmp_cell(r, "fdi_net_inflows_pct_gdp", "%") for r in cmp_rows],
+        ]
+        custom_table(macro_rows, ["Metric"] + compare_selection)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown('<div class="section-tag">How Much It Owes &amp; Holds</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Sovereign Debt &amp; Reserves Profile</div>', unsafe_allow_html=True)
+
+        def _cmp_approx_debt(r):
+            debt_pct, gdp_usd = r.get("debt_to_gdp"), r.get("gdp_current_usd")
+            if pd.isna(debt_pct) or pd.isna(gdp_usd):
+                return "No data"
+            return _fmt_usd(debt_pct / 100 * gdp_usd)
+
+        debt_rows = [
             ["Debt (% GDP)"] + [_cmp_cell(r, "debt_to_gdp", "%") for r in cmp_rows],
+            ["Approx. Total Debt"] + [_cmp_approx_debt(r) for r in cmp_rows],
             ["Foreign Reserves"] + [
                 _fmt_usd(r["total_reserves_usd"]) if pd.notna(r.get("total_reserves_usd")) else "No data"
                 for r in cmp_rows
             ],
             ["Reserves Cover"] + [_cmp_cell(r, "reserves_months_imports", " mo.") for r in cmp_rows],
         ]
-        custom_table(macro_rows, ["Metric"] + compare_selection)
+        custom_table(debt_rows, ["Metric"] + compare_selection)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1906,6 +1941,37 @@ with tab3:
                 row_vals.append(ratings[agency] if ratings else "Not Rated")
             rating_rows.append([label] + row_vals)
         custom_table(rating_rows, ["Agency"] + compare_selection)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown('<div class="section-tag">What The Economy Runs On</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Key Sectors &amp; Trade Profile</div>', unsafe_allow_html=True)
+        sector_cols = st.columns(len(compare_selection))
+        for name, r, col in zip(compare_selection, cmp_rows, sector_cols):
+            with col:
+                st.markdown(f'<div class="section-tag">{name}</div>', unsafe_allow_html=True)
+                profile = COUNTRY_TRADE_PROFILE.get(r["country_code"])
+                if profile:
+                    for icon, label, field in [
+                        ("🏭", "Main Sectors & Resources", "sectors"),
+                        ("📤", "Biggest Exports", "exports"),
+                        ("📥", "Biggest Imports", "imports"),
+                        ("🤝", "Leading Trade Partners", "partners"),
+                    ]:
+                        st.markdown(
+                            f'<div style="display:flex;gap:0.6rem;margin-bottom:0.85rem;align-items:flex-start;">'
+                            f'<div style="font-size:1.1rem;line-height:1.4;">{icon}</div>'
+                            f'<div><div class="stat-label" style="margin-bottom:0.15rem;">{label}</div>'
+                            f'<div style="font-size:0.82rem;color:{TEXT};line-height:1.5;">{profile[field]}</div></div>'
+                            f'</div>',
+                            unsafe_allow_html=True,
+                        )
+                else:
+                    st.caption("No trade profile on file.")
+        st.caption(
+            "Compiled from established, stable economic-geography knowledge rather than a single "
+            "per-country citation — see Methodology for the full source list."
+        )
 
 # ================= TAB 4: LIVE CONFLICTS =================
 with tab4:
