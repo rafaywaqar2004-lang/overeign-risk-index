@@ -14,7 +14,7 @@ from pdf_export import generate_country_pdf
 # calculated, rather than a separate, potentially drifting reimplementation.
 from compute_scores import WEIGHTS, HIGHER_IS_RISKIER, normalize_to_risk_0_100
 
-st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="assets/favicon.png", layout="wide")
+st.set_page_config(page_title="MENASA Risk Monitor", page_icon="assets/favicon.png", layout="wide")
 
 # ============================================================
 # DESIGN SYSTEM — "Institute Brief": a near-black editorial theme
@@ -934,13 +934,13 @@ except FileNotFoundError:
 # ============================================================
 # MASTHEAD
 # ============================================================
-st.markdown('<div class="tag-label">Sovereign Risk Analysis · Full MENASA Coverage</div>', unsafe_allow_html=True)
-st.markdown('<div class="masthead-title">Sovereign Risk <span>Scorecard</span></div>', unsafe_allow_html=True)
+st.markdown('<div class="tag-label">Risk, Conflict &amp; Trade Intelligence · Full MENASA Coverage</div>', unsafe_allow_html=True)
+st.markdown('<div class="masthead-title">MENASA <span>Risk Monitor</span></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="masthead-sub">A composite risk score for all 27 MENA &amp; South Asia economies, '
-    'built on live World Bank data across 10 factors spanning economic and governance pillars, '
-    'with curated and sourced historical context, a live scenario-weighting explorer, and a '
-    'dedicated tracker for the region\'s most consequential live conflicts.</div>',
+    '<div class="masthead-sub">A composite sovereign risk score for all 27 MENA &amp; South Asia economies, '
+    'built on live World Bank data across 10 factors spanning economic and governance pillars — paired with '
+    'a sourced Live Conflicts tracker, a 4-country Compare tool, and a Geo-Economic Interdependence Dashboard '
+    'mapping the region\'s maritime chokepoints, critical-mineral concentration, and commodity markets.</div>',
     unsafe_allow_html=True,
 )
 st.markdown(

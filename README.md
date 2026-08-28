@@ -1,4 +1,6 @@
-# Sovereign Risk Scorecard
+# MENASA Risk Monitor
+
+*(formerly "Sovereign Risk Scorecard" — renamed to reflect the broader scope: risk scoring, live conflicts, country comparison, and the Geo-Economic Interdependence Dashboard)*
 
 A composite sovereign risk score for **all 27 MENA & South Asia economies**
 (Algeria, Bahrain, Egypt, Iran, Iraq, Israel, Jordan, Kuwait, Lebanon, Libya,
