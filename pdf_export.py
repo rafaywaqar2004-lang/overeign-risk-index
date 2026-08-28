@@ -212,7 +212,7 @@ def generate_country_pdf(
     # ---- Historical context ----
     if events:
         pdf.section_title("Key Historical Context")
-        for year, event, source_name, source_url in sorted(events, key=lambda e: e[0]):
+        for year, event, source_name, source_url in sorted(events, key=lambda e: e[0], reverse=True):
             pdf.set_font("Helvetica", "B", 9)
             pdf.set_text_color(*NAVY)
             pdf.write(5, f"{year}: ")

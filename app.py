@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -780,6 +781,21 @@ def clean_label(raw_key):
     return raw_key.replace("_", " ").replace("pct", "%").strip().title()
 
 
+_YEAR_RE = re.compile(r"(19|20)\d{2}")
+
+
+def _latest_year_in_text(text):
+    """Extracts the most recent 4-digit year mentioned in a free-text date/
+    period field (e.g. 'December 2022; expanded March 2024' -> 2024,
+    '2018-present' -> 2018). Used to sort date-ish lists (Financing
+    Arrangements, Economic Sanctions) most-recent-first even though the
+    underlying field is free text, not a clean structured date. Returns -1
+    (sorts to the bottom of a descending sort) if no year is found, e.g. an
+    'N/A' period on a country with no sanctions history."""
+    years = [int(m.group()) for m in _YEAR_RE.finditer(text or "")]
+    return max(years) if years else -1
+
+
 try:
     with open("last_refreshed.txt") as f:
         LAST_REFRESHED = f.read().strip()
@@ -1324,7 +1340,8 @@ with tab2:
             f"news source. This is deliberately broader than pure macro data — a debt figure alone "
             f"doesn't explain *why* reserves fell or *why* a currency collapsed; these events do."
         )
-        sourced_rows = [[str(year), event, (src_name, src_url)] for year, event, src_name, src_url in events]
+        events_by_recency = sorted(events, key=lambda e: e[0], reverse=True)
+        sourced_rows = [[str(year), event, (src_name, src_url)] for year, event, src_name, src_url in events_by_recency]
         sourced_table(sourced_rows, ["Year", "Event", "Source"])
         st.caption("Curated highlights fact-checked via web search against primary/news sources as of Aug 2026 — not a live feed.")
     else:
@@ -1441,7 +1458,8 @@ with tab2:
     )
     arrangements = FINANCING_ARRANGEMENTS.get(country_code)
     if arrangements:
-        arr_rows = [[a["program"], a["amount"], a["approved"], a["status"]] for a in arrangements]
+        arrangements_by_recency = sorted(arrangements, key=lambda a: _latest_year_in_text(a["approved"]), reverse=True)
+        arr_rows = [[a["program"], a["amount"], a["approved"], a["status"]] for a in arrangements_by_recency]
         custom_table(arr_rows, ["Program", "Amount", "Approved", "Status"])
     else:
         st.caption("No verified arrangement on file for this country — see Methodology for scope.")
@@ -1457,7 +1475,8 @@ with tab2:
     )
     sanctions = ECONOMIC_SANCTIONS.get(country_code, [])
     if sanctions:
-        for s in sanctions:
+        sanctions_by_recency = sorted(sanctions, key=lambda s: _latest_year_in_text(s["period"]), reverse=True)
+        for s in sanctions_by_recency:
             with st.container(border=True):
                 st.markdown(
                     f'<div class="section-tag">{s["status"]}</div>'
