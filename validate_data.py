@@ -84,12 +84,16 @@ for code, events in HISTORICAL_CONTEXT.items():
         check(URL_RE.match(source_url or ""), f"{code}: malformed source URL for year {year}: {source_url}")
 
 # ---------- 4. Every conflict has required fields and well-formed sources ----------
-required_conflict_fields = ["name", "status", "affected", "summary", "market_impact", "sources"]
+required_conflict_fields = ["name", "status", "type", "impact", "affected", "summary", "market_impact", "sources"]
+VALID_CONFLICT_TYPES = {"Civil War", "Criminal Violence", "Interstate War", "Political Instability", "Sectarian", "Territorial Dispute", "Terrorism", "Unconventional"}
+VALID_CONFLICT_IMPACTS = {"Critical", "Significant", "Limited"}
 for conflict in LIVE_CONFLICTS:
     for field in required_conflict_fields:
         check(field in conflict and conflict[field], f"Conflict '{conflict.get('name', '?')}' missing field: {field}")
     check(isinstance(conflict.get("affected"), list) and len(conflict["affected"]) > 0,
           f"Conflict '{conflict['name']}' has no affected countries listed")
+    check(conflict.get("type") in VALID_CONFLICT_TYPES, f"Conflict '{conflict['name']}' has invalid type: {conflict.get('type')}")
+    check(conflict.get("impact") in VALID_CONFLICT_IMPACTS, f"Conflict '{conflict['name']}' has invalid impact: {conflict.get('impact')}")
     for source_name, source_url in conflict.get("sources", []):
         check(URL_RE.match(source_url or ""), f"Conflict '{conflict['name']}': malformed source URL: {source_url}")
     warn("groups" in conflict, f"Conflict '{conflict['name']}' has no 'groups' field")

@@ -1686,162 +1686,256 @@ with tab3:
         "debt-to-GDP or governance figure. This tab is the qualitative complement: the region's most "
         "consequential live conflicts and flashpoints, each mapped to the specific tracked countries "
         "it affects, with sourced detail on market/trade impact. **Curated and fact-checked as of "
-        "August 2026 — not a live news feed**, and ranked here roughly by breadth of economic impact "
-        "across tracked countries."
+        "August 2026 — not a live news feed.** Type and impact classifications below are this project's "
+        "own editorial judgment, applying a standard conflict-tracking taxonomy — not a third-party rating."
     )
     st.markdown("<br>", unsafe_allow_html=True)
 
     code_to_name = dict(zip(scored["country_code"], scored["country"]))
 
+    # Impact-on-tracked-economies severity — deliberately the SAME red/amber/grey
+    # family used for country risk tiers elsewhere in this app, since "Impact"
+    # is genuinely a severity axis like risk tier is. To avoid recreating the
+    # exact color collision this project fixed earlier, it is used ONLY as a
+    # small labeled badge here, never as the dominant map/fill color — the map
+    # itself stays in the violet/indigo STATUS palette below, which is what a
+    # user actually scans across the whole board at a glance.
+    IMPACT_COLORS = {"Critical": "#f87171", "Significant": "#fbbf24", "Limited": "#94a3b8"}
+    CONFLICT_TYPES = ["Civil War", "Criminal Violence", "Interstate War", "Political Instability", "Sectarian", "Territorial Dispute", "Terrorism", "Unconventional"]
+    STATUS_BUCKETS = ["Active / Unresolved", "Ceasefire / Fragile", "Frozen / Stalemated"]
+
+    def _status_bucket(status_text):
+        s = status_text.lower()
+        if "active" in s or "escalat" in s or "unresolved" in s:
+            return "Active / Unresolved"
+        if "ceasefire" in s or "fragile" in s or "frozen" in s or "stalemate" in s:
+            return "Ceasefire / Fragile"
+        return "Frozen / Stalemated"
+
+    for c in LIVE_CONFLICTS:
+        c["_status_bucket"] = _status_bucket(c["status"])
+
+    # ---- CFR-style split layout: a narrow filter rail beside the main workspace ----
+    filter_col, workspace_col = st.columns([1, 3])
+
+    IMPACT_LEVELS = ["Critical", "Significant", "Limited"]
+
+    with filter_col:
+        with st.container(border=True):
+            # A "reset" must clear these checkboxes' session_state BEFORE
+            # they're instantiated below in this same run — Streamlit raises
+            # StreamlitAPIException if a widget's state is written after that
+            # widget has already been created in the current script pass. So
+            # the reset button (further down) only sets a flag and reruns;
+            # this block, which always runs first, is what actually clears
+            # the values, on the following run, before the checkboxes exist.
+            if st.session_state.get("_reset_conflict_filters_pending"):
+                for t in CONFLICT_TYPES:
+                    st.session_state[f"ctype_{t}"] = False
+                for s in STATUS_BUCKETS:
+                    st.session_state[f"cstatus_{s}"] = False
+                for i in IMPACT_LEVELS:
+                    st.session_state[f"cimpact_{i}"] = False
+                st.session_state["_reset_conflict_filters_pending"] = False
+
+            st.markdown('<div class="section-tag">Filter</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Conflict Type</div>', unsafe_allow_html=True)
+            selected_types = [t for t in CONFLICT_TYPES if st.checkbox(t, key=f"ctype_{t}")]
+
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Status</div>', unsafe_allow_html=True)
+            selected_statuses = [s for s in STATUS_BUCKETS if st.checkbox(s, key=f"cstatus_{s}")]
+
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Impact on Tracked Economies</div>', unsafe_allow_html=True)
+            selected_impacts = [i for i in IMPACT_LEVELS if st.checkbox(i, key=f"cimpact_{i}")]
+
+            if selected_types or selected_statuses or selected_impacts:
+                st.markdown("<br>", unsafe_allow_html=True)
+                if st.button("Reset filters", key="reset_conflict_filters"):
+                    st.session_state["_reset_conflict_filters_pending"] = True
+                    st.rerun()
+
+    def _passes_conflict_filters(c):
+        if selected_types and c["type"] not in selected_types:
+            return False
+        if selected_statuses and c["_status_bucket"] not in selected_statuses:
+            return False
+        if selected_impacts and c["impact"] not in selected_impacts:
+            return False
+        return True
+
+    matching_names = {c["name"] for c in LIVE_CONFLICTS if _passes_conflict_filters(c)}
+
     # Representative point per conflict for the map below — a single lat/lon
     # standing in for what is often a multi-country or border-spanning event,
     # not a claim about an exact front line.
-    CONFLICT_COORDS = {
-        "2026 Iran-Israel-US War": (35.6892, 51.3890),
-        "Red Sea Shipping Crisis & Houthi-Saudi Blockade": (12.6, 43.4),
-        "Gaza War Aftermath & Fragile Ceasefire": (31.5, 34.47),
-        "Syria's Post-Assad Transition": (33.51, 36.28),
-        "Sudan Civil War (regional spillover)": (15.5, 32.55),
-        "Israel-Hezbollah War & Lebanon Front": (33.37, 35.48),
-        "Libya's Rival Governments Standoff": (31.2, 16.6),
-        "2026 Pakistan-Afghanistan War": (34.0, 70.0),
-        "India-Pakistan Kashmir Crisis": (34.08, 74.80),
-        "Balochistan Insurgency & CPEC Attacks": (25.13, 62.33),
-        "Iran-Aligned Militia Attacks on US Forces in Iraq": (33.31, 44.36),
-        "Egypt-Ethiopia Nile Dam (GERD) Dispute": (11.22, 35.09),
-        "Western Sahara Conflict & Algeria-Morocco Rupture": (27.15, -13.20),
-    }
-    # Deliberately a distinct cool (violet/indigo) palette, not the warm
-    # green/amber/red used for risk-tier severity elsewhere in this app —
-    # a conflict being "Active" and a country being "Higher Risk" are two
-    # different metrics, and sharing red for both would visually conflate them.
-    STATUS_COLORS = {"active": "#a855f7", "ceasefire": "#818cf8", "frozen": "#7d8aa0"}
+    with workspace_col:
+        CONFLICT_COORDS = {
+            "2026 Iran-Israel-US War": (35.6892, 51.3890),
+            "Red Sea Shipping Crisis & Houthi-Saudi Blockade": (12.6, 43.4),
+            "Gaza War Aftermath & Fragile Ceasefire": (31.5, 34.47),
+            "Syria's Post-Assad Transition": (33.51, 36.28),
+            "Sudan Civil War (regional spillover)": (15.5, 32.55),
+            "Israel-Hezbollah War & Lebanon Front": (33.37, 35.48),
+            "Libya's Rival Governments Standoff": (31.2, 16.6),
+            "2026 Pakistan-Afghanistan War": (34.0, 70.0),
+            "India-Pakistan Kashmir Crisis": (34.08, 74.80),
+            "Balochistan Insurgency & CPEC Attacks": (25.13, 62.33),
+            "Iran-Aligned Militia Attacks on US Forces in Iraq": (33.31, 44.36),
+            "Egypt-Ethiopia Nile Dam (GERD) Dispute": (11.22, 35.09),
+            "Western Sahara Conflict & Algeria-Morocco Rupture": (27.15, -13.20),
+        }
+        # Deliberately a distinct cool (violet/indigo) palette, not the warm
+        # green/amber/red used for risk-tier severity elsewhere in this app —
+        # a conflict being "Active" and a country being "Higher Risk" are two
+        # different metrics, and sharing red for both would visually conflate them.
+        STATUS_COLORS = {"active": "#a855f7", "ceasefire": "#818cf8", "frozen": "#7d8aa0"}
 
-    def _status_color(status_text):
-        s = status_text.lower()
-        if "active" in s or "escalat" in s or "unresolved" in s:
-            return STATUS_COLORS["active"]
-        if "ceasefire" in s or "fragile" in s or "frozen" in s or "stalemate" in s:
-            return STATUS_COLORS["ceasefire"]
-        return STATUS_COLORS["frozen"]
+        def _status_color(status_text):
+            s = status_text.lower()
+            if "active" in s or "escalat" in s or "unresolved" in s:
+                return STATUS_COLORS["active"]
+            if "ceasefire" in s or "fragile" in s or "frozen" in s or "stalemate" in s:
+                return STATUS_COLORS["ceasefire"]
+            return STATUS_COLORS["frozen"]
 
-    st.markdown('<div class="section-tag">Map View</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-title" style="font-size:1.05rem;">Conflict Map</div>', unsafe_allow_html=True)
-    map_conflicts = [c for c in LIVE_CONFLICTS if c["name"] in CONFLICT_COORDS]
-    if map_conflicts:
-        lats = [CONFLICT_COORDS[c["name"]][0] for c in map_conflicts]
-        lons = [CONFLICT_COORDS[c["name"]][1] for c in map_conflicts]
-        colors = [_status_color(c["status"]) for c in map_conflicts]
-        hover_texts = [
-            f"<b>{c['name']}</b><br>Status: {c['status']}<br>"
-            f"Actors: {c.get('groups', 'n/a')[:120]}{'…' if len(c.get('groups', '')) > 120 else ''}<br>"
-            f"Impact: {c['market_impact'][:160]}…"
-            for c in map_conflicts
-        ]
-        conflict_map_fig = go.Figure(go.Scattergeo(
-            lat=lats, lon=lons, mode="markers",
-            marker=dict(size=14, color=colors, line=dict(width=1, color="#0a0e14"), opacity=0.9),
-            text=hover_texts, hoverinfo="text",
-        ))
-        conflict_map_fig.add_trace(go.Scattergeo(
-            lat=[c[0] for c in MAJOR_CITIES.values()], lon=[c[1] for c in MAJOR_CITIES.values()],
-            mode="markers+text", text=list(MAJOR_CITIES.keys()),
-            marker=dict(size=4, color="rgba(230,237,243,0.55)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
-            textposition="top center", textfont=dict(size=7, color="rgba(230,237,243,0.65)"),
-            hoverinfo="text", showlegend=False,
-        ))
-        conflict_map_fig.update_geos(
-            scope="world", lataxis_range=[-5, 42], lonaxis_range=[-18, 100],
-            bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
-            # Same neutral taupe/slate basemap as the Risk Map — muted and distinct from
-            # both the risk-tier red/amber/green scale and this map's own violet/indigo
-            # conflict-status markers, so the markers are what stands out.
-            showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
-            showframe=False,
-        )
-        conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
-        map_click = st.plotly_chart(
-            style_chart(conflict_map_fig, height=380), use_container_width=True,
-            on_select="rerun", selection_mode="points", key="conflict_map_select",
-        )
-        st.caption(
-            "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated — "
-            "hover a node for actors and market impact, or **click a marker to jump straight to "
-            "that conflict's full detail below**. One point per conflict; a single marker stands "
-            "in for what is often a multi-country or border-spanning event."
-        )
-        # Clicking a marker on the map re-runs the app with a selection payload;
-        # translate that point index back to a conflict name and remember it in
-        # session state so the matching card below can float to the top and
-        # auto-expand — the closest honest equivalent of "jump to that section"
-        # Streamlit's tab/expander model supports, since there's no native
-        # cross-widget DOM anchor-scroll on a chart click event.
-        if map_click and map_click.selection and map_click.selection.get("point_indices"):
-            clicked_idx = map_click.selection["point_indices"][0]
-            if clicked_idx < len(map_conflicts):
-                st.session_state["focused_conflict"] = map_conflicts[clicked_idx]["name"]
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    focused_name = st.session_state.get("focused_conflict")
-    ordered_conflicts = list(LIVE_CONFLICTS)
-    if focused_name:
-        ordered_conflicts.sort(key=lambda c: c["name"] != focused_name)
-        st.info(f"📍 Jumped here from the map: **{focused_name}**. Scroll down for the rest, or click a different marker above.", icon="📍")
-
-    for i, conflict in enumerate(ordered_conflicts):
-        is_focused = conflict["name"] == focused_name
-        with st.container(border=True):
-            # ---- Always-visible compact header: status, name, affected
-            # countries, and a one-sentence takeaway — enough to understand
-            # the conflict at a glance without reading a wall of text. ----
-            st.markdown(
-                f'<div class="section-tag">{conflict["status"]}</div>'
-                f'<div class="section-title" style="font-size:1.2rem;">{conflict["name"]}</div>',
-                unsafe_allow_html=True,
+        st.markdown('<div class="section-tag">Map View</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Conflict Map</div>', unsafe_allow_html=True)
+        map_conflicts = [c for c in LIVE_CONFLICTS if c["name"] in CONFLICT_COORDS]
+        if map_conflicts:
+            lats = [CONFLICT_COORDS[c["name"]][0] for c in map_conflicts]
+            lons = [CONFLICT_COORDS[c["name"]][1] for c in map_conflicts]
+            colors = [_status_color(c["status"]) for c in map_conflicts]
+            # Non-matching conflicts fade to near-invisible rather than being
+            # removed outright, so the map's geography stays legible while
+            # filtering — the same "dim, don't delete" pattern as the artifact.
+            opacities = [0.9 if c["name"] in matching_names else 0.08 for c in map_conflicts]
+            hover_texts = [
+                f"<b>{c['name']}</b><br>{c['type']} · Impact: {c['impact']}<br>Status: {c['status']}<br>"
+                f"Actors: {c.get('groups', 'n/a')[:120]}{'…' if len(c.get('groups', '')) > 120 else ''}<br>"
+                f"Impact: {c['market_impact'][:160]}…"
+                for c in map_conflicts
+            ]
+            conflict_map_fig = go.Figure(go.Scattergeo(
+                lat=lats, lon=lons, mode="markers",
+                marker=dict(size=14, color=colors, opacity=opacities, line=dict(width=1, color="#0a0e14")),
+                text=hover_texts, hoverinfo="text",
+            ))
+            conflict_map_fig.add_trace(go.Scattergeo(
+                lat=[c[0] for c in MAJOR_CITIES.values()], lon=[c[1] for c in MAJOR_CITIES.values()],
+                mode="markers+text", text=list(MAJOR_CITIES.keys()),
+                marker=dict(size=4, color="rgba(230,237,243,0.55)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+                textposition="top center", textfont=dict(size=7, color="rgba(230,237,243,0.65)"),
+                hoverinfo="text", showlegend=False,
+            ))
+            conflict_map_fig.update_geos(
+                scope="world", lataxis_range=[-5, 42], lonaxis_range=[-18, 100],
+                bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
+                # Same neutral taupe/slate basemap as the Risk Map — muted and distinct from
+                # both the risk-tier red/amber/green scale and this map's own violet/indigo
+                # conflict-status markers, so the markers are what stands out.
+                showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
+                showframe=False,
             )
-            affected_names = [code_to_name.get(c, c) for c in conflict["affected"]]
-            st.markdown(
-                "<div style='margin-bottom:0.6rem;'>" +
-                "".join(f'<span class="tier-badge" style="background:rgba(34,211,238,0.12);color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
-                "</div>",
-                unsafe_allow_html=True,
+            conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
+            map_click = st.plotly_chart(
+                style_chart(conflict_map_fig, height=380), use_container_width=True,
+                on_select="rerun", selection_mode="points", key="conflict_map_select",
             )
-            takeaway = _event_headline(conflict["summary"], max_len=200)
-            if not takeaway.endswith((".", "…")):
-                takeaway += "."
-            st.markdown(f'<div class="narrative-box">{takeaway}</div>', unsafe_allow_html=True)
+            st.caption(
+                "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated — "
+                "hover a node for actors and market impact, or **click a marker to jump straight to "
+                "that conflict's full detail below**. One point per conflict; a single marker stands "
+                "in for what is often a multi-country or border-spanning event."
+            )
+            # Clicking a marker on the map re-runs the app with a selection payload;
+            # translate that point index back to a conflict name and remember it in
+            # session state so the matching card below can float to the top and
+            # auto-expand — the closest honest equivalent of "jump to that section"
+            # Streamlit's tab/expander model supports, since there's no native
+            # cross-widget DOM anchor-scroll on a chart click event.
+            if map_click and map_click.selection and map_click.selection.get("point_indices"):
+                clicked_idx = map_click.selection["point_indices"][0]
+                if clicked_idx < len(map_conflicts):
+                    st.session_state["focused_conflict"] = map_conflicts[clicked_idx]["name"]
+        st.markdown("<br>", unsafe_allow_html=True)
 
-            if conflict.get("stats"):
-                st.markdown("<br>", unsafe_allow_html=True)
-                stat_cols = st.columns(len(conflict["stats"]))
-                for col, (label, value) in zip(stat_cols, conflict["stats"]):
-                    with col:
-                        st.markdown(
-                            f'<div class="stat-label" style="font-size:0.58rem;">{label}</div>'
-                            f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1rem;color:{ACCENT};font-weight:700;">{value}</div>',
-                            unsafe_allow_html=True,
-                        )
+        focused_name = st.session_state.get("focused_conflict")
+        visible_conflicts = [c for c in LIVE_CONFLICTS if c["name"] in matching_names]
+        if focused_name:
+            visible_conflicts.sort(key=lambda c: c["name"] != focused_name)
+            if focused_name in matching_names:
+                st.info(f"📍 Jumped here from the map: **{focused_name}**. Scroll down for the rest, or click a different marker above.", icon="📍")
 
-            # ---- Full detail, collapsed by default — the dense material
-            # (full summary, market impact, actors, sources) lives here
-            # instead of always being on screen. ----
-            with st.expander("Full summary, market impact & sources", expanded=is_focused):
-                if conflict.get("groups"):
-                    st.markdown(
-                        f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:{TEXT_MUTED};margin-bottom:0.8rem;">'
-                        f'<b style="color:{ACCENT};">Groups Involved:</b> {conflict["groups"]}</div>',
-                        unsafe_allow_html=True,
-                    )
-                st.markdown(f'<div class="narrative-box"><b>Summary</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.markdown(f'<div class="narrative-box"><b>Market &amp; Trade Impact</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
-                st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="section-tag">Showing {len(visible_conflicts)} of {len(LIVE_CONFLICTS)} Tracked Flashpoints</div>',
+            unsafe_allow_html=True,
+        )
+
+        if not visible_conflicts:
+            st.info("No conflicts match the selected filters — try clearing a filter group on the left.", icon="🔍")
+
+        for i, conflict in enumerate(visible_conflicts):
+            is_focused = conflict["name"] == focused_name
+            with st.container(border=True):
+                # ---- Always-visible compact header: status/type/impact
+                # badges, name, affected countries, and a one-sentence
+                # takeaway — enough to understand the conflict at a glance
+                # without reading a wall of text. ----
+                impact_color = IMPACT_COLORS[conflict["impact"]]
                 st.markdown(
-                    "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in conflict["sources"]),
+                    f'<div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.3rem;">'
+                    f'<span class="tier-badge" style="background:rgba(168,85,247,0.14);color:#c4b5fd;">{conflict["status"]}</span>'
+                    f'<span class="tier-badge" style="background:{impact_color}22;color:{impact_color};">Impact: {conflict["impact"]}</span>'
+                    f'<span class="tier-badge" style="background:rgba(148,163,184,0.14);color:{TEXT_MUTED};">{conflict["type"]}</span>'
+                    f'</div>'
+                    f'<div class="section-title" style="font-size:1.2rem;">{conflict["name"]}</div>',
                     unsafe_allow_html=True,
                 )
-        if i < len(ordered_conflicts) - 1:
-            st.markdown("<br>", unsafe_allow_html=True)
+                affected_names = [code_to_name.get(c, c) for c in conflict["affected"]]
+                st.markdown(
+                    "<div style='margin-bottom:0.6rem;'>" +
+                    "".join(f'<span class="tier-badge" style="background:rgba(34,211,238,0.12);color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
+                    "</div>",
+                    unsafe_allow_html=True,
+                )
+                takeaway = _event_headline(conflict["summary"], max_len=200)
+                if not takeaway.endswith((".", "…")):
+                    takeaway += "."
+                st.markdown(f'<div class="narrative-box">{takeaway}</div>', unsafe_allow_html=True)
+
+                if conflict.get("stats"):
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    stat_cols = st.columns(len(conflict["stats"]))
+                    for col, (label, value) in zip(stat_cols, conflict["stats"]):
+                        with col:
+                            st.markdown(
+                                f'<div class="stat-label" style="font-size:0.58rem;">{label}</div>'
+                                f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1rem;color:{ACCENT};font-weight:700;">{value}</div>',
+                                unsafe_allow_html=True,
+                            )
+
+                # ---- Full detail, collapsed by default — the dense material
+                # (full summary, market impact, actors, sources) lives here
+                # instead of always being on screen. ----
+                with st.expander("Full summary, market impact & sources", expanded=is_focused):
+                    if conflict.get("groups"):
+                        st.markdown(
+                            f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:{TEXT_MUTED};margin-bottom:0.8rem;">'
+                            f'<b style="color:{ACCENT};">Groups Involved:</b> {conflict["groups"]}</div>',
+                            unsafe_allow_html=True,
+                        )
+                    st.markdown(f'<div class="narrative-box"><b>Summary</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    st.markdown(f'<div class="narrative-box"><b>Market &amp; Trade Impact</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    st.markdown(
+                        "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in conflict["sources"]),
+                        unsafe_allow_html=True,
+                    )
+            if i < len(visible_conflicts) - 1:
+                st.markdown("<br>", unsafe_allow_html=True)
 
 # ================= TAB 4: SCENARIO EXPLORER =================
 SHOCK_PRESETS = {
