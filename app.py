@@ -1002,12 +1002,12 @@ if not valid_scores_preview.empty:
             name=tier,
         ))
     fig_glance.update_layout(
-        height=100, margin=dict(t=6, b=28, l=8, r=8),
+        height=150, margin=dict(t=6, b=60, l=8, r=8),
         xaxis=dict(range=[0, 100], showgrid=False, zeroline=False, tickfont=dict(size=9, color=TEXT_MUTED),
-                   title=dict(text="Composite Score (0–100)", font=dict(size=9, color=TEXT_MUTED))),
+                   title=dict(text="Composite Score (0–100)", font=dict(size=9, color=TEXT_MUTED), standoff=6)),
         yaxis=dict(visible=False, range=[-1, 1]),
         showlegend=True,
-        legend=dict(orientation="h", y=-0.65, font=dict(size=9, color=TEXT_MUTED), bgcolor="rgba(0,0,0,0)"),
+        legend=dict(orientation="h", y=-0.75, font=dict(size=9, color=TEXT_MUTED), bgcolor="rgba(0,0,0,0)"),
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family="JetBrains Mono, monospace"),
     )
