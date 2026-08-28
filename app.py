@@ -263,6 +263,15 @@ st.markdown(f"""
         color: {TEXT_MUTED};
     }}
     .site-footer a {{ color: {ACCENT}; text-decoration: none; }}
+
+    /* ---- mobile ---- */
+    @media (max-width: 640px) {{
+        .masthead-title {{ font-size: 1.9rem; }}
+        .masthead-sub {{ font-size: 0.88rem; }}
+        .stat-card {{ padding: 0.9rem 1rem; }}
+        .stat-value {{ font-size: 1.35rem; }}
+        [data-testid="stTabs"] button[role="tab"] {{ font-size: 0.82rem; padding: 0.5rem 0.7rem; }}
+    }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -855,6 +864,13 @@ st.markdown(
     'dedicated tracker for the region\'s most consequential live conflicts.</div>',
     unsafe_allow_html=True,
 )
+st.markdown(
+    f'<div style="font-size:0.85rem;color:{TEXT_MUTED};max-width:660px;line-height:1.6;margin-bottom:1rem;'
+    f'border-left:2px solid {BORDER};padding-left:0.9rem;">'
+    f'Built to turn multilateral-finance research experience (IMF, World Bank) into a reproducible, '
+    f'sourced quantitative tool rather than a one-off writeup.</div>',
+    unsafe_allow_html=True,
+)
 st.markdown(f'<div class="stat-sub" style="margin-bottom:1.2rem;">Data last refreshed: {LAST_REFRESHED}</div>', unsafe_allow_html=True)
 
 # ---- System status banner ----
@@ -880,8 +896,12 @@ else:
 st.markdown(
     f'<div style="display:inline-flex;align-items:center;gap:0.5rem;font-family:\'JetBrains Mono\',monospace;'
     f'font-size:0.74rem;color:{_status_color};background:rgba(148,163,184,0.08);border:1px solid {BORDER};'
+    f'border-radius:20px;padding:0.35rem 0.9rem;margin-right:0.6rem;">'
+    f'⚡ System Status: {_status_text}</div>'
+    f'<div style="display:inline-flex;align-items:center;gap:0.5rem;font-family:\'JetBrains Mono\',monospace;'
+    f'font-size:0.74rem;color:{TEXT_MUTED};background:rgba(148,163,184,0.08);border:1px solid {BORDER};'
     f'border-radius:20px;padding:0.35rem 0.9rem;margin-bottom:1rem;">'
-    f'⚡ System Status: {_status_text}</div>',
+    f'◆ Conflicts, government &amp; historical context: curated snapshot, not a live feed</div>',
     unsafe_allow_html=True,
 )
 
@@ -901,6 +921,13 @@ with c3:
     stat_card("Lowest Risk", lowest["country"], f"Score {lowest['risk_score']:.1f}")
 with c4:
     stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 26")
+
+st.markdown(
+    f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.72rem;color:{TEXT_MUTED};margin-top:0.6rem;">'
+    f'Scores are ranked relative to this 26-country MENASA set, not a globally benchmarked index — '
+    f'see Methodology.</div>',
+    unsafe_allow_html=True,
+)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
