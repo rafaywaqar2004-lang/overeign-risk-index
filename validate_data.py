@@ -20,6 +20,7 @@ from context_data import (
 )
 from geoeconomic_data import (
     MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS,
+    RESOURCE_BENCHMARKS, MENASA_COUNTRY_ALLIANCES,
 )
 
 URL_RE = re.compile(r"^https?://[^\s]+$")
@@ -177,6 +178,27 @@ for g in CORPORATE_GATEKEEPERS:
         check(cp_key in chokepoint_keys, f"CORPORATE_GATEKEEPERS: '{g.get('company')}' references unknown chokepoint: {cp_key}")
     for min_key in g.get("related_minerals", []):
         check(min_key in mineral_keys, f"CORPORATE_GATEKEEPERS: '{g.get('company')}' references unknown mineral: {min_key}")
+
+# ---------- 9c. Resource benchmarks: exactly 5 companies each, valid fields ----------
+required_resource_fields = ["label", "yfinance_ticker", "benchmark", "price_narrative", "sources", "top_companies"]
+for key, r in RESOURCE_BENCHMARKS.items():
+    for field in required_resource_fields:
+        check(field in r, f"RESOURCE_BENCHMARKS[{key}]: missing field: {field}")
+    check(len(r.get("sources", [])) > 0, f"RESOURCE_BENCHMARKS[{key}]: no sources listed")
+    for source_name, source_url in r.get("sources", []):
+        check(URL_RE.match(source_url or ""), f"RESOURCE_BENCHMARKS[{key}]: malformed source URL: {source_url}")
+    check(len(r.get("top_companies", [])) == 5, f"RESOURCE_BENCHMARKS[{key}]: expected 5 top companies, found {len(r.get('top_companies', []))}")
+    for c in r.get("top_companies", []):
+        check(all(f in c for f in ["company", "hq_location", "position", "source"]), f"RESOURCE_BENCHMARKS[{key}]: company entry missing a field: {c.get('company', '?')}")
+        c_source_name, c_source_url = c.get("source", (None, None))
+        check(URL_RE.match(c_source_url or ""), f"RESOURCE_BENCHMARKS[{key}]: company '{c.get('company')}' has malformed source URL: {c_source_url}")
+
+# ---------- 9d. MENASA country alliances cover all tracked countries ----------
+missing_alliances = VALID_CODES - set(MENASA_COUNTRY_ALLIANCES.keys())
+check(not missing_alliances, f"MENASA_COUNTRY_ALLIANCES is missing countries: {sorted(missing_alliances)}")
+for code, a in MENASA_COUNTRY_ALLIANCES.items():
+    check("memberships" in a and a["memberships"], f"MENASA_COUNTRY_ALLIANCES[{code}]: missing/empty memberships")
+    check("primary_bloc" in a and a["primary_bloc"], f"MENASA_COUNTRY_ALLIANCES[{code}]: missing primary_bloc")
 
 # ---------- 10. Cross-check against actual scored data, if present ----------
 try:

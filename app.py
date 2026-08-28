@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime, timezone
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS, HDI_DATA, CURRENT_GOVERNMENT
-from geoeconomic_data import MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS, TRADE_ARTERIES, TRADE_ALLIANCES
+from geoeconomic_data import MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS, TRADE_ARTERIES, TRADE_ALLIANCES, MENASA_COUNTRY_ALLIANCES, COUNTRY_CAPITAL_COORDS, RESOURCE_BENCHMARKS, SEMICONDUCTOR_SUBDIVISIONS, ENERGY_FLOW_GRANULARITY, UNCTAD_RMT_2025
 from pdf_export import generate_country_pdf
 # Reuse the exact scoring methodology from compute_scores.py for the
 # year-over-year factor drill-down below, so the "what drove this year's
@@ -2258,6 +2258,10 @@ with tab4:
 
 # ================= TAB 5: GEO-ECONOMIC INTERDEPENDENCE =================
 GEO_RISK_COLOR = {"Low": "#34d399", "Moderate": "#fbbf24", "High": "#f87171", "Critical": "#dc2626"}
+BLOC_COLOR = {
+    "GCC": "#3b82f6", "OPEC": "#f472b6", "BRICS+": "#2dd4bf",
+    "Arab League": "#a78bfa", "SAARC": "#fbbf24", "Non-aligned / OECD": TEXT_MUTED,
+}
 
 with tab5:
     st.markdown('<div class="section-tag">Global Trade Structure</div>', unsafe_allow_html=True)
@@ -2278,6 +2282,11 @@ with tab5:
             show_friction = st.checkbox("Trade Arteries / Friction Points", value=True, key="geo_show_friction")
         with lcol3:
             show_alliances = st.checkbox("Legal Trade Alliances (GCC, BRICS+, ASEAN, EU)", value=False, key="geo_show_alliances")
+        lcol4, lcol5, _ = st.columns(3)
+        with lcol4:
+            show_countries = st.checkbox("MENASA Country Alliances (all 27)", value=True, key="geo_show_countries")
+        with lcol5:
+            show_fabs = st.checkbox("Advanced Semiconductor Fabs", value=False, key="geo_show_fabs")
 
     st.markdown('<div class="section-tag">Chokepoints &amp; Trade Arteries</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="font-size:1.05rem;">Interactive Trade Map</div>', unsafe_allow_html=True)
@@ -2301,6 +2310,35 @@ with tab5:
                 hovertemplate=f"<b>{bloc_name}</b><br>{', '.join(bloc['members'][:6])}…<extra></extra>",
                 showlegend=False,
             ))
+
+    if show_countries:
+        # Group by primary_bloc so the legend shows one entry per bloc rather
+        # than 27 individual country entries.
+        by_bloc = {}
+        for code, alliance in MENASA_COUNTRY_ALLIANCES.items():
+            by_bloc.setdefault(alliance["primary_bloc"], []).append(code)
+        country_names = dict(zip(scored["country_code"], scored["country"]))
+        for bloc_name, codes in by_bloc.items():
+            fig_geo.add_trace(go.Scattergeo(
+                lon=[COUNTRY_CAPITAL_COORDS[c][1] for c in codes if c in COUNTRY_CAPITAL_COORDS],
+                lat=[COUNTRY_CAPITAL_COORDS[c][0] for c in codes if c in COUNTRY_CAPITAL_COORDS],
+                text=[country_names.get(c, c) for c in codes if c in COUNTRY_CAPITAL_COORDS],
+                customdata=[[", ".join(MENASA_COUNTRY_ALLIANCES[c]["memberships"])] for c in codes if c in COUNTRY_CAPITAL_COORDS],
+                mode="markers+text", textposition="top center", textfont=dict(size=9),
+                marker=dict(size=9, color=BLOC_COLOR.get(bloc_name, TEXT_MUTED), line=dict(width=1, color=BG)),
+                hovertemplate="<b>%{text}</b><br>%{customdata[0]}<extra></extra>",
+                name=bloc_name, showlegend=True,
+            ))
+
+    if show_fabs:
+        fabs = SEMICONDUCTOR_SUBDIVISIONS["advanced_sub7nm"]["fabs"]
+        fig_geo.add_trace(go.Scattergeo(
+            lon=[f["lon"] for f in fabs], lat=[f["lat"] for f in fabs],
+            text=[f"{f['company']} — {f['site']}" for f in fabs],
+            mode="markers", marker=dict(size=11, color="#3b82f6", symbol="diamond", line=dict(width=1, color=BG)),
+            hovertemplate="<b>%{text}</b><br>Advanced (sub-7nm) fab<extra></extra>",
+            name="Advanced Fabs", showlegend=True,
+        ))
 
     if show_infra:
         cp_keys = list(MARITIME_CHOKEPOINTS.keys())
@@ -2326,7 +2364,10 @@ with tab5:
         showcountries=True, countrycolor="rgba(148,163,184,0.25)",
         bgcolor="rgba(0,0,0,0)",
     )
-    fig_geo.update_layout(showlegend=False)
+    fig_geo.update_layout(
+        showlegend=show_countries or show_fabs,
+        legend=dict(orientation="h", y=-0.05, font=dict(color=TEXT_MUTED, size=10), bgcolor="rgba(0,0,0,0)"),
+    )
 
     geo_select = st.plotly_chart(
         style_chart(fig_geo, height=480), use_container_width=True,
@@ -2365,6 +2406,64 @@ with tab5:
                 unsafe_allow_html=True,
             )
             st.markdown("<br>", unsafe_allow_html=True)
+
+    with st.expander("Deeper Verification Notes — semiconductor node tiers, energy flow granularity, UNCTAD"):
+        st.caption(
+            "A follow-up research pass checked whether more granular breakdowns (sour vs. sweet crude "
+            "flow, a current TSMC-vs-Samsung sub-7nm split, a published semiconductor HHI) actually "
+            "exist publicly. Several don't — stated here honestly as 'Data Pending Verification' rather "
+            "than invented, per this project's core rule against fabricated or simulated figures."
+        )
+        sub7 = SEMICONDUCTOR_SUBDIVISIONS["advanced_sub7nm"]
+        legacy = SEMICONDUCTOR_SUBDIVISIONS["mature_legacy_node"]
+        st.markdown(
+            f'<div class="narrative-box" style="margin-bottom:0.9rem;"><b>Advanced (Sub-7nm) Foundry</b>'
+            f'<br><br>{sub7["note"]}</div>', unsafe_allow_html=True,
+        )
+        st.markdown(
+            "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in sub7["sources"]),
+            unsafe_allow_html=True,
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="narrative-box" style="margin-bottom:0.9rem;"><b>Mature/Legacy-Node Foundry</b> '
+            f'— China: {legacy["china_share_2021_pct"]:.0f}% (2021) → {legacy["china_share_2030_projected_pct"]:.0f}% (2030 projected)'
+            f'<br><br>{legacy["note"]}</div>', unsafe_allow_html=True,
+        )
+        st.markdown(
+            "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in legacy["sources"]),
+            unsafe_allow_html=True,
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(f'<div class="narrative-box" style="margin-bottom:0.9rem;"><b>Semiconductor HHI</b><br><br>{SEMICONDUCTOR_SUBDIVISIONS["hhi_status"]}</div>', unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="narrative-box" style="margin-bottom:0.9rem;"><b>Hormuz: Crude Grade &amp; LNG Flow</b>'
+            f'<br><br>{ENERGY_FLOW_GRANULARITY["hormuz_crude_grade_note"]}<br><br>'
+            f'<b>Post-war LNG status:</b> {ENERGY_FLOW_GRANULARITY["hormuz_lng_status"]["post_war_status"]}</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in ENERGY_FLOW_GRANULARITY["hormuz_lng_status"]["sources"]),
+            unsafe_allow_html=True,
+        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="narrative-box"><b>UNCTAD Review of Maritime Transport</b><br><br>{UNCTAD_RMT_2025["edition"]}'
+            f'<br><br>Global seaborne trade: <b>{UNCTAD_RMT_2025["global_seaborne_trade_2024_million_tons"]:,} million tons</b> in 2024 '
+            f'(+{UNCTAD_RMT_2025["global_seaborne_trade_2024_growth_pct"]}% y/y). Ton-miles grew '
+            f'+{UNCTAD_RMT_2025["ton_miles_growth_2024_pct"]}% — nearly 3x volume growth, reflecting Cape of Good Hope rerouting. '
+            f'UNCTAD\'s own figure: Suez transit ran roughly {abs(UNCTAD_RMT_2025["suez_transit_vs_2023_pct"])}% below 2023 averages as of May 2025.'
+            f'<br><br><i>Forward-looking (UNCTAD\'s own projection, not an observed outturn):</i> overall maritime trade growth of '
+            f'{UNCTAD_RMT_2025["projections_labeled_as_projection_not_fact"]["2025_overall_growth_pct"]}% in 2025.</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in UNCTAD_RMT_2025["sources"]),
+            unsafe_allow_html=True,
+        )
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -2428,6 +2527,61 @@ with tab5:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # ---- Component 2b: Resource Benchmarks ----
+    st.markdown('<div class="section-tag">What It Trades On, What It\'s Worth</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Resource Benchmarks</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="masthead-sub" style="margin-bottom:1rem;">Eight resources central to MENASA trade exposure — real exchange/benchmark, '
+        'a sourced 2025-2026 price narrative, and the 5 largest companies in each. Live price history is only shown for the 3 resources with a real '
+        'tradable futures ticker (Crude Oil, Natural Gas, Gold); the other 5 trade via bulk contracts or LME assessment rather than a public futures '
+        'feed this app can pull, so their pricing is presented as sourced text instead of a fabricated chart.</div>',
+        unsafe_allow_html=True,
+    )
+    resource_key = st.selectbox(
+        "Select a resource", list(RESOURCE_BENCHMARKS.keys()),
+        format_func=lambda k: RESOURCE_BENCHMARKS[k]["label"], key="geo_resource_select",
+    )
+    resource = RESOURCE_BENCHMARKS[resource_key]
+
+    rcol1, rcol2 = st.columns([2, 1])
+    with rcol1:
+        if resource["yfinance_ticker"]:
+            price_hist = fetch_stock_history(resource["yfinance_ticker"], period="5y")
+            if price_hist is not None:
+                fig_res = go.Figure()
+                fig_res.add_trace(go.Scatter(
+                    x=price_hist.index, y=price_hist["Close"], mode="lines",
+                    line=dict(color=ACCENT, width=2), fill="tozeroy", fillcolor=ACCENT_DIM,
+                ))
+                st.plotly_chart(style_chart(fig_res, height=280), use_container_width=True)
+                st.caption(f"Real 5-year price history, ticker {resource['yfinance_ticker']} (live Yahoo Finance pull, cached hourly) — not a simulated or illustrative series.")
+            else:
+                st.caption("Live price feed temporarily unavailable — Yahoo Finance is one of the least reliable external dependencies this app has.")
+        else:
+            st.caption(f"No live chart shown: {resource['label']} has no standard exchange-traded futures contract (see benchmark note) — a chart here would misrepresent bulk/contract pricing as if it were a continuous market feed.")
+    with rcol2:
+        st.markdown(
+            f'<div class="narrative-box"><b>Benchmark</b><br>{resource["benchmark"]}</div>',
+            unsafe_allow_html=True,
+        )
+
+    st.markdown(
+        f'<div class="narrative-box" style="margin-top:0.8rem;"><b>Why the price has moved (2025-2026)</b><br>{resource["price_narrative"]}</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in resource["sources"]),
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(f'<div class="section-tag" style="font-size:0.9rem;">Top 5 Companies — {resource["label"]}</div>', unsafe_allow_html=True)
+    top5_rows = [[c["company"], c["hq_location"], c["position"]] for c in resource["top_companies"]]
+    custom_table(top5_rows, ["Company", "HQ Location", "Market Position"])
+    st.caption("Sourced individually per company — hover isn't available in a plain table, so see the citation pills above for the resource-level sources; company-specific sources are in the underlying dataset.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
     # ---- Component 3: Corporate Infrastructure Gatekeepers ----
     st.markdown('<div class="section-tag">Who Controls The Bottleneck</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Corporate Infrastructure Gatekeepers</div>', unsafe_allow_html=True)
@@ -2438,10 +2592,14 @@ with tab5:
     _geo_sel = st.session_state.get("geo_selected_chokepoint")
     if _geo_sel and _geo_sel in MARITIME_CHOKEPOINTS:
         _default_filter = MARITIME_CHOKEPOINTS[_geo_sel]["name"]
-    gatekeeper_filter = st.selectbox(
-        "Filter by chokepoint or mineral dependency", filter_options,
-        index=filter_options.index(_default_filter) if _default_filter in filter_options else 0,
-    )
+    fcol, scol = st.columns([1, 1])
+    with fcol:
+        gatekeeper_filter = st.selectbox(
+            "Filter by chokepoint or mineral dependency", filter_options,
+            index=filter_options.index(_default_filter) if _default_filter in filter_options else 0,
+        )
+    with scol:
+        gatekeeper_search = st.text_input("🔍 Filter by company, sector, or HQ", key="geo_gatekeeper_search")
 
     if gatekeeper_filter == "All":
         filtered_gatekeepers = CORPORATE_GATEKEEPERS
@@ -2452,6 +2610,13 @@ with tab5:
             g for g in CORPORATE_GATEKEEPERS
             if (cp_key_match and cp_key_match in g["related_chokepoints"])
             or (min_key_match and min_key_match in g["related_minerals"])
+        ]
+
+    if gatekeeper_search.strip():
+        needle = gatekeeper_search.strip().lower()
+        filtered_gatekeepers = [
+            g for g in filtered_gatekeepers
+            if needle in g["company"].lower() or needle in g["hq_location"].lower() or needle in g["sector"].lower()
         ]
 
     if filtered_gatekeepers:
