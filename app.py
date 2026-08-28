@@ -4,6 +4,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES
 from pdf_export import generate_country_pdf
+# Reuse the exact scoring methodology from compute_scores.py for the
+# year-over-year factor drill-down below, so the "what drove this year's
+# score" explanation is always consistent with how the composite is actually
+# calculated, rather than a separate, potentially drifting reimplementation.
+from compute_scores import WEIGHTS, HIGHER_IS_RISKIER, normalize_to_risk_0_100
 
 st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
 
@@ -308,6 +313,31 @@ def sourced_table(rows, headers):
     st.markdown(html, unsafe_allow_html=True)
 
 
+def _fmt_value_unit(value, unit):
+    """Formats a raw indicator value with its unit for inline/table display.
+    Percent units suffix directly (e.g. '1.87%'); longer descriptive units
+    (e.g. 'WGI estimate, -2.5 to +2.5') are parenthesized and shortened so
+    they read as an annotation rather than running straight into the number."""
+    if unit == "%":
+        return f"{value:.2f}%"
+    if "WGI estimate" in unit:
+        return f"{value:.2f} (WGI scale)"
+    return f"{value:.2f} {unit}"
+
+
+def _event_headline(event_text, max_len=160):
+    """Historical Context events are now full 2-4 sentence analytical entries,
+    not one-line headlines — so when a snippet of one is quoted inline inside
+    the Country Brief, only the first sentence (or a hard truncation as a
+    fallback for a very long first sentence) is used, never the whole entry."""
+    first_period = event_text.find(". ")
+    if 20 < first_period < max_len:
+        return event_text[:first_period]
+    if first_period == -1 and len(event_text) <= max_len:
+        return event_text.rstrip(".")
+    return event_text[:max_len].rsplit(" ", 1)[0] + "…"
+
+
 def build_country_brief(country_name, country_code, row, driver_row, events, conflicts):
     """Synthesizes score + trajectory + top historical events + conflict exposure
     into a flowing analyst-style paragraph that explains *why* the score is what
@@ -349,8 +379,9 @@ def build_country_brief(country_name, country_code, row, driver_row, events, con
         link_clause = ""
         if events:
             most_recent = sorted(events, key=lambda e: e[0], reverse=True)[0]
+            headline = _event_headline(most_recent[1])
             link_clause = (
-                f" — consistent with {most_recent[1][0].lower()}{most_recent[1][1:]} ({most_recent[0]}), "
+                f" — consistent with {headline[0].lower()}{headline[1:]} ({most_recent[0]}), "
                 f"which is still working through the economy"
             )
         parts.append(
@@ -360,7 +391,7 @@ def build_country_brief(country_name, country_code, row, driver_row, events, con
 
     if events:
         recent_events = sorted(events, key=lambda e: e[0], reverse=True)[:2]
-        event_phrases = [f"{e[1][0].lower()}{e[1][1:]} ({e[0]})" for e in recent_events]
+        event_phrases = [f"{_event_headline(e[1])[0].lower()}{_event_headline(e[1])[1:]} ({e[0]})" for e in recent_events]
         parts.append("Recent history has been shaped by " + " and ".join(event_phrases) + " — see Key Historical Context below for the full sourced timeline.")
 
     relevant_conflicts = [c["name"] for c in conflicts if country_code in c["affected"]]
@@ -427,7 +458,74 @@ def build_regional_brief(scored_df, history_df, conflicts):
 
     return " ".join(parts)
 
-    return " ".join(parts)
+
+def compute_year_factor_breakdown(long_df, country_code, year):
+    """Cross-sectionally normalizes every tracked factor for a single year
+    (mirroring compute_scores.py's own per-year methodology exactly, via the
+    shared WEIGHTS/HIGHER_IS_RISKIER/normalize_to_risk_0_100 imports) and
+    returns {factor: risk_score_0_100_or_None} for one country in that year.
+    Used to explain what actually moved between two specific years, rather
+    than just showing the composite score's net change."""
+    year_slice = long_df[long_df["year"] == year]
+    pivot = year_slice.pivot_table(index="country_code", columns="indicator", values="value", aggfunc="first")
+    result = {}
+    for factor in WEIGHTS:
+        if factor not in pivot.columns or country_code not in pivot.index:
+            result[factor] = None
+            continue
+        normalized = normalize_to_risk_0_100(pivot[factor], HIGHER_IS_RISKIER[factor])
+        val = normalized.get(country_code)
+        result[factor] = None if pd.isna(val) else val
+    return result
+
+
+def build_year_driver_card(long_df, country_code, country_name, year, prior_year):
+    """Builds a human-readable explanation of which factors most drove the
+    change in a country's composite score between prior_year and year,
+    citing the actual raw World Bank figures behind each factor — not a
+    generic statement, and not attributed to a data source (e.g. UNCTAD,
+    ACLED) this tool doesn't actually pull from. Returns (html_summary, rows)
+    where rows is a list of (label, prior_raw, current_raw, unit, risk_delta)
+    sorted by absolute contribution to the score change."""
+    current_scores = compute_year_factor_breakdown(long_df, country_code, year)
+    prior_scores = compute_year_factor_breakdown(long_df, country_code, prior_year)
+
+    raw_current = long_df[(long_df["country_code"] == country_code) & (long_df["year"] == year)].set_index("indicator")["value"]
+    raw_prior = long_df[(long_df["country_code"] == country_code) & (long_df["year"] == prior_year)].set_index("indicator")["value"]
+
+    rows = []
+    for factor in WEIGHTS:
+        cur, prior = current_scores.get(factor), prior_scores.get(factor)
+        if cur is None or prior is None:
+            continue
+        risk_delta = (cur - prior) * WEIGHTS[factor]  # this factor's actual contribution to the composite's move
+        label, unit, source = ALL_INDICATOR_LABELS[factor]
+        rows.append((label, raw_prior.get(factor), raw_current.get(factor), unit, risk_delta, source))
+
+    rows.sort(key=lambda r: abs(r[4]), reverse=True)
+
+    if not rows:
+        return (
+            f"Not enough factor-level data is available for both {prior_year} and {year} to break down "
+            f"what drove {country_name}'s score that year.",
+            [],
+        )
+
+    top = rows[:3]
+    sentences = []
+    for label, prior_val, cur_val, unit, risk_delta, source in top:
+        direction = "widened risk" if risk_delta > 0 else "eased risk"
+        if pd.notna(prior_val) and pd.notna(cur_val):
+            sentences.append(
+                f"<b>{label}</b> moved from {_fmt_value_unit(prior_val, unit)} in {prior_year} "
+                f"to {_fmt_value_unit(cur_val, unit)} in {year}, contributing "
+                f"{abs(risk_delta):.2f} points of {direction} to the composite (source: {source})."
+            )
+    summary = (
+        f"Comparing {country_name}'s reported factors in {prior_year} vs. {year}, the largest contributors "
+        f"to the composite score's change were: " + " ".join(sentences)
+    )
+    return summary, rows
 
 
 # ============================================================
@@ -464,6 +562,37 @@ RAW_LABELS = {
     "regulatory_quality": ("Regulatory Quality", "WGI estimate, -2.5 to +2.5"),
     "control_of_corruption": ("Control of Corruption", "WGI estimate, -2.5 to +2.5"),
 }
+
+# All 13 tracked indicators (the 10 scored factors plus the 3 descriptive
+# trade/investment-context indicators), each mapped to a clean display label,
+# its real unit, and its ACTUAL source — used by the sub-indicator trend
+# dropdown below the radar chart. Every one of these is a genuine World Bank
+# WDI or WGI series already being fetched by fetch_data.py; nothing here is
+# attributed to a data feed the app doesn't actually pull from.
+ALL_INDICATOR_LABELS = {
+    "debt_to_gdp": ("Debt (% of GDP)", "%", "World Bank WDI: GC.DOD.TOTL.GD.ZS"),
+    "current_account_pct_gdp": ("Current Account (% of GDP)", "% GDP", "World Bank WDI: BN.CAB.XOKA.GD.ZS"),
+    "reserves_months_imports": ("Reserves Cover", "months of imports", "World Bank WDI: FI.RES.TOTL.MO"),
+    "gdp_growth": ("GDP Growth Rate", "%", "World Bank WDI: NY.GDP.MKTP.KD.ZG"),
+    "inflation": ("Inflation", "%", "World Bank WDI: FP.CPI.TOTL.ZG"),
+    "political_stability": ("Political Stability & Absence of Violence", "WGI estimate, -2.5 to +2.5", "World Bank WGI: PV.EST"),
+    "government_effectiveness": ("Government Effectiveness", "WGI estimate, -2.5 to +2.5", "World Bank WGI: GE.EST"),
+    "rule_of_law": ("Rule of Law", "WGI estimate, -2.5 to +2.5", "World Bank WGI: RL.EST"),
+    "regulatory_quality": ("Regulatory Quality", "WGI estimate, -2.5 to +2.5", "World Bank WGI: RQ.EST"),
+    "control_of_corruption": ("Control of Corruption", "WGI estimate, -2.5 to +2.5", "World Bank WGI: CC.EST"),
+    "fdi_net_inflows_pct_gdp": ("Foreign Direct Investment, Net Inflows", "% GDP", "World Bank WDI: BX.KLT.DINV.WD.GD.ZS"),
+    "exports_pct_gdp": ("Exports of Goods & Services", "% GDP", "World Bank WDI: NE.EXP.GNFS.ZS"),
+    "imports_pct_gdp": ("Imports of Goods & Services", "% GDP", "World Bank WDI: NE.IMP.GNFS.ZS"),
+}
+
+
+def clean_label(raw_key):
+    """Defensive fallback: turns a raw snake_case column/indicator key into a
+    clean, title-cased display string, for any identifier that reaches the UI
+    without an explicit entry in FACTOR_LABELS / ALL_INDICATOR_LABELS. No
+    backend column name should ever reach the rendered page verbatim."""
+    return raw_key.replace("_", " ").replace("pct", "%").strip().title()
+
 
 try:
     with open("last_refreshed.txt") as f:
@@ -769,6 +898,63 @@ with tab2:
     else:
         st.caption("Not enough historical data for a trend line.")
 
+    # ---- Year-over-year factor drill-down ----
+    # Lets a user pick a specific year on the trend line above and see, in
+    # plain language, which underlying World Bank factors actually moved the
+    # composite score that year — not just that it moved.
+    if not country_history.empty and len(country_history) >= 2:
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Year-by-Year Drivers</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">What Drove a Specific Year\'s Score?</div>', unsafe_allow_html=True)
+        available_years = sorted(country_history["year"].astype(int).tolist())
+        selectable_years = available_years[1:]  # first year has no prior year to compare against
+        drill_year = st.selectbox(
+            f"Select a year to see what drove {selected}'s score change",
+            options=selectable_years,
+            index=len(selectable_years) - 1,
+            key="year_driver_select",
+        )
+        prior_year_candidates = [y for y in available_years if y < drill_year]
+        if prior_year_candidates:
+            prior_year = max(prior_year_candidates)
+            summary_html, driver_rows = build_year_driver_card(long_df, country_code, selected, drill_year, prior_year)
+            st.markdown(f'<div class="narrative-box">{summary_html}</div>', unsafe_allow_html=True)
+            if driver_rows:
+                driver_table_rows = [
+                    [label, _fmt_value_unit(p, unit) if pd.notna(p) else "No data", _fmt_value_unit(c, unit) if pd.notna(c) else "No data",
+                     f"{'+' if d > 0 else ''}{d:.2f} pts ({'more' if d > 0 else 'less'} risk)"]
+                    for label, p, c, unit, d, source in driver_rows
+                ]
+                custom_table(driver_table_rows, ["Factor", f"{prior_year}", f"{drill_year}", "Contribution to Score Change"])
+        else:
+            st.caption(f"{drill_year} is the earliest year with data — there's no prior year to compare it against.")
+
+    # ---- Sub-indicator historical trend explorer ----
+    # Supplements the radar chart (a single-year snapshot across all 10
+    # factors) with the full multi-year trend for any ONE indicator the user
+    # picks, including the two descriptive trade-context indicators that
+    # aren't part of the composite score at all (FDI, exports, imports).
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Indicator Explorer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title" style="font-size:1.05rem;">Historical Trend by Indicator</div>', unsafe_allow_html=True)
+    indicator_options = list(ALL_INDICATOR_LABELS.keys())
+    indicator_choice = st.selectbox(
+        "Choose an indicator to see its full historical trend for this country",
+        options=indicator_options,
+        format_func=lambda k: ALL_INDICATOR_LABELS[k][0],
+        key="indicator_explorer_select",
+    )
+    ind_label, ind_unit, ind_source = ALL_INDICATOR_LABELS[indicator_choice]
+    ind_hist = long_df[(long_df["country_code"] == country_code) & (long_df["indicator"] == indicator_choice)].sort_values("year")
+    if not ind_hist.empty:
+        fig_ind = px.line(ind_hist, x="year", y="value", markers=True, labels={"value": f"{ind_label} ({ind_unit})", "year": "Year"})
+        fig_ind.update_traces(line_color=ACCENT, marker=dict(color=ACCENT, size=6))
+        fig_ind.update_layout(title=dict(text=f"{selected}: {ind_label}", font=dict(size=13)))
+        st.plotly_chart(style_chart(fig_ind, height=320), use_container_width=True)
+        st.caption(f"Source: {ind_source}")
+    else:
+        st.caption(f"No historical data available for {ind_label} for {selected}.")
+
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Raw Values</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Underlying Indicators</div>', unsafe_allow_html=True)
@@ -941,7 +1127,11 @@ with tab3:
         "Egypt-Ethiopia Nile Dam (GERD) Dispute": (11.22, 35.09),
         "Western Sahara Conflict & Algeria-Morocco Rupture": (27.15, -13.20),
     }
-    STATUS_COLORS = {"active": "#f87171", "ceasefire": "#fbbf24", "frozen": "#7d8aa0"}
+    # Deliberately a distinct cool (violet/indigo) palette, not the warm
+    # green/amber/red used for risk-tier severity elsewhere in this app —
+    # a conflict being "Active" and a country being "Higher Risk" are two
+    # different metrics, and sharing red for both would visually conflate them.
+    STATUS_COLORS = {"active": "#a855f7", "ceasefire": "#818cf8", "frozen": "#7d8aa0"}
 
     def _status_color(status_text):
         s = status_text.lower()
@@ -978,7 +1168,7 @@ with tab3:
         conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
         st.plotly_chart(style_chart(conflict_map_fig, height=380), use_container_width=True)
         st.caption(
-            "🔴 Active/unresolved · 🟡 Ceasefire/fragile · ⚪ Frozen or stalemated — "
+            "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated — "
             "hover a node for actors and market impact. One point per conflict; a single "
             "marker stands in for what is often a multi-country or border-spanning event."
         )
@@ -1170,6 +1360,19 @@ with tab5:
         "Indicators, WGI = Worldwide Governance Indicators) — the same underlying database the IMF, "
         "credit rating agencies, and academic researchers use as a baseline. Click any source link "
         "above to see the indicator's full definition and country coverage on the World Bank's own site."
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.info(
+        "**This is a relative ranking within this 26-country sample — not an absolute, "
+        "globally-benchmarked index.** Every factor is min-max normalized against only the other "
+        "25 tracked MENASA economies for that same year, not against the full ~190-country UN "
+        "membership. A 'Lower Risk' score here means lower risk *relative to this specific regional "
+        "pool* — it does not mean the country would also rank as low-risk against, say, Western "
+        "Europe or East Asia. Comparing scores or tiers to any country outside this 26-country set "
+        "(including via the credit-rating comparison elsewhere in this app, which draws on actual "
+        "global agency ratings) requires that caveat in mind.",
+        icon="📐",
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
