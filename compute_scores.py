@@ -19,6 +19,7 @@ Methodology (v3):
   isn't unambiguously "risk," it's a related but distinct signal.
 """
 import pandas as pd
+from datetime import datetime, timezone
 
 WEIGHTS = {
     "debt_to_gdp": 0.10,
@@ -86,6 +87,48 @@ def compute_weighted_score(risk_df):
         score = sum(available[k] * rescaled[k] for k in available.index)
         scores.append(round(score, 1))
     return pd.Series(scores, index=risk_df.index)
+
+
+_LIVE_EXPORT_RENAME = {
+    "country": "Country", "country_code": "Country Code",
+    "debt_to_gdp": "Debt To GDP (%)", "current_account_pct_gdp": "Current Account (% GDP)",
+    "reserves_months_imports": "Reserves (Months Of Imports)", "gdp_growth": "GDP Growth (%)",
+    "inflation": "Inflation (%)", "political_stability": "Political Stability (WGI)",
+    "government_effectiveness": "Government Effectiveness (WGI)", "rule_of_law": "Rule Of Law (WGI)",
+    "regulatory_quality": "Regulatory Quality (WGI)", "control_of_corruption": "Control Of Corruption (WGI)",
+    "fdi_net_inflows_pct_gdp": "FDI Net Inflows (% GDP)", "exports_pct_gdp": "Exports (% GDP)",
+    "imports_pct_gdp": "Imports (% GDP)",
+    "risk_score": "Composite Risk Score", "risk_score_factors_used": "Factors Used",
+    "risk_tier": "Risk Tier", "risk_rank": "Regional Rank",
+    "yoy_change": "YoY Change", "yoy_latest_year": "YoY Latest Year", "yoy_prior_year": "YoY Prior Year",
+}
+
+
+def build_live_export(df_sorted):
+    """Builds live_sovereign_risk_data.csv: a single, human-readable,
+    Title-Case/underscore-free consolidated snapshot for anyone consuming this
+    data OUTSIDE the app itself (e.g. in a spreadsheet). This is an ADDITIONAL
+    convenience export layered on top of scored_data.csv / driver_data.csv /
+    scored_history.csv, which remain the actual files the Streamlit app and
+    its tested per-year methodology are built on — nothing here replaces
+    those, since re-architecting a working, validated pipeline around a new
+    filename would risk the exact per-year normalization and missing-data
+    handling this project has already fixed real bugs in."""
+    export_df = df_sorted.copy()
+    new_columns = []
+    for col in export_df.columns:
+        if col in _LIVE_EXPORT_RENAME:
+            new_columns.append(_LIVE_EXPORT_RENAME[col])
+        elif col.endswith("_year") and col[: -len("_year")] in _LIVE_EXPORT_RENAME:
+            new_columns.append(_LIVE_EXPORT_RENAME[col[: -len("_year")]] + " — As Of Year")
+        elif col.endswith("_source") and col[: -len("_source")] in _LIVE_EXPORT_RENAME:
+            new_columns.append(_LIVE_EXPORT_RENAME[col[: -len("_source")]] + " — Source")
+        else:
+            new_columns.append(col.replace("_", " ").title())
+    export_df.columns = new_columns
+    export_df.insert(0, "Data As Of", datetime.now(timezone.utc).strftime("%Y-%m-%d"))
+    export_df.to_csv("live_sovereign_risk_data.csv", index=False)
+    return export_df
 
 
 def risk_tier(score):
@@ -184,9 +227,12 @@ def main():
     df_sorted = df_sorted.merge(yoy_df, on="country_code", how="left")
     df_sorted.to_csv("scored_data.csv", index=False)
 
+    # ---------- 5. CONSOLIDATED, HUMAN-READABLE LIVE EXPORT ----------
+    build_live_export(df_sorted)
+
     # ---------- Console summary ----------
     print(df_sorted[["country", "risk_score", "risk_tier", "risk_rank", "yoy_change"]].to_string(index=False))
-    print(f"\nSaved scored_data.csv, driver_data.csv, scored_history.csv ({len(history_df)} country-year rows)")
+    print(f"\nSaved scored_data.csv, driver_data.csv, scored_history.csv ({len(history_df)} country-year rows), live_sovereign_risk_data.csv")
 
 
 if __name__ == "__main__":

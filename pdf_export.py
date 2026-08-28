@@ -111,7 +111,8 @@ class CountryBriefPDF(FPDF):
 
 def generate_country_pdf(
     country_name, country_code, row, brief_text, ratings,
-    trade_profile, events, arrangements, partner_info, last_refreshed
+    trade_profile, events, arrangements, partner_info, last_refreshed,
+    top_risk_factors=None, confidence=None,
 ):
     pdf = CountryBriefPDF(format="A4")
     pdf.set_auto_page_break(auto=True, margin=18)
@@ -142,6 +143,8 @@ def generate_country_pdf(
     if row.get("yoy_change") == row.get("yoy_change"):
         direction = "worsening" if row["yoy_change"] > 0 else "improving"
         summary_rows.append(["YoY Change", f"{row['yoy_change']:+.1f} ({direction})"])
+    if confidence:
+        summary_rows.append(["Data Integrity", confidence[0]])
 
     col_width = (pdf.w - pdf.l_margin - pdf.r_margin) / 2 - 3
     left_x = pdf.l_margin
@@ -169,6 +172,16 @@ def generate_country_pdf(
     # ---- Country brief narrative ----
     pdf.section_title("Analyst Brief")
     pdf.body_text(_strip_html(brief_text))
+
+    # ---- Top 3 risk factors ----
+    if top_risk_factors:
+        pdf.section_title("Top Risk Factors")
+        pdf.simple_table([[label, f"{value:.1f} / 100 risk"] for label, value in top_risk_factors])
+
+    # ---- Data integrity note ----
+    if confidence:
+        pdf.section_title("Data Integrity & Confidence")
+        pdf.body_text(confidence[1])
 
     # ---- Trade profile ----
     if trade_profile:

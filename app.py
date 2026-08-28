@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
+from datetime import datetime, timezone
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES
 from pdf_export import generate_country_pdf
 # Reuse the exact scoring methodology from compute_scores.py for the
@@ -528,13 +529,131 @@ def build_year_driver_card(long_df, country_code, country_name, year, prior_year
     return summary, rows
 
 
+CURRENT_YEAR = datetime.now(timezone.utc).year
+
+
+def compute_confidence_flag(row, factor_cols):
+    """Evaluates ONLY this country's own reported data payload — how many of
+    the 10 scored factors it reports, and how recent the least-current one is
+    — into a plain confidence label. Never inferred by comparison to other
+    countries. If debt-to-GDP specifically came from the IMF WEO fallback
+    (tracked in the real debt_to_gdp_source column written by fetch_data.py)
+    rather than the World Bank directly, that is named explicitly rather than
+    folded silently into a generic "World Bank" claim."""
+    factors_used = int(row.get("risk_score_factors_used", 0)) if pd.notna(row.get("risk_score_factors_used")) else 0
+    years_reported = [int(row[f"{f}_year"]) for f in factor_cols if pd.notna(row.get(f"{f}_year"))]
+
+    debt_note = ""
+    if row.get("debt_to_gdp_source") == "IMF WEO (fallback)":
+        debt_note = (
+            " Debt-to-GDP specifically is sourced from the IMF World Economic Outlook fallback, "
+            "since the World Bank has no figure on file for this country."
+        )
+
+    if not years_reported:
+        return ("Low Confidence", "#f87171", "No factor-level data has been reported for any of the 10 scored indicators." + debt_note)
+
+    oldest_year = min(years_reported)
+    lag = CURRENT_YEAR - oldest_year
+
+    if factors_used >= 9 and lag <= 2:
+        return ("High Confidence", "#34d399", f"{factors_used} of 10 factors reported; the least-recent dates to {oldest_year}." + debt_note)
+    if factors_used >= 6 and lag <= 4:
+        return (
+            "Medium Confidence", "#fbbf24",
+            f"{factors_used} of 10 factors reported, but at least one dates back to {oldest_year} "
+            f"({lag} years behind the current reporting cycle)." + debt_note,
+        )
+    return (
+        "Low Confidence", "#f87171",
+        f"Only {factors_used} of 10 factors reported, and/or reporting is stale (oldest: {oldest_year}, "
+        f"{lag} years behind) — treat this score cautiously." + debt_note,
+    )
+
+
+def compute_shock_scenario(factor_scores, delta_current_account, delta_inflation, delta_political_stability):
+    """Applies user-chosen shocks directly in RISK-SCORE POINTS (the same 0-100
+    scale the radar chart and composite already use) to 3 of the 10 scored
+    factors, then recomputes the composite with the identical missing-data-aware
+    weighted average compute_scores.py uses. This is a transparent points-based
+    stress test — it does NOT assert a real-world elasticity between (for
+    example) a specific FDI collapse percentage and an inflation outcome; no
+    institution publishes a precise mapping like that, so none is invented here.
+    Returns None if none of the 3 shockable factors have a baseline score to
+    shock in the first place."""
+    shocked = dict(factor_scores)
+    if "current_account_pct_gdp" in shocked:
+        shocked["current_account_pct_gdp"] = min(100, shocked["current_account_pct_gdp"] + delta_current_account)
+    if "inflation" in shocked:
+        shocked["inflation"] = min(100, shocked["inflation"] + delta_inflation)
+    if "political_stability" in shocked:
+        shocked["political_stability"] = min(100, shocked["political_stability"] + delta_political_stability)
+
+    if not shocked:
+        return None
+    available_weights = {f: WEIGHTS[f] for f in shocked}
+    total_weight = sum(available_weights.values())
+    if total_weight == 0:
+        return None
+    rescaled = {f: w / total_weight for f, w in available_weights.items()}
+    return sum(shocked[f] * rescaled[f] for f in shocked)
+
+
 # ============================================================
 # DATA
 # ============================================================
-scored = pd.read_csv("scored_data.csv")
-history = pd.read_csv("scored_history.csv")
-drivers = pd.read_csv("driver_data.csv")
-long_df = pd.read_csv("raw_data_long.csv")
+@st.cache_data(ttl=3600)
+def load_data():
+    """Loads the 4 data files the app is built on, cached for 1 hour so a
+    slider drag or tab switch doesn't re-read them from disk on every rerun.
+    The background GitHub Action overwrites these files at most nightly, so an
+    hour-old cache is never meaningfully stale. Returns None for any file that
+    is missing or unreadable rather than raising, so the caller can show a
+    clear warning instead of an unhandled traceback."""
+    frames = {}
+    for key, filename in [
+        ("scored", "scored_data.csv"),
+        ("history", "scored_history.csv"),
+        ("drivers", "driver_data.csv"),
+        ("long_df", "raw_data_long.csv"),
+    ]:
+        try:
+            frames[key] = pd.read_csv(filename)
+        except (FileNotFoundError, pd.errors.EmptyDataError, pd.errors.ParserError):
+            frames[key] = None
+    return frames
+
+
+_data = load_data()
+if any(df is None for df in _data.values()):
+    _missing = [k for k, df in _data.items() if df is None]
+    st.error(
+        f"⚠️ Data files could not be loaded ({', '.join(_missing)} missing or unreadable). "
+        "This usually means the background data refresh hasn't produced a valid file yet, or a "
+        "file was corrupted mid-write. Please try again shortly, or check the GitHub Actions run "
+        "log for the data pipeline.",
+        icon="🚨",
+    )
+    st.stop()
+
+scored, history, drivers, long_df = _data["scored"], _data["history"], _data["drivers"], _data["long_df"]
+
+REQUIRED_COLUMNS = {
+    "scored": ["country", "country_code", "risk_score", "risk_tier", "risk_rank", "risk_score_factors_used"],
+    "history": ["country", "country_code", "year", "risk_score"],
+    "drivers": ["country", "country_code"],
+    "long_df": ["country_code", "indicator", "year", "value"],
+}
+for _name, _df in [("scored", scored), ("history", history), ("drivers", drivers), ("long_df", long_df)]:
+    _missing_cols = [c for c in REQUIRED_COLUMNS[_name] if c not in _df.columns]
+    if _missing_cols:
+        st.error(
+            f"⚠️ {_name} data is missing expected column(s): {', '.join(_missing_cols)}. "
+            "The data schema may have changed without the app being updated to match. "
+            "Showing nothing further rather than risk a confusing partial page.",
+            icon="🚨",
+        )
+        st.stop()
 
 FACTOR_LABELS = {
     "debt_to_gdp": "Debt (% GDP)",
@@ -614,6 +733,34 @@ st.markdown(
 )
 st.markdown(f'<div class="stat-sub" style="margin-bottom:1.2rem;">Data last refreshed: {LAST_REFRESHED}</div>', unsafe_allow_html=True)
 
+# ---- System status banner ----
+# A genuine status readout, not decoration: it reports the real last-refreshed
+# date written by fetch_data.py and flags plainly if the automated pipeline
+# looks stalled (>10 days since a scheduled nightly run should have landed),
+# rather than always claiming "live" regardless of actual pipeline health.
+try:
+    _refresh_date = datetime.strptime(LAST_REFRESHED, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    _days_stale = (datetime.now(timezone.utc) - _refresh_date).days
+except ValueError:
+    _days_stale = None
+
+if _days_stale is None:
+    _status_text, _status_color = "Refresh timestamp unavailable", TEXT_MUTED
+elif _days_stale <= 2:
+    _status_text, _status_color = f"Live Data Pipeline Connected · Synced {_days_stale}d ago", "#34d399"
+elif _days_stale <= 10:
+    _status_text, _status_color = f"Source Sync Active · Last run {_days_stale}d ago", "#fbbf24"
+else:
+    _status_text, _status_color = f"Pipeline May Be Stalled · Last run {_days_stale}d ago", "#f87171"
+
+st.markdown(
+    f'<div style="display:inline-flex;align-items:center;gap:0.5rem;font-family:\'JetBrains Mono\',monospace;'
+    f'font-size:0.74rem;color:{_status_color};background:rgba(148,163,184,0.08);border:1px solid {BORDER};'
+    f'border-radius:20px;padding:0.35rem 0.9rem;margin-bottom:1rem;">'
+    f'⚡ System Status: {_status_text}</div>',
+    unsafe_allow_html=True,
+)
+
 # ============================================================
 # TOP-LINE STAT ROW
 # ============================================================
@@ -650,12 +797,16 @@ with tab1:
         map_df, locations="country_code", locationmode="ISO-3", color="risk_score",
         hover_name="country", hover_data={"country_code": False, "risk_score": ":.1f", "risk_tier": True},
         color_continuous_scale=["#34d399", "#fbbf24", "#f87171"], range_color=(0, 100),
-        labels={"risk_score": "Risk Score"},
+        labels={"risk_score": "Risk Score", "risk_tier": "Risk Tier"},
     )
     map_fig.update_geos(
         scope="world", lataxis_range=[-5, 42], lonaxis_range=[-12, 100],
-        bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.25)",
-        showland=True, landcolor="#161d2c", showocean=True, oceancolor="#0a0e14",
+        bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
+        # Neutral muted taupe/slate basemap (not the green/amber/red risk scale, and not
+        # the violet/indigo conflict-status scale used on the Live Conflicts map) so the
+        # data-driven choropleth fill above it — the actual analytical layer — is what
+        # the eye reads, not the base map itself.
+        showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
         showframe=False,
     )
     map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10))
@@ -735,6 +886,41 @@ with tab1:
     else:
         st.caption("Select at least one country to see its risk trend over time.")
 
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Head-to-Head</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Peer Benchmarking Matrix</div>', unsafe_allow_html=True)
+    st.markdown(
+        "Select two or more countries for a direct side-by-side comparison of composite risk, "
+        "latest reported GDP growth, and live conflict exposure."
+    )
+    peer_countries = st.multiselect(
+        "Compare countries head-to-head",
+        options=sorted(scored["country"].tolist()),
+        default=["Pakistan", "India", "Bangladesh"],
+        label_visibility="collapsed",
+        key="peer_benchmark_select",
+    )
+    if len(peer_countries) >= 2:
+        peer_rows = []
+        for name in peer_countries:
+            prow = scored[scored["country"] == name].iloc[0]
+            pcode = prow["country_code"]
+            gdp_val, gdp_year = prow.get("gdp_growth"), prow.get("gdp_growth_year")
+            gdp_display = f"{gdp_val:.1f}% ({int(gdp_year)})" if pd.notna(gdp_val) and pd.notna(gdp_year) else "No data"
+            exposed = [c["name"] for c in LIVE_CONFLICTS if pcode in c["affected"]]
+            peer_rows.append({
+                "Country": name,
+                "Composite Score": f"{prow['risk_score']:.1f}" if pd.notna(prow["risk_score"]) else "N/A",
+                "Risk Tier": prow["risk_tier"],
+                "Regional Rank": f"{int(prow['risk_rank'])} / 26" if pd.notna(prow["risk_rank"]) else "N/A",
+                "GDP Growth": gdp_display,
+                "Active Conflicts": len(exposed),
+                "Conflict(s)": ", ".join(exposed) if exposed else "None tracked",
+            })
+        st.dataframe(pd.DataFrame(peer_rows), use_container_width=True, hide_index=True)
+    else:
+        st.caption("Select at least two countries above to compare.")
+
 # ================= TAB 2: COUNTRY DEEP DIVE =================
 with tab2:
     country_list = scored.sort_values("country")["country"].tolist()
@@ -750,6 +936,12 @@ with tab2:
     brief_text = build_country_brief(selected, country_code, row, driver_row, events, LIVE_CONFLICTS)
     st.markdown(f'<div class="narrative-box">{brief_text}</div>', unsafe_allow_html=True)
 
+    _factor_scores_for_pdf = {f: driver_row[f] for f in FACTOR_COLS if pd.notna(driver_row[f])}
+    _top_risk_factors_for_pdf = [
+        (FACTOR_LABELS[f], v) for f, v in sorted(_factor_scores_for_pdf.items(), key=lambda x: x[1], reverse=True)[:3]
+    ]
+    _conf_label_pdf, _, _conf_detail_pdf = compute_confidence_flag(row, FACTOR_COLS)
+
     pdf_bytes = generate_country_pdf(
         country_name=selected,
         country_code=country_code,
@@ -761,9 +953,11 @@ with tab2:
         arrangements=FINANCING_ARRANGEMENTS.get(country_code),
         partner_info=KEY_ECONOMIC_PARTNERS.get(country_code),
         last_refreshed=LAST_REFRESHED,
+        top_risk_factors=_top_risk_factors_for_pdf,
+        confidence=(_conf_label_pdf, _conf_detail_pdf),
     )
     st.download_button(
-        label=f"Download {selected} Brief (PDF)",
+        label=f"📄 Generate Executive Report — {selected} (PDF)",
         data=pdf_bytes,
         file_name=f"{selected.replace(' ', '_')}_Sovereign_Risk_Brief.pdf",
         mime="application/pdf",
@@ -798,6 +992,14 @@ with tab2:
                         f'{arrow} {abs(yoy):.1f}</div>',
                         unsafe_allow_html=True,
                     )
+
+            conf_label, conf_color, conf_detail = compute_confidence_flag(row, FACTOR_COLS)
+            st.markdown(
+                f'<div class="stat-label" style="margin-top:0.9rem;">Data Integrity</div>'
+                f'<span class="tier-badge" style="background:{conf_color}22;color:{conf_color};">{conf_label}</span>',
+                unsafe_allow_html=True,
+            )
+            st.caption(conf_detail)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -888,13 +1090,79 @@ with tab2:
             st.caption("No factor data available for radar chart.")
 
     st.markdown("<br>", unsafe_allow_html=True)
+    with st.expander("🧪 Geopolitical Shock Tester — simulate a stress scenario", expanded=False):
+        st.markdown(
+            f"Nudge three of the ten scored risk factors directly, in risk-score points (the same "
+            f"0-100 scale the radar chart uses), to see how a stress scenario would move {selected}'s "
+            f"composite from its latest reported baseline. This is a transparent **points-based** "
+            f"simulation, not a claim about real-world elasticity — no institution publishes a precise "
+            f"mapping between (say) an FDI collapse percentage and an inflation outcome, so none is "
+            f"invented here."
+        )
+        shock_col1, shock_col2, shock_col3 = st.columns(3)
+        with shock_col1:
+            shock_fdi = st.slider(
+                "Simulate FDI Collapse → Current Account Stress (+risk pts)", 0, 40, 0,
+                key=f"shock_fdi_{country_code}",
+            )
+        with shock_col2:
+            shock_inflation = st.slider(
+                "Simulate Inflation Spike (+risk pts)", 0, 40, 0,
+                key=f"shock_inflation_{country_code}",
+            )
+        with shock_col3:
+            shock_conflict = st.slider(
+                "Simulate Proximity Conflict Event (+risk pts)", 0, 40, 0,
+                key=f"shock_conflict_{country_code}",
+            )
+
+        simulated_score = None
+        if shock_fdi or shock_inflation or shock_conflict:
+            simulated_score = compute_shock_scenario(factor_scores, shock_fdi, shock_inflation, shock_conflict)
+            if simulated_score is not None and pd.notna(row["risk_score"]):
+                delta = simulated_score - row["risk_score"]
+                st.markdown(
+                    f'<div class="narrative-box">Under this shock, {selected}\'s composite would move from '
+                    f'<b>{row["risk_score"]:.1f}</b> to an estimated <b>{simulated_score:.1f}</b> '
+                    f'({"+" if delta > 0 else ""}{delta:.1f} points) — shown as the dashed line on the '
+                    f'chart below.</div>',
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.caption("Not enough factor data available for this country to simulate a shock.")
+                simulated_score = None
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f'<div class="section-tag">2010-2024</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="section-title">{selected}: Risk Score Over Time</div>', unsafe_allow_html=True)
     country_history = history[history["country"] == selected].sort_values("year")
     if not country_history.empty:
-        fig4 = px.line(country_history, x="year", y="risk_score", markers=True)
-        fig4.update_traces(line_color=ACCENT, marker=dict(color=ACCENT, size=7))
+        fig4 = px.line(country_history, x="year", y="risk_score", markers=True, labels={"risk_score": "Risk Score", "year": "Year"})
+        fig4.update_traces(line_color=ACCENT, marker=dict(color=ACCENT, size=7), name="Reported", showlegend=False)
+        if simulated_score is not None and pd.notna(row["risk_score"]):
+            # Anchored to row["risk_score"] (the CURRENT composite — latest
+            # available value per factor) rather than this chart's own last
+            # plotted point, because those are two different, both-legitimate
+            # numbers already shown elsewhere on this page (the Composite
+            # Score stat card above uses the same "current" figure, which can
+            # differ from country_history's last per-YEAR figure since that
+            # one requires every factor to come from that single year). The
+            # simulation has to start from the same baseline its own narrative
+            # text quotes, or the chart and the sentence above it would disagree.
+            fig4.add_trace(go.Scatter(
+                x=[CURRENT_YEAR, CURRENT_YEAR + 1], y=[row["risk_score"], simulated_score],
+                mode="lines+markers", line=dict(color="#fbbf24", dash="dash", width=2),
+                marker=dict(color="#fbbf24", size=8, symbol="diamond"),
+                name="Simulated (shock applied, from current composite)", showlegend=True,
+            ))
+            fig4.update_layout(showlegend=True, legend=dict(orientation="h", y=-0.15))
         st.plotly_chart(style_chart(fig4, height=320), use_container_width=True)
+        if simulated_score is not None:
+            st.caption(
+                "The dashed amber segment is a hypothetical simulation from the Shock Tester above, "
+                "starting from the current composite score (not necessarily the same figure as this "
+                "chart's last plotted year — see Methodology) — not a forecast or trend projection."
+            )
     else:
         st.caption("Not enough historical data for a trend line.")
 
@@ -1161,8 +1429,11 @@ with tab3:
         ))
         conflict_map_fig.update_geos(
             scope="world", lataxis_range=[-5, 42], lonaxis_range=[-18, 100],
-            bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.25)",
-            showland=True, landcolor="#161d2c", showocean=True, oceancolor="#0a0e14",
+            bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
+            # Same neutral taupe/slate basemap as the Risk Map — muted and distinct from
+            # both the risk-tier red/amber/green scale and this map's own violet/indigo
+            # conflict-status markers, so the markers are what stands out.
+            showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
             showframe=False,
         )
         conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
