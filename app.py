@@ -16,22 +16,29 @@ from compute_scores import WEIGHTS, HIGHER_IS_RISKIER, normalize_to_risk_0_100
 st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
 
 # ============================================================
-# DESIGN SYSTEM — "Analyst Terminal": dark, data-dense, monospace
-# numerals, cyan accent. Deliberately distinct from the portfolio's
-# editorial navy/gold/serif identity — this is a standalone product.
+# DESIGN SYSTEM — "Institute Brief": a clean, light editorial theme
+# (white ground, dark navy text, deep-blue accent) modeled on the CFR
+# Global Conflict Tracker's own look — replacing the earlier dark
+# "Analyst Terminal" theme site-wide, per explicit direction. The
+# accent is a distinct institutional blue rather than CFR's own
+# cardinal-red brand color, since red is already this app's own
+# "Higher Risk / Critical" severity color — reusing it as the general
+# UI accent would recreate the exact color-collision problem this
+# project deliberately fixed earlier (a status color must never double
+# as a plain navigation/link color).
 # ============================================================
-BG = "#0a0e14"
-SURFACE = "#111826"
-SURFACE_ALT = "#161d2c"
-BORDER = "rgba(148,163,184,0.14)"
-ACCENT = "#22d3ee"
-ACCENT_DIM = "rgba(34,211,238,0.10)"
-TEXT = "#e6edf3"
-TEXT_MUTED = "#7d8aa0"
+BG = "#ffffff"
+SURFACE = "#f7f8fa"
+SURFACE_ALT = "#eef1f5"
+BORDER = "rgba(15,23,42,0.10)"
+ACCENT = "#1d4ed8"
+ACCENT_DIM = "rgba(29,78,216,0.08)"
+TEXT = "#0f172a"
+TEXT_MUTED = "#64748b"
 TIER_COLORS = {
-    "Lower Risk": "#34d399",
-    "Moderate Risk": "#fbbf24",
-    "Higher Risk": "#f87171",
+    "Lower Risk": "#16a34a",
+    "Moderate Risk": "#d97706",
+    "Higher Risk": "#dc2626",
     "Insufficient data": "#64748b",
 }
 
@@ -49,8 +56,8 @@ st.markdown(f"""
 
     /* subtle depth instead of a flat background */
     [data-testid="stAppViewContainer"] > .main {{
-        background: radial-gradient(ellipse 1400px 800px at 50% -10%, rgba(34,211,238,0.05), transparent),
-                    linear-gradient(180deg, {BG} 0%, #0c1119 100%);
+        background: radial-gradient(ellipse 1400px 800px at 50% -10%, rgba(29,78,216,0.04), transparent),
+                    {BG};
     }}
 
     /* ---- masthead ---- */
@@ -106,12 +113,12 @@ st.markdown(f"""
         border-radius: 12px;
         padding: 1.15rem 1.4rem;
         height: 100%;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.24);
+        box-shadow: 0 2px 8px rgba(15,23,42,0.06);
         transition: transform 0.18s ease, box-shadow 0.18s ease;
     }}
     .stat-card:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+        box-shadow: 0 6px 16px rgba(15,23,42,0.10);
     }}
     .stat-label {{
         font-family: 'JetBrains Mono', monospace;
@@ -138,7 +145,7 @@ st.markdown(f"""
 
     /* ---- narrative callout ---- */
     .narrative-box {{
-        background: linear-gradient(135deg, {ACCENT_DIM} 0%, rgba(34,211,238,0.04) 100%);
+        background: linear-gradient(135deg, {ACCENT_DIM} 0%, rgba(29,78,216,0.03) 100%);
         border-left: 3px solid {ACCENT};
         padding: 1.15rem 1.4rem;
         font-size: 0.9rem;
@@ -186,14 +193,14 @@ st.markdown(f"""
     }}
     .custom-table td {{
         padding: 0.65rem 0.9rem;
-        border-bottom: 1px solid rgba(255,255,255,0.04);
+        border-bottom: 1px solid rgba(15,23,42,0.06);
         color: {TEXT};
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.82rem;
         transition: background 0.12s ease;
     }}
     .custom-table tr:last-child td {{ border-bottom: none; }}
-    .custom-table tr:hover td {{ background: rgba(34,211,238,0.05); }}
+    .custom-table tr:hover td {{ background: rgba(29,78,216,0.04); }}
 
     /* ---- pill link buttons ---- */
     .pill-link {{
@@ -211,12 +218,12 @@ st.markdown(f"""
         text-decoration: none !important;
         margin-right: 0.75rem;
         margin-bottom: 0.5rem;
-        box-shadow: 0 2px 10px rgba(34,211,238,0.18);
+        box-shadow: 0 2px 8px rgba(29,78,216,0.22);
         transition: transform 0.15s ease, box-shadow 0.15s ease;
     }}
     .pill-link:hover {{
         transform: translateY(-1px);
-        box-shadow: 0 4px 16px rgba(34,211,238,0.3);
+        box-shadow: 0 4px 14px rgba(29,78,216,0.32);
     }}
 
     /* ---- streamlit widget overrides ---- */
@@ -258,11 +265,16 @@ st.markdown(f"""
 
 
 def tier_badge_html(tier):
+    # A light tint background stays visually correct on either a light or
+    # dark surface, but the foreground text needs the deeper, more saturated
+    # shade to hold AA contrast against a white/near-white card — the
+    # brighter pastel shades this used before were tuned for a dark
+    # background and read as washed-out on light ones.
     colors = {
-        "Lower Risk": ("rgba(52,211,153,0.14)", "#34d399"),
-        "Moderate Risk": ("rgba(251,191,36,0.14)", "#fbbf24"),
-        "Higher Risk": ("rgba(248,113,113,0.14)", "#f87171"),
-        "Insufficient data": ("rgba(100,116,139,0.14)", "#94a3b8"),
+        "Lower Risk": ("rgba(22,163,74,0.12)", "#16a34a"),
+        "Moderate Risk": ("rgba(217,119,6,0.12)", "#b45309"),
+        "Higher Risk": ("rgba(220,38,38,0.12)", "#dc2626"),
+        "Insufficient data": ("rgba(100,116,139,0.14)", "#475569"),
     }
     bg, fg = colors.get(tier, colors["Insufficient data"])
     return f'<span class="tier-badge" style="background:{bg};color:{fg};">{tier}</span>'
@@ -574,21 +586,21 @@ def compute_confidence_flag(row, factor_cols):
         )
 
     if not years_reported:
-        return ("Low Confidence", "#f87171", "No factor-level data has been reported for any of the 10 scored indicators." + debt_note)
+        return ("Low Confidence", "#dc2626", "No factor-level data has been reported for any of the 10 scored indicators." + debt_note)
 
     oldest_year = min(years_reported)
     lag = CURRENT_YEAR - oldest_year
 
     if factors_used >= 9 and lag <= 2:
-        return ("High Confidence", "#34d399", f"{factors_used} of 10 factors reported; the least-recent dates to {oldest_year}." + debt_note)
+        return ("High Confidence", "#16a34a", f"{factors_used} of 10 factors reported; the least-recent dates to {oldest_year}." + debt_note)
     if factors_used >= 6 and lag <= 4:
         return (
-            "Medium Confidence", "#fbbf24",
+            "Medium Confidence", "#b45309",
             f"{factors_used} of 10 factors reported, but at least one dates back to {oldest_year} "
             f"({lag} years behind the current reporting cycle)." + debt_note,
         )
     return (
-        "Low Confidence", "#f87171",
+        "Low Confidence", "#dc2626",
         f"Only {factors_used} of 10 factors reported, and/or reporting is stale (oldest: {oldest_year}, "
         f"{lag} years behind) — treat this score cautiously." + debt_note,
     )
@@ -861,11 +873,11 @@ except ValueError:
 if _days_stale is None:
     _status_text, _status_color = "Refresh timestamp unavailable", TEXT_MUTED
 elif _days_stale <= 2:
-    _status_text, _status_color = f"Live Data Pipeline Connected · Synced {_days_stale}d ago", "#34d399"
+    _status_text, _status_color = f"Live Data Pipeline Connected · Synced {_days_stale}d ago", "#16a34a"
 elif _days_stale <= 10:
-    _status_text, _status_color = f"Source Sync Active · Last run {_days_stale}d ago", "#fbbf24"
+    _status_text, _status_color = f"Source Sync Active · Last run {_days_stale}d ago", "#b45309"
 else:
-    _status_text, _status_color = f"Pipeline May Be Stalled · Last run {_days_stale}d ago", "#f87171"
+    _status_text, _status_color = f"Pipeline May Be Stalled · Last run {_days_stale}d ago", "#dc2626"
 
 st.markdown(
     f'<div style="display:inline-flex;align-items:center;gap:0.5rem;font-family:\'JetBrains Mono\',monospace;'
@@ -1128,7 +1140,7 @@ with tab2:
                 if pd.notna(row.get("yoy_change")):
                     yoy = row["yoy_change"]
                     arrow = "▲" if yoy > 0 else ("▼" if yoy < 0 else "—")
-                    color = "#f87171" if yoy > 0 else ("#34d399" if yoy < 0 else TEXT_MUTED)
+                    color = "#dc2626" if yoy > 0 else ("#16a34a" if yoy < 0 else TEXT_MUTED)
                     st.markdown(
                         f'<div class="stat-label" style="margin-top:0.6rem;">vs {int(row["yoy_prior_year"])}</div>'
                         f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1.1rem;color:{color};">'
@@ -1196,7 +1208,7 @@ with tab2:
             fig3.add_trace(go.Scatterpolar(
                 r=radar_values + [radar_values[0]],
                 theta=radar_labels + [radar_labels[0]],
-                fill="toself", fillcolor="rgba(34,211,238,0.18)",
+                fill="toself", fillcolor="rgba(29,78,216,0.14)",
                 line=dict(color=ACCENT, width=2),
                 name="Reported",
             ))
@@ -1205,8 +1217,8 @@ with tab2:
                     r=[0] * len(missing_factors),
                     theta=[FACTOR_LABELS[f] for f in missing_factors],
                     mode="markers",
-                    marker=dict(color="#fbbf24", size=10, symbol="x"),
-                    line=dict(color="#fbbf24", dash="dot"),
+                    marker=dict(color="#b45309", size=10, symbol="x"),
+                    line=dict(color="#b45309", dash="dot"),
                     name="Not reported",
                     hovertemplate="%{theta}: not reported to the World Bank — excluded from this country's "
                                   "score, weights rescaled among available factors<extra></extra>",
@@ -1429,8 +1441,8 @@ with tab2:
             # text quotes, or the chart and the sentence above it would disagree.
             fig4.add_trace(go.Scatter(
                 x=[CURRENT_YEAR, CURRENT_YEAR + 1], y=[row["risk_score"], simulated_score],
-                mode="lines+markers", line=dict(color="#fbbf24", dash="dash", width=2),
-                marker=dict(color="#fbbf24", size=8, symbol="diamond"),
+                mode="lines+markers", line=dict(color="#b45309", dash="dash", width=2),
+                marker=dict(color="#b45309", size=8, symbol="diamond"),
                 name="Simulated (shock applied, from current composite)", showlegend=True,
             ))
             fig4.update_layout(showlegend=True, legend=dict(orientation="h", y=-0.15))
@@ -1751,7 +1763,7 @@ with tab3:
     # small labeled badge here, never as the dominant map/fill color — the map
     # itself stays in the violet/indigo STATUS palette below, which is what a
     # user actually scans across the whole board at a glance.
-    IMPACT_COLORS = {"Critical": "#f87171", "Significant": "#fbbf24", "Limited": "#94a3b8"}
+    IMPACT_COLORS = {"Critical": "#dc2626", "Significant": "#b45309", "Limited": "#64748b"}
     CONFLICT_TYPES = ["Civil War", "Criminal Violence", "Interstate War", "Political Instability", "Sectarian", "Territorial Dispute", "Terrorism", "Unconventional"]
     STATUS_BUCKETS = ["Active / Unresolved", "Ceasefire / Fragile", "Frozen / Stalemated"]
 
@@ -1943,7 +1955,7 @@ with tab3:
                 impact_color = IMPACT_COLORS[conflict["impact"]]
                 st.markdown(
                     f'<div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.3rem;">'
-                    f'<span class="tier-badge" style="background:rgba(168,85,247,0.14);color:#c4b5fd;">{conflict["status"]}</span>'
+                    f'<span class="tier-badge" style="background:rgba(124,58,237,0.12);color:#6d28d9;">{conflict["status"]}</span>'
                     f'<span class="tier-badge" style="background:{impact_color}22;color:{impact_color};">Impact: {conflict["impact"]}</span>'
                     f'<span class="tier-badge" style="background:rgba(148,163,184,0.14);color:{TEXT_MUTED};">{conflict["type"]}</span>'
                     f'</div>'
@@ -1953,7 +1965,7 @@ with tab3:
                 affected_names = [code_to_name.get(c, c) for c in conflict["affected"]]
                 st.markdown(
                     "<div style='margin-bottom:0.6rem;'>" +
-                    "".join(f'<span class="tier-badge" style="background:rgba(34,211,238,0.12);color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
+                    "".join(f'<span class="tier-badge" style="background:{ACCENT_DIM};color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
                     "</div>",
                     unsafe_allow_html=True,
                 )
