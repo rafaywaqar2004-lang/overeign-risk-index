@@ -1,0 +1,13 @@
+name: Keep Streamlit app warm
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"  # Every 12 hours
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping live app to prevent Streamlit Cloud from sleeping it
+        run: curl -sSf --max-time 30 -o /dev/null "https://overeign-risk-index-ql7q7cx9xkcherlpesydmn.streamlit.app/" || true
