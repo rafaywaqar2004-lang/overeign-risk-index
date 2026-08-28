@@ -23,6 +23,7 @@ COUNTRIES = {
     "LBY": "Libya",
     "MAR": "Morocco",
     "OMN": "Oman",
+    "PSE": "Palestine",
     "QAT": "Qatar",
     "SAU": "Saudi Arabia",
     "SYR": "Syria",

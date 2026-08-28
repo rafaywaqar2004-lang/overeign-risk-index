@@ -417,7 +417,7 @@ def build_country_brief(country_name, country_code, row, driver_row, events, con
     score = row.get("risk_score")
     tier = row.get("risk_tier", "").lower()
     rank = row.get("risk_rank")
-    n_countries = 26
+    n_countries = TOTAL_COUNTRIES
     if pd.notna(score):
         parts.append(
             f"{country_name} scores <b>{score:.1f}/100</b> on the composite index, placing it in the "
@@ -706,6 +706,7 @@ if any(df is None for df in _data.values()):
     st.stop()
 
 scored, history, drivers, long_df = _data["scored"], _data["history"], _data["drivers"], _data["long_df"]
+TOTAL_COUNTRIES = len(scored)
 
 REQUIRED_COLUMNS = {
     "scored": ["country", "country_code", "risk_score", "risk_tier", "risk_rank", "risk_score_factors_used"],
@@ -725,7 +726,7 @@ for _name, _df in [("scored", scored), ("history", history), ("drivers", drivers
         st.stop()
 
 # Verified, working Yahoo Finance tickers for a country's benchmark stock
-# index — NOT a guess for every country. Of all 26 tracked countries, only
+# index — NOT a guess for every country. Of all 27 tracked countries, only
 # these were actually confirmed (via a live yfinance query, checked against
 # the ticker's real longName/exchange/currency to rule out an unrelated stock
 # accidentally sharing the same symbol) to return genuine, non-trivial
@@ -767,7 +768,7 @@ def fetch_stock_history(ticker, period="1y"):
 DATA_YEAR_RANGE = f"{int(long_df['year'].min())}-{int(long_df['year'].max())}"
 
 # Real, well-known capital-city (plus a few other major metro) coordinates for
-# the 26 tracked countries — orientation markers on the two geo maps, not a
+# the 27 tracked countries — orientation markers on the two geo maps, not a
 # data layer. Standard, stable geographic facts, not something that needs a
 # live source citation the way a statistic would.
 MAJOR_CITIES = {
@@ -781,7 +782,7 @@ MAJOR_CITIES = {
     "Kabul": (34.56, 69.21), "Dhaka": (23.81, 90.41), "Thimphu": (27.47, 89.64),
     "New Delhi": (28.61, 77.21), "Mumbai": (19.08, 72.88), "Male": (4.17, 73.51),
     "Kathmandu": (27.72, 85.32), "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00),
-    "Colombo": (6.93, 79.85),
+    "Colombo": (6.93, 79.85), "Gaza City": (31.50, 34.47), "Ramallah": (31.90, 35.20),
 }
 
 FACTOR_LABELS = {
@@ -885,7 +886,7 @@ except FileNotFoundError:
 st.markdown('<div class="tag-label">Sovereign Risk Analysis · Full MENASA Coverage</div>', unsafe_allow_html=True)
 st.markdown('<div class="masthead-title">Sovereign Risk <span>Scorecard</span></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="masthead-sub">A composite risk score for all 26 MENA &amp; South Asia economies, '
+    '<div class="masthead-sub">A composite risk score for all 27 MENA &amp; South Asia economies, '
     'built on live World Bank data across 10 factors spanning economic and governance pillars, '
     'with curated and sourced historical context, a live scenario-weighting explorer, and a '
     'dedicated tracker for the region\'s most consequential live conflicts.</div>',
@@ -947,11 +948,11 @@ with c2:
 with c3:
     stat_card("Lowest Risk", lowest["country"], f"Score {lowest['risk_score']:.1f}")
 with c4:
-    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 26")
+    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 27")
 
 st.markdown(
     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.72rem;color:{TEXT_MUTED};margin-top:0.6rem;">'
-    f'Scores are ranked relative to this 26-country MENASA set, not a globally benchmarked index — '
+    f'Scores are ranked relative to this 27-country MENASA set, not a globally benchmarked index — '
     f'see Methodology.</div>',
     unsafe_allow_html=True,
 )
@@ -1020,7 +1021,7 @@ with tab1:
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.markdown('<div class="section-tag">All 26 Ranked</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-tag">All {len(scored)} Ranked</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title">Risk Ranking</div>', unsafe_allow_html=True)
         chart_df = scored.dropna(subset=["risk_score"]).sort_values("risk_score", ascending=True)
         fig = px.bar(
@@ -1048,7 +1049,7 @@ with tab1:
             st.markdown('<div class="section-title" style="font-size:1rem;">Regional Snapshot</div>', unsafe_allow_html=True)
             gulf = scored[scored["country_code"].isin(["SAU", "ARE", "KWT", "QAT", "BHR", "OMN"])]["risk_score"].mean()
             north_africa = scored[scored["country_code"].isin(["DZA", "EGY", "LBY", "MAR", "TUN"])]["risk_score"].mean()
-            levant_iraq = scored[scored["country_code"].isin(["JOR", "LBN", "SYR", "ISR", "IRQ"])]["risk_score"].mean()
+            levant_iraq = scored[scored["country_code"].isin(["JOR", "LBN", "SYR", "ISR", "IRQ", "PSE"])]["risk_score"].mean()
             iran_yemen = scored[scored["country_code"].isin(["IRN", "YEM"])]["risk_score"].mean()
             south_asia = scored[scored["country_code"].isin(["PAK", "BGD", "LKA", "IND", "AFG", "BTN", "MDV", "NPL"])]["risk_score"].mean()
             custom_table(
@@ -1116,7 +1117,7 @@ with tab1:
                 "Country": name,
                 "Composite Score": f"{prow['risk_score']:.1f}" if pd.notna(prow["risk_score"]) else "N/A",
                 "Risk Tier": prow["risk_tier"],
-                "Regional Rank": f"{int(prow['risk_rank'])} / 26" if pd.notna(prow["risk_rank"]) else "N/A",
+                "Regional Rank": f"{int(prow['risk_rank'])} / 27" if pd.notna(prow["risk_rank"]) else "N/A",
                 "GDP Growth": gdp_display,
                 "Active Conflicts": len(exposed),
                 "Conflict(s)": ", ".join(exposed) if exposed else "None tracked",
@@ -1187,7 +1188,7 @@ with tab2:
                 st.markdown(
                     f'<div class="stat-label" style="margin-top:0.6rem;">Regional Rank</div>'
                     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1.1rem;color:{ACCENT};">'
-                    f'{int(row["risk_rank"])} / 26</div>',
+                    f'{int(row["risk_rank"])} / 27</div>',
                     unsafe_allow_html=True,
                 )
             with yoy_col:
@@ -1433,7 +1434,7 @@ with tab2:
             "**who else lends to or invests in it** (major bilateral creditors and partners), see "
             "**Financing Arrangements** and **Key Economic Partners** further down this page — a "
             "detailed bilateral debt-instrument matrix (exact loan-by-loan creditor/debtor amounts) "
-            "isn't reliably available from any free public source for all 26 tracked countries, so it "
+            "isn't reliably available from any free public source for all 27 tracked countries, so it "
             "isn't fabricated here."
         )
 
@@ -1861,7 +1862,7 @@ with tab3:
         headline_rows = [
             ["Composite Score"] + [f"{r['risk_score']:.1f}" if pd.notna(r["risk_score"]) else "N/A" for r in cmp_rows],
             ["Risk Tier"] + [r["risk_tier"] for r in cmp_rows],
-            ["Regional Rank"] + [f"{int(r['risk_rank'])} / 26" if pd.notna(r["risk_rank"]) else "N/A" for r in cmp_rows],
+            ["Regional Rank"] + [f"{int(r['risk_rank'])} / 27" if pd.notna(r["risk_rank"]) else "N/A" for r in cmp_rows],
             ["YoY Change"] + [f"{r['yoy_change']:+.1f}" if pd.notna(r.get("yoy_change")) else "N/A" for r in cmp_rows],
         ]
         custom_table(headline_rows, ["Metric"] + compare_selection)
@@ -2402,12 +2403,12 @@ with tab6:
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.info(
-        "**This is a relative ranking within this 26-country sample — not an absolute, "
+        "**This is a relative ranking within this 27-country sample — not an absolute, "
         "globally-benchmarked index.** Every factor is min-max normalized against only the other "
-        "25 tracked MENASA economies for that same year, not against the full ~190-country UN "
+        "26 tracked MENASA economies for that same year, not against the full ~190-country UN "
         "membership. A 'Lower Risk' score here means lower risk *relative to this specific regional "
         "pool* — it does not mean the country would also rank as low-risk against, say, Western "
-        "Europe or East Asia. Comparing scores or tiers to any country outside this 26-country set "
+        "Europe or East Asia. Comparing scores or tiers to any country outside this 27-country set "
         "(including via the credit-rating comparison elsewhere in this app, which draws on actual "
         "global agency ratings) requires that caveat in mind.",
         icon="📐",
@@ -2442,8 +2443,8 @@ with tab6:
     st.markdown(
         """
 - **Debt-to-GDP coverage is sparse** for several Gulf states and conflict/sanctions-affected
-  countries — only 11 of 26 report it consistently to the World Bank. A future improvement would
-  add IMF World Economic Outlook debt data as a fallback source.
+  countries — only 24 of 27 report it consistently, even after the IMF World Economic Outlook
+  fallback fills some World Bank gaps.
 - **Iran's score is lower-confidence** — only 7 of 10 factors are available, likely due to
   sanctions limiting fiscal data reporting.
 - **The composite score is annual and backward-looking** — it will not reflect an event from the
@@ -2452,20 +2453,20 @@ with tab6:
 - **Historical context is curated, not live** — the event list in each country's Deep Dive tab
   and the Live Conflicts tab were hand-researched and fact-checked via web search as of August
   2026, not pulled from a live news feed. They highlight major events but are not exhaustive.
-- **Financing Arrangements now cover all 26 countries explicitly** — either a verified IMF/
+- **Financing Arrangements now cover all 27 countries explicitly** — either a verified IMF/
   multilateral program (amount, approval date, status), or a sourced explanation of why none
   exists (net-creditor Gulf states with no IMF borrowing, or sanctions/arrears-blocked cases like
   Iran and Syria). Instrument-level bond/loan maturity schedules (a true "debt rollover wall") are
   still out of scope entirely — that needs a specialized debt database (Bloomberg, the IMF's
   sovereign debt investor relations portal, or national debt management offices), not a research
   pass over public web sources.
-- **Key Economic Partners and Trade/Sector Profiles cover all 26 countries in comparable depth**
+- **Key Economic Partners and Trade/Sector Profiles cover all 27 countries in comparable depth**
   — each entry now runs 5-8 sourced sentences covering creditors, major foreign investors, key
   allies/rivals, and at least one named recent (2024-2026) development, backed by 4-6 cited
   sources per country. Where a claim cites a specific figure or date, that figure has a named
   source; general economic structure (e.g. "Kuwait relies on oil exports") reflects well-
   established economic geography rather than requiring a single citation.
-- **Major Economic Sanctions covers all 26 countries** — either the verified sanctions regimes a
+- **Major Economic Sanctions covers all 27 countries** — either the verified sanctions regimes a
   country has faced (imposing body, reason, current status, and economic impact where a real
   figure exists), or an explicit statement that none was found, rather than an empty section.
   FATF grey-listing (a financial-transparency watchlist) is deliberately distinguished from an

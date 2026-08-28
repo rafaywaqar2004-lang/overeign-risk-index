@@ -1,20 +1,20 @@
 # Sovereign Risk Scorecard
 
-A composite sovereign risk score for **all 26 MENA & South Asia economies**
+A composite sovereign risk score for **all 27 MENA & South Asia economies**
 (Algeria, Bahrain, Egypt, Iran, Iraq, Israel, Jordan, Kuwait, Lebanon, Libya,
-Morocco, Oman, Qatar, Saudi Arabia, Syria, Tunisia, UAE, Yemen, Afghanistan,
-Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka), built on
-public World Bank data, with deep sourced qualitative context designed to be
-useful as a genuine research reference, not just a scorecard.
+Morocco, Oman, Palestine, Qatar, Saudi Arabia, Syria, Tunisia, UAE, Yemen,
+Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka),
+built on public World Bank data, with deep sourced qualitative context
+designed to be useful as a genuine research reference, not just a scorecard.
 
 **Live app:** https://overeign-risk-index-ql7q7cx9xkcherlpesydmn.streamlit.app
 
 ## Features
 
 - **Regional Overview** — a choropleth risk map, ranked bar chart across all
-  26 countries, 5 sub-regional averages, and a multi-country historical trend
+  27 countries, 5 sub-regional averages, and a multi-country historical trend
   comparison (2010-2024)
-- **Country Deep Dive**, for every one of the 26 countries:
+- **Country Deep Dive**, for every one of the 27 countries:
   - An auto-generated analyst-style Country Brief
   - Composite score with regional rank and year-over-year change
   - A 10-factor radar chart and historical trend line
@@ -25,7 +25,7 @@ useful as a genuine research reference, not just a scorecard.
   - **Financing Arrangements** — verified IMF program details where
     confirmed, or an explicit "net creditor" note for Gulf surplus states
   - **Key Economic Partners** — sourced creditor/investor/trade relationship
-    summaries for all 26 countries
+    summaries for all 27 countries
   - FDI and exports/imports trade-context charts
   - Primary stock exchange reference
 - **Live Conflicts** — 13 major current MENASA flashpoints (the 2026
@@ -72,7 +72,7 @@ how political risk research actually works:
 
 All of this is a curated snapshot fact-checked via web search as of
 **August 2026**, not a live feed. Coverage is intentionally uneven in depth
-where sourcing wasn't equally strong across all 26 countries — see the
+where sourcing wasn't equally strong across all 27 countries — see the
 Methodology tab for the explicit scope note. Instrument-level bond/loan
 maturity schedules (a true debt "rollover wall") are out of scope entirely;
 that needs a specialized debt database (Bloomberg, the IMF's sovereign debt
@@ -81,8 +81,8 @@ research pass.
 
 ## Known limitations (v5)
 
-- **Debt-to-GDP coverage is sparse** — only 11 of 26 countries report it
-  consistently to the World Bank.
+- **Debt-to-GDP coverage is sparse** — only 24 of 27 countries report it
+  consistently to the World Bank (the IMF WEO fallback fills some gaps).
 - **Iran's score is lower-confidence** — only 7 of 10 factors are available,
   likely due to sanctions limiting fiscal data reporting.
 - **The composite score is annual and backward-looking** — see the Live

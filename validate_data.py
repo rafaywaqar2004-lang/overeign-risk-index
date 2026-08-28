@@ -60,7 +60,7 @@ for conflict in LIVE_CONFLICTS:
             f"Conflict '{conflict['name']}' references code {code}",
         )
 
-# ---------- 2. Coverage: which of the 26 tracked countries are missing from each dataset ----------
+# ---------- 2. Coverage: which tracked countries are missing from each dataset ----------
 for name, data in [
     ("HISTORICAL_CONTEXT", HISTORICAL_CONTEXT),
     ("STOCK_EXCHANGES", STOCK_EXCHANGES),
@@ -71,7 +71,7 @@ for name, data in [
     ("CURRENT_GOVERNMENT", CURRENT_GOVERNMENT),
 ]:
     missing = VALID_CODES - set(data.keys())
-    warn(not missing, f"{name} is missing {len(missing)} of 26 countries: {sorted(missing)}")
+    warn(not missing, f"{name} is missing {len(missing)} of {len(VALID_CODES)} countries: {sorted(missing)}")
 
 # ---------- 3. Every historical context entry has a well-formed source URL ----------
 for code, events in HISTORICAL_CONTEXT.items():
