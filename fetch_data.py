@@ -54,6 +54,13 @@ CONTEXT_INDICATORS = {
     "BX.KLT.DINV.WD.GD.ZS": "fdi_net_inflows_pct_gdp",
     "NE.EXP.GNFS.ZS": "exports_pct_gdp",
     "NE.IMP.GNFS.ZS": "imports_pct_gdp",
+    # Dollar-denominated scale indicators — descriptive context (how large the
+    # economy/reserve buffer actually is in absolute terms), not part of the
+    # risk score, which is intentionally built on ratios (% of GDP, months of
+    # imports) so a small and a large economy are comparable on the same scale.
+    "NY.GDP.MKTP.CD": "gdp_current_usd",
+    "NY.GDP.PCAP.CD": "gdp_per_capita_usd",
+    "FI.RES.TOTL.CD": "total_reserves_usd",
 }
 
 # Governance pillar (World Bank Worldwide Governance Indicators)

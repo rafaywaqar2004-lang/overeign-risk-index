@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
+import yfinance as yf
 from datetime import datetime, timezone
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES
 from pdf_export import generate_country_pdf
@@ -314,15 +315,36 @@ def sourced_table(rows, headers):
     st.markdown(html, unsafe_allow_html=True)
 
 
+def _fmt_usd(value):
+    """Formats a raw US-dollar figure (e.g. GDP in current US$, which can run
+    into the hundreds of billions) as a human-readable abbreviated amount —
+    $45.2B rather than $45,200,000,000 — since a 12-digit number is not
+    actually easier to read than a rounded, labeled one for a general audience."""
+    abs_v = abs(value)
+    sign = "-" if value < 0 else ""
+    if abs_v >= 1e12:
+        return f"{sign}${abs_v / 1e12:.2f}T"
+    if abs_v >= 1e9:
+        return f"{sign}${abs_v / 1e9:.2f}B"
+    if abs_v >= 1e6:
+        return f"{sign}${abs_v / 1e6:.2f}M"
+    if abs_v >= 1e3:
+        return f"{sign}${abs_v / 1e3:.1f}K"
+    return f"{sign}${abs_v:,.0f}"
+
+
 def _fmt_value_unit(value, unit):
     """Formats a raw indicator value with its unit for inline/table display.
     Percent units suffix directly (e.g. '1.87%'); longer descriptive units
     (e.g. 'WGI estimate, -2.5 to +2.5') are parenthesized and shortened so
-    they read as an annotation rather than running straight into the number."""
+    they read as an annotation rather than running straight into the number;
+    USD-denominated indicators are abbreviated via _fmt_usd."""
     if unit == "%":
         return f"{value:.2f}%"
     if "WGI estimate" in unit:
         return f"{value:.2f} (WGI scale)"
+    if unit == "USD":
+        return _fmt_usd(value)
     return f"{value:.2f} {unit}"
 
 
@@ -655,6 +677,48 @@ for _name, _df in [("scored", scored), ("history", history), ("drivers", drivers
         )
         st.stop()
 
+# Verified, working Yahoo Finance tickers for a country's benchmark stock
+# index — NOT a guess for every country. Of all 26 tracked countries, only
+# these were actually confirmed (via a live yfinance query, checked against
+# the ticker's real longName/exchange/currency to rule out an unrelated stock
+# accidentally sharing the same symbol) to return genuine, non-trivial
+# historical price data. Every other country's exchange (Pakistan, Kuwait,
+# Qatar, Jordan, Morocco, Bahrain, Sri Lanka, Oman, Bangladesh, Iraq, Tunisia,
+# Egypt, and the rest) either has no public ticker on a free data provider or
+# returned empty/single-point data, and is deliberately left out rather than
+# shown with fabricated or unreliable coverage.
+VERIFIED_STOCK_TICKERS = {
+    "IND": ("^NSEI", "NIFTY 50"),
+    "ISR": ("^TA125.TA", "TA-125"),
+    "SAU": ("^TASI.SR", "TASI"),
+}
+
+
+@st.cache_data(ttl=3600)
+def fetch_stock_history(ticker, period="1y"):
+    """Fetches real historical closing-price data for a benchmark index via
+    yfinance, cached for an hour. Returns None on any failure (network error,
+    delisted symbol, empty response) rather than raising — a live market feed
+    is one of the least reliable external dependencies this app has, so it
+    must degrade to 'not available' rather than crash the page."""
+    try:
+        hist = yf.Ticker(ticker).history(period=period)
+        if hist is None or hist.empty:
+            return None
+        # Yahoo Finance sometimes appends a trailing row for the current
+        # (still in-progress or thinly-traded) session with a NaN Close —
+        # drop it rather than let a "nan" leak into the displayed figure.
+        hist = hist.dropna(subset=["Close"])
+        return hist if not hist.empty else None
+    except Exception:
+        return None
+
+
+# The actual span of years present in the data, not a hardcoded range that
+# silently goes stale every time fetch_data.py picks up a new year — this
+# is used everywhere the UI previously said the fixed string "2010-2024".
+DATA_YEAR_RANGE = f"{int(long_df['year'].min())}-{int(long_df['year'].max())}"
+
 FACTOR_LABELS = {
     "debt_to_gdp": "Debt (% GDP)",
     "current_account_pct_gdp": "Current Account",
@@ -702,6 +766,9 @@ ALL_INDICATOR_LABELS = {
     "fdi_net_inflows_pct_gdp": ("Foreign Direct Investment, Net Inflows", "% GDP", "World Bank WDI: BX.KLT.DINV.WD.GD.ZS"),
     "exports_pct_gdp": ("Exports of Goods & Services", "% GDP", "World Bank WDI: NE.EXP.GNFS.ZS"),
     "imports_pct_gdp": ("Imports of Goods & Services", "% GDP", "World Bank WDI: NE.IMP.GNFS.ZS"),
+    "gdp_current_usd": ("GDP (Current US$)", "USD", "World Bank WDI: NY.GDP.MKTP.CD"),
+    "gdp_per_capita_usd": ("GDP Per Capita (Current US$)", "USD", "World Bank WDI: NY.GDP.PCAP.CD"),
+    "total_reserves_usd": ("Total Reserves (Current US$)", "USD", "World Bank WDI: FI.RES.TOTL.CD"),
 }
 
 
@@ -867,7 +934,7 @@ with tab1:
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">2010-2024</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-tag">{DATA_YEAR_RANGE}</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Historical Trend</div>', unsafe_allow_html=True)
     trend_countries = st.multiselect(
         "Compare countries over time",
@@ -1133,7 +1200,7 @@ with tab2:
                 simulated_score = None
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown(f'<div class="section-tag">2010-2024</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-tag">{DATA_YEAR_RANGE}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="section-title">{selected}: Risk Score Over Time</div>', unsafe_allow_html=True)
     country_history = history[history["country"] == selected].sort_values("year")
     if not country_history.empty:
@@ -1215,7 +1282,16 @@ with tab2:
     ind_label, ind_unit, ind_source = ALL_INDICATOR_LABELS[indicator_choice]
     ind_hist = long_df[(long_df["country_code"] == country_code) & (long_df["indicator"] == indicator_choice)].sort_values("year")
     if not ind_hist.empty:
-        fig_ind = px.line(ind_hist, x="year", y="value", markers=True, labels={"value": f"{ind_label} ({ind_unit})", "year": "Year"})
+        if ind_unit == "USD":
+            # Large-dollar indicators (GDP, reserves) are rescaled to billions
+            # for a readable axis; GDP per capita is left in raw dollars, since
+            # dividing THAT by a billion would make it unreadably tiny.
+            usd_scale, usd_axis_label = (1e9, f"{ind_label}, Billions") if indicator_choice != "gdp_per_capita_usd" else (1, ind_label)
+            ind_hist = ind_hist.assign(value=ind_hist["value"] / usd_scale)
+            axis_label = usd_axis_label
+        else:
+            axis_label = f"{ind_label} ({ind_unit})"
+        fig_ind = px.line(ind_hist, x="year", y="value", markers=True, labels={"value": axis_label, "year": "Year"})
         fig_ind.update_traces(line_color=ACCENT, marker=dict(color=ACCENT, size=6))
         fig_ind.update_layout(title=dict(text=f"{selected}: {ind_label}", font=dict(size=13)))
         st.plotly_chart(style_chart(fig_ind, height=320), use_container_width=True)
@@ -1327,7 +1403,33 @@ with tab2:
         st.markdown('<div class="section-title" style="font-size:1.05rem;">Primary Market</div>', unsafe_allow_html=True)
         exchange, index = STOCK_EXCHANGES.get(country_code, ("N/A", "N/A"))
         custom_table([["Exchange", exchange], ["Benchmark Index", index]], ["Field", "Value"])
-        st.caption("Reference only — not live pricing.")
+
+        if country_code in VERIFIED_STOCK_TICKERS:
+            ticker, ticker_label = VERIFIED_STOCK_TICKERS[country_code]
+            stock_hist = fetch_stock_history(ticker)
+            if stock_hist is not None:
+                latest_close = stock_hist["Close"].iloc[-1]
+                first_close = stock_hist["Close"].iloc[0]
+                pct_change = (latest_close - first_close) / first_close * 100
+                fig_stock = px.line(stock_hist.reset_index(), x=stock_hist.index.name or "Date", y="Close")
+                fig_stock.update_traces(line_color=ACCENT)
+                fig_stock.update_layout(
+                    title=dict(text=f"{ticker_label} — 1-Year", font=dict(size=12)),
+                    yaxis_title="Index Level",
+                )
+                st.plotly_chart(style_chart(fig_stock, height=200), use_container_width=True)
+                arrow = "▲" if pct_change > 0 else ("▼" if pct_change < 0 else "—")
+                st.caption(
+                    f"Live via Yahoo Finance ({ticker}): {latest_close:,.1f}, {arrow} {abs(pct_change):.1f}% "
+                    f"over the past year. Index levels are unitless (points), not a currency amount."
+                )
+            else:
+                st.caption(f"Live data for {ticker_label} ({ticker}) is temporarily unavailable — reference table above is not live pricing.")
+        else:
+            st.caption(
+                "This exchange has no reliable free live-data ticker — Yahoo Finance either has no listing "
+                "for it or returns empty/unreliable history. Reference only, not live pricing."
+            )
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<div class=\"section-tag\">Who It's Borrowed From</div>", unsafe_allow_html=True)
@@ -1654,6 +1756,9 @@ with tab5:
             ["FDI Net Inflows (% GDP)", ("World Bank WDI: BX.KLT.DINV.WD.GD.ZS", "https://data.worldbank.org/indicator/BX.KLT.DINV.WD.GD.ZS")],
             ["Exports of Goods & Services (% GDP)", ("World Bank WDI: NE.EXP.GNFS.ZS", "https://data.worldbank.org/indicator/NE.EXP.GNFS.ZS")],
             ["Imports of Goods & Services (% GDP)", ("World Bank WDI: NE.IMP.GNFS.ZS", "https://data.worldbank.org/indicator/NE.IMP.GNFS.ZS")],
+            ["GDP (Current US$)", ("World Bank WDI: NY.GDP.MKTP.CD", "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD")],
+            ["GDP Per Capita (Current US$)", ("World Bank WDI: NY.GDP.PCAP.CD", "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD")],
+            ["Total Reserves (Current US$)", ("World Bank WDI: FI.RES.TOTL.CD", "https://data.worldbank.org/indicator/FI.RES.TOTL.CD")],
         ],
         ["Indicator", "Source"],
     )
