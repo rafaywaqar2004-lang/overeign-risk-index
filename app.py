@@ -817,6 +817,16 @@ def _latest_year_in_text(text):
     return max(years) if years else -1
 
 
+def _paragraph_to_bullets(text):
+    """Splits a long analyst-style paragraph into sentence-level bullets, so
+    a dense wall of prose (e.g. Key Economic Partners) reads as a scannable
+    list instead. A '. '/'? '/'! ' boundary split is reliable for this app's
+    own written content, which consistently spells out abbreviations (e.g.
+    "United States", not "U.S.") rather than using periods mid-sentence."""
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    return [s.strip() for s in sentences if s.strip()]
+
+
 try:
     with open("last_refreshed.txt") as f:
         LAST_REFRESHED = f.read().strip()
@@ -1213,7 +1223,15 @@ with tab2:
                 showlegend=bool(missing_factors),
                 legend=dict(orientation="h", y=-0.1, font=dict(color=TEXT_MUTED, size=10)),
             )
-            st.plotly_chart(style_chart(fig3, height=380), use_container_width=True)
+            # A polar chart wants a roughly square aspect ratio regardless of
+            # container width — letting it stretch to fill a wide 2/3-page
+            # column (via use_container_width) leaves large empty space on
+            # both sides, since Plotly centers the actual circular plot rather
+            # than scaling it to a wide rectangle. Nesting it in a narrower
+            # centered sub-column keeps it properly proportioned.
+            radar_pad_l, radar_center, radar_pad_r = st.columns([1, 5, 1])
+            with radar_center:
+                st.plotly_chart(style_chart(fig3, height=420), use_container_width=True)
             if missing_factors:
                 st.caption(
                     f"⚠️ Marked with an amber ✕: {', '.join(FACTOR_LABELS[f] for f in missing_factors)} — "
@@ -1285,38 +1303,56 @@ with tab2:
 
     st.markdown("<br>", unsafe_allow_html=True)
     with st.container(border=True):
-        st.markdown('<div class="section-tag">How Much It Owes</div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-title" style="font-size:1.05rem;">Sovereign Debt Profile</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">How Much It Owes &amp; Holds</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Sovereign Debt &amp; Reserves Profile</div>', unsafe_allow_html=True)
         debt_pct = row.get("debt_to_gdp")
         debt_year = row.get("debt_to_gdp_year")
         debt_source = row.get("debt_to_gdp_source")
         gdp_usd = row.get("gdp_current_usd")
         gdp_year = row.get("gdp_current_usd_year")
+        reserves_months = row.get("reserves_months_imports")
+        reserves_months_year = row.get("reserves_months_imports_year")
+        reserves_usd = row.get("total_reserves_usd")
+        reserves_usd_year = row.get("total_reserves_usd_year")
 
-        if pd.notna(debt_pct):
-            debt_cols = st.columns(3)
-            with debt_cols[0]:
+        # All 4 stats render independently of each other — a country missing
+        # debt data (Libya, Yemen) still gets its reserves figures shown, and
+        # vice versa. Nothing here is silently skipped because a neighboring
+        # stat happens to be missing.
+        debt_cols = st.columns(4)
+        with debt_cols[0]:
+            if pd.notna(debt_pct):
                 stat_card("Debt (% of GDP)", f"{debt_pct:.1f}%", f"as of {int(debt_year)}" if pd.notna(debt_year) else "")
-            with debt_cols[1]:
-                if pd.notna(gdp_usd):
-                    approx_debt = debt_pct / 100 * gdp_usd
-                    year_note = (
-                        f"debt {int(debt_year)} × GDP {int(gdp_year)}" if pd.notna(debt_year) and pd.notna(gdp_year) and int(debt_year) != int(gdp_year)
-                        else f"as of {int(debt_year)}" if pd.notna(debt_year) else ""
-                    )
-                    stat_card("Approx. Total Debt", _fmt_usd(approx_debt), year_note)
-                else:
-                    stat_card("Approx. Total Debt", "No data")
-            with debt_cols[2]:
-                source_label = debt_source if pd.notna(debt_source) else "No data"
-                stat_card("Primary Source", source_label)
-            if pd.notna(gdp_usd) and pd.notna(debt_year) and pd.notna(gdp_year) and int(debt_year) != int(gdp_year):
-                st.caption(
-                    f"⚠️ The dollar figure multiplies a {int(debt_year)} debt ratio by {int(gdp_year)} GDP "
-                    f"(the two indicators' most recent reported years don't match) — treat it as a rough "
-                    f"approximation, not a precisely reported figure."
+            else:
+                stat_card("Debt (% of GDP)", "No data")
+        with debt_cols[1]:
+            if pd.notna(debt_pct) and pd.notna(gdp_usd):
+                approx_debt = debt_pct / 100 * gdp_usd
+                year_note = (
+                    f"debt {int(debt_year)} × GDP {int(gdp_year)}" if pd.notna(debt_year) and pd.notna(gdp_year) and int(debt_year) != int(gdp_year)
+                    else f"as of {int(debt_year)}" if pd.notna(debt_year) else ""
                 )
-        else:
+                stat_card("Approx. Total Debt", _fmt_usd(approx_debt), year_note)
+            else:
+                stat_card("Approx. Total Debt", "No data")
+        with debt_cols[2]:
+            if pd.notna(reserves_usd):
+                stat_card("Foreign Reserves", _fmt_usd(reserves_usd), f"as of {int(reserves_usd_year)}" if pd.notna(reserves_usd_year) else "")
+            else:
+                stat_card("Foreign Reserves", "No data")
+        with debt_cols[3]:
+            if pd.notna(reserves_months):
+                stat_card("Reserves Cover", f"{reserves_months:.1f} mo.", f"of imports, {int(reserves_months_year)}" if pd.notna(reserves_months_year) else "of imports")
+            else:
+                stat_card("Reserves Cover", "No data")
+
+        if pd.notna(debt_pct) and pd.notna(gdp_usd) and pd.notna(debt_year) and pd.notna(gdp_year) and int(debt_year) != int(gdp_year):
+            st.caption(
+                f"⚠️ The dollar debt figure multiplies a {int(debt_year)} debt ratio by {int(gdp_year)} GDP "
+                f"(the two indicators' most recent reported years don't match) — treat it as a rough "
+                f"approximation, not a precisely reported figure."
+            )
+        if pd.isna(debt_pct):
             st.caption(
                 f"No debt-to-GDP figure is available for {selected} from either the World Bank or the "
                 f"IMF WEO fallback — not an oversight, genuinely unreported by both institutions."
@@ -1511,20 +1547,33 @@ with tab2:
     st.markdown('<div class="section-title">Key Sectors &amp; Trade Profile</div>', unsafe_allow_html=True)
     trade_profile = COUNTRY_TRADE_PROFILE.get(country_code)
     if trade_profile:
-        custom_table(
-            [
-                ["Main Sectors", trade_profile["sectors"]],
-                ["Biggest Exports", trade_profile["exports"]],
-                ["Biggest Imports", trade_profile["imports"]],
-                ["Leading Trade Partners", trade_profile["partners"]],
-            ],
-            ["Category", "Detail"],
-        )
+        # An icon-labeled "at a glance" box — quicker to scan than a plain
+        # table when the goal is orientation (what does this economy run on?)
+        # rather than a precise lookup.
+        glance_rows = [
+            ("🏭", "Main Sectors & Resources", trade_profile["sectors"]),
+            ("📤", "Biggest Exports", trade_profile["exports"]),
+            ("📥", "Biggest Imports", trade_profile["imports"]),
+            ("🤝", "Leading Trade Partners", trade_profile["partners"]),
+        ]
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">At A Glance</div>', unsafe_allow_html=True)
+            for icon, label, detail in glance_rows:
+                st.markdown(
+                    f'<div style="display:flex;gap:0.7rem;margin-bottom:0.85rem;align-items:flex-start;">'
+                    f'<div style="font-size:1.3rem;line-height:1.4;">{icon}</div>'
+                    f'<div><div class="stat-label" style="margin-bottom:0.15rem;">{label}</div>'
+                    f'<div style="font-size:0.88rem;color:{TEXT};line-height:1.55;">{detail}</div></div>'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
         st.caption(
             "Compiled from established, stable economic-geography knowledge (the kind found in the "
             "CIA World Factbook and the Observatory of Economic Complexity / UN Comtrade) rather than "
-            "a single per-country citation — see Methodology for the full source list. Share figures "
-            "are directional, not precise-to-the-decimal statistics."
+            "a single per-country citation — see Methodology for the full source list. Natural-resource "
+            "endowments are folded into Main Sectors (e.g. an oil/gas economy's sector description names "
+            "the resource directly) rather than tracked as a separate field. Share figures are "
+            "directional, not precise-to-the-decimal statistics."
         )
     else:
         st.caption("No trade/sector profile on file for this country yet.")
@@ -1665,7 +1714,9 @@ with tab2:
     st.markdown('<div class="section-title">Key Economic Partners</div>', unsafe_allow_html=True)
     partner_info = KEY_ECONOMIC_PARTNERS.get(country_code)
     if partner_info:
-        st.markdown(f'<div class="narrative-box">{partner_info["summary"]}</div>', unsafe_allow_html=True)
+        bullets = _paragraph_to_bullets(partner_info["summary"])
+        bullet_html = "".join(f"<li style='margin-bottom:0.6rem;'>{b}</li>" for b in bullets)
+        st.markdown(f'<div class="narrative-box"><ul style="margin:0;padding-left:1.2rem;">{bullet_html}</ul></div>', unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
         for name, url in partner_info["sources"]:
             st.markdown(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>', unsafe_allow_html=True)
@@ -1744,11 +1795,17 @@ with tab3:
 
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown('<div class="section-title" style="font-size:1rem;">Status</div>', unsafe_allow_html=True)
-            selected_statuses = [s for s in STATUS_BUCKETS if st.checkbox(s, key=f"cstatus_{s}")]
+            # A small colored dot per option, CFR-style, using Streamlit's
+            # built-in markdown color annotations (a fixed named palette, not
+            # arbitrary hex) — the closest match to this tab's own violet/
+            # indigo/grey status palette that a checkbox label can render.
+            STATUS_DOT = {"Active / Unresolved": "violet", "Ceasefire / Fragile": "blue", "Frozen / Stalemated": "gray"}
+            selected_statuses = [s for s in STATUS_BUCKETS if st.checkbox(f":{STATUS_DOT[s]}[●] {s}", key=f"cstatus_{s}")]
 
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown('<div class="section-title" style="font-size:1rem;">Impact on Tracked Economies</div>', unsafe_allow_html=True)
-            selected_impacts = [i for i in IMPACT_LEVELS if st.checkbox(i, key=f"cimpact_{i}")]
+            IMPACT_DOT = {"Critical": "red", "Significant": "orange", "Limited": "gray"}
+            selected_impacts = [i for i in IMPACT_LEVELS if st.checkbox(f":{IMPACT_DOT[i]}[●] {i}", key=f"cimpact_{i}")]
 
             if selected_types or selected_statuses or selected_impacts:
                 st.markdown("<br>", unsafe_allow_html=True)
@@ -1900,6 +1957,19 @@ with tab3:
                     "</div>",
                     unsafe_allow_html=True,
                 )
+                if is_focused:
+                    # CFR-style clean field/value rows for the specific
+                    # conflict a user just clicked on the map — a spotlight
+                    # treatment closer to that map's own popup card, layered
+                    # on top of (not replacing) this app's usual badge style.
+                    custom_table(
+                        [
+                            ["Type", conflict["type"]],
+                            ["Impact on Tracked Economies", conflict["impact"]],
+                            ["Status", conflict["status"]],
+                        ],
+                        ["Field", "Detail"],
+                    )
                 takeaway = _event_headline(conflict["summary"], max_len=200)
                 if not takeaway.endswith((".", "…")):
                     takeaway += "."
