@@ -61,6 +61,15 @@ CONTEXT_INDICATORS = {
     "NY.GDP.MKTP.CD": "gdp_current_usd",
     "NY.GDP.PCAP.CD": "gdp_per_capita_usd",
     "FI.RES.TOTL.CD": "total_reserves_usd",
+    # Labor-market and inequality indicators for the Country Deep Dive's
+    # "Major Indicators" box — descriptive context, not part of the risk
+    # score. Gini coverage is real but notoriously sparse for this region
+    # (many Gulf states have never reported it) — shown as "No data" rather
+    # than estimated, consistent with how every other missing value is
+    # handled throughout this app.
+    "SL.UEM.TOTL.ZS": "unemployment_rate",
+    "SL.UEM.1524.ZS": "youth_unemployment_rate",
+    "SI.POV.GINI": "gini_index",
 }
 
 # Governance pillar (World Bank Worldwide Governance Indicators)

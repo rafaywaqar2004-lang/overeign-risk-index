@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime, timezone
-from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS
+from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS, HDI_DATA, CURRENT_GOVERNMENT
 from pdf_export import generate_country_pdf
 # Reuse the exact scoring methodology from compute_scores.py for the
 # year-over-year factor drill-down below, so the "what drove this year's
@@ -720,6 +720,24 @@ def fetch_stock_history(ticker, period="1y"):
 # is used everywhere the UI previously said the fixed string "2010-2024".
 DATA_YEAR_RANGE = f"{int(long_df['year'].min())}-{int(long_df['year'].max())}"
 
+# Real, well-known capital-city (plus a few other major metro) coordinates for
+# the 26 tracked countries — orientation markers on the two geo maps, not a
+# data layer. Standard, stable geographic facts, not something that needs a
+# live source citation the way a statistic would.
+MAJOR_CITIES = {
+    "Algiers": (36.75, 3.06), "Manama": (26.23, 50.59), "Cairo": (30.04, 31.24),
+    "Tehran": (35.69, 51.39), "Baghdad": (33.31, 44.36), "Jerusalem": (31.78, 35.22),
+    "Tel Aviv": (32.09, 34.78), "Amman": (31.95, 35.93), "Kuwait City": (29.38, 47.99),
+    "Beirut": (33.89, 35.50), "Tripoli": (32.89, 13.19), "Rabat": (34.02, -6.83),
+    "Muscat": (23.59, 58.41), "Doha": (25.29, 51.53), "Riyadh": (24.71, 46.68),
+    "Jeddah": (21.54, 39.17), "Damascus": (33.51, 36.29), "Tunis": (36.81, 10.18),
+    "Dubai": (25.20, 55.27), "Abu Dhabi": (24.45, 54.38), "Sanaa": (15.37, 44.19),
+    "Kabul": (34.56, 69.21), "Dhaka": (23.81, 90.41), "Thimphu": (27.47, 89.64),
+    "New Delhi": (28.61, 77.21), "Mumbai": (19.08, 72.88), "Male": (4.17, 73.51),
+    "Kathmandu": (27.72, 85.32), "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00),
+    "Colombo": (6.93, 79.85),
+}
+
 FACTOR_LABELS = {
     "debt_to_gdp": "Debt (% GDP)",
     "current_account_pct_gdp": "Current Account",
@@ -770,6 +788,9 @@ ALL_INDICATOR_LABELS = {
     "gdp_current_usd": ("GDP (Current US$)", "USD", "World Bank WDI: NY.GDP.MKTP.CD"),
     "gdp_per_capita_usd": ("GDP Per Capita (Current US$)", "USD", "World Bank WDI: NY.GDP.PCAP.CD"),
     "total_reserves_usd": ("Total Reserves (Current US$)", "USD", "World Bank WDI: FI.RES.TOTL.CD"),
+    "unemployment_rate": ("Unemployment Rate", "%", "World Bank WDI: SL.UEM.TOTL.ZS"),
+    "youth_unemployment_rate": ("Youth Unemployment Rate", "%", "World Bank WDI: SL.UEM.1524.ZS"),
+    "gini_index": ("Gini Index (Income Inequality)", "index, 0-100", "World Bank WDI: SI.POV.GINI"),
 }
 
 
@@ -875,7 +896,7 @@ with tab1:
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Geographic Distribution</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Risk Map</div>', unsafe_allow_html=True)
-    map_df = scored.dropna(subset=["risk_score"])
+    map_df = scored.dropna(subset=["risk_score"]).reset_index(drop=True)
     map_fig = px.choropleth(
         map_df, locations="country_code", locationmode="ISO-3", color="risk_score",
         hover_name="country", hover_data={"country_code": False, "risk_score": ":.1f", "risk_tier": True},
@@ -892,8 +913,32 @@ with tab1:
         showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
         showframe=False,
     )
+    # A light overlay of major cities (capitals + a few other key metros) purely
+    # for geographic orientation — small, muted markers that don't compete
+    # visually with the risk-tier choropleth fill, which is the actual data layer.
+    city_lats = [c[0] for c in MAJOR_CITIES.values()]
+    city_lons = [c[1] for c in MAJOR_CITIES.values()]
+    city_names = list(MAJOR_CITIES.keys())
+    map_fig.add_trace(go.Scattergeo(
+        lat=city_lats, lon=city_lons, mode="markers+text",
+        marker=dict(size=4, color="rgba(230,237,243,0.55)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+        text=city_names, textposition="top center",
+        textfont=dict(size=7, color="rgba(230,237,243,0.65)"),
+        hoverinfo="text", showlegend=False,
+    ))
     map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10))
-    st.plotly_chart(style_chart(map_fig, height=420), use_container_width=True)
+    risk_map_click = st.plotly_chart(
+        style_chart(map_fig, height=420), use_container_width=True,
+        on_select="rerun", selection_mode="points", key="risk_map_select",
+    )
+    st.caption(
+        "Click a country to pre-select it in the Country Deep Dive tab above — small gray dots "
+        "mark major cities for geographic orientation only, not a data layer."
+    )
+    if risk_map_click and risk_map_click.selection and risk_map_click.selection.get("point_indices"):
+        clicked_idx = risk_map_click.selection["point_indices"][0]
+        if clicked_idx < len(map_df):
+            st.session_state["selected_country_from_map"] = map_df.iloc[clicked_idx]["country"]
 
     st.markdown("<br>", unsafe_allow_html=True)
     col1, col2 = st.columns([2, 1])
@@ -1007,7 +1052,12 @@ with tab1:
 # ================= TAB 2: COUNTRY DEEP DIVE =================
 with tab2:
     country_list = scored.sort_values("country")["country"].tolist()
-    selected = st.selectbox("Select a country", country_list, label_visibility="collapsed")
+    # Honors a click on the Risk Map (Tab 1) — Streamlit can't force-switch
+    # the active tab from a chart click, so this is the honest equivalent:
+    # the country is already pre-selected by the time the user clicks over.
+    _map_selected_country = st.session_state.get("selected_country_from_map")
+    _default_index = country_list.index(_map_selected_country) if _map_selected_country in country_list else 0
+    selected = st.selectbox("Select a country", country_list, index=_default_index, label_visibility="collapsed")
 
     row = scored[scored["country"] == selected].iloc[0]
     driver_row = drivers[drivers["country"] == selected].iloc[0]
@@ -1171,6 +1221,67 @@ with tab2:
                 )
         else:
             st.caption("No factor data available for radar chart.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    gov_col, indicators_col = st.columns([1, 2])
+
+    with gov_col:
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">State Actors</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1.05rem;">Current Ruling Government</div>', unsafe_allow_html=True)
+            gov = CURRENT_GOVERNMENT.get(country_code)
+            if gov:
+                custom_table(
+                    [
+                        ["Head of State", gov["head_of_state"]],
+                        ["Head of Government", gov["head_of_government"]],
+                        ["System Type", gov["system_type"]],
+                    ],
+                    ["Field", "Detail"],
+                )
+                if gov.get("notes"):
+                    st.caption(gov["notes"])
+                if gov.get("sources"):
+                    st.markdown(
+                        "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in gov["sources"]),
+                        unsafe_allow_html=True,
+                    )
+                st.caption("Verified via live web search as of the research date — not a live feed; leadership can change.")
+            else:
+                st.caption("No verified leadership data on file for this country yet.")
+
+    with indicators_col:
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">Beyond The Composite Score</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1.05rem;">Major Development Indicators</div>', unsafe_allow_html=True)
+            hdi = HDI_DATA.get(country_code)
+            indicator_cells = [
+                ("GDP Growth", row.get("gdp_growth"), row.get("gdp_growth_year"), "%"),
+                ("Inflation", row.get("inflation"), row.get("inflation_year"), "%"),
+                ("Unemployment", row.get("unemployment_rate"), row.get("unemployment_rate_year"), "%"),
+                ("Youth Unemployment", row.get("youth_unemployment_rate"), row.get("youth_unemployment_rate_year"), "%"),
+                ("Gini Index", row.get("gini_index"), row.get("gini_index_year"), ""),
+            ]
+            metric_cols = st.columns(3)
+            for i, (label, value, year, suffix) in enumerate(indicator_cells):
+                with metric_cols[i % 3]:
+                    display = f"{value:.1f}{suffix}" if pd.notna(value) else "No data"
+                    sub = f"as of {int(year)}" if pd.notna(year) else ""
+                    stat_card(label, display, sub)
+                    st.markdown("<br>", unsafe_allow_html=True)
+            with metric_cols[2]:
+                if hdi:
+                    stat_card("HDI (UNDP)", f"{hdi['hdi']:.3f}", f"Rank {hdi['rank']} of 193 ({hdi['year']})")
+                else:
+                    stat_card("HDI (UNDP)", "No data")
+            st.caption(
+                "GDP growth/inflation feed the composite score above; unemployment, youth unemployment, "
+                "Gini, and HDI are descriptive development context only, not scored inputs. "
+                "[Gini coverage](https://data.worldbank.org/indicator/SI.POV.GINI) is real but sparse for "
+                "this region — many countries have not reported it in years. HDI is from "
+                "[UNDP's Human Development Report](https://hdr.undp.org/data-center/human-development-index) "
+                "— a periodic reference figure, not a live pull."
+            )
 
     st.markdown("<br>", unsafe_allow_html=True)
     with st.expander("🧪 Geopolitical Shock Tester — simulate a stress scenario", expanded=False):
@@ -1584,6 +1695,13 @@ with tab3:
             marker=dict(size=14, color=colors, line=dict(width=1, color="#0a0e14"), opacity=0.9),
             text=hover_texts, hoverinfo="text",
         ))
+        conflict_map_fig.add_trace(go.Scattergeo(
+            lat=[c[0] for c in MAJOR_CITIES.values()], lon=[c[1] for c in MAJOR_CITIES.values()],
+            mode="markers+text", text=list(MAJOR_CITIES.keys()),
+            marker=dict(size=4, color="rgba(230,237,243,0.55)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+            textposition="top center", textfont=dict(size=7, color="rgba(230,237,243,0.65)"),
+            hoverinfo="text", showlegend=False,
+        ))
         conflict_map_fig.update_geos(
             scope="world", lataxis_range=[-5, 42], lonaxis_range=[-18, 100],
             bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
@@ -1594,37 +1712,57 @@ with tab3:
             showframe=False,
         )
         conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
-        st.plotly_chart(style_chart(conflict_map_fig, height=380), use_container_width=True)
+        map_click = st.plotly_chart(
+            style_chart(conflict_map_fig, height=380), use_container_width=True,
+            on_select="rerun", selection_mode="points", key="conflict_map_select",
+        )
         st.caption(
             "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated — "
-            "hover a node for actors and market impact. One point per conflict; a single "
-            "marker stands in for what is often a multi-country or border-spanning event."
+            "hover a node for actors and market impact, or **click a marker to jump straight to "
+            "that conflict's full detail below**. One point per conflict; a single marker stands "
+            "in for what is often a multi-country or border-spanning event."
         )
+        # Clicking a marker on the map re-runs the app with a selection payload;
+        # translate that point index back to a conflict name and remember it in
+        # session state so the matching card below can float to the top and
+        # auto-expand — the closest honest equivalent of "jump to that section"
+        # Streamlit's tab/expander model supports, since there's no native
+        # cross-widget DOM anchor-scroll on a chart click event.
+        if map_click and map_click.selection and map_click.selection.get("point_indices"):
+            clicked_idx = map_click.selection["point_indices"][0]
+            if clicked_idx < len(map_conflicts):
+                st.session_state["focused_conflict"] = map_conflicts[clicked_idx]["name"]
     st.markdown("<br>", unsafe_allow_html=True)
 
-    for i, conflict in enumerate(LIVE_CONFLICTS):
+    focused_name = st.session_state.get("focused_conflict")
+    ordered_conflicts = list(LIVE_CONFLICTS)
+    if focused_name:
+        ordered_conflicts.sort(key=lambda c: c["name"] != focused_name)
+        st.info(f"📍 Jumped here from the map: **{focused_name}**. Scroll down for the rest, or click a different marker above.", icon="📍")
+
+    for i, conflict in enumerate(ordered_conflicts):
+        is_focused = conflict["name"] == focused_name
         with st.container(border=True):
+            # ---- Always-visible compact header: status, name, affected
+            # countries, and a one-sentence takeaway — enough to understand
+            # the conflict at a glance without reading a wall of text. ----
             st.markdown(
                 f'<div class="section-tag">{conflict["status"]}</div>'
-                f'<div class="section-title" style="font-size:1.25rem;">{conflict["name"]}</div>',
+                f'<div class="section-title" style="font-size:1.2rem;">{conflict["name"]}</div>',
                 unsafe_allow_html=True,
             )
             affected_names = [code_to_name.get(c, c) for c in conflict["affected"]]
             st.markdown(
-                "<div style='margin-bottom:0.8rem;'>" +
+                "<div style='margin-bottom:0.6rem;'>" +
                 "".join(f'<span class="tier-badge" style="background:rgba(34,211,238,0.12);color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
                 "</div>",
                 unsafe_allow_html=True,
             )
-            if conflict.get("groups"):
-                st.markdown(
-                    f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:{TEXT_MUTED};margin-bottom:0.8rem;">'
-                    f'<b style="color:{ACCENT};">Groups Involved:</b> {conflict["groups"]}</div>',
-                    unsafe_allow_html=True,
-                )
-            st.markdown(f'<div class="narrative-box"><b>Summary</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
-            st.markdown("<br>", unsafe_allow_html=True)
-            st.markdown(f'<div class="narrative-box"><b>Market &amp; Trade Impact</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
+            takeaway = _event_headline(conflict["summary"], max_len=200)
+            if not takeaway.endswith((".", "…")):
+                takeaway += "."
+            st.markdown(f'<div class="narrative-box">{takeaway}</div>', unsafe_allow_html=True)
+
             if conflict.get("stats"):
                 st.markdown("<br>", unsafe_allow_html=True)
                 stat_cols = st.columns(len(conflict["stats"]))
@@ -1635,12 +1773,26 @@ with tab3:
                             f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1rem;color:{ACCENT};font-weight:700;">{value}</div>',
                             unsafe_allow_html=True,
                         )
-            st.markdown("<br>", unsafe_allow_html=True)
-            st.markdown(
-                "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in conflict["sources"]),
-                unsafe_allow_html=True,
-            )
-        if i < len(LIVE_CONFLICTS) - 1:
+
+            # ---- Full detail, collapsed by default — the dense material
+            # (full summary, market impact, actors, sources) lives here
+            # instead of always being on screen. ----
+            with st.expander("Full summary, market impact & sources", expanded=is_focused):
+                if conflict.get("groups"):
+                    st.markdown(
+                        f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:{TEXT_MUTED};margin-bottom:0.8rem;">'
+                        f'<b style="color:{ACCENT};">Groups Involved:</b> {conflict["groups"]}</div>',
+                        unsafe_allow_html=True,
+                    )
+                st.markdown(f'<div class="narrative-box"><b>Summary</b><br>{conflict["summary"]}</div>', unsafe_allow_html=True)
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown(f'<div class="narrative-box"><b>Market &amp; Trade Impact</b><br>{conflict["market_impact"]}</div>', unsafe_allow_html=True)
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown(
+                    "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in conflict["sources"]),
+                    unsafe_allow_html=True,
+                )
+        if i < len(ordered_conflicts) - 1:
             st.markdown("<br>", unsafe_allow_html=True)
 
 # ================= TAB 4: SCENARIO EXPLORER =================

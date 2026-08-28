@@ -16,7 +16,7 @@ from fetch_data import COUNTRIES
 from context_data import (
     HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS,
     FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE,
-    CREDIT_RATINGS, ECONOMIC_SANCTIONS,
+    CREDIT_RATINGS, ECONOMIC_SANCTIONS, CURRENT_GOVERNMENT,
 )
 
 URL_RE = re.compile(r"^https?://[^\s]+$")
@@ -51,6 +51,8 @@ for code in CREDIT_RATINGS:
     check(code in VALID_CODES, f"CREDIT_RATINGS has unknown country code: {code}")
 for code in ECONOMIC_SANCTIONS:
     check(code in VALID_CODES, f"ECONOMIC_SANCTIONS has unknown country code: {code}")
+for code in CURRENT_GOVERNMENT:
+    check(code in VALID_CODES, f"CURRENT_GOVERNMENT has unknown country code: {code}")
 for conflict in LIVE_CONFLICTS:
     for code in conflict["affected"]:
         check(
@@ -66,6 +68,7 @@ for name, data in [
     ("COUNTRY_TRADE_PROFILE", COUNTRY_TRADE_PROFILE),
     ("CREDIT_RATINGS", CREDIT_RATINGS),
     ("ECONOMIC_SANCTIONS", ECONOMIC_SANCTIONS),
+    ("CURRENT_GOVERNMENT", CURRENT_GOVERNMENT),
 ]:
     missing = VALID_CODES - set(data.keys())
     warn(not missing, f"{name} is missing {len(missing)} of 26 countries: {sorted(missing)}")
@@ -126,7 +129,18 @@ for code, entries in ECONOMIC_SANCTIONS.items():
         for source_name, source_url in entry.get("sources", []):
             check(URL_RE.match(source_url or ""), f"{code}: sanctions entry '{entry.get('name')}' has malformed source URL: {source_url}")
 
-# ---------- 9. Cross-check against actual scored data, if present ----------
+# ---------- 9. Government entries have all required fields ----------
+required_gov_fields = ["head_of_state", "head_of_government", "system_type", "notes", "sources"]
+for code, gov in CURRENT_GOVERNMENT.items():
+    for field in required_gov_fields:
+        if field in ("notes", "sources"):
+            check(field in gov, f"{code}: government entry missing field: {field}")
+        else:
+            check(field in gov and gov[field], f"{code}: government entry missing field: {field}")
+    for source_name, source_url in gov.get("sources", []):
+        check(URL_RE.match(source_url or ""), f"{code}: government entry has malformed source URL: {source_url}")
+
+# ---------- 10. Cross-check against actual scored data, if present ----------
 try:
     scored = pd.read_csv("scored_data.csv")
     scored_codes = set(scored["country_code"])
@@ -138,7 +152,7 @@ except FileNotFoundError:
 
 
 # ---------- Report ----------
-print(f"Checked {len(VALID_CODES)} tracked countries across 7 data structures + {len(LIVE_CONFLICTS)} conflicts.\n")
+print(f"Checked {len(VALID_CODES)} tracked countries across 8 data structures + {len(LIVE_CONFLICTS)} conflicts.\n")
 
 if warnings:
     print(f"WARNINGS ({len(warnings)}) — non-fatal, but worth reviewing:")
