@@ -14,7 +14,7 @@ from pdf_export import generate_country_pdf
 # calculated, rather than a separate, potentially drifting reimplementation.
 from compute_scores import WEIGHTS, HIGHER_IS_RISKIER, normalize_to_risk_0_100
 
-st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="📡", layout="wide")
+st.set_page_config(page_title="Sovereign Risk Scorecard", page_icon="assets/favicon.png", layout="wide")
 
 # ============================================================
 # DESIGN SYSTEM — "Institute Brief": a near-black editorial theme
@@ -301,6 +301,18 @@ st.markdown(f"""
         border-radius: 4px;
     }}
 
+    /* ---- restyle Streamlit's own rerun/status chrome to match the theme
+       instead of its stock red/white look ---- */
+    [data-testid="stStatusWidget"] {{
+        background: {SURFACE_ALT} !important;
+        border: 1px solid {BORDER} !important;
+        border-radius: 20px !important;
+        color: {TEXT_MUTED} !important;
+    }}
+    [data-testid="stStatusWidget"] svg {{ fill: {ACCENT} !important; }}
+    .stSpinner > div {{ border-top-color: {ACCENT} !important; }}
+    .stSpinner p {{ color: {TEXT_MUTED} !important; }}
+
     /* ---- mobile ---- */
     @media (max-width: 640px) {{
         .masthead-title {{ font-size: 1.9rem; }}
@@ -380,6 +392,7 @@ def style_chart(fig, height=420):
         margin=dict(t=30, b=30, l=10, r=10),
         legend=dict(bgcolor="rgba(0,0,0,0)"),
         hoverlabel=dict(bgcolor=SURFACE_ALT, font_color=TEXT, bordercolor=ACCENT),
+        modebar=dict(bgcolor="rgba(0,0,0,0)", color=TEXT_MUTED, activecolor=ACCENT),
     )
     fig.update_xaxes(gridcolor="rgba(148,163,184,0.10)", zerolinecolor="rgba(148,163,184,0.16)")
     fig.update_yaxes(gridcolor="rgba(148,163,184,0.10)", zerolinecolor="rgba(148,163,184,0.16)")
