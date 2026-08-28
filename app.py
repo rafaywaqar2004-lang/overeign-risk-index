@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime, timezone
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS, HDI_DATA, CURRENT_GOVERNMENT
+from geoeconomic_data import MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS, TRADE_ARTERIES, TRADE_ALLIANCES
 from pdf_export import generate_country_pdf
 # Reuse the exact scoring methodology from compute_scores.py for the
 # year-over-year factor drill-down below, so the "what drove this year's
@@ -959,8 +960,9 @@ st.markdown(
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
-    ["Regional Overview", "Country Deep Dive", "Compare Countries", "Live Conflicts", "Scenario Explorer", "Methodology"]
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
+    ["Regional Overview", "Country Deep Dive", "Compare Countries", "Live Conflicts",
+     "Geo-Economic Interdependence", "Scenario Explorer", "Methodology"]
 )
 
 # ================= TAB 1: OVERVIEW =================
@@ -2254,7 +2256,227 @@ with tab4:
             if i < len(visible_conflicts) - 1:
                 st.markdown("<br>", unsafe_allow_html=True)
 
-# ================= TAB 5: SCENARIO EXPLORER =================
+# ================= TAB 5: GEO-ECONOMIC INTERDEPENDENCE =================
+GEO_RISK_COLOR = {"Low": "#34d399", "Moderate": "#fbbf24", "High": "#f87171", "Critical": "#dc2626"}
+
+with tab5:
+    st.markdown('<div class="section-tag">Global Trade Structure</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Geo-Economic Interdependence Dashboard</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="masthead-sub" style="margin-bottom:1rem;">How MENASA connects to the rest of the global '
+        'economy through maritime chokepoints, critical-mineral supply concentration, and a small set of '
+        'corporate gatekeepers whose capacity constraints ripple through world trade. A structural/context '
+        'layer — descriptive, not part of the composite risk score elsewhere in this app.</div>',
+        unsafe_allow_html=True,
+    )
+
+    with st.expander("Map Layers", expanded=True):
+        lcol1, lcol2, lcol3 = st.columns(3)
+        with lcol1:
+            show_infra = st.checkbox("Hard Infrastructure (chokepoints)", value=True, key="geo_show_infra")
+        with lcol2:
+            show_friction = st.checkbox("Trade Arteries / Friction Points", value=True, key="geo_show_friction")
+        with lcol3:
+            show_alliances = st.checkbox("Legal Trade Alliances (GCC, BRICS+, ASEAN, EU)", value=False, key="geo_show_alliances")
+
+    st.markdown('<div class="section-tag">Chokepoints &amp; Trade Arteries</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title" style="font-size:1.05rem;">Interactive Trade Map</div>', unsafe_allow_html=True)
+
+    fig_geo = go.Figure()
+
+    if show_friction:
+        for route in TRADE_ARTERIES:
+            fig_geo.add_trace(go.Scattergeo(
+                lon=[p[1] for p in route["path"]], lat=[p[0] for p in route["path"]],
+                mode="lines", line=dict(width=1.5, color=ACCENT, dash="dot"),
+                opacity=0.55, hoverinfo="text", text=route["name"], showlegend=False,
+            ))
+
+    if show_alliances:
+        for bloc_name, bloc in TRADE_ALLIANCES.items():
+            fig_geo.add_trace(go.Scattergeo(
+                lon=[bloc["centroid"][1]], lat=[bloc["centroid"][0]],
+                mode="markers+text", text=[bloc_name], textposition="bottom center",
+                marker=dict(size=10, color="rgba(148,163,184,0.5)", symbol="square"),
+                hovertemplate=f"<b>{bloc_name}</b><br>{', '.join(bloc['members'][:6])}…<extra></extra>",
+                showlegend=False,
+            ))
+
+    if show_infra:
+        cp_keys = list(MARITIME_CHOKEPOINTS.keys())
+        fig_geo.add_trace(go.Scattergeo(
+            lon=[MARITIME_CHOKEPOINTS[k]["lon"] for k in cp_keys],
+            lat=[MARITIME_CHOKEPOINTS[k]["lat"] for k in cp_keys],
+            text=[MARITIME_CHOKEPOINTS[k]["name"] for k in cp_keys],
+            mode="markers+text", textposition="top center",
+            marker=dict(
+                size=18,
+                color=[GEO_RISK_COLOR.get(MARITIME_CHOKEPOINTS[k]["risk_level"], TEXT_MUTED) for k in cp_keys],
+                line=dict(width=1.5, color=BG), symbol="circle",
+            ),
+            customdata=[[k, MARITIME_CHOKEPOINTS[k]["risk_level"]] for k in cp_keys],
+            hovertemplate="<b>%{text}</b><br>Risk: %{customdata[1]}<extra></extra>",
+            name="Chokepoints",
+        ))
+
+    fig_geo.update_geos(
+        scope="world", projection_type="natural earth",
+        lataxis_range=[-10, 60], lonaxis_range=[-20, 130],
+        showland=True, landcolor=SURFACE_ALT, showocean=True, oceancolor=BG,
+        showcountries=True, countrycolor="rgba(148,163,184,0.25)",
+        bgcolor="rgba(0,0,0,0)",
+    )
+    fig_geo.update_layout(showlegend=False)
+
+    geo_select = st.plotly_chart(
+        style_chart(fig_geo, height=480), use_container_width=True,
+        on_select="rerun", selection_mode="points", key="geoeconomic_map_select",
+    )
+
+    # Best-effort map-click filtering: a click on the chokepoint trace sets
+    # session_state directly. The selectbox just below is the reliable,
+    # always-available way to drive the same filter, since multi-trace
+    # geo-chart click targeting is inherently less robust than a single-
+    # trace map (see the Risk Map / Conflict Map tabs for that simpler case).
+    if geo_select and geo_select.selection and geo_select.selection.get("points"):
+        for pt in geo_select.selection["points"]:
+            if pt.get("customdata"):
+                st.session_state["geo_selected_chokepoint"] = pt["customdata"][0]
+
+    st.caption(
+        "Click a chokepoint marker, or use the dropdown below, to filter the Corporate Gatekeepers table "
+        "to firms most exposed to it. Trade-artery paths are illustrative routing, not precise shipping-lane "
+        "geometry; alliance markers are simple membership annotations, not a scored/sourced dataset."
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    with st.expander("Chokepoint Briefing — what's actually happening at each one right now"):
+        for key, cp in MARITIME_CHOKEPOINTS.items():
+            st.markdown(
+                f'<div class="narrative-box" style="margin-bottom:0.9rem;"><b>{cp["name"]}</b> '
+                f'<span class="tier-badge" style="background:{GEO_RISK_COLOR.get(cp["risk_level"], TEXT_MUTED)}22;'
+                f'color:{GEO_RISK_COLOR.get(cp["risk_level"], TEXT_MUTED)};margin-left:0.4rem;">{cp["risk_level"]}</span>'
+                f'<br><br>{cp["notes"]}<br><br><i>{cp["annual_cargo_throughput"]}</i></div>',
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in cp["sources"]),
+                unsafe_allow_html=True,
+            )
+            st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ---- Component 2: Multi-Indicator Interdependence Matrix ----
+    st.markdown('<div class="section-tag">The Structural Picture</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Multi-Indicator Interdependence Matrix</div>', unsafe_allow_html=True)
+
+    mcol1, mcol2, mcol3 = st.columns(3)
+    with mcol1:
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">Supply Chain Concentration</div>', unsafe_allow_html=True)
+            for key, m in CRITICAL_MINERAL_DEPENDENCIES.items():
+                share = m["global_market_share_pct"]
+                display = f"{share:.0f}%" if share is not None else "Unconfirmed"
+                sub = f"{m['dominant_country']} share" if share is not None else f"{m['dominant_country']} — sources don't reconcile, see notes"
+                stat_card(m["mineral"], display, sub)
+                st.markdown("<br>", unsafe_allow_html=True)
+            st.caption("IEA/USGS don't publish a formal HHI for these specific commodities — market share is shown as the concentration signal instead of an invented HHI number.")
+    with mcol2:
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">Chokepoint Vulnerability</div>', unsafe_allow_html=True)
+            for key, cp in MARITIME_CHOKEPOINTS.items():
+                if cp["latency_delay_days"] is not None:
+                    value = f"{cp['latency_delay_days']:.0f}d added transit"
+                else:
+                    value = "Effectively closed"
+                stat_card(cp["name"], value, f"Risk: {cp['risk_level']}")
+                st.markdown("<br>", unsafe_allow_html=True)
+            st.caption("Hormuz shows no delay figure because it's a closure/blockade as of August 2026, not a rerouting scenario — see the map notes below.")
+    with mcol3:
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">Resource Sovereignty Buffers</div>', unsafe_allow_html=True)
+            st.caption("How much slack exists outside the dominant supplier — lower share = more buffer.")
+            buffer_rows = []
+            for key, m in sorted(
+                CRITICAL_MINERAL_DEPENDENCIES.items(),
+                key=lambda kv: -(kv[1]["global_market_share_pct"] or 0),
+            ):
+                share = m["global_market_share_pct"]
+                if share is None:
+                    buffer_rows.append([m["mineral"], "Unconfirmed", "See notes"])
+                    continue
+                tier = "Critical" if share >= 80 else ("High" if share >= 60 else ("Moderate" if share >= 40 else "Low"))
+                buffer_rows.append([m["mineral"], f"{share:.0f}%", tier])
+            custom_table(buffer_rows, ["Mineral", "Share", "Concentration"])
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    with st.expander("Mineral Concentration Context & Sources"):
+        for key, m in CRITICAL_MINERAL_DEPENDENCIES.items():
+            st.markdown(
+                f'<div class="narrative-box" style="margin-bottom:0.9rem;"><b>{m["mineral"]}</b> '
+                f'({m["dominant_country"]})<br><br>{m["context"]}</div>',
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in m["sources"]),
+                unsafe_allow_html=True,
+            )
+            st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ---- Component 3: Corporate Infrastructure Gatekeepers ----
+    st.markdown('<div class="section-tag">Who Controls The Bottleneck</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Corporate Infrastructure Gatekeepers</div>', unsafe_allow_html=True)
+
+    filter_options = ["All"] + [MARITIME_CHOKEPOINTS[k]["name"] for k in MARITIME_CHOKEPOINTS] + \
+                     [m["mineral"] for m in CRITICAL_MINERAL_DEPENDENCIES.values()]
+    _default_filter = "All"
+    _geo_sel = st.session_state.get("geo_selected_chokepoint")
+    if _geo_sel and _geo_sel in MARITIME_CHOKEPOINTS:
+        _default_filter = MARITIME_CHOKEPOINTS[_geo_sel]["name"]
+    gatekeeper_filter = st.selectbox(
+        "Filter by chokepoint or mineral dependency", filter_options,
+        index=filter_options.index(_default_filter) if _default_filter in filter_options else 0,
+    )
+
+    if gatekeeper_filter == "All":
+        filtered_gatekeepers = CORPORATE_GATEKEEPERS
+    else:
+        cp_key_match = next((k for k, v in MARITIME_CHOKEPOINTS.items() if v["name"] == gatekeeper_filter), None)
+        min_key_match = next((k for k, v in CRITICAL_MINERAL_DEPENDENCIES.items() if v["mineral"] == gatekeeper_filter), None)
+        filtered_gatekeepers = [
+            g for g in CORPORATE_GATEKEEPERS
+            if (cp_key_match and cp_key_match in g["related_chokepoints"])
+            or (min_key_match and min_key_match in g["related_minerals"])
+        ]
+
+    if filtered_gatekeepers:
+        gk_df = pd.DataFrame([
+            {
+                "Company": g["company"],
+                "HQ Location": g["hq_location"],
+                "Sector": g["sector"],
+                "Market Share %": f"{g['market_share_pct']:.0f}%" if g["market_share_pct"] is not None else "Unconfirmed",
+                "Dependency Note": g["dependency_note"],
+                "Source": g["source"][0],
+            }
+            for g in filtered_gatekeepers
+        ])
+        st.dataframe(gk_df, use_container_width=True, hide_index=True)
+    else:
+        st.caption("No gatekeeper firms tagged to this filter yet.")
+
+    st.caption(
+        "Market Share % refers to each firm's share of its specific dominant niche (see Dependency Note), "
+        "not overall company revenue. Read-only reference table — not editable, since it reflects sourced "
+        "institutional data rather than user input."
+    )
+
+# ================= TAB 6: SCENARIO EXPLORER =================
 SHOCK_PRESETS = {
     "Red Sea / Shipping Shock": {
         "weights": {
@@ -2295,7 +2517,7 @@ SHOCK_PRESETS = {
     },
 }
 
-with tab5:
+with tab6:
     st.markdown('<div class="section-tag">Interactive Reweighting</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
     st.markdown(
@@ -2370,8 +2592,8 @@ with tab5:
     else:
         st.caption("Set at least one factor weight above zero to see a ranking.")
 
-# ================= TAB 6: METHODOLOGY =================
-with tab6:
+# ================= TAB 7: METHODOLOGY =================
+with tab7:
     st.markdown("<div class=\"section-tag\">How It's Built</div>", unsafe_allow_html=True)
     st.markdown('<div class="section-title">Methodology</div>', unsafe_allow_html=True)
     st.markdown(

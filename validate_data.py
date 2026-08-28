@@ -18,6 +18,9 @@ from context_data import (
     FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE,
     CREDIT_RATINGS, ECONOMIC_SANCTIONS, CURRENT_GOVERNMENT,
 )
+from geoeconomic_data import (
+    MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS,
+)
 
 URL_RE = re.compile(r"^https?://[^\s]+$")
 VALID_CODES = set(COUNTRIES.keys())
@@ -144,6 +147,37 @@ for code, gov in CURRENT_GOVERNMENT.items():
     for source_name, source_url in gov.get("sources", []):
         check(URL_RE.match(source_url or ""), f"{code}: government entry has malformed source URL: {source_url}")
 
+# ---------- 9b. Geo-Economic Interdependence data structures ----------
+VALID_RISK_LEVELS = {"Low", "Moderate", "High", "Critical"}
+required_chokepoint_fields = ["name", "lat", "lon", "risk_level", "notes", "sources"]
+for key, cp in MARITIME_CHOKEPOINTS.items():
+    for field in required_chokepoint_fields:
+        check(field in cp and cp[field], f"MARITIME_CHOKEPOINTS[{key}]: missing field: {field}")
+    check(cp.get("risk_level") in VALID_RISK_LEVELS, f"MARITIME_CHOKEPOINTS[{key}]: invalid risk_level: {cp.get('risk_level')}")
+    for source_name, source_url in cp.get("sources", []):
+        check(URL_RE.match(source_url or ""), f"MARITIME_CHOKEPOINTS[{key}]: malformed source URL: {source_url}")
+
+required_mineral_fields = ["mineral", "dominant_country", "context", "sources"]
+for key, m in CRITICAL_MINERAL_DEPENDENCIES.items():
+    for field in required_mineral_fields:
+        check(field in m and m[field], f"CRITICAL_MINERAL_DEPENDENCIES[{key}]: missing field: {field}")
+    check(len(m.get("sources", [])) > 0, f"CRITICAL_MINERAL_DEPENDENCIES[{key}]: no sources listed")
+    for source_name, source_url in m.get("sources", []):
+        check(URL_RE.match(source_url or ""), f"CRITICAL_MINERAL_DEPENDENCIES[{key}]: malformed source URL: {source_url}")
+
+required_gatekeeper_fields = ["company", "hq_location", "sector", "dependency_note", "related_chokepoints", "related_minerals", "source"]
+chokepoint_keys = set(MARITIME_CHOKEPOINTS.keys())
+mineral_keys = set(CRITICAL_MINERAL_DEPENDENCIES.keys())
+for g in CORPORATE_GATEKEEPERS:
+    for field in required_gatekeeper_fields:
+        check(field in g, f"CORPORATE_GATEKEEPERS: '{g.get('company', '?')}' missing field: {field}")
+    source_name, source_url = g.get("source", (None, None))
+    check(URL_RE.match(source_url or ""), f"CORPORATE_GATEKEEPERS: '{g.get('company')}' has malformed source URL: {source_url}")
+    for cp_key in g.get("related_chokepoints", []):
+        check(cp_key in chokepoint_keys, f"CORPORATE_GATEKEEPERS: '{g.get('company')}' references unknown chokepoint: {cp_key}")
+    for min_key in g.get("related_minerals", []):
+        check(min_key in mineral_keys, f"CORPORATE_GATEKEEPERS: '{g.get('company')}' references unknown mineral: {min_key}")
+
 # ---------- 10. Cross-check against actual scored data, if present ----------
 try:
     scored = pd.read_csv("scored_data.csv")
@@ -156,7 +190,11 @@ except FileNotFoundError:
 
 
 # ---------- Report ----------
-print(f"Checked {len(VALID_CODES)} tracked countries across 8 data structures + {len(LIVE_CONFLICTS)} conflicts.\n")
+print(
+    f"Checked {len(VALID_CODES)} tracked countries across 8 data structures + {len(LIVE_CONFLICTS)} conflicts "
+    f"+ Geo-Economic Interdependence ({len(MARITIME_CHOKEPOINTS)} chokepoints, "
+    f"{len(CRITICAL_MINERAL_DEPENDENCIES)} minerals, {len(CORPORATE_GATEKEEPERS)} gatekeeper firms).\n"
+)
 
 if warnings:
     print(f"WARNINGS ({len(warnings)}) — non-fatal, but worth reviewing:")
