@@ -34,6 +34,13 @@ SURFACE_ALT = "#1f1f1f"
 BORDER = "rgba(255,255,255,0.10)"
 ACCENT = "#3b82f6"
 ACCENT_DIM = "rgba(59,130,246,0.12)"
+# A second, deliberately distinct accent — reserved specifically for
+# curated/editorial content (sourced narrative, historical context,
+# government cards) as opposed to ACCENT's live-quantitative-data meaning.
+# Kept away from the bright risk-tier amber (#fbbf24) so it never reads as
+# a severity signal.
+ACCENT2 = "#c9a876"
+ACCENT2_DIM = "rgba(201,168,118,0.12)"
 TEXT = "#f5f5f4"
 TEXT_MUTED = "#a3a3a3"
 TIER_COLORS = {
@@ -75,10 +82,10 @@ st.markdown(f"""
     }}
     .masthead-title {{
         font-family: 'Inter', sans-serif;
-        font-size: 2.5rem;
+        font-size: 2.75rem;
         font-weight: 800;
         color: {TEXT};
-        line-height: 1.1;
+        line-height: 1.08;
         margin: 0 0 0.7rem 0;
         letter-spacing: -0.02em;
     }}
@@ -102,23 +109,33 @@ st.markdown(f"""
     }}
     .section-title {{
         font-family: 'Inter', sans-serif;
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         font-weight: 700;
         color: {TEXT};
-        margin-bottom: 1.1rem;
+        margin-bottom: 1.3rem;
         letter-spacing: -0.01em;
     }}
 
     /* ---- stat cards ---- */
     .stat-card {{
+        --card-accent: {ACCENT};
         background: linear-gradient(160deg, {SURFACE_ALT} 0%, {SURFACE} 100%);
         border: 1px solid {BORDER};
-        border-left: 3px solid {ACCENT};
-        border-radius: 12px;
-        padding: 1.15rem 1.4rem;
+        border-top: 2px solid var(--card-accent);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem 1.15rem;
         height: 100%;
         box-shadow: 0 4px 16px rgba(0,0,0,0.28);
         transition: transform 0.18s ease, box-shadow 0.18s ease;
+        position: relative;
+        overflow: hidden;
+    }}
+    .stat-card::before {{
+        content: "";
+        position: absolute; top: -50%; right: -15%;
+        width: 130px; height: 130px;
+        background: radial-gradient(circle, color-mix(in srgb, var(--card-accent) 16%, transparent) 0%, transparent 70%);
+        pointer-events: none;
     }}
     .stat-card:hover {{
         transform: translateY(-2px);
@@ -132,13 +149,15 @@ st.markdown(f"""
         text-transform: uppercase;
         color: {TEXT_MUTED};
         margin-bottom: 0.55rem;
+        position: relative;
     }}
     .stat-value {{
         font-family: 'JetBrains Mono', monospace;
-        font-size: 1.65rem;
+        font-size: 1.85rem;
         font-weight: 700;
         color: {TEXT};
         line-height: 1.15;
+        position: relative;
     }}
     .stat-sub {{
         font-family: 'JetBrains Mono', monospace;
@@ -331,11 +350,12 @@ def sparkline_svg(values, color=None):
     )
 
 
-def stat_card(label, value, sub=None, spark=None):
-    sub_html = f'<div class="stat-sub">{sub}</div>' if sub else ""
-    spark_html = sparkline_svg(spark) if spark else ""
+def stat_card(label, value, sub=None, spark=None, accent=None):
+    accent = accent or ACCENT
+    sub_html = f'<div class="stat-sub" style="color:{accent};">{sub}</div>' if sub else ""
+    spark_html = sparkline_svg(spark, color=accent) if spark else ""
     st.markdown(
-        f'<div class="stat-card"><div class="stat-label">{label}</div>'
+        f'<div class="stat-card" style="--card-accent:{accent};"><div class="stat-label">{label}</div>'
         f'<div class="stat-value">{value}</div>{spark_html}{sub_html}</div>',
         unsafe_allow_html=True,
     )
@@ -940,16 +960,45 @@ else:
     _status_text, _status_color = f"Pipeline May Be Stalled · Last run {_days_stale}d ago", "#f87171"
 
 st.markdown(
-    f'<div style="display:inline-flex;align-items:center;gap:0.5rem;font-family:\'JetBrains Mono\',monospace;'
-    f'font-size:0.74rem;color:{_status_color};background:rgba(148,163,184,0.08);border:1px solid {BORDER};'
-    f'border-radius:20px;padding:0.35rem 0.9rem;margin-right:0.6rem;">'
-    f'⚡ System Status: {_status_text}</div>'
-    f'<div style="display:inline-flex;align-items:center;gap:0.5rem;font-family:\'JetBrains Mono\',monospace;'
-    f'font-size:0.74rem;color:{TEXT_MUTED};background:rgba(148,163,184,0.08);border:1px solid {BORDER};'
-    f'border-radius:20px;padding:0.35rem 0.9rem;margin-bottom:1rem;">'
-    f'◆ Conflicts, government &amp; historical context: curated snapshot, not a live feed</div>',
+    f'<div style="display:inline-flex;align-items:center;gap:0.9rem;font-family:\'JetBrains Mono\',monospace;'
+    f'font-size:0.74rem;background:rgba(148,163,184,0.06);border:1px solid {BORDER};'
+    f'border-radius:20px;padding:0.4rem 1.1rem;margin-bottom:1rem;">'
+    f'<span style="color:{_status_color};">● Live data — {_status_text}</span>'
+    f'<span style="width:1px;height:0.85rem;background:{BORDER};display:inline-block;"></span>'
+    f'<span style="color:{ACCENT2};">● Curated context — not a live feed</span>'
+    f'</div>',
     unsafe_allow_html=True,
 )
+
+# ============================================================
+# AT A GLANCE — a compact strip-plot of all 27 scores, so there's a real
+# visual before the first scroll instead of only stat cards and text.
+# ============================================================
+valid_scores_preview = scored.dropna(subset=["risk_score"])
+if not valid_scores_preview.empty:
+    st.markdown('<div class="section-tag" style="margin-top:0.2rem;">At A Glance</div>', unsafe_allow_html=True)
+    fig_glance = go.Figure()
+    for tier, tier_color in TIER_COLORS.items():
+        sub = valid_scores_preview[valid_scores_preview["risk_tier"] == tier]
+        if sub.empty:
+            continue
+        fig_glance.add_trace(go.Scatter(
+            x=sub["risk_score"], y=[0] * len(sub), mode="markers",
+            marker=dict(size=11, color=tier_color, line=dict(width=1, color=BG)),
+            text=sub["country"], hovertemplate="<b>%{text}</b>: %{x:.1f}<extra></extra>",
+            name=tier,
+        ))
+    fig_glance.update_layout(
+        height=100, margin=dict(t=6, b=28, l=8, r=8),
+        xaxis=dict(range=[0, 100], showgrid=False, zeroline=False, tickfont=dict(size=9, color=TEXT_MUTED),
+                   title=dict(text="Composite Score (0–100)", font=dict(size=9, color=TEXT_MUTED))),
+        yaxis=dict(visible=False, range=[-1, 1]),
+        showlegend=True,
+        legend=dict(orientation="h", y=-0.65, font=dict(size=9, color=TEXT_MUTED), bgcolor="rgba(0,0,0,0)"),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="JetBrains Mono, monospace"),
+    )
+    st.plotly_chart(fig_glance, use_container_width=True, config={"displayModeBar": False})
 
 # ============================================================
 # TOP-LINE STAT ROW
@@ -960,13 +1009,13 @@ lowest = valid_scores.sort_values("risk_score").iloc[0]
 
 c1, c2, c3, c4 = st.columns(4)
 with c1:
-    stat_card("Countries Covered", len(scored), "MENA + South Asia")
+    stat_card("Countries Covered", len(scored), "MENA + South Asia", accent=ACCENT2)
 with c2:
     stat_card("Highest Risk", highest["country"], f"Score {highest['risk_score']:.1f}")
 with c3:
     stat_card("Lowest Risk", lowest["country"], f"Score {lowest['risk_score']:.1f}")
 with c4:
-    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 27")
+    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 27", accent=ACCENT2)
 
 st.markdown(
     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.72rem;color:{TEXT_MUTED};margin-top:0.6rem;">'
