@@ -287,11 +287,38 @@ def tier_badge_html(tier):
     return f'<span class="tier-badge" style="background:{bg};color:{fg};">{tier}</span>'
 
 
-def stat_card(label, value, sub=None):
+def sparkline_svg(values, color=None):
+    """Minimal inline trend line for a stat card — no axes, no library overhead.
+    values must be chronological; needs at least 2 points to draw a line."""
+    if not values or len(values) < 2:
+        return ""
+    color = color or ACCENT
+    w, h, pad = 100, 26, 3
+    lo, hi = min(values), max(values)
+    span = (hi - lo) or 1
+    n = len(values)
+    pts = [
+        (pad + i * (w - 2 * pad) / (n - 1), h - pad - (v - lo) / span * (h - 2 * pad))
+        for i, v in enumerate(values)
+    ]
+    path = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+    lx, ly = pts[-1]
+    return (
+        f'<svg width="100%" height="{h}" viewBox="0 0 {w} {h}" preserveAspectRatio="none" '
+        f'style="display:block;margin-top:0.5rem;">'
+        f'<polyline points="{path}" fill="none" stroke="{color}" stroke-width="1.6" '
+        f'stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>'
+        f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="2.2" fill="{color}"/>'
+        f'</svg>'
+    )
+
+
+def stat_card(label, value, sub=None, spark=None):
     sub_html = f'<div class="stat-sub">{sub}</div>' if sub else ""
+    spark_html = sparkline_svg(spark) if spark else ""
     st.markdown(
         f'<div class="stat-card"><div class="stat-label">{label}</div>'
-        f'<div class="stat-value">{value}</div>{sub_html}</div>',
+        f'<div class="stat-value">{value}</div>{spark_html}{sub_html}</div>',
         unsafe_allow_html=True,
     )
 
@@ -931,7 +958,9 @@ st.markdown(
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Regional Overview", "Country Deep Dive", "Live Conflicts", "Scenario Explorer", "Methodology"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+    ["Regional Overview", "Country Deep Dive", "Compare Countries", "Live Conflicts", "Scenario Explorer", "Methodology"]
+)
 
 # ================= TAB 1: OVERVIEW =================
 with tab1:
@@ -1311,18 +1340,22 @@ with tab2:
             st.markdown('<div class="section-title" style="font-size:1.05rem;">Major Development Indicators</div>', unsafe_allow_html=True)
             hdi = HDI_DATA.get(country_code)
             indicator_cells = [
-                ("GDP Growth", row.get("gdp_growth"), row.get("gdp_growth_year"), "%"),
-                ("Inflation", row.get("inflation"), row.get("inflation_year"), "%"),
-                ("Unemployment", row.get("unemployment_rate"), row.get("unemployment_rate_year"), "%"),
-                ("Youth Unemployment", row.get("youth_unemployment_rate"), row.get("youth_unemployment_rate_year"), "%"),
-                ("Gini Index", row.get("gini_index"), row.get("gini_index_year"), ""),
+                ("GDP Growth", "gdp_growth", row.get("gdp_growth"), row.get("gdp_growth_year"), "%"),
+                ("Inflation", "inflation", row.get("inflation"), row.get("inflation_year"), "%"),
+                ("Unemployment", "unemployment_rate", row.get("unemployment_rate"), row.get("unemployment_rate_year"), "%"),
+                ("Youth Unemployment", "youth_unemployment_rate", row.get("youth_unemployment_rate"), row.get("youth_unemployment_rate_year"), "%"),
+                ("Gini Index", "gini_index", row.get("gini_index"), row.get("gini_index_year"), ""),
             ]
             metric_cols = st.columns(3)
-            for i, (label, value, year, suffix) in enumerate(indicator_cells):
+            for i, (label, indicator_key, value, year, suffix) in enumerate(indicator_cells):
                 with metric_cols[i % 3]:
                     display = f"{value:.1f}{suffix}" if pd.notna(value) else "No data"
                     sub = f"as of {int(year)}" if pd.notna(year) else ""
-                    stat_card(label, display, sub)
+                    ind_hist = long_df[
+                        (long_df["country_code"] == country_code) & (long_df["indicator"] == indicator_key)
+                    ].sort_values("year")
+                    spark_vals = ind_hist["value"].dropna().tolist()[-10:]
+                    stat_card(label, display, sub, spark=spark_vals if len(spark_vals) >= 2 else None)
                     st.markdown("<br>", unsafe_allow_html=True)
             with metric_cols[2]:
                 if hdi:
@@ -1764,8 +1797,118 @@ with tab2:
             "than filled in with unverified claims. See Methodology for the full scope note."
         )
 
-# ================= TAB 3: LIVE CONFLICTS =================
+# ================= TAB 3: COMPARE COUNTRIES =================
 with tab3:
+    st.markdown('<div class="section-tag">Side By Side</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Compare Countries</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="masthead-sub" style="margin-bottom:1rem;">Pick up to 4 countries to compare every '
+        'structured indicator from the Country Deep Dive side by side — composite score, all 10 risk '
+        'factors, macro/development indicators, and credit ratings. Long-form sections (Country Brief, '
+        'Key Economic Partners, historical context) stay in the single-country Deep Dive, since dense '
+        'prose does not compare cleanly across four countries at once.</div>',
+        unsafe_allow_html=True,
+    )
+
+    compare_selection = st.multiselect(
+        "Select countries to compare (up to 4)", country_list, default=country_list[:2], max_selections=4,
+        label_visibility="collapsed",
+    )
+
+    if len(compare_selection) < 2:
+        st.caption("Select at least 2 countries to compare.")
+    else:
+        COMPARE_COLORS = ["#3b82f6", "#a78bfa", "#2dd4bf", "#f472b6"]
+        cmp_rows = [scored[scored["country"] == name].iloc[0] for name in compare_selection]
+        cmp_drivers = [drivers[drivers["country"] == name].iloc[0] for name in compare_selection]
+
+        st.markdown('<div class="section-tag">All 10 Factors, Overlaid</div>', unsafe_allow_html=True)
+        all_labels = [FACTOR_LABELS[f] for f in FACTOR_COLS]
+        fig_cmp = go.Figure()
+        for i, (name, drow) in enumerate(zip(compare_selection, cmp_drivers)):
+            factors_present = [f for f in FACTOR_COLS if pd.notna(drow[f])]
+            if not factors_present:
+                continue
+            values = [drow[f] for f in factors_present]
+            labels = [FACTOR_LABELS[f] for f in factors_present]
+            color = COMPARE_COLORS[i % len(COMPARE_COLORS)]
+            fig_cmp.add_trace(go.Scatterpolar(
+                r=values + [values[0]], theta=labels + [labels[0]],
+                fill="toself", fillcolor=color + "22",
+                line=dict(color=color, width=2),
+                name=name,
+            ))
+        fig_cmp.update_layout(
+            polar=dict(
+                bgcolor="rgba(0,0,0,0)",
+                radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(148,163,184,0.12)", color=TEXT_MUTED),
+                angularaxis=dict(
+                    gridcolor="rgba(148,163,184,0.12)", color=TEXT,
+                    categoryorder="array", categoryarray=all_labels,
+                ),
+            ),
+            showlegend=True,
+            legend=dict(orientation="h", y=-0.12, font=dict(color=TEXT_MUTED, size=10)),
+        )
+        cmp_pad_l, cmp_center, cmp_pad_r = st.columns([1, 5, 1])
+        with cmp_center:
+            st.plotly_chart(style_chart(fig_cmp, height=460), use_container_width=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown('<div class="section-tag">Headline</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Composite Score &amp; Context</div>', unsafe_allow_html=True)
+        headline_rows = [
+            ["Composite Score"] + [f"{r['risk_score']:.1f}" if pd.notna(r["risk_score"]) else "N/A" for r in cmp_rows],
+            ["Risk Tier"] + [r["risk_tier"] for r in cmp_rows],
+            ["Regional Rank"] + [f"{int(r['risk_rank'])} / 26" if pd.notna(r["risk_rank"]) else "N/A" for r in cmp_rows],
+            ["YoY Change"] + [f"{r['yoy_change']:+.1f}" if pd.notna(r.get("yoy_change")) else "N/A" for r in cmp_rows],
+        ]
+        custom_table(headline_rows, ["Metric"] + compare_selection)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown('<div class="section-tag">Beyond The Composite Score</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Macro &amp; Development Indicators</div>', unsafe_allow_html=True)
+
+        def _cmp_cell(r, col, suffix=""):
+            v = r.get(col)
+            return f"{v:.1f}{suffix}" if pd.notna(v) else "No data"
+
+        macro_rows = [
+            ["GDP Growth"] + [_cmp_cell(r, "gdp_growth", "%") for r in cmp_rows],
+            ["Inflation"] + [_cmp_cell(r, "inflation", "%") for r in cmp_rows],
+            ["Unemployment"] + [_cmp_cell(r, "unemployment_rate", "%") for r in cmp_rows],
+            ["Youth Unemployment"] + [_cmp_cell(r, "youth_unemployment_rate", "%") for r in cmp_rows],
+            ["Gini Index"] + [_cmp_cell(r, "gini_index") for r in cmp_rows],
+            ["HDI (UNDP)"] + [
+                f"{HDI_DATA[r['country_code']]['hdi']:.3f}" if r["country_code"] in HDI_DATA else "No data"
+                for r in cmp_rows
+            ],
+            ["Debt (% GDP)"] + [_cmp_cell(r, "debt_to_gdp", "%") for r in cmp_rows],
+            ["Foreign Reserves"] + [
+                _fmt_usd(r["total_reserves_usd"]) if pd.notna(r.get("total_reserves_usd")) else "No data"
+                for r in cmp_rows
+            ],
+            ["Reserves Cover"] + [_cmp_cell(r, "reserves_months_imports", " mo.") for r in cmp_rows],
+        ]
+        custom_table(macro_rows, ["Metric"] + compare_selection)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown('<div class="section-tag">Sanity Check</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Actual Credit Ratings</div>', unsafe_allow_html=True)
+        rating_rows = []
+        for agency, label in [("sp", "S&P"), ("moodys", "Moody's"), ("fitch", "Fitch")]:
+            row_vals = []
+            for r in cmp_rows:
+                ratings = CREDIT_RATINGS.get(r["country_code"])
+                row_vals.append(ratings[agency] if ratings else "Not Rated")
+            rating_rows.append([label] + row_vals)
+        custom_table(rating_rows, ["Agency"] + compare_selection)
+
+# ================= TAB 4: LIVE CONFLICTS =================
+with tab4:
     st.markdown('<div class="section-tag">Curated &amp; Sourced, Not a Live Feed</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Live Conflicts &amp; Regional Flashpoints</div>', unsafe_allow_html=True)
     st.markdown(
@@ -2044,7 +2187,7 @@ with tab3:
             if i < len(visible_conflicts) - 1:
                 st.markdown("<br>", unsafe_allow_html=True)
 
-# ================= TAB 4: SCENARIO EXPLORER =================
+# ================= TAB 5: SCENARIO EXPLORER =================
 SHOCK_PRESETS = {
     "Red Sea / Shipping Shock": {
         "weights": {
@@ -2085,7 +2228,7 @@ SHOCK_PRESETS = {
     },
 }
 
-with tab4:
+with tab5:
     st.markdown('<div class="section-tag">Interactive Reweighting</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
     st.markdown(
@@ -2160,8 +2303,8 @@ with tab4:
     else:
         st.caption("Set at least one factor weight above zero to see a ranking.")
 
-# ================= TAB 5: METHODOLOGY =================
-with tab5:
+# ================= TAB 6: METHODOLOGY =================
+with tab6:
     st.markdown("<div class=\"section-tag\">How It's Built</div>", unsafe_allow_html=True)
     st.markdown('<div class="section-title">Methodology</div>', unsafe_allow_html=True)
     st.markdown(
