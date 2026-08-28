@@ -16,7 +16,7 @@ from fetch_data import COUNTRIES
 from context_data import (
     HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS,
     FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE,
-    CREDIT_RATINGS,
+    CREDIT_RATINGS, ECONOMIC_SANCTIONS,
 )
 
 URL_RE = re.compile(r"^https?://[^\s]+$")
@@ -49,6 +49,8 @@ for code in COUNTRY_TRADE_PROFILE:
     check(code in VALID_CODES, f"COUNTRY_TRADE_PROFILE has unknown country code: {code}")
 for code in CREDIT_RATINGS:
     check(code in VALID_CODES, f"CREDIT_RATINGS has unknown country code: {code}")
+for code in ECONOMIC_SANCTIONS:
+    check(code in VALID_CODES, f"ECONOMIC_SANCTIONS has unknown country code: {code}")
 for conflict in LIVE_CONFLICTS:
     for code in conflict["affected"]:
         check(
@@ -63,6 +65,7 @@ for name, data in [
     ("KEY_ECONOMIC_PARTNERS", KEY_ECONOMIC_PARTNERS),
     ("COUNTRY_TRADE_PROFILE", COUNTRY_TRADE_PROFILE),
     ("CREDIT_RATINGS", CREDIT_RATINGS),
+    ("ECONOMIC_SANCTIONS", ECONOMIC_SANCTIONS),
 ]:
     missing = VALID_CODES - set(data.keys())
     warn(not missing, f"{name} is missing {len(missing)} of 26 countries: {sorted(missing)}")
@@ -107,7 +110,23 @@ for code, arrangements in FINANCING_ARRANGEMENTS.items():
         for field in required_financing_fields:
             check(field in arrangement, f"{code}: financing arrangement missing field: {field}")
 
-# ---------- 8. Cross-check against actual scored data, if present ----------
+# ---------- 8. Sanctions entries have all required sub-fields and well-formed sources ----------
+required_sanctions_fields = ["name", "period", "imposing_body", "reason", "status", "economic_impact", "sources"]
+for code, entries in ECONOMIC_SANCTIONS.items():
+    check(len(entries) > 0, f"{code}: ECONOMIC_SANCTIONS has an empty entry list")
+    for entry in entries:
+        for field in required_sanctions_fields:
+            if field == "sources":
+                # An empty source list is legitimate for a "no sanctions found"
+                # entry — there is nothing to cite for a negative claim, unlike
+                # every other field, which must always be non-empty text.
+                check(field in entry, f"{code}: sanctions entry missing field: {field}")
+            else:
+                check(field in entry and entry[field], f"{code}: sanctions entry missing field: {field}")
+        for source_name, source_url in entry.get("sources", []):
+            check(URL_RE.match(source_url or ""), f"{code}: sanctions entry '{entry.get('name')}' has malformed source URL: {source_url}")
+
+# ---------- 9. Cross-check against actual scored data, if present ----------
 try:
     scored = pd.read_csv("scored_data.csv")
     scored_codes = set(scored["country_code"])
@@ -119,7 +138,7 @@ except FileNotFoundError:
 
 
 # ---------- Report ----------
-print(f"Checked {len(VALID_CODES)} tracked countries across 6 data structures + {len(LIVE_CONFLICTS)} conflicts.\n")
+print(f"Checked {len(VALID_CODES)} tracked countries across 7 data structures + {len(LIVE_CONFLICTS)} conflicts.\n")
 
 if warnings:
     print(f"WARNINGS ({len(warnings)}) — non-fatal, but worth reviewing:")

@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime, timezone
-from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES
+from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS
 from pdf_export import generate_country_pdf
 # Reuse the exact scoring methodology from compute_scores.py for the
 # year-over-year factor drill-down below, so the "what drove this year's
@@ -1447,6 +1447,42 @@ with tab2:
         st.caption("No verified arrangement on file for this country — see Methodology for scope.")
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Imposed By Other Countries/Blocs</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Major Economic Sanctions</div>', unsafe_allow_html=True)
+    st.markdown(
+        "International sanctions this country has faced — who imposed them, why, and their current "
+        "status. Where a country has no significant sanctions history, that is stated explicitly rather "
+        "than left blank; where a related but distinct mechanism exists (e.g. FATF grey-listing, which "
+        "is a financial-transparency watchlist, not a sanction), that distinction is called out."
+    )
+    sanctions = ECONOMIC_SANCTIONS.get(country_code, [])
+    if sanctions:
+        for s in sanctions:
+            with st.container(border=True):
+                st.markdown(
+                    f'<div class="section-tag">{s["status"]}</div>'
+                    f'<div class="section-title" style="font-size:1.05rem;">{s["name"]}</div>',
+                    unsafe_allow_html=True,
+                )
+                custom_table(
+                    [
+                        ["Period", s["period"]],
+                        ["Imposed By", s["imposing_body"]],
+                        ["Reason", s["reason"]],
+                        ["Economic Impact", s["economic_impact"]],
+                    ],
+                    ["Field", "Detail"],
+                )
+                if s.get("sources"):
+                    st.markdown(
+                        "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in s["sources"]),
+                        unsafe_allow_html=True,
+                    )
+            st.markdown("<br>", unsafe_allow_html=True)
+    else:
+        st.caption("No sanctions data on file for this country yet.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Who Invests, Who Lends</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Key Economic Partners</div>', unsafe_allow_html=True)
     partner_info = KEY_ECONOMIC_PARTNERS.get(country_code)
@@ -1800,6 +1836,13 @@ with tab5:
   sources per country. Where a claim cites a specific figure or date, that figure has a named
   source; general economic structure (e.g. "Kuwait relies on oil exports") reflects well-
   established economic geography rather than requiring a single citation.
+- **Major Economic Sanctions covers all 26 countries** — either the verified sanctions regimes a
+  country has faced (imposing body, reason, current status, and economic impact where a real
+  figure exists), or an explicit statement that none was found, rather than an empty section.
+  FATF grey-listing (a financial-transparency watchlist) is deliberately distinguished from an
+  actual sanction where relevant (e.g. Pakistan). This is a snapshot as of the research date, not
+  a live feed — a sanctions regime can be imposed, modified, or lifted at any time (Syria's 2025
+  sanctions rollback after Assad's fall is a recent example already reflected here).
 - Weights are a transparent, reasonable starting point — not a backtested or econometrically
   validated model. Research/screening tool, not investment advice.
 """
