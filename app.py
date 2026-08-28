@@ -1284,6 +1284,54 @@ with tab2:
             )
 
     st.markdown("<br>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown('<div class="section-tag">How Much It Owes</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Sovereign Debt Profile</div>', unsafe_allow_html=True)
+        debt_pct = row.get("debt_to_gdp")
+        debt_year = row.get("debt_to_gdp_year")
+        debt_source = row.get("debt_to_gdp_source")
+        gdp_usd = row.get("gdp_current_usd")
+        gdp_year = row.get("gdp_current_usd_year")
+
+        if pd.notna(debt_pct):
+            debt_cols = st.columns(3)
+            with debt_cols[0]:
+                stat_card("Debt (% of GDP)", f"{debt_pct:.1f}%", f"as of {int(debt_year)}" if pd.notna(debt_year) else "")
+            with debt_cols[1]:
+                if pd.notna(gdp_usd):
+                    approx_debt = debt_pct / 100 * gdp_usd
+                    year_note = (
+                        f"debt {int(debt_year)} × GDP {int(gdp_year)}" if pd.notna(debt_year) and pd.notna(gdp_year) and int(debt_year) != int(gdp_year)
+                        else f"as of {int(debt_year)}" if pd.notna(debt_year) else ""
+                    )
+                    stat_card("Approx. Total Debt", _fmt_usd(approx_debt), year_note)
+                else:
+                    stat_card("Approx. Total Debt", "No data")
+            with debt_cols[2]:
+                source_label = debt_source if pd.notna(debt_source) else "No data"
+                stat_card("Primary Source", source_label)
+            if pd.notna(gdp_usd) and pd.notna(debt_year) and pd.notna(gdp_year) and int(debt_year) != int(gdp_year):
+                st.caption(
+                    f"⚠️ The dollar figure multiplies a {int(debt_year)} debt ratio by {int(gdp_year)} GDP "
+                    f"(the two indicators' most recent reported years don't match) — treat it as a rough "
+                    f"approximation, not a precisely reported figure."
+                )
+        else:
+            st.caption(
+                f"No debt-to-GDP figure is available for {selected} from either the World Bank or the "
+                f"IMF WEO fallback — not an oversight, genuinely unreported by both institutions."
+            )
+
+        st.markdown(
+            "For **who specifically it's borrowed from** (verified IMF/multilateral programs) and "
+            "**who else lends to or invests in it** (major bilateral creditors and partners), see "
+            "**Financing Arrangements** and **Key Economic Partners** further down this page — a "
+            "detailed bilateral debt-instrument matrix (exact loan-by-loan creditor/debtor amounts) "
+            "isn't reliably available from any free public source for all 26 tracked countries, so it "
+            "isn't fabricated here."
+        )
+
+    st.markdown("<br>", unsafe_allow_html=True)
     with st.expander("🧪 Geopolitical Shock Tester — simulate a stress scenario", expanded=False):
         st.markdown(
             f"Nudge three of the ten scored risk factors directly, in risk-score points (the same "
