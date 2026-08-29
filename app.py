@@ -32,8 +32,8 @@ BG = "#0a0a0a"
 SURFACE = "#161616"
 SURFACE_ALT = "#1f1f1f"
 BORDER = "rgba(255,255,255,0.10)"
-ACCENT = "#3b82f6"
-ACCENT_DIM = "rgba(59,130,246,0.12)"
+ACCENT = "#0d9488"
+ACCENT_DIM = "rgba(13,148,136,0.12)"
 # A second, deliberately distinct accent — reserved specifically for
 # curated/editorial content (sourced narrative, historical context,
 # government cards) as opposed to ACCENT's live-quantitative-data meaning.
@@ -67,7 +67,7 @@ st.markdown(f"""
 
     /* subtle depth instead of a flat background */
     [data-testid="stAppViewContainer"] > .main {{
-        background: radial-gradient(ellipse 1400px 800px at 50% -10%, rgba(59,130,246,0.06), transparent),
+        background: radial-gradient(ellipse 1400px 800px at 50% -10%, rgba(13,148,136,0.06), transparent),
                     linear-gradient(180deg, {BG} 0%, #050505 100%);
     }}
 
@@ -168,7 +168,7 @@ st.markdown(f"""
 
     /* ---- narrative callout ---- */
     .narrative-box {{
-        background: linear-gradient(135deg, {ACCENT_DIM} 0%, rgba(59,130,246,0.03) 100%);
+        background: linear-gradient(135deg, {ACCENT_DIM} 0%, rgba(13,148,136,0.03) 100%);
         border-left: 3px solid {ACCENT};
         padding: 1.15rem 1.4rem;
         font-size: 0.9rem;
@@ -223,7 +223,7 @@ st.markdown(f"""
         transition: background 0.12s ease;
     }}
     .custom-table tr:last-child td {{ border-bottom: none; }}
-    .custom-table tr:hover td {{ background: rgba(59,130,246,0.04); }}
+    .custom-table tr:hover td {{ background: rgba(13,148,136,0.04); }}
 
     /* ---- pill link buttons ---- */
     .pill-link {{
@@ -241,12 +241,12 @@ st.markdown(f"""
         text-decoration: none !important;
         margin-right: 0.75rem;
         margin-bottom: 0.5rem;
-        box-shadow: 0 2px 8px rgba(59,130,246,0.22);
+        box-shadow: 0 2px 8px rgba(13,148,136,0.22);
         transition: transform 0.15s ease, box-shadow 0.15s ease;
     }}
     .pill-link:hover {{
         transform: translateY(-1px);
-        box-shadow: 0 4px 14px rgba(59,130,246,0.32);
+        box-shadow: 0 4px 14px rgba(13,148,136,0.32);
     }}
 
     /* ---- streamlit widget overrides ---- */
@@ -1344,7 +1344,7 @@ with tab2:
             fig3.add_trace(go.Scatterpolar(
                 r=radar_values + [radar_values[0]],
                 theta=radar_labels + [radar_labels[0]],
-                fill="toself", fillcolor="rgba(59,130,246,0.14)",
+                fill="toself", fillcolor="rgba(13,148,136,0.14)",
                 line=dict(color=ACCENT, width=2),
                 name="Reported",
             ))
@@ -1900,7 +1900,7 @@ with tab3:
     if len(compare_selection) < 2:
         st.caption("Select at least 2 countries to compare.")
     else:
-        COMPARE_COLORS = ["#3b82f6", "#a78bfa", "#2dd4bf", "#f472b6"]
+        COMPARE_COLORS = ["#0d9488", "#a78bfa", "#2dd4bf", "#f472b6"]
         cmp_rows = [scored[scored["country"] == name].iloc[0] for name in compare_selection]
         cmp_drivers = [drivers[drivers["country"] == name].iloc[0] for name in compare_selection]
 
@@ -2338,7 +2338,7 @@ with tab4:
 # ================= TAB 5: GEO-ECONOMIC INTERDEPENDENCE =================
 GEO_RISK_COLOR = {"Low": "#34d399", "Moderate": "#fbbf24", "High": "#f87171", "Critical": "#dc2626"}
 BLOC_COLOR = {
-    "GCC": "#3b82f6", "OPEC": "#f472b6", "BRICS+": "#2dd4bf",
+    "GCC": "#0d9488", "OPEC": "#f472b6", "BRICS+": "#2dd4bf",
     "Arab League": "#a78bfa", "SAARC": "#fbbf24", "Non-aligned / OECD": TEXT_MUTED,
 }
 
@@ -2419,7 +2419,7 @@ with tab5:
             fig_geo.add_trace(go.Scattergeo(
                 lon=[f["lon"] for f in fabs], lat=[f["lat"] for f in fabs],
                 text=[f"{f['company']} — {f['site']}" for f in fabs],
-                mode="markers", marker=dict(size=11, color="#3b82f6", symbol="diamond", line=dict(width=1, color=BG)),
+                mode="markers", marker=dict(size=11, color="#0d9488", symbol="diamond", line=dict(width=1, color=BG)),
                 hovertemplate="<b>%{text}</b><br>Advanced (sub-7nm) fab<extra></extra>",
                 name="Advanced Fabs", showlegend=True,
             ))
