@@ -939,6 +939,62 @@ def sea_label_trace(lataxis_range=None, lonaxis_range=None):
         hoverinfo="skip", showlegend=False,
     )
 
+# Major rivers shown as thin background lines on every regional map, purely
+# for cartographic orientation and visual realism -- like the sea labels,
+# these are simplified illustrative waypoints (not a hydrologically precise
+# trace) since the point is a recognizable river course at map-wide zoom,
+# not surveyed geometry.
+MAJOR_RIVERS = {
+    "Nile": [(15.6, 32.5), (23.9, 32.9), (26.0, 32.7), (30.0, 31.2), (31.5, 30.8)],
+    "Blue Nile": [(12.0, 37.3), (11.22, 35.09), (15.6, 32.5)],
+    "Tigris": [(38.5, 39.7), (36.34, 43.13), (33.31, 44.36), (31.0, 47.4)],
+    "Euphrates": [(39.0, 38.0), (35.95, 39.02), (35.34, 40.15), (33.42, 43.30), (31.0, 47.4)],
+    "Indus": [(34.15, 78.0), (35.3, 75.6), (30.2, 71.5), (27.7, 68.86), (24.8, 67.3)],
+}
+
+
+def river_traces(lataxis_range=None, lonaxis_range=None):
+    """Builds a (line, label) pair of go.Scattergeo traces tracing major
+    regional rivers, filtered to rivers with at least one waypoint in the
+    visible lat/lon window -- decorative geography, like sea_label_trace,
+    not a data layer."""
+    def _in_range(lat, lon):
+        if lataxis_range and not (lataxis_range[0] <= lat <= lataxis_range[1]):
+            return False
+        if lonaxis_range and not (lonaxis_range[0] <= lon <= lonaxis_range[1]):
+            return False
+        return True
+
+    lats, lons = [], []
+    label_lats, label_lons, label_texts = [], [], []
+    for name, points in MAJOR_RIVERS.items():
+        if not any(_in_range(lat, lon) for lat, lon in points):
+            continue
+        if lats:
+            lats.append(None)
+            lons.append(None)
+        for lat, lon in points:
+            lats.append(lat)
+            lons.append(lon)
+        mid_lat, mid_lon = points[len(points) // 2]
+        label_lats.append(mid_lat)
+        label_lons.append(mid_lon)
+        label_texts.append(name)
+
+    line_trace = go.Scattergeo(
+        lat=lats, lon=lons, mode="lines",
+        line=dict(width=1.2, color="rgba(91,155,213,0.55)"),
+        hoverinfo="skip", showlegend=False,
+    )
+    label_trace = go.Scattergeo(
+        lat=label_lats, lon=label_lons, mode="text",
+        text=[f"<i>{n}</i>" for n in label_texts],
+        textfont=dict(size=9, color="rgba(91,155,213,0.75)", family="Georgia, serif"),
+        hoverinfo="skip", showlegend=False,
+    )
+    return line_trace, label_trace
+
+
 FACTOR_LABELS = {
     "debt_to_gdp": "Debt (% GDP)",
     "current_account_pct_gdp": "Current Account",
@@ -1243,6 +1299,8 @@ with tab1:
         **MAP_BASE_STYLE,
     )
     map_fig.add_trace(sea_label_trace(_ov_lat_range, _ov_lon_range))
+    for _t in river_traces(_ov_lat_range, _ov_lon_range):
+        map_fig.add_trace(_t)
     # Capital cities get a small labeled dot for geographic orientation; the
     # second/secondary city per country gets a dot only, name on hover --
     # labeling all 54 cities made the Gulf cluster unreadable and blew out
@@ -2401,7 +2459,7 @@ with tab4:
             "Red Sea Shipping Crisis & Houthi-Saudi Blockade": (12.6, 43.4),
             "Gaza War Aftermath & Fragile Ceasefire": (31.5, 34.47),
             "Syria's Post-Assad Transition": (33.51, 36.28),
-            "Sudan Civil War (regional spillover)": (15.5, 32.55),
+            "Sudan Civil War": (15.5, 32.55),
             "Israel-Hezbollah War & Lebanon Front": (33.37, 35.48),
             "Libya's Rival Governments Standoff": (31.2, 16.6),
             "2026 Pakistan-Afghanistan War": (34.0, 70.0),
@@ -2436,16 +2494,40 @@ with tab4:
             # removed outright, so the map's geography stays legible while
             # filtering — the same "dim, don't delete" pattern as the artifact.
             opacities = [0.9 if c["name"] in matching_names else 0.08 for c in map_conflicts]
-            hover_texts = [
-                f"<b>{c['name']}</b><br>{c['type']} · Impact: {c['impact']}<br>Status: {c['status']}<br>"
-                f"Actors: {c.get('groups', 'n/a')[:120]}{'…' if len(c.get('groups', '')) > 120 else ''}<br>"
-                f"Impact: {c['market_impact'][:160]}…"
-                for c in map_conflicts
-            ]
-            conflict_map_fig = go.Figure(go.Scattergeo(
+            # Territorial disputes (Kashmir, GERD, Western Sahara) get a
+            # distinct diamond marker — these are contested zones/borders
+            # rather than an armed conflict with a clear combat front, so a
+            # different shape lets them read as a different kind of flashpoint
+            # at a glance, without needing a separate legend-free color.
+            symbols = ["diamond" if c["type"] == "Territorial Dispute" else "circle" for c in map_conflicts]
+            # A short, CFR-style hover pill — just the name and status — since
+            # the full actor/impact/country detail already lives one click
+            # away in the card below; a cluttered hover box competes with,
+            # rather than complements, that fuller read.
+            hover_texts = [f"<b>{c['name']}</b><br>{c['status']}<br><i>Click for full detail ↓</i>" for c in map_conflicts]
+            conflict_map_fig = go.Figure()
+            # When a conflict is focused (clicked, or arrived via cross-nav),
+            # shade the full territory of every country it lists as
+            # "affected" — a direct, CFR Global-Conflict-Tracker-style answer
+            # to "who's in this conflict", not just a dot at the capital. Drawn
+            # first so the conflict/city markers layer on top of the fill.
+            _focused = st.session_state.get("focused_conflict")
+            _focused_conflict_obj = next((c for c in map_conflicts if c["name"] == _focused), None)
+            if _focused_conflict_obj:
+                _aff_codes = [code for code in _focused_conflict_obj.get("affected", []) if code in COUNTRY_CAPITAL_COORDS]
+                if _aff_codes:
+                    conflict_map_fig.add_trace(go.Choropleth(
+                        locations=_aff_codes, locationmode="ISO-3", z=[1] * len(_aff_codes),
+                        colorscale=[[0, "rgba(240,180,41,0.55)"], [1, "rgba(240,180,41,0.55)"]],
+                        showscale=False, marker_line_color="#f0b429", marker_line_width=1.5,
+                        text=[f"{code_to_name.get(code, code)} — party to {_focused}" for code in _aff_codes],
+                        hoverinfo="text",
+                    ))
+            conflict_map_fig.add_trace(go.Scattergeo(
                 lat=lats, lon=lons, mode="markers",
-                marker=dict(size=14, color=colors, opacity=opacities, line=dict(width=1, color="#0a0e14")),
+                marker=dict(size=14, color=colors, opacity=opacities, symbol=symbols, line=dict(width=1, color="#0a0e14")),
                 text=hover_texts, hoverinfo="text",
+                hoverlabel=dict(bgcolor=colors, font=dict(color="#0a0e14", size=12)),
             ))
             _city_positions = ["top center", "bottom center", "middle right", "middle left"]
             _cf_primary_names = list(MAJOR_CITIES_PRIMARY.keys())
@@ -2465,6 +2547,8 @@ with tab4:
             ))
             _cf_lat_range, _cf_lon_range = [-5, 42], [-18, 100]
             conflict_map_fig.add_trace(sea_label_trace(_cf_lat_range, _cf_lon_range))
+            for _t in river_traces(_cf_lat_range, _cf_lon_range):
+                conflict_map_fig.add_trace(_t)
             conflict_map_fig.update_geos(
                 scope="world", lataxis_range=_cf_lat_range, lonaxis_range=_cf_lon_range,
                 # Same near-black/slate basemap as the Risk Map — muted and distinct from
@@ -2478,9 +2562,11 @@ with tab4:
                 on_select="rerun", selection_mode="points", key="conflict_map_select",
             )
             st.caption(
-                "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated — "
-                "hover a node for actors and market impact, or **click a marker to jump straight to "
-                "that conflict's full detail below**. One point per conflict; a single marker stands "
+                "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated · "
+                "◆ Contested territory (Kashmir, GERD, Western Sahara) vs ● other flashpoints — "
+                "hover a node for a quick name/status popup, or **click a marker to shade every affected "
+                "country on the map** (amber fill) **and jump to that conflict's full detail below**. "
+                "One point per conflict; a single marker stands "
                 "in for what is often a multi-country or border-spanning event. Each conflict card below "
                 "also has clickable **affected-economy pills** — click one to pre-select that country in "
                 "the Country Deep Dive tab above (Streamlit can't force-switch tabs from here, so it's "
@@ -2747,6 +2833,8 @@ with tab5:
 
         _geo_lat_range, _geo_lon_range = [-10, 60], [-20, 130]
         fig_geo.add_trace(sea_label_trace(_geo_lat_range, _geo_lon_range))
+        for _t in river_traces(_geo_lat_range, _geo_lon_range):
+            fig_geo.add_trace(_t)
         fig_geo.update_geos(
             scope="world", projection_type="natural earth",
             lataxis_range=_geo_lat_range, lonaxis_range=_geo_lon_range,
