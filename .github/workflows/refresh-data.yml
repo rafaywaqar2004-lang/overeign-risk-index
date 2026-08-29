@@ -2,7 +2,7 @@ name: Refresh sovereign risk data
 
 on:
   schedule:
-    - cron: "0 6 * * 1"  # Every Monday at 06:00 UTC
+    - cron: "0 0 * * *"  # Nightly at 00:00 UTC
   workflow_dispatch: {}  # Allows manually triggering a refresh from the Actions tab
 
 permissions:
@@ -17,11 +17,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
 
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Fetch latest data
+        env:
+          ACLED_API_KEY: ${{ secrets.ACLED_API_KEY }}
+          ACLED_EMAIL: ${{ secrets.ACLED_EMAIL }}
         run: python fetch_data.py
 
       - name: Recompute scores
@@ -32,8 +36,8 @@ jobs:
 
       - name: Commit refreshed data if anything changed
         run: |
-          git config user.name "sovereign-risk-bot"
-          git config user.email "actions@github.com"
-          git add raw_data.csv raw_data_long.csv scored_data.csv scored_history.csv driver_data.csv last_refreshed.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add raw_data.csv raw_data_long.csv scored_data.csv scored_history.csv driver_data.csv driver_history.csv live_sovereign_risk_data.csv last_refreshed.txt
           git diff --staged --quiet && echo "No data changes" || git commit -m "Automated data refresh $(date -u +%Y-%m-%d)"
           git push
