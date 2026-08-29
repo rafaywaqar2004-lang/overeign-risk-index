@@ -2600,6 +2600,11 @@ with tab4:
                 help="Clear the highlighted conflict and return to the default view",
             ):
                 st.session_state.pop("focused_conflict", None)
+                # Also clear the dropdown below back to its placeholder --
+                # written here, before that selectbox is instantiated later in
+                # this same run, so it takes effect immediately on rerun
+                # instead of needing the pending-flag workaround.
+                st.session_state["conflict_focus_selectbox"] = "— Select a conflict —"
                 st.rerun()
             # Clicking a marker on the map re-runs the app with a selection payload.
             # Read the conflict name straight from customdata rather than a raw
@@ -2613,6 +2618,23 @@ with tab4:
                 clicked_cd = clicked_point.get("customdata")
                 if clicked_cd:
                     st.session_state["focused_conflict"] = clicked_cd[0]
+
+            # Plotly's selection system has long-standing, well-documented gaps
+            # on geo subplots specifically (the same reason the chokepoint map
+            # below relies on a selectbox rather than trusting its own map
+            # clicks) -- so map clicks here are a nice-to-have, not the only
+            # way in. This dropdown is the guaranteed-to-work path to the same
+            # highlight-and-jump behavior, for whenever a click doesn't land.
+            _focus_options = ["— Select a conflict —"] + [c["name"] for c in map_conflicts]
+            _current_focus = st.session_state.get("focused_conflict")
+            _default_idx = _focus_options.index(_current_focus) if _current_focus in _focus_options else 0
+            _selected_focus = st.selectbox(
+                "Or pick a conflict directly (more reliable than clicking the map)",
+                options=_focus_options, index=_default_idx, key="conflict_focus_selectbox",
+            )
+            if _selected_focus != "— Select a conflict —" and _selected_focus != st.session_state.get("focused_conflict"):
+                st.session_state["focused_conflict"] = _selected_focus
+                st.rerun()
         st.markdown("<br>", unsafe_allow_html=True)
 
         focused_name = st.session_state.get("focused_conflict")
