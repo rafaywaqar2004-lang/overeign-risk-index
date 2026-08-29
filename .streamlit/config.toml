@@ -11,3 +11,8 @@ font = "sans serif"
 # top of the app -- that's platform UI injected outside app.py, not app
 # branding, but this is the one setting that actually controls it.
 toolbarMode = "minimal"
+
+[server]
+# Serves anything in ./static/ at /app/static/<filename> -- used to host the
+# og-image.png that patch_og_tags.py points link previews at.
+enableStaticServing = true

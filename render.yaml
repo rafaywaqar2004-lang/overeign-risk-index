@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: menasa-risk-monitor
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: "pip install -r requirements.txt && python patch_og_tags.py"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true"
+    envVars:
+      - key: SITE_URL
+        value: https://menasa-risk-monitor.onrender.com
+    autoDeploy: true
