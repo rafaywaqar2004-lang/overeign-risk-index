@@ -1,13 +1,16 @@
-name: Keep Streamlit app warm
+name: Keep app warm
 
 on:
   schedule:
-    - cron: "0 */12 * * *"  # Every 12 hours
+    - cron: "*/5 * * * *"  # Every 5 minutes -- Render's free tier sleeps much
+                            # faster than Streamlit Cloud's did, confirmed by
+                            # a real spin-down/wake cycle observed within
+                            # minutes of idle time during migration testing.
   workflow_dispatch: {}
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping live app to prevent Streamlit Cloud from sleeping it
-        run: curl -sSf --max-time 30 -o /dev/null "https://overeign-risk-index-ql7q7cx9xkcherlpesydmn.streamlit.app/" || true
+      - name: Ping live app to prevent Render from sleeping it
+        run: curl -sSf --max-time 30 -o /dev/null "https://menasa-risk-monitor.onrender.com/" || true

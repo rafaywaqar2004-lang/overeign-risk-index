@@ -9,7 +9,7 @@ Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka),
 built on public World Bank data, with deep sourced qualitative context
 designed to be useful as a genuine research reference, not just a scorecard.
 
-**Live app:** https://overeign-risk-index-ql7q7cx9xkcherlpesydmn.streamlit.app
+**Live app:** https://menasa-risk-monitor.onrender.com
 
 ## Features
 
