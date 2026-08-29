@@ -924,6 +924,7 @@ MAP_BASE_STYLE = dict(
 )
 
 
+@st.cache_data
 def sea_label_trace(lataxis_range=None, lonaxis_range=None):
     """Builds a go.Scattergeo text trace labeling named seas/gulfs, filtered
     to the visible lat/lon window so labels don't render off-canvas."""
@@ -953,6 +954,7 @@ MAJOR_RIVERS = {
 }
 
 
+@st.cache_data
 def river_traces(lataxis_range=None, lonaxis_range=None):
     """Builds a (line, label) pair of go.Scattergeo traces tracing major
     regional rivers, filtered to rivers with at least one waypoint in the
@@ -1248,9 +1250,25 @@ with tab1:
 
     _hist_years = sorted(history["year"].unique())
     _latest_hist_year = _hist_years[-1]
-    selected_map_year = st.select_slider(
-        "Year", options=_hist_years, value=_latest_hist_year, key="risk_map_year",
-    )
+    # Streamlit raises a StreamlitAPIException if a widget's state is written
+    # after that widget has already been created in the current script pass
+    # (same reason the Live Conflicts filter reset below uses a pending flag
+    # instead of writing session_state directly from the button). So this
+    # block, which always runs before the slider is instantiated, is what
+    # actually resets the value; the button further down only sets the flag.
+    if st.session_state.get("_reset_risk_map_year_pending"):
+        st.session_state["risk_map_year"] = _latest_hist_year
+        st.session_state["_reset_risk_map_year_pending"] = False
+    _slider_col, _reset_col = st.columns([5, 1])
+    with _slider_col:
+        selected_map_year = st.select_slider(
+            "Year", options=_hist_years, value=_latest_hist_year, key="risk_map_year",
+        )
+    with _reset_col:
+        st.markdown("<div style='margin-top:1.7rem;'></div>", unsafe_allow_html=True)
+        if st.button("🔄 Reset", key="reset_risk_map", help="Reset the year back to the latest available"):
+            st.session_state["_reset_risk_map_year_pending"] = True
+            st.rerun()
     _is_latest_year = selected_map_year == _latest_hist_year
 
     if _is_latest_year:
@@ -1295,7 +1313,7 @@ with tab1:
         scope="world", lataxis_range=_ov_lat_range, lonaxis_range=_ov_lon_range,
         # The data-driven choropleth fill above this basemap -- the actual
         # analytical layer -- is what the eye reads; untracked countries
-        # recede into the near-black landmass so the 27 scored ones pop.
+        # recede into the near-black landmass so the 34 scored ones pop.
         **MAP_BASE_STYLE,
     )
     map_fig.add_trace(sea_label_trace(_ov_lat_range, _ov_lon_range))
@@ -2531,7 +2549,7 @@ with tab4:
             conflict_map_fig.add_trace(go.Scattergeo(
                 lat=lats, lon=lons, mode="markers",
                 marker=dict(size=14, color=colors, opacity=opacities, symbol=symbols, line=dict(width=1, color="#0a0e14")),
-                text=hover_texts, hoverinfo="text",
+                text=hover_texts, hoverinfo="text", customdata=[c["name"] for c in map_conflicts],
                 hoverlabel=dict(bgcolor=colors, font=dict(color="#0a0e14", size=12)),
             ))
             _city_positions = ["top center", "bottom center", "middle right", "middle left"]
@@ -2577,16 +2595,24 @@ with tab4:
                 "the Country Deep Dive tab above (Streamlit can't force-switch tabs from here, so it's "
                 "ready the moment you click over)."
             )
-            # Clicking a marker on the map re-runs the app with a selection payload;
-            # translate that point index back to a conflict name and remember it in
-            # session state so the matching card below can float to the top and
-            # auto-expand — the closest honest equivalent of "jump to that section"
-            # Streamlit's tab/expander model supports, since there's no native
-            # cross-widget DOM anchor-scroll on a chart click event.
-            if map_click and map_click.selection and map_click.selection.get("point_indices"):
-                clicked_idx = map_click.selection["point_indices"][0]
-                if clicked_idx < len(map_conflicts):
-                    st.session_state["focused_conflict"] = map_conflicts[clicked_idx]["name"]
+            if st.session_state.get("focused_conflict") and st.button(
+                "🔄 Reset Map", key="reset_conflict_map",
+                help="Clear the highlighted conflict and return to the default view",
+            ):
+                st.session_state.pop("focused_conflict", None)
+                st.rerun()
+            # Clicking a marker on the map re-runs the app with a selection payload.
+            # Read the conflict name straight from customdata rather than a raw
+            # point_indices lookup against map_conflicts -- once a conflict is
+            # focused, its Choropleth highlight trace is added *before* this
+            # markers trace, which shifts point_indices and silently misattributes
+            # every subsequent click to the wrong conflict (the same class of bug
+            # already fixed this way for the Overview ranking chart).
+            if map_click and map_click.selection and map_click.selection.get("points"):
+                clicked_point = map_click.selection["points"][0]
+                clicked_cd = clicked_point.get("customdata")
+                if clicked_cd:
+                    st.session_state["focused_conflict"] = clicked_cd[0]
         st.markdown("<br>", unsafe_allow_html=True)
 
         focused_name = st.session_state.get("focused_conflict")
@@ -2659,14 +2685,26 @@ with tab4:
 
                 if conflict.get("stats"):
                     st.markdown("<br>", unsafe_allow_html=True)
-                    stat_cols = st.columns(len(conflict["stats"]))
-                    for col, (label, value) in zip(stat_cols, conflict["stats"]):
-                        with col:
-                            st.markdown(
-                                f'<div class="stat-label" style="font-size:0.58rem;">{label}</div>'
-                                f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1rem;color:{ACCENT};font-weight:700;">{value}</div>',
-                                unsafe_allow_html=True,
-                            )
+                    # A grid of fixed-minimum-width tiles, not one shrinking
+                    # st.columns() slot per stat -- a conflict with 8-9 stats
+                    # otherwise squeezed every value into a sliver-thin column,
+                    # forcing long figures like "~8,993 to 18,327 (wide range;
+                    # sources conflict)" to wrap across 8+ lines. A CSS grid
+                    # wraps tiles onto new rows instead of shrinking them,
+                    # so every value gets enough width to read normally.
+                    tiles = "".join(
+                        f'<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);'
+                        f'border-radius:8px;padding:0.6rem 0.8rem;">'
+                        f'<div class="stat-label" style="font-size:0.58rem;margin-bottom:0.35rem;">{label}</div>'
+                        f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.92rem;line-height:1.3;'
+                        f'color:{ACCENT};font-weight:700;">{value}</div>'
+                        f'</div>'
+                        for label, value in conflict["stats"]
+                    )
+                    st.markdown(
+                        f'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0.6rem;">{tiles}</div>',
+                        unsafe_allow_html=True,
+                    )
 
                 # ---- Full detail, collapsed by default — the dense material
                 # (full summary, market impact, actors, sources) lives here
@@ -2711,7 +2749,20 @@ with tab5:
         ["\U0001F5FA\uFE0F Trade Map", "\U0001F4CA Structural Matrix", "\U0001F4B9 Resource Benchmarks", "\U0001F3E2 Corporate Gatekeepers"]
     )
 
+    _geo_defaults = {
+        "geo_show_infra": True, "geo_show_friction": True, "geo_show_alliances": False,
+        "geo_show_countries": True, "geo_show_fabs": False, "geo_show_ports": True,
+    }
     with geo_sub1:
+        # Same pending-flag pattern as the Risk Map and Live Conflicts filter
+        # resets: this must run before the checkboxes below are instantiated,
+        # since writing a widget's session_state value after it already
+        # exists for this run raises a StreamlitAPIException.
+        if st.session_state.get("_reset_trade_map_pending"):
+            for _k, _v in _geo_defaults.items():
+                st.session_state[_k] = _v
+            st.session_state.pop("geo_selected_chokepoint", None)
+            st.session_state["_reset_trade_map_pending"] = False
         with st.expander("Map Layers", expanded=True):
             lcol1, lcol2, lcol3 = st.columns(3)
             with lcol1:
@@ -2722,7 +2773,7 @@ with tab5:
                 show_alliances = st.checkbox("Legal Trade Alliances (GCC, BRICS+, ASEAN, EU)", value=False, key="geo_show_alliances")
             lcol4, lcol5, lcol6 = st.columns(3)
             with lcol4:
-                show_countries = st.checkbox("MENASA Country Alliances (all 27)", value=True, key="geo_show_countries")
+                show_countries = st.checkbox("MENASA Country Alliances (all 34)", value=True, key="geo_show_countries")
             with lcol5:
                 show_fabs = st.checkbox("Advanced Semiconductor Fabs", value=False, key="geo_show_fabs")
             with lcol6:
@@ -2854,6 +2905,15 @@ with tab5:
             style_chart(fig_geo, height=480), use_container_width=True,
             on_select="rerun", selection_mode="points", key="geoeconomic_map_select",
         )
+        _geo_is_default = st.session_state.get("geo_selected_chokepoint") is None and all(
+            st.session_state.get(k, v) == v for k, v in _geo_defaults.items()
+        )
+        if not _geo_is_default and st.button(
+            "🔄 Reset Map", key="reset_trade_map",
+            help="Clear the selected chokepoint and restore the default layer toggles",
+        ):
+            st.session_state["_reset_trade_map_pending"] = True
+            st.rerun()
 
         # Best-effort map-click filtering: a click on the chokepoint trace sets
         # session_state directly; a click on a country dot instead pre-selects
