@@ -822,19 +822,112 @@ DATA_YEAR_RANGE = f"{int(long_df['year'].min())}-{int(long_df['year'].max())}"
 # the 27 tracked countries — orientation markers on the two geo maps, not a
 # data layer. Standard, stable geographic facts, not something that needs a
 # live source citation the way a statistic would.
+# At least two major cities per tracked country -- the capital/seat of
+# government plus the leading commercial, port, or population center -- so
+# the map reads as a real geographic reference rather than one dot per flag.
 MAJOR_CITIES = {
-    "Algiers": (36.75, 3.06), "Manama": (26.23, 50.59), "Cairo": (30.04, 31.24),
-    "Tehran": (35.69, 51.39), "Baghdad": (33.31, 44.36), "Jerusalem": (31.78, 35.22),
-    "Tel Aviv": (32.09, 34.78), "Amman": (31.95, 35.93), "Kuwait City": (29.38, 47.99),
-    "Beirut": (33.89, 35.50), "Tripoli": (32.89, 13.19), "Rabat": (34.02, -6.83),
-    "Muscat": (23.59, 58.41), "Doha": (25.29, 51.53), "Riyadh": (24.71, 46.68),
-    "Jeddah": (21.54, 39.17), "Damascus": (33.51, 36.29), "Tunis": (36.81, 10.18),
-    "Dubai": (25.20, 55.27), "Abu Dhabi": (24.45, 54.38), "Sanaa": (15.37, 44.19),
-    "Kabul": (34.56, 69.21), "Dhaka": (23.81, 90.41), "Thimphu": (27.47, 89.64),
-    "New Delhi": (28.61, 77.21), "Mumbai": (19.08, 72.88), "Male": (4.17, 73.51),
-    "Kathmandu": (27.72, 85.32), "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00),
-    "Colombo": (6.93, 79.85), "Gaza City": (31.50, 34.47), "Ramallah": (31.90, 35.20),
+    # North Africa
+    "Algiers": (36.75, 3.06), "Oran": (35.70, -0.63),
+    "Cairo": (30.04, 31.24), "Alexandria": (31.20, 29.92),
+    "Tripoli": (32.89, 13.19), "Benghazi": (32.12, 20.07),
+    "Rabat": (34.02, -6.83), "Casablanca": (33.57, -7.59),
+    "Tunis": (36.81, 10.18), "Sfax": (34.74, 10.76),
+    # Gulf
+    "Manama": (26.23, 50.59), "Muharraq": (26.26, 50.61),
+    "Kuwait City": (29.38, 47.99), "Al Ahmadi": (29.08, 48.09),
+    "Muscat": (23.59, 58.41), "Salalah": (17.02, 54.09),
+    "Doha": (25.29, 51.53), "Al Wakrah": (25.17, 51.60),
+    "Riyadh": (24.71, 46.68), "Jeddah": (21.54, 39.17),
+    "Dubai": (25.20, 55.27), "Abu Dhabi": (24.45, 54.38),
+    # Levant & Iraq
+    "Amman": (31.95, 35.93), "Aqaba": (29.53, 35.00),
+    "Beirut": (33.89, 35.50), "Sidon": (33.56, 35.37),
+    "Damascus": (33.51, 36.29), "Aleppo": (36.20, 37.16),
+    "Baghdad": (33.31, 44.36), "Basra": (30.51, 47.78),
+    "Jerusalem": (31.78, 35.22), "Tel Aviv": (32.09, 34.78),
+    "Gaza City": (31.50, 34.47), "Ramallah": (31.90, 35.20),
+    # Iran & Yemen
+    "Tehran": (35.69, 51.39), "Mashhad": (36.30, 59.61),
+    "Sanaa": (15.37, 44.19), "Aden": (12.78, 45.02),
+    # South Asia
+    "Kabul": (34.56, 69.21), "Herat": (34.34, 62.19),
+    "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00),
+    "New Delhi": (28.61, 77.21), "Mumbai": (19.08, 72.88),
+    "Dhaka": (23.81, 90.41), "Chittagong": (22.36, 91.78),
+    "Colombo": (6.93, 79.85), "Kandy": (7.29, 80.63),
+    "Kathmandu": (27.72, 85.32), "Pokhara": (28.21, 83.99),
+    "Thimphu": (27.47, 89.64), "Phuntsholing": (26.85, 89.39),
+    "Male": (4.17, 73.51), "Addu City": (-0.60, 73.08),
 }
+
+# Named seas/gulfs shown as small italic water labels on every regional map,
+# the same cartographic convention as the CFR Global Conflict Tracker and
+# most professional atlases -- purely orientation, not a data layer.
+SEA_LABELS = {
+    "Mediterranean Sea": (34.5, 20.0), "Black Sea": (43.0, 35.0),
+    "Caspian Sea": (41.5, 51.0), "Red Sea": (20.0, 38.0),
+    "Persian Gulf": (26.5, 51.7), "Gulf of Oman": (24.3, 58.8),
+    "Gulf of Aden": (12.3, 47.5), "Arabian Sea": (14.0, 65.0),
+    "Bay of Bengal": (15.0, 88.0), "Indian Ocean": (-1.0, 72.0),
+}
+
+# Major container/energy ports and free-trade economic hubs, shown only on
+# the Geo-Economic Interdependence trade map as its own toggleable layer --
+# the physical infrastructure the chokepoints and trade arteries actually
+# connect, distinct from the political/capital-city markers used elsewhere.
+MAJOR_PORTS = {
+    "Tanger Med (Morocco)": (35.88, -5.50),
+    "Casablanca Port (Morocco)": (33.60, -7.62),
+    "Port Said (Egypt)": (31.26, 32.30),
+    "Ain Sokhna (Egypt)": (29.60, 32.31),
+    "Beirut Port (Lebanon)": (33.90, 35.52),
+    "Tripoli Port (Libya)": (32.90, 13.18),
+    "Jeddah Islamic Port (Saudi Arabia)": (21.48, 39.17),
+    "King Abdullah Port (Saudi Arabia)": (22.53, 39.03),
+    "Jebel Ali (UAE)": (25.01, 55.06),
+    "Khalifa Port (UAE)": (24.81, 54.65),
+    "Hamad Port (Qatar)": (24.75, 51.60),
+    "Salalah Port (Oman)": (17.02, 54.09),
+    "Duqm Port (Oman)": (19.65, 57.70),
+    "Bandar Abbas (Iran)": (27.15, 56.23),
+    "Chabahar Port (Iran)": (25.29, 60.62),
+    "Gwadar Port (Pakistan)": (25.13, 62.33),
+    "Karachi Port (Pakistan)": (24.82, 66.98),
+    "Mundra Port (India)": (22.84, 69.72),
+    "Nhava Sheva / JNPT (India)": (18.95, 72.95),
+    "Colombo Port (Sri Lanka)": (6.95, 79.84),
+    "Hambantota Port (Sri Lanka)": (6.12, 81.12),
+    "Chittagong Port (Bangladesh)": (22.33, 91.83),
+}
+
+# Shared basemap treatment for every regional map: near-black landmass (so
+# untracked countries recede into the page background, CFR Global Conflict
+# Tracker-style) with a lighter muted slate ocean, so whatever data layer is
+# drawn on top -- choropleth fill, conflict markers, chokepoints -- is what
+# the eye reads first.
+MAP_BASE_STYLE = dict(
+    showland=True, landcolor="#0d0d0d",
+    showocean=True, oceancolor="#3f4757",
+    showlakes=True, lakecolor="#3f4757",
+    showcountries=True, countrycolor="rgba(226,232,240,0.45)",
+    bgcolor="rgba(0,0,0,0)", showframe=False,
+)
+
+
+def sea_label_trace(lataxis_range=None, lonaxis_range=None):
+    """Builds a go.Scattergeo text trace labeling named seas/gulfs, filtered
+    to the visible lat/lon window so labels don't render off-canvas."""
+    items = list(SEA_LABELS.items())
+    if lataxis_range:
+        items = [(n, (lat, lon)) for n, (lat, lon) in items if lataxis_range[0] <= lat <= lataxis_range[1]]
+    if lonaxis_range:
+        items = [(n, (lat, lon)) for n, (lat, lon) in items if lonaxis_range[0] <= lon <= lonaxis_range[1]]
+    return go.Scattergeo(
+        lat=[v[0] for _, v in items], lon=[v[1] for _, v in items],
+        mode="text", text=[f"<i>{n}</i>" for n, _ in items],
+        textfont=dict(size=10, color="rgba(226,232,240,0.55)", family="Georgia, serif"),
+        hoverinfo="skip", showlegend=False,
+    )
 
 FACTOR_LABELS = {
     "debt_to_gdp": "Debt (% GDP)",
@@ -1061,27 +1154,30 @@ with tab1:
         color_continuous_scale=["#34d399", "#fbbf24", "#f87171"], range_color=(0, 100),
         labels={"risk_score": "Risk Score", "risk_tier": "Risk Tier"},
     )
+    _ov_lat_range, _ov_lon_range = [-5, 42], [-12, 100]
     map_fig.update_geos(
-        scope="world", lataxis_range=[-5, 42], lonaxis_range=[-12, 100],
-        bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
-        # Neutral muted taupe/slate basemap (not the green/amber/red risk scale, and not
-        # the violet/indigo conflict-status scale used on the Live Conflicts map) so the
-        # data-driven choropleth fill above it — the actual analytical layer — is what
-        # the eye reads, not the base map itself.
-        showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
-        showframe=False,
+        scope="world", lataxis_range=_ov_lat_range, lonaxis_range=_ov_lon_range,
+        # The data-driven choropleth fill above this basemap -- the actual
+        # analytical layer -- is what the eye reads; untracked countries
+        # recede into the near-black landmass so the 27 scored ones pop.
+        **MAP_BASE_STYLE,
     )
-    # A light overlay of major cities (capitals + a few other key metros) purely
-    # for geographic orientation — small, muted markers that don't compete
-    # visually with the risk-tier choropleth fill, which is the actual data layer.
+    map_fig.add_trace(sea_label_trace(_ov_lat_range, _ov_lon_range))
+    # A light overlay of major cities (capitals + leading commercial centers)
+    # purely for geographic orientation — small, muted markers that don't
+    # compete visually with the risk-tier choropleth fill, the actual data layer.
     city_lats = [c[0] for c in MAJOR_CITIES.values()]
     city_lons = [c[1] for c in MAJOR_CITIES.values()]
     city_names = list(MAJOR_CITIES.keys())
+    # With two cities per country, clusters like the Gulf get tight -- cycling
+    # the label position around each dot instead of always placing it above
+    # cuts down on direct label-on-label overlap.
+    _city_positions = ["top center", "bottom center", "middle right", "middle left"]
     map_fig.add_trace(go.Scattergeo(
         lat=city_lats, lon=city_lons, mode="markers+text",
-        marker=dict(size=4, color="rgba(230,237,243,0.55)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
-        text=city_names, textposition="top center",
-        textfont=dict(size=7, color="rgba(230,237,243,0.65)"),
+        marker=dict(size=4, color="rgba(230,237,243,0.75)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+        text=city_names, textposition=[_city_positions[i % 4] for i in range(len(city_names))],
+        textfont=dict(size=7, color="rgba(230,237,243,0.8)"),
         hoverinfo="text", showlegend=False,
     ))
     map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10))
@@ -2207,21 +2303,23 @@ with tab4:
                 marker=dict(size=14, color=colors, opacity=opacities, line=dict(width=1, color="#0a0e14")),
                 text=hover_texts, hoverinfo="text",
             ))
+            _city_positions = ["top center", "bottom center", "middle right", "middle left"]
             conflict_map_fig.add_trace(go.Scattergeo(
                 lat=[c[0] for c in MAJOR_CITIES.values()], lon=[c[1] for c in MAJOR_CITIES.values()],
                 mode="markers+text", text=list(MAJOR_CITIES.keys()),
-                marker=dict(size=4, color="rgba(230,237,243,0.55)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
-                textposition="top center", textfont=dict(size=7, color="rgba(230,237,243,0.65)"),
+                marker=dict(size=4, color="rgba(230,237,243,0.75)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+                textposition=[_city_positions[i % 4] for i in range(len(MAJOR_CITIES))],
+                textfont=dict(size=7, color="rgba(230,237,243,0.8)"),
                 hoverinfo="text", showlegend=False,
             ))
+            _cf_lat_range, _cf_lon_range = [-5, 42], [-18, 100]
+            conflict_map_fig.add_trace(sea_label_trace(_cf_lat_range, _cf_lon_range))
             conflict_map_fig.update_geos(
-                scope="world", lataxis_range=[-5, 42], lonaxis_range=[-18, 100],
-                bgcolor="rgba(0,0,0,0)", showcountries=True, countrycolor="rgba(148,163,184,0.35)",
-                # Same neutral taupe/slate basemap as the Risk Map — muted and distinct from
-                # both the risk-tier red/amber/green scale and this map's own violet/indigo
-                # conflict-status markers, so the markers are what stands out.
-                showland=True, landcolor="#4a4438", showocean=True, oceancolor="#1a1f2e",
-                showframe=False,
+                scope="world", lataxis_range=_cf_lat_range, lonaxis_range=_cf_lon_range,
+                # Same near-black/slate basemap as the Risk Map — muted and distinct from
+                # this map's own violet/indigo conflict-status markers, so the markers
+                # are what stands out.
+                **MAP_BASE_STYLE,
             )
             conflict_map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
             map_click = st.plotly_chart(
@@ -2366,11 +2464,13 @@ with tab5:
                 show_friction = st.checkbox("Trade Arteries / Friction Points", value=True, key="geo_show_friction")
             with lcol3:
                 show_alliances = st.checkbox("Legal Trade Alliances (GCC, BRICS+, ASEAN, EU)", value=False, key="geo_show_alliances")
-            lcol4, lcol5, _ = st.columns(3)
+            lcol4, lcol5, lcol6 = st.columns(3)
             with lcol4:
                 show_countries = st.checkbox("MENASA Country Alliances (all 27)", value=True, key="geo_show_countries")
             with lcol5:
                 show_fabs = st.checkbox("Advanced Semiconductor Fabs", value=False, key="geo_show_fabs")
+            with lcol6:
+                show_ports = st.checkbox("Major Ports & Economic Hubs", value=True, key="geo_show_ports")
 
         st.markdown('<div class="section-tag">Chokepoints &amp; Trade Arteries</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title" style="font-size:1.05rem;">Interactive Trade Map</div>', unsafe_allow_html=True)
@@ -2378,11 +2478,33 @@ with tab5:
         fig_geo = go.Figure()
 
         if show_friction:
+            # Each artery's line color/width reflects the highest real risk_level
+            # among the chokepoints it actually transits (sourced in
+            # MARITIME_CHOKEPOINTS), rather than a single flat color for all
+            # three routes -- a rerouted/blockaded corridor should read as more
+            # exposed than a normal one, using data already in the app.
+            _risk_rank = {"Low": 0, "Moderate": 1, "High": 2, "Critical": 3}
             for route in TRADE_ARTERIES:
+                route_risk = max(
+                    (MARITIME_CHOKEPOINTS[k]["risk_level"] for k in route["chokepoints"] if k in MARITIME_CHOKEPOINTS),
+                    key=lambda r: _risk_rank.get(r, 0), default="Moderate",
+                )
+                route_color = GEO_RISK_COLOR.get(route_risk, ACCENT)
+                path_lons = [p[1] for p in route["path"]]
+                path_lats = [p[0] for p in route["path"]]
                 fig_geo.add_trace(go.Scattergeo(
-                    lon=[p[1] for p in route["path"]], lat=[p[0] for p in route["path"]],
-                    mode="lines", line=dict(width=1.5, color=ACCENT, dash="dot"),
-                    opacity=0.55, hoverinfo="text", text=route["name"], showlegend=False,
+                    lon=path_lons, lat=path_lats,
+                    mode="lines", line=dict(width=1.5 + _risk_rank.get(route_risk, 0) * 0.6, color=route_color, dash="dot"),
+                    opacity=0.65, hoverinfo="text",
+                    text=f"{route['name']} — exposure: {route_risk}", showlegend=False,
+                ))
+                # Small endpoint markers at both ends of the path make the
+                # dotted line read as a bounded corridor rather than an
+                # arbitrary trail (Plotly's geo lines have no arrowhead support).
+                fig_geo.add_trace(go.Scattergeo(
+                    lon=[path_lons[0], path_lons[-1]], lat=[path_lats[0], path_lats[-1]],
+                    mode="markers", marker=dict(size=6, symbol="circle-open", color=route_color, line=dict(width=1.5)),
+                    opacity=0.85, hoverinfo="skip", showlegend=False,
                 ))
 
         if show_alliances:
@@ -2424,6 +2546,17 @@ with tab5:
                 name="Advanced Fabs", showlegend=True,
             ))
 
+        if show_ports:
+            port_names = list(MAJOR_PORTS.keys())
+            fig_geo.add_trace(go.Scattergeo(
+                lon=[MAJOR_PORTS[k][1] for k in port_names],
+                lat=[MAJOR_PORTS[k][0] for k in port_names],
+                text=port_names, mode="markers",
+                marker=dict(size=8, color=ACCENT2, symbol="hexagon", line=dict(width=1, color=BG)),
+                hovertemplate="<b>%{text}</b><extra></extra>",
+                name="Major Ports & Hubs", showlegend=True,
+            ))
+
         if show_infra:
             cp_keys = list(MARITIME_CHOKEPOINTS.keys())
             fig_geo.add_trace(go.Scattergeo(
@@ -2441,15 +2574,15 @@ with tab5:
                 name="Chokepoints",
             ))
 
+        _geo_lat_range, _geo_lon_range = [-10, 60], [-20, 130]
+        fig_geo.add_trace(sea_label_trace(_geo_lat_range, _geo_lon_range))
         fig_geo.update_geos(
             scope="world", projection_type="natural earth",
-            lataxis_range=[-10, 60], lonaxis_range=[-20, 130],
-            showland=True, landcolor=SURFACE_ALT, showocean=True, oceancolor=BG,
-            showcountries=True, countrycolor="rgba(148,163,184,0.25)",
-            bgcolor="rgba(0,0,0,0)",
+            lataxis_range=_geo_lat_range, lonaxis_range=_geo_lon_range,
+            **MAP_BASE_STYLE,
         )
         fig_geo.update_layout(
-            showlegend=show_countries or show_fabs,
+            showlegend=show_countries or show_fabs or show_ports or show_infra,
             legend=dict(orientation="h", y=-0.05, font=dict(color=TEXT_MUTED, size=10), bgcolor="rgba(0,0,0,0)"),
         )
 
@@ -2470,8 +2603,9 @@ with tab5:
 
         st.caption(
             "Click a chokepoint marker, or use the dropdown below, to filter the Corporate Gatekeepers table "
-            "to firms most exposed to it. Trade-artery paths are illustrative routing, not precise shipping-lane "
-            "geometry; alliance markers are simple membership annotations, not a scored/sourced dataset."
+            "to firms most exposed to it. Trade-artery line color and thickness reflect the highest sourced risk "
+            "level among the chokepoints each route transits — routing is illustrative, not precise shipping-lane "
+            "geometry; alliance and port/hub markers are simple annotations, not a scored dataset."
         )
 
         st.markdown("<br>", unsafe_allow_html=True)
