@@ -1183,7 +1183,36 @@ with tab1:
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Geographic Distribution</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Risk Map</div>', unsafe_allow_html=True)
-    map_df = scored.dropna(subset=["risk_score"]).reset_index(drop=True)
+
+    _hist_years = sorted(history["year"].unique())
+    _latest_hist_year = _hist_years[-1]
+    selected_map_year = st.select_slider(
+        "Year", options=_hist_years, value=_latest_hist_year, key="risk_map_year",
+    )
+    _is_latest_year = selected_map_year == _latest_hist_year
+
+    if _is_latest_year:
+        # The current snapshot (scored_data.csv) can be a few weeks fresher
+        # than the last "both pillars reported" year in scored_history.csv,
+        # so the latest slider position uses the real current data rather
+        # than re-deriving it from history and showing something stale.
+        map_df = scored.dropna(subset=["risk_score"]).reset_index(drop=True)
+    else:
+        map_df = history[history["year"] == selected_map_year].dropna(subset=["risk_score"]).reset_index(drop=True)
+        # scored_history.csv doesn't carry a precomputed tier -- bucket it
+        # here with the same 33/66 thresholds used everywhere else in the app,
+        # purely for the hover tooltip; the color scale itself is continuous
+        # and needs no bucketing.
+        map_df["risk_tier"] = map_df["risk_score"].apply(
+            lambda s: "Higher Risk" if s > 66 else ("Moderate Risk" if s >= 33 else "Lower Risk")
+        )
+    st.caption(
+        f"Showing {'the latest available' if _is_latest_year else int(selected_map_year)} composite scores. "
+        f"Drag the slider to see how regional risk evolved from 2010 to {int(_latest_hist_year)}. Earlier years "
+        "may show fewer than 27 countries if a country hadn't reported both pillars (economic + governance) "
+        "that year — this map never fills a gap with an invented value."
+    )
+
     map_fig = px.choropleth(
         map_df, locations="country_code", locationmode="ISO-3", color="risk_score",
         hover_name="country", hover_data={"country_code": False, "risk_score": ":.1f", "risk_tier": True},
