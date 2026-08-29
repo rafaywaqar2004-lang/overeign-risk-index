@@ -3184,6 +3184,29 @@ with tab7:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Rigor, Honestly Scoped</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Toward a Statistically Validated Model</div>', unsafe_allow_html=True)
+    st.markdown(
+        "Equal weighting is a deliberate starting point, not a claim that all 10 factors matter "
+        "equally in reality. A real validation pass would run in two directions: **(1) redundancy** "
+        "— principal component analysis across the 10 factors to check for multicollinearity (Government "
+        "Effectiveness and Control of Corruption, both WGI dimensions, are the likeliest candidates to "
+        "be capturing overlapping variance rather than independent signal), and **(2) predictive "
+        "validity** — backtesting the composite score's year-over-year direction against realized "
+        "sovereign actions (S&P/Moody's/Fitch upgrades and downgrades, actual defaults or restructurings) "
+        "to test whether the score moved ahead of the event rather than merely alongside it, and, for the "
+        "handful of these 27 economies with tradable sovereign debt, correlating the score against "
+        "CDS spreads or bond yields as an independent, market-implied check.\n\n"
+        "Neither is done here, and that's a scope choice, not an oversight: true backtesting needs "
+        "point-in-time data vintages (the score as it would have looked *at the time*, not recomputed "
+        "with data revised since), which the World Bank's API doesn't expose and this project doesn't "
+        "warehouse; and reliable market pricing simply doesn't exist for most of these economies. This "
+        "tool optimizes for transparency and reproducibility — anyone can see exactly why a score is "
+        "what it is — over a fitted model whose weights would be harder to explain and easier to overfit "
+        "on a region with this few, this volatile, historical observations."
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Beyond World Bank &amp; IMF</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
     st.markdown(
