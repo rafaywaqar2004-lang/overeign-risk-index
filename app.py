@@ -1208,7 +1208,20 @@ with tab1:
         )
         fig.update_traces(texttemplate="%{text:.1f}", textposition="outside")
         fig.update_layout(showlegend=True, legend_title_text="")
-        st.plotly_chart(style_chart(fig, height=560), use_container_width=True)
+        rank_click = st.plotly_chart(
+            style_chart(fig, height=560), use_container_width=True,
+            on_select="rerun", selection_mode="points", key="risk_rank_select",
+        )
+        st.caption("Click a bar to pre-select that country in the Country Deep Dive tab above.")
+        if rank_click and rank_click.selection and rank_click.selection.get("points"):
+            # color="risk_tier" splits this bar chart into one trace per tier,
+            # so a raw point_indices lookup against chart_df would silently
+            # index into the wrong tier's rows -- reading the point's own "y"
+            # value (the country name, since this is a horizontal bar) instead
+            # sidesteps the multi-trace indexing mismatch entirely.
+            rank_country = rank_click.selection["points"][0].get("y")
+            if rank_country:
+                st.session_state["selected_country_from_map"] = rank_country
 
     with col2:
         with st.container(border=True):
@@ -2330,7 +2343,10 @@ with tab4:
                 "🟣 Active/unresolved · 🔵 Ceasefire/fragile · ⚪ Frozen or stalemated — "
                 "hover a node for actors and market impact, or **click a marker to jump straight to "
                 "that conflict's full detail below**. One point per conflict; a single marker stands "
-                "in for what is often a multi-country or border-spanning event."
+                "in for what is often a multi-country or border-spanning event. Each conflict card below "
+                "also has clickable **affected-economy pills** — click one to pre-select that country in "
+                "the Country Deep Dive tab above (Streamlit can't force-switch tabs from here, so it's "
+                "ready the moment you click over)."
             )
             # Clicking a marker on the map re-runs the app with a selection payload;
             # translate that point index back to a conflict name and remember it in
@@ -2377,12 +2393,23 @@ with tab4:
                     unsafe_allow_html=True,
                 )
                 affected_names = [code_to_name.get(c, c) for c in conflict["affected"]]
-                st.markdown(
-                    "<div style='margin-bottom:0.6rem;'>" +
-                    "".join(f'<span class="tier-badge" style="background:{ACCENT_DIM};color:{ACCENT};margin-right:0.4rem;">{n}</span>' for n in affected_names) +
-                    "</div>",
-                    unsafe_allow_html=True,
+                # Each affected-country pill is clickable — same "pre-select in
+                # Country Deep Dive" cross-navigation as the Risk Map click,
+                # since Streamlit can't force-switch the active tab from here.
+                _jump_key = "country_jump_" + re.sub(r"[^a-z0-9]+", "_", conflict["name"].lower())
+                jumped_country = st.pills(
+                    f"Affected economies — {conflict['name']}", affected_names,
+                    selection_mode="single", key=_jump_key, label_visibility="collapsed",
                 )
+                if jumped_country and st.session_state.get("selected_country_from_map") != jumped_country:
+                    # This tab (4) runs *after* Country Deep Dive (tab 2) in
+                    # script order, so setting session_state alone wouldn't
+                    # take effect until the pass after next — an immediate
+                    # rerun makes the pre-select land on this same click. The
+                    # inequality check stops that rerun from looping forever,
+                    # since the pill stays selected across reruns.
+                    st.session_state["selected_country_from_map"] = jumped_country
+                    st.rerun()
                 if is_focused:
                     # CFR-style clean field/value rows for the specific
                     # conflict a user just clicked on the map — a spotlight
@@ -2525,14 +2552,20 @@ with tab5:
                 by_bloc.setdefault(alliance["primary_bloc"], []).append(code)
             country_names = dict(zip(scored["country_code"], scored["country"]))
             for bloc_name, codes in by_bloc.items():
+                # customdata carries ["country", <name>, <memberships>] -- the
+                # literal "country" tag lets the click handler below tell this
+                # trace apart from the chokepoint trace's ["<key>", <risk>]
+                # customdata, since both are 2+/3-element lists otherwise
+                # indistinguishable by shape alone.
                 fig_geo.add_trace(go.Scattergeo(
                     lon=[COUNTRY_CAPITAL_COORDS[c][1] for c in codes if c in COUNTRY_CAPITAL_COORDS],
                     lat=[COUNTRY_CAPITAL_COORDS[c][0] for c in codes if c in COUNTRY_CAPITAL_COORDS],
                     text=[country_names.get(c, c) for c in codes if c in COUNTRY_CAPITAL_COORDS],
-                    customdata=[[", ".join(MENASA_COUNTRY_ALLIANCES[c]["memberships"])] for c in codes if c in COUNTRY_CAPITAL_COORDS],
+                    customdata=[["country", country_names.get(c, c), ", ".join(MENASA_COUNTRY_ALLIANCES[c]["memberships"])]
+                                for c in codes if c in COUNTRY_CAPITAL_COORDS],
                     mode="markers+text", textposition="top center", textfont=dict(size=9),
                     marker=dict(size=9, color=BLOC_COLOR.get(bloc_name, TEXT_MUTED), line=dict(width=1, color=BG)),
-                    hovertemplate="<b>%{text}</b><br>%{customdata[0]}<extra></extra>",
+                    hovertemplate="<b>%{text}</b><br>%{customdata[2]}<extra></extra>",
                     name=bloc_name, showlegend=True,
                 ))
 
@@ -2569,8 +2602,8 @@ with tab5:
                     color=[GEO_RISK_COLOR.get(MARITIME_CHOKEPOINTS[k]["risk_level"], TEXT_MUTED) for k in cp_keys],
                     line=dict(width=1.5, color=BG), symbol="circle",
                 ),
-                customdata=[[k, MARITIME_CHOKEPOINTS[k]["risk_level"]] for k in cp_keys],
-                hovertemplate="<b>%{text}</b><br>Risk: %{customdata[1]}<extra></extra>",
+                customdata=[["chokepoint", k, MARITIME_CHOKEPOINTS[k]["risk_level"]] for k in cp_keys],
+                hovertemplate="<b>%{text}</b><br>Risk: %{customdata[2]}<extra></extra>",
                 name="Chokepoints",
             ))
 
@@ -2592,20 +2625,34 @@ with tab5:
         )
 
         # Best-effort map-click filtering: a click on the chokepoint trace sets
-        # session_state directly. The selectbox just below is the reliable,
-        # always-available way to drive the same filter, since multi-trace
-        # geo-chart click targeting is inherently less robust than a single-
-        # trace map (see the Risk Map / Conflict Map tabs for that simpler case).
+        # session_state directly; a click on a country dot instead pre-selects
+        # that country for the Country Deep Dive tab (same cross-navigation
+        # pattern as the Risk Map). The customdata's own first element tags
+        # which trace a click landed on, since both traces carry 2+/3-element
+        # customdata otherwise indistinguishable by shape alone. The selectbox
+        # just below is the reliable, always-available way to drive the
+        # chokepoint filter, since multi-trace geo-chart click targeting is
+        # inherently less robust than a single-trace map.
         if geo_select and geo_select.selection and geo_select.selection.get("points"):
             for pt in geo_select.selection["points"]:
-                if pt.get("customdata"):
-                    st.session_state["geo_selected_chokepoint"] = pt["customdata"][0]
+                cd = pt.get("customdata")
+                if not cd:
+                    continue
+                if cd[0] == "chokepoint":
+                    st.session_state["geo_selected_chokepoint"] = cd[1]
+                elif cd[0] == "country" and st.session_state.get("selected_country_from_map") != cd[1]:
+                    # This tab (5) also runs after Country Deep Dive (tab 2) in
+                    # script order -- same immediate-rerun fix as the Live
+                    # Conflicts pills, guarded the same way against looping.
+                    st.session_state["selected_country_from_map"] = cd[1]
+                    st.rerun()
 
         st.caption(
             "Click a chokepoint marker, or use the dropdown below, to filter the Corporate Gatekeepers table "
-            "to firms most exposed to it. Trade-artery line color and thickness reflect the highest sourced risk "
-            "level among the chokepoints each route transits — routing is illustrative, not precise shipping-lane "
-            "geometry; alliance and port/hub markers are simple annotations, not a scored dataset."
+            "to firms most exposed to it. Click a country dot to pre-select it in the Country Deep Dive tab "
+            "above. Trade-artery line color and thickness reflect the highest sourced risk level among the "
+            "chokepoints each route transits — routing is illustrative, not precise shipping-lane geometry; "
+            "alliance and port/hub markers are simple annotations, not a scored dataset."
         )
 
         st.markdown("<br>", unsafe_allow_html=True)
