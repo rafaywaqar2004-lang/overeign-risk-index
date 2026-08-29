@@ -848,6 +848,9 @@ MAJOR_CITIES_PRIMARY = {
     "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00), "New Delhi": (28.61, 77.21),
     "Mumbai": (19.08, 72.88), "Dhaka": (23.81, 90.41), "Colombo": (6.93, 79.85),
     "Kathmandu": (27.72, 85.32), "Thimphu": (27.47, 89.64), "Male": (4.17, 73.51),
+    "Ankara": (39.93, 32.86), "Khartoum": (15.60, 32.50), "Juba": (4.85, 31.58),
+    "Addis Ababa": (9.04, 38.75), "Mogadishu": (2.04, 45.34), "Djibouti City": (11.59, 43.15),
+    "Asmara": (15.34, 38.94),
 }
 
 # The second, leading commercial/port/population center per country that
@@ -862,6 +865,9 @@ MAJOR_CITIES_SECONDARY = {
     "Basra": (30.51, 47.78), "Mashhad": (36.30, 59.61), "Aden": (12.78, 45.02),
     "Herat": (34.34, 62.19), "Chittagong": (22.36, 91.78), "Kandy": (7.29, 80.63),
     "Pokhara": (28.21, 83.99), "Phuntsholing": (26.85, 89.39), "Addu City": (-0.60, 73.08),
+    "Istanbul": (41.01, 28.98), "Port Sudan": (19.60, 37.21), "Wau": (7.70, 28.00),
+    "Mekelle": (13.50, 39.48), "Hargeisa": (9.56, 44.08), "Ali Sabieh": (11.15, 42.72),
+    "Massawa": (15.61, 39.45),
 }
 
 # Named seas/gulfs shown as small italic water labels on every regional map,
@@ -1066,7 +1072,7 @@ except FileNotFoundError:
 st.markdown('<div class="tag-label">Risk, Conflict &amp; Trade Intelligence · Full MENASA Coverage</div>', unsafe_allow_html=True)
 st.markdown('<div class="masthead-title">MENASA <span>Risk Monitor</span></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="masthead-sub">A composite sovereign risk score for all 27 MENA &amp; South Asia economies, '
+    '<div class="masthead-sub">A composite sovereign risk score for all 34 MENA, South Asia &amp; Horn of Africa economies, '
     'built on live World Bank data across 10 factors spanning economic and governance pillars — paired with '
     'a sourced Live Conflicts tracker, a 4-country Compare tool, and a Geo-Economic Interdependence Dashboard '
     'mapping the region\'s maritime chokepoints, critical-mineral concentration, and commodity markets.</div>',
@@ -1151,17 +1157,17 @@ lowest = valid_scores.sort_values("risk_score").iloc[0]
 
 c1, c2, c3, c4 = st.columns(4)
 with c1:
-    stat_card("Countries Covered", len(scored), "MENA + South Asia", accent=ACCENT2)
+    stat_card("Countries Covered", len(scored), "MENA, South Asia & Horn of Africa", accent=ACCENT2)
 with c2:
     stat_card("Highest Risk", highest["country"], f"Score {highest['risk_score']:.1f}")
 with c3:
     stat_card("Lowest Risk", lowest["country"], f"Score {lowest['risk_score']:.1f}")
 with c4:
-    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", "Across all 27", accent=ACCENT2)
+    stat_card("Regional Average", f"{valid_scores['risk_score'].mean():.1f}", f"Across all {len(scored)}", accent=ACCENT2)
 
 st.markdown(
     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.72rem;color:{TEXT_MUTED};margin-top:0.6rem;">'
-    f'Scores are ranked relative to this 27-country MENASA set, not a globally benchmarked index — '
+    f'Scores are ranked relative to this 34-country MENASA set, not a globally benchmarked index — '
     f'see Methodology.</div>',
     unsafe_allow_html=True,
 )
@@ -1209,7 +1215,7 @@ with tab1:
     st.caption(
         f"Showing {'the latest available' if _is_latest_year else int(selected_map_year)} composite scores. "
         f"Drag the slider to see how regional risk evolved from 2010 to {int(_latest_hist_year)}. Earlier years "
-        "may show fewer than 27 countries if a country hadn't reported both pillars (economic + governance) "
+        "may show fewer than 34 countries if a country hadn't reported both pillars (economic + governance) "
         "that year — this map never fills a gap with an invented value."
     )
 
@@ -1386,7 +1392,7 @@ with tab1:
                 "Country": name,
                 "Composite Score": f"{prow['risk_score']:.1f}" if pd.notna(prow["risk_score"]) else "N/A",
                 "Risk Tier": prow["risk_tier"],
-                "Regional Rank": f"{int(prow['risk_rank'])} / 27" if pd.notna(prow["risk_rank"]) else "N/A",
+                "Regional Rank": f"{int(prow['risk_rank'])} / {len(scored)}" if pd.notna(prow["risk_rank"]) else "N/A",
                 "GDP Growth": gdp_display,
                 "Active Conflicts": len(exposed),
                 "Conflict(s)": ", ".join(exposed) if exposed else "None tracked",
@@ -1457,7 +1463,7 @@ with tab2:
                 st.markdown(
                     f'<div class="stat-label" style="margin-top:0.6rem;">Regional Rank</div>'
                     f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:1.1rem;color:{ACCENT};">'
-                    f'{int(row["risk_rank"])} / 27</div>',
+                    f'{int(row["risk_rank"])} / {len(scored)}</div>',
                     unsafe_allow_html=True,
                 )
             with yoy_col:
@@ -2177,7 +2183,7 @@ with tab3:
         headline_rows = [
             ["Composite Score"] + [f"{r['risk_score']:.1f}" if pd.notna(r["risk_score"]) else "N/A" for r in cmp_rows],
             ["Risk Tier"] + [r["risk_tier"] for r in cmp_rows],
-            ["Regional Rank"] + [f"{int(r['risk_rank'])} / 27" if pd.notna(r["risk_rank"]) else "N/A" for r in cmp_rows],
+            ["Regional Rank"] + [f"{int(r['risk_rank'])} / {len(scored)}" if pd.notna(r["risk_rank"]) else "N/A" for r in cmp_rows],
             ["YoY Change"] + [f"{r['yoy_change']:+.1f}" if pd.notna(r.get("yoy_change")) else "N/A" for r in cmp_rows],
         ]
         custom_table(headline_rows, ["Metric"] + compare_selection)
@@ -3204,12 +3210,12 @@ with tab7:
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.info(
-        "**This is a relative ranking within this 27-country sample — not an absolute, "
+        "**This is a relative ranking within this 34-country sample — not an absolute, "
         "globally-benchmarked index.** Every factor is min-max normalized against only the other "
-        "26 tracked MENASA economies for that same year, not against the full ~190-country UN "
+        "33 tracked MENASA economies for that same year, not against the full ~190-country UN "
         "membership. A 'Lower Risk' score here means lower risk *relative to this specific regional "
         "pool* — it does not mean the country would also rank as low-risk against, say, Western "
-        "Europe or East Asia. Comparing scores or tiers to any country outside this 27-country set "
+        "Europe or East Asia. Comparing scores or tiers to any country outside this 34-country set "
         "(including via the credit-rating comparison elsewhere in this app, which draws on actual "
         "global agency ratings) requires that caveat in mind.",
         icon="📐",
@@ -3244,7 +3250,7 @@ with tab7:
     st.markdown(
         """
 - **Debt-to-GDP coverage is sparse** for several Gulf states and conflict/sanctions-affected
-  countries — only 24 of 27 report it consistently, even after the IMF World Economic Outlook
+  countries — only 31 of 34 report it consistently, even after the IMF World Economic Outlook
   fallback fills some World Bank gaps.
 - **Iran's score is lower-confidence** — only 7 of 10 factors are available, likely due to
   sanctions limiting fiscal data reporting.
@@ -3254,20 +3260,20 @@ with tab7:
 - **Historical context is curated, not live** — the event list in each country's Deep Dive tab
   and the Live Conflicts tab were hand-researched and fact-checked via web search as of August
   2026, not pulled from a live news feed. They highlight major events but are not exhaustive.
-- **Financing Arrangements now cover all 27 countries explicitly** — either a verified IMF/
+- **Financing Arrangements now cover all 34 countries explicitly** — either a verified IMF/
   multilateral program (amount, approval date, status), or a sourced explanation of why none
   exists (net-creditor Gulf states with no IMF borrowing, or sanctions/arrears-blocked cases like
   Iran and Syria). Instrument-level bond/loan maturity schedules (a true "debt rollover wall") are
   still out of scope entirely — that needs a specialized debt database (Bloomberg, the IMF's
   sovereign debt investor relations portal, or national debt management offices), not a research
   pass over public web sources.
-- **Key Economic Partners and Trade/Sector Profiles cover all 27 countries in comparable depth**
+- **Key Economic Partners and Trade/Sector Profiles cover all 34 countries in comparable depth**
   — each entry now runs 5-8 sourced sentences covering creditors, major foreign investors, key
   allies/rivals, and at least one named recent (2024-2026) development, backed by 4-6 cited
   sources per country. Where a claim cites a specific figure or date, that figure has a named
   source; general economic structure (e.g. "Kuwait relies on oil exports") reflects well-
   established economic geography rather than requiring a single citation.
-- **Major Economic Sanctions covers all 27 countries** — either the verified sanctions regimes a
+- **Major Economic Sanctions covers all 34 countries** — either the verified sanctions regimes a
   country has faced (imposing body, reason, current status, and economic impact where a real
   figure exists), or an explicit statement that none was found, rather than an empty section.
   FATF grey-listing (a financial-transparency watchlist) is deliberately distinguished from an
@@ -3294,7 +3300,7 @@ with tab7:
         "validity** — backtesting the composite score's year-over-year direction against realized "
         "sovereign actions (S&P/Moody's/Fitch upgrades and downgrades, actual defaults or restructurings) "
         "to test whether the score moved ahead of the event rather than merely alongside it, and, for the "
-        "handful of these 27 economies with tradable sovereign debt, correlating the score against "
+        "handful of these 34 economies with tradable sovereign debt, correlating the score against "
         "CDS spreads or bond yields as an independent, market-implied check.\n\n"
         "Neither the full PCA pass nor CDS/bond-yield correlation is done here, and that's a scope "
         "choice, not an oversight: true statistical backtesting needs point-in-time data vintages (the "

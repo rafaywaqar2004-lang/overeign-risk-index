@@ -26,6 +26,9 @@ COUNTRY_CAPITAL_COORDS = {
     "YEM": (15.37, 44.19), "AFG": (34.56, 69.21), "BGD": (23.81, 90.41),
     "BTN": (27.47, 89.64), "IND": (28.61, 77.21), "MDV": (4.17, 73.51),
     "NPL": (27.72, 85.32), "PAK": (33.68, 73.05), "LKA": (6.93, 79.85),
+    "TUR": (39.9334, 32.8597), "SDN": (15.6, 32.5), "SSD": (4.8517, 31.5825),
+    "ETH": (9.0359, 38.7525), "SOM": (2.03917, 45.34194), "DJI": (11.5944, 43.1480),
+    "ERI": (15.33583, 38.94111),
 }
 
 # Real, stable multilateral-alliance memberships for each tracked country.
@@ -62,6 +65,13 @@ MENASA_COUNTRY_ALLIANCES = {
     "NPL": {"memberships": ["SAARC (dormant since 2014)"], "primary_bloc": "SAARC"},
     "PAK": {"memberships": ["SAARC (dormant since 2014)", "D-8"], "primary_bloc": "SAARC"},
     "LKA": {"memberships": ["SAARC (dormant since 2014)"], "primary_bloc": "SAARC"},
+    "TUR": {"memberships": ["NATO (member since 1952)", "OECD (founding member, 1961)", "G20", "EU Customs Union (since 1995)", "EU accession candidate (since 1999, talks frozen since 2018)", "OIC", "Organization of Turkic States"], "primary_bloc": "NATO"},
+    "SDN": {"memberships": ["Arab League", "African Union (membership suspended since October 2021 coup)"], "primary_bloc": "Arab League"},
+    "SSD": {"memberships": ["African Union (since independence, 2011)", "East African Community (acceded 2016)", "IGAD (since 2011)"], "primary_bloc": "IGAD / EAC"},
+    "ETH": {"memberships": ["African Union (headquarters host)", "IGAD", "BRICS+ (joined January 1, 2024)", "COMESA"], "primary_bloc": "African Union / IGAD"},
+    "SOM": {"memberships": ["Arab League (joined 1974)", "African Union", "IGAD (founding member)", "East African Community (joined November 2023)"], "primary_bloc": "Arab League"},
+    "DJI": {"memberships": ["Arab League", "African Union", "IGAD (headquartered in Djibouti City)", "OIC"], "primary_bloc": "Arab League / African Union"},
+    "ERI": {"memberships": ["African Union", "Arab League (observer status only, since 2003)", "Not an IGAD member (withdrew December 2025)"], "primary_bloc": "African Union / Horn of Africa"},
 }
 
 MARITIME_CHOKEPOINTS = {

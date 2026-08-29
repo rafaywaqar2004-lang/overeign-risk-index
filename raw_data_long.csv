@@ -6922,3 +6922,1574 @@ LKA,Sri Lanka,youth_unemployment_rate,2010,18.684
 LKA,Sri Lanka,gini_index,2019,37.7
 LKA,Sri Lanka,gini_index,2016,39.3
 LKA,Sri Lanka,gini_index,2012,38.7
+TUR,Turkey,debt_to_gdp,2024,26.6192344930079
+TUR,Turkey,debt_to_gdp,2023,33.2548360254558
+TUR,Turkey,debt_to_gdp,2022,35.3300843740665
+TUR,Turkey,debt_to_gdp,2021,41.6375124693568
+TUR,Turkey,debt_to_gdp,2020,41.0396523893444
+TUR,Turkey,debt_to_gdp,2019,33.4600744570718
+TUR,Turkey,debt_to_gdp,2018,29.3999927208091
+TUR,Turkey,debt_to_gdp,2017,29.5734179673603
+TUR,Turkey,debt_to_gdp,2016,30.075201418508
+TUR,Turkey,debt_to_gdp,2015,29.145145266046
+TUR,Turkey,debt_to_gdp,2014,31.1206735016751
+TUR,Turkey,debt_to_gdp,2013,31.7836465280795
+TUR,Turkey,debt_to_gdp,2012,37.6997174684634
+TUR,Turkey,debt_to_gdp,2011,39.9693425323809
+TUR,Turkey,debt_to_gdp,2010,45.1797411840038
+TUR,Turkey,current_account_pct_gdp,2024,-0.766008235540632
+TUR,Turkey,current_account_pct_gdp,2023,-3.63367003503212
+TUR,Turkey,current_account_pct_gdp,2022,-4.99763806227356
+TUR,Turkey,current_account_pct_gdp,2021,-0.74064931592423
+TUR,Turkey,current_account_pct_gdp,2020,-4.22284721473811
+TUR,Turkey,current_account_pct_gdp,2019,1.9351600379275
+TUR,Turkey,current_account_pct_gdp,2018,-1.85233343060557
+TUR,Turkey,current_account_pct_gdp,2017,-4.06783613710293
+TUR,Turkey,current_account_pct_gdp,2016,-2.54530792537505
+TUR,Turkey,current_account_pct_gdp,2015,-2.46735825450658
+TUR,Turkey,current_account_pct_gdp,2014,-3.40746259930754
+TUR,Turkey,current_account_pct_gdp,2013,-5.12686124176872
+TUR,Turkey,current_account_pct_gdp,2012,-4.72096418758118
+TUR,Turkey,current_account_pct_gdp,2011,-8.81351105932507
+TUR,Turkey,current_account_pct_gdp,2010,-5.70254261669491
+TUR,Turkey,reserves_months_imports,2024,4.72961263910876
+TUR,Turkey,reserves_months_imports,2023,4.15773246137926
+TUR,Turkey,reserves_months_imports,2022,3.88032643940638
+TUR,Turkey,reserves_months_imports,2021,4.45898866581647
+TUR,Turkey,reserves_months_imports,2020,4.62292551551256
+TUR,Turkey,reserves_months_imports,2019,5.18429649280588
+TUR,Turkey,reserves_months_imports,2018,4.21759333209898
+TUR,Turkey,reserves_months_imports,2017,4.7879486495226
+TUR,Turkey,reserves_months_imports,2016,5.43169973687983
+TUR,Turkey,reserves_months_imports,2015,5.46401299517088
+TUR,Turkey,reserves_months_imports,2014,5.46656223125612
+TUR,Turkey,reserves_months_imports,2013,5.46467548164703
+TUR,Turkey,reserves_months_imports,2012,5.52884305144567
+TUR,Turkey,reserves_months_imports,2011,4.01504832644044
+TUR,Turkey,reserves_months_imports,2010,4.98149669912827
+TUR,Turkey,gdp_growth,2025,3.60462514082589
+TUR,Turkey,gdp_growth,2024,3.3276230893799
+TUR,Turkey,gdp_growth,2023,5.04512369812289
+TUR,Turkey,gdp_growth,2022,5.44122511322401
+TUR,Turkey,gdp_growth,2021,11.811094450607
+TUR,Turkey,gdp_growth,2020,1.80306247087255
+TUR,Turkey,gdp_growth,2019,1.30162365464503
+TUR,Turkey,gdp_growth,2018,3.46815306092219
+TUR,Turkey,gdp_growth,2017,7.82585730002594
+TUR,Turkey,gdp_growth,2016,3.32366508200445
+TUR,Turkey,gdp_growth,2015,5.80557386628684
+TUR,Turkey,gdp_growth,2014,4.60079447270559
+TUR,Turkey,gdp_growth,2013,8.48825689298511
+TUR,Turkey,gdp_growth,2012,4.80762696633448
+TUR,Turkey,gdp_growth,2011,10.9799625273598
+TUR,Turkey,gdp_growth,2010,8.54219848467686
+TUR,Turkey,inflation,2025,34.8811629820306
+TUR,Turkey,inflation,2024,58.5064507300342
+TUR,Turkey,inflation,2023,53.8594087593315
+TUR,Turkey,inflation,2022,72.3088359891207
+TUR,Turkey,inflation,2021,19.5964926913324
+TUR,Turkey,inflation,2020,12.2789574462574
+TUR,Turkey,inflation,2019,15.1768215720022
+TUR,Turkey,inflation,2018,16.3324638988929
+TUR,Turkey,inflation,2017,11.1443110840764
+TUR,Turkey,inflation,2016,7.7751341532833
+TUR,Turkey,inflation,2015,7.67085364845885
+TUR,Turkey,inflation,2014,8.85457271364316
+TUR,Turkey,inflation,2013,7.49309030547693
+TUR,Turkey,inflation,2012,8.89156996512163
+TUR,Turkey,inflation,2011,6.471879671151
+TUR,Turkey,inflation,2010,8.56644420552976
+TUR,Turkey,political_stability,2024,-0.970710499999999
+TUR,Turkey,political_stability,2023,-0.884477
+TUR,Turkey,political_stability,2022,-0.935033599999999
+TUR,Turkey,political_stability,2021,-0.9721057
+TUR,Turkey,political_stability,2020,-1.0396051
+TUR,Turkey,political_stability,2019,-1.1924541
+TUR,Turkey,political_stability,2018,-1.1241116
+TUR,Turkey,political_stability,2017,-1.70623179999999
+TUR,Turkey,political_stability,2016,-1.7801696
+TUR,Turkey,political_stability,2015,-1.10934889999999
+TUR,Turkey,political_stability,2014,-0.7998074
+TUR,Turkey,political_stability,2013,-1.0321782
+TUR,Turkey,political_stability,2012,-0.9196869
+TUR,Turkey,political_stability,2011,-0.6966163
+TUR,Turkey,political_stability,2010,-0.5486911
+TUR,Turkey,government_effectiveness,2024,-0.0707153
+TUR,Turkey,government_effectiveness,2023,-0.114084999999999
+TUR,Turkey,government_effectiveness,2022,-0.0247938999999999
+TUR,Turkey,government_effectiveness,2021,0.0250833
+TUR,Turkey,government_effectiveness,2020,0.070917
+TUR,Turkey,government_effectiveness,2019,0.2099076
+TUR,Turkey,government_effectiveness,2018,0.0477841
+TUR,Turkey,government_effectiveness,2017,0.2874577
+TUR,Turkey,government_effectiveness,2016,0.2092276
+TUR,Turkey,government_effectiveness,2015,0.3331512
+TUR,Turkey,government_effectiveness,2014,0.4793163
+TUR,Turkey,government_effectiveness,2013,0.3007252
+TUR,Turkey,government_effectiveness,2012,0.3847742
+TUR,Turkey,government_effectiveness,2011,0.3221463
+TUR,Turkey,government_effectiveness,2010,0.2639953
+TUR,Turkey,rule_of_law,2024,-0.8434149
+TUR,Turkey,rule_of_law,2023,-0.799233499999999
+TUR,Turkey,rule_of_law,2022,-0.7798318
+TUR,Turkey,rule_of_law,2021,-0.775344399999999
+TUR,Turkey,rule_of_law,2020,-0.709944799999999
+TUR,Turkey,rule_of_law,2019,-0.5970473
+TUR,Turkey,rule_of_law,2018,-0.7089454
+TUR,Turkey,rule_of_law,2017,-0.615377
+TUR,Turkey,rule_of_law,2016,-0.5458731
+TUR,Turkey,rule_of_law,2015,-0.4773732
+TUR,Turkey,rule_of_law,2014,-0.3611001
+TUR,Turkey,rule_of_law,2013,-0.1149216
+TUR,Turkey,rule_of_law,2012,-0.1061886
+TUR,Turkey,rule_of_law,2011,-0.0879284999999999
+TUR,Turkey,rule_of_law,2010,0.0494591
+TUR,Turkey,regulatory_quality,2024,-0.2112376
+TUR,Turkey,regulatory_quality,2023,-0.2108777
+TUR,Turkey,regulatory_quality,2022,-0.229146699999999
+TUR,Turkey,regulatory_quality,2021,-0.123133799999999
+TUR,Turkey,regulatory_quality,2020,-0.1651388
+TUR,Turkey,regulatory_quality,2019,-0.0157501
+TUR,Turkey,regulatory_quality,2018,0.0517731
+TUR,Turkey,regulatory_quality,2017,0.1437151
+TUR,Turkey,regulatory_quality,2016,0.1543103
+TUR,Turkey,regulatory_quality,2015,0.2171826
+TUR,Turkey,regulatory_quality,2014,0.368902
+TUR,Turkey,regulatory_quality,2013,0.4789095
+TUR,Turkey,regulatory_quality,2012,0.4714134
+TUR,Turkey,regulatory_quality,2011,0.3816131
+TUR,Turkey,regulatory_quality,2010,0.3744715
+TUR,Turkey,control_of_corruption,2024,-0.5632153
+TUR,Turkey,control_of_corruption,2023,-0.4374572
+TUR,Turkey,control_of_corruption,2022,-0.4324578
+TUR,Turkey,control_of_corruption,2021,-0.3992138
+TUR,Turkey,control_of_corruption,2020,-0.3242268
+TUR,Turkey,control_of_corruption,2019,-0.1801871
+TUR,Turkey,control_of_corruption,2018,-0.2317166
+TUR,Turkey,control_of_corruption,2017,-0.0665516
+TUR,Turkey,control_of_corruption,2016,-0.0845918
+TUR,Turkey,control_of_corruption,2015,-0.1063785
+TUR,Turkey,control_of_corruption,2014,-0.1089047
+TUR,Turkey,control_of_corruption,2013,0.1399698
+TUR,Turkey,control_of_corruption,2012,0.1585192
+TUR,Turkey,control_of_corruption,2011,0.0464784
+TUR,Turkey,control_of_corruption,2010,0.0487911
+TUR,Turkey,fdi_net_inflows_pct_gdp,2024,0.860701598247461
+TUR,Turkey,fdi_net_inflows_pct_gdp,2023,0.933806495534912
+TUR,Turkey,fdi_net_inflows_pct_gdp,2022,1.48839623728753
+TUR,Turkey,fdi_net_inflows_pct_gdp,2021,1.50891969619413
+TUR,Turkey,fdi_net_inflows_pct_gdp,2020,1.02531493703228
+TUR,Turkey,fdi_net_inflows_pct_gdp,2019,1.22536076199392
+TUR,Turkey,fdi_net_inflows_pct_gdp,2018,1.57923380202967
+TUR,Turkey,fdi_net_inflows_pct_gdp,2017,1.29532700760314
+TUR,Turkey,fdi_net_inflows_pct_gdp,2016,1.58873607703875
+TUR,Turkey,fdi_net_inflows_pct_gdp,2015,2.225752648523
+TUR,Turkey,fdi_net_inflows_pct_gdp,2014,1.41530142282668
+TUR,Turkey,fdi_net_inflows_pct_gdp,2013,1.40962960980578
+TUR,Turkey,fdi_net_inflows_pct_gdp,2012,1.55241965245755
+TUR,Turkey,fdi_net_inflows_pct_gdp,2011,1.91686136260632
+TUR,Turkey,fdi_net_inflows_pct_gdp,2010,1.16274364749147
+TUR,Turkey,exports_pct_gdp,2025,24.8497719904256
+TUR,Turkey,exports_pct_gdp,2024,27.5682232095509
+TUR,Turkey,exports_pct_gdp,2023,31.9135926809724
+TUR,Turkey,exports_pct_gdp,2022,38.1412107474416
+TUR,Turkey,exports_pct_gdp,2021,35.0536332850518
+TUR,Turkey,exports_pct_gdp,2020,28.7400043468285
+TUR,Turkey,exports_pct_gdp,2019,33.0298811646869
+TUR,Turkey,exports_pct_gdp,2018,31.7278536539697
+TUR,Turkey,exports_pct_gdp,2017,26.5394989930636
+TUR,Turkey,exports_pct_gdp,2016,23.6322024334399
+TUR,Turkey,exports_pct_gdp,2015,25.280784580735
+TUR,Turkey,exports_pct_gdp,2014,25.8173246854016
+TUR,Turkey,exports_pct_gdp,2013,24.403259811358
+TUR,Turkey,exports_pct_gdp,2012,24.9658181147838
+TUR,Turkey,exports_pct_gdp,2011,23.4903574412774
+TUR,Turkey,exports_pct_gdp,2010,21.5899457839207
+TUR,Turkey,imports_pct_gdp,2025,25.0849063722672
+TUR,Turkey,imports_pct_gdp,2024,27.0305829100406
+TUR,Turkey,imports_pct_gdp,2023,33.7696157928943
+TUR,Turkey,imports_pct_gdp,2022,41.7570614839925
+TUR,Turkey,imports_pct_gdp,2021,34.5552643235919
+TUR,Turkey,imports_pct_gdp,2020,31.6498487704686
+TUR,Turkey,imports_pct_gdp,2019,29.548577767937
+TUR,Turkey,imports_pct_gdp,2018,31.0972787311468
+TUR,Turkey,imports_pct_gdp,2017,29.5961595228053
+TUR,Turkey,imports_pct_gdp,2016,25.2379813745471
+TUR,Turkey,imports_pct_gdp,2015,26.5941406789482
+TUR,Turkey,imports_pct_gdp,2014,28.4894493558784
+TUR,Turkey,imports_pct_gdp,2013,28.6650931929463
+TUR,Turkey,imports_pct_gdp,2012,28.3619431820769
+TUR,Turkey,imports_pct_gdp,2011,30.1612264563406
+TUR,Turkey,imports_pct_gdp,2010,25.3533908870685
+TUR,Turkey,gdp_current_usd,2025,1597293229287.0
+TUR,Turkey,gdp_current_usd,2024,1359123768774.12
+TUR,Turkey,gdp_current_usd,2023,1141242864657.45
+TUR,Turkey,gdp_current_usd,2022,926097476913.818
+TUR,Turkey,gdp_current_usd,2021,839938668172.134
+TUR,Turkey,gdp_current_usd,2020,733628247119.077
+TUR,Turkey,gdp_current_usd,2019,775853144222.613
+TUR,Turkey,gdp_current_usd,2018,788356985773.667
+TUR,Turkey,gdp_current_usd,2017,863874522365.276
+TUR,Turkey,gdp_current_usd,2016,870818016909.84
+TUR,Turkey,gdp_current_usd,2015,865460050683.656
+TUR,Turkey,gdp_current_usd,2014,942343431928.654
+TUR,Turkey,gdp_current_usd,2013,962167643588.925
+TUR,Turkey,gdp_current_usd,2012,885327622479.052
+TUR,Turkey,gdp_current_usd,2011,844192507380.795
+TUR,Turkey,gdp_current_usd,2010,782545664268.333
+TUR,Turkey,gdp_per_capita_usd,2025,18599.4420922378
+TUR,Turkey,gdp_per_capita_usd,2024,15892.7157287241
+TUR,Turkey,gdp_per_capita_usd,2023,13375.0947282864
+TUR,Turkey,gdp_per_capita_usd,2022,10897.8397861365
+TUR,Turkey,gdp_per_capita_usd,2021,9981.76398411336
+TUR,Turkey,gdp_per_capita_usd,2020,8798.11791709313
+TUR,Turkey,gdp_per_capita_usd,2019,9395.23378001368
+TUR,Turkey,gdp_per_capita_usd,2018,9684.11819884721
+TUR,Turkey,gdp_per_capita_usd,2017,10756.3877677883
+TUR,Turkey,gdp_per_capita_usd,2016,10984.3643169061
+TUR,Turkey,gdp_per_capita_usd,2015,11064.6494504662
+TUR,Turkey,gdp_per_capita_usd,2014,12209.3862327674
+TUR,Turkey,gdp_per_capita_usd,2013,12635.5570016068
+TUR,Turkey,gdp_per_capita_usd,2012,11776.7593362033
+TUR,Turkey,gdp_per_capita_usd,2011,11373.6355760885
+TUR,Turkey,gdp_per_capita_usd,2010,10698.9699409757
+TUR,Turkey,total_reserves_usd,2025,185567690700.458
+TUR,Turkey,total_reserves_usd,2024,155548682878.169
+TUR,Turkey,total_reserves_usd,2023,140868480001.696
+TUR,Turkey,total_reserves_usd,2022,128735003395.893
+TUR,Turkey,total_reserves_usd,2021,111184882382.134
+TUR,Turkey,total_reserves_usd,2020,93584577917.0715
+TUR,Turkey,total_reserves_usd,2019,105619672447.934
+TUR,Turkey,total_reserves_usd,2018,92997230040.5605
+TUR,Turkey,total_reserves_usd,2017,107657025384.516
+TUR,Turkey,total_reserves_usd,2016,104810530764.478
+TUR,Turkey,total_reserves_usd,2015,110489628113.015
+TUR,Turkey,total_reserves_usd,2014,127421921235.759
+TUR,Turkey,total_reserves_usd,2013,131053847400.859
+TUR,Turkey,total_reserves_usd,2012,119182965975.41
+TUR,Turkey,total_reserves_usd,2011,87937253858.338
+TUR,Turkey,total_reserves_usd,2010,85959461665.9826
+TUR,Turkey,unemployment_rate,2025,8.52
+TUR,Turkey,unemployment_rate,2024,8.8
+TUR,Turkey,unemployment_rate,2023,9.388
+TUR,Turkey,unemployment_rate,2022,10.465
+TUR,Turkey,unemployment_rate,2021,11.969
+TUR,Turkey,unemployment_rate,2020,13.148
+TUR,Turkey,unemployment_rate,2019,13.73
+TUR,Turkey,unemployment_rate,2018,10.956
+TUR,Turkey,unemployment_rate,2017,10.919
+TUR,Turkey,unemployment_rate,2016,10.899
+TUR,Turkey,unemployment_rate,2015,10.304
+TUR,Turkey,unemployment_rate,2014,9.901
+TUR,Turkey,unemployment_rate,2013,9.713
+TUR,Turkey,unemployment_rate,2012,9.21
+TUR,Turkey,unemployment_rate,2011,9.789
+TUR,Turkey,unemployment_rate,2010,11.879
+TUR,Turkey,youth_unemployment_rate,2025,16.042
+TUR,Turkey,youth_unemployment_rate,2024,16.287
+TUR,Turkey,youth_unemployment_rate,2023,17.306
+TUR,Turkey,youth_unemployment_rate,2022,19.289
+TUR,Turkey,youth_unemployment_rate,2021,22.36
+TUR,Turkey,youth_unemployment_rate,2020,24.919
+TUR,Turkey,youth_unemployment_rate,2019,25.039
+TUR,Turkey,youth_unemployment_rate,2018,20.011
+TUR,Turkey,youth_unemployment_rate,2017,20.469
+TUR,Turkey,youth_unemployment_rate,2016,19.369
+TUR,Turkey,youth_unemployment_rate,2015,18.299
+TUR,Turkey,youth_unemployment_rate,2014,17.698
+TUR,Turkey,youth_unemployment_rate,2013,18.442
+TUR,Turkey,youth_unemployment_rate,2012,17.342
+TUR,Turkey,youth_unemployment_rate,2011,18.208
+TUR,Turkey,youth_unemployment_rate,2010,21.578
+TUR,Turkey,gini_index,2023,43.7
+TUR,Turkey,gini_index,2022,44.5
+TUR,Turkey,gini_index,2021,44.4
+TUR,Turkey,gini_index,2020,43.0
+TUR,Turkey,gini_index,2019,43.8
+TUR,Turkey,gini_index,2018,42.4
+TUR,Turkey,gini_index,2017,43.5
+TUR,Turkey,gini_index,2016,41.9
+TUR,Turkey,gini_index,2015,42.9
+TUR,Turkey,gini_index,2014,41.2
+TUR,Turkey,gini_index,2013,40.2
+TUR,Turkey,gini_index,2012,40.2
+TUR,Turkey,gini_index,2011,40.0
+TUR,Turkey,gini_index,2010,38.8
+SDN,Sudan,current_account_pct_gdp,2022,-8.59889945377348
+SDN,Sudan,current_account_pct_gdp,2021,-7.65468962500371
+SDN,Sudan,current_account_pct_gdp,2020,-21.6064794369516
+SDN,Sudan,current_account_pct_gdp,2019,-14.7808388986177
+SDN,Sudan,current_account_pct_gdp,2018,-14.4693934170139
+SDN,Sudan,current_account_pct_gdp,2017,-11.1697054533751
+SDN,Sudan,current_account_pct_gdp,2016,-9.88346111101847
+SDN,Sudan,current_account_pct_gdp,2015,-10.5569345811594
+SDN,Sudan,current_account_pct_gdp,2014,-7.16013618473832
+SDN,Sudan,current_account_pct_gdp,2013,-13.5321488136858
+SDN,Sudan,current_account_pct_gdp,2012,-16.6318777556219
+SDN,Sudan,current_account_pct_gdp,2011,-4.82188496528231
+SDN,Sudan,current_account_pct_gdp,2010,-2.92618988919934
+SDN,Sudan,reserves_months_imports,2017,0.186146721322576
+SDN,Sudan,reserves_months_imports,2016,0.206371176337176
+SDN,Sudan,reserves_months_imports,2015,0.183852571194075
+SDN,Sudan,reserves_months_imports,2014,0.194994810038632
+SDN,Sudan,reserves_months_imports,2013,0.170670884074813
+SDN,Sudan,reserves_months_imports,2012,0.188390712083205
+SDN,Sudan,reserves_months_imports,2011,0.155870348159297
+SDN,Sudan,reserves_months_imports,2010,0.793170652584922
+SDN,Sudan,gdp_growth,2025,3.06427942935869
+SDN,Sudan,gdp_growth,2024,-13.9643378424022
+SDN,Sudan,gdp_growth,2023,-29.4332716274387
+SDN,Sudan,gdp_growth,2022,-0.957816591119183
+SDN,Sudan,gdp_growth,2021,-1.8685204827207
+SDN,Sudan,gdp_growth,2020,-3.62980082410752
+SDN,Sudan,gdp_growth,2019,-2.17825104530091
+SDN,Sudan,gdp_growth,2018,-2.6809305497999
+SDN,Sudan,gdp_growth,2017,0.70925628476644
+SDN,Sudan,gdp_growth,2016,3.46764218409288
+SDN,Sudan,gdp_growth,2015,1.91017689052751
+SDN,Sudan,gdp_growth,2014,4.66137954229873
+SDN,Sudan,gdp_growth,2013,1.95514463302422
+SDN,Sudan,gdp_growth,2012,-17.0046884048945
+SDN,Sudan,gdp_growth,2011,-3.21353209253371
+SDN,Sudan,gdp_growth,2010,3.85824195230107
+SDN,Sudan,inflation,2022,138.80846024176
+SDN,Sudan,inflation,2021,359.093040778999
+SDN,Sudan,inflation,2020,163.257782355458
+SDN,Sudan,inflation,2019,50.9940515002965
+SDN,Sudan,inflation,2018,63.2925073455888
+SDN,Sudan,inflation,2017,32.3516260968437
+SDN,Sudan,inflation,2016,17.750253831196
+SDN,Sudan,inflation,2015,16.9095706050977
+SDN,Sudan,inflation,2014,36.9066427863595
+SDN,Sudan,inflation,2013,36.5223449139154
+SDN,Sudan,inflation,2012,35.5590574147024
+SDN,Sudan,inflation,2011,18.0966171221351
+SDN,Sudan,inflation,2010,12.9776663898014
+SDN,Sudan,political_stability,2024,-2.0243381
+SDN,Sudan,political_stability,2023,-2.0604154
+SDN,Sudan,political_stability,2022,-1.92571989999999
+SDN,Sudan,political_stability,2021,-1.7826483
+SDN,Sudan,political_stability,2020,-1.3881394
+SDN,Sudan,political_stability,2019,-1.65533209999999
+SDN,Sudan,political_stability,2018,-1.71645009999999
+SDN,Sudan,political_stability,2017,-1.9473364
+SDN,Sudan,political_stability,2016,-2.16225439999999
+SDN,Sudan,political_stability,2015,-2.0365601
+SDN,Sudan,political_stability,2014,-2.2236606
+SDN,Sudan,political_stability,2013,-2.2572174
+SDN,Sudan,political_stability,2012,-2.3155934
+SDN,Sudan,political_stability,2011,-2.3438684
+SDN,Sudan,political_stability,2010,-2.4305404
+SDN,Sudan,government_effectiveness,2024,-1.79393619999999
+SDN,Sudan,government_effectiveness,2023,-1.7726125
+SDN,Sudan,government_effectiveness,2022,-1.5360265
+SDN,Sudan,government_effectiveness,2021,-1.4426029
+SDN,Sudan,government_effectiveness,2020,-1.4293287
+SDN,Sudan,government_effectiveness,2019,-1.41919669999999
+SDN,Sudan,government_effectiveness,2018,-1.49191189999999
+SDN,Sudan,government_effectiveness,2017,-1.24182669999999
+SDN,Sudan,government_effectiveness,2016,-1.2725849
+SDN,Sudan,government_effectiveness,2015,-1.29342999999999
+SDN,Sudan,government_effectiveness,2014,-1.3093428
+SDN,Sudan,government_effectiveness,2013,-1.3113659
+SDN,Sudan,government_effectiveness,2012,-1.3159644
+SDN,Sudan,government_effectiveness,2011,-1.3212982
+SDN,Sudan,government_effectiveness,2010,-1.3183855
+SDN,Sudan,rule_of_law,2024,-1.7733122
+SDN,Sudan,rule_of_law,2023,-1.65553779999999
+SDN,Sudan,rule_of_law,2022,-1.4230148
+SDN,Sudan,rule_of_law,2021,-1.3405003
+SDN,Sudan,rule_of_law,2020,-1.344873
+SDN,Sudan,rule_of_law,2019,-1.4223111
+SDN,Sudan,rule_of_law,2018,-1.3679719
+SDN,Sudan,rule_of_law,2017,-1.3822481
+SDN,Sudan,rule_of_law,2016,-1.4810009
+SDN,Sudan,rule_of_law,2015,-1.4901668
+SDN,Sudan,rule_of_law,2014,-1.4368402
+SDN,Sudan,rule_of_law,2013,-1.4727537
+SDN,Sudan,rule_of_law,2012,-1.42399229999999
+SDN,Sudan,rule_of_law,2011,-1.4311591
+SDN,Sudan,rule_of_law,2010,-1.383167
+SDN,Sudan,regulatory_quality,2024,-1.6627093
+SDN,Sudan,regulatory_quality,2023,-1.6040918
+SDN,Sudan,regulatory_quality,2022,-1.5498089
+SDN,Sudan,regulatory_quality,2021,-1.48846139999999
+SDN,Sudan,regulatory_quality,2020,-1.50085769999999
+SDN,Sudan,regulatory_quality,2019,-1.5295444
+SDN,Sudan,regulatory_quality,2018,-1.50539159999999
+SDN,Sudan,regulatory_quality,2017,-1.4265577
+SDN,Sudan,regulatory_quality,2016,-1.4119321
+SDN,Sudan,regulatory_quality,2015,-1.4597243
+SDN,Sudan,regulatory_quality,2014,-1.431484
+SDN,Sudan,regulatory_quality,2013,-1.47720309999999
+SDN,Sudan,regulatory_quality,2012,-1.39933059999999
+SDN,Sudan,regulatory_quality,2011,-1.3131857
+SDN,Sudan,regulatory_quality,2010,-1.32794979999999
+SDN,Sudan,control_of_corruption,2024,-1.557432
+SDN,Sudan,control_of_corruption,2023,-1.4513517
+SDN,Sudan,control_of_corruption,2022,-1.4462818
+SDN,Sudan,control_of_corruption,2021,-1.292527
+SDN,Sudan,control_of_corruption,2020,-1.3828975
+SDN,Sudan,control_of_corruption,2019,-1.47108899999999
+SDN,Sudan,control_of_corruption,2018,-1.5184609
+SDN,Sudan,control_of_corruption,2017,-1.480461
+SDN,Sudan,control_of_corruption,2016,-1.4810828
+SDN,Sudan,control_of_corruption,2015,-1.4808042
+SDN,Sudan,control_of_corruption,2014,-1.5461064
+SDN,Sudan,control_of_corruption,2013,-1.5693861
+SDN,Sudan,control_of_corruption,2012,-1.57216549999999
+SDN,Sudan,control_of_corruption,2011,-1.46601389999999
+SDN,Sudan,control_of_corruption,2010,-1.4777406
+SDN,Sudan,fdi_net_inflows_pct_gdp,2023,1.37399372870934
+SDN,Sudan,fdi_net_inflows_pct_gdp,2022,1.11000421594226
+SDN,Sudan,fdi_net_inflows_pct_gdp,2021,1.52754029838982
+SDN,Sudan,fdi_net_inflows_pct_gdp,2020,2.65193447042229
+SDN,Sudan,fdi_net_inflows_pct_gdp,2019,2.55226968828806
+SDN,Sudan,fdi_net_inflows_pct_gdp,2018,3.51269523880448
+SDN,Sudan,fdi_net_inflows_pct_gdp,2017,2.58043876395005
+SDN,Sudan,fdi_net_inflows_pct_gdp,2016,2.49532759301928
+SDN,Sudan,fdi_net_inflows_pct_gdp,2015,3.34135261447755
+SDN,Sudan,fdi_net_inflows_pct_gdp,2014,2.52698516017578
+SDN,Sudan,fdi_net_inflows_pct_gdp,2013,3.92312074519106
+SDN,Sudan,fdi_net_inflows_pct_gdp,2012,6.14212434699966
+SDN,Sudan,fdi_net_inflows_pct_gdp,2011,3.15234852962884
+SDN,Sudan,fdi_net_inflows_pct_gdp,2010,3.50004539535845
+SDN,Sudan,exports_pct_gdp,2025,1.1030420269355
+SDN,Sudan,exports_pct_gdp,2024,0.720930190156301
+SDN,Sudan,exports_pct_gdp,2023,1.10810859308483
+SDN,Sudan,exports_pct_gdp,2022,1.57116183055586
+SDN,Sudan,exports_pct_gdp,2021,2.2498704277993
+SDN,Sudan,exports_pct_gdp,2020,5.12531269468598
+SDN,Sudan,exports_pct_gdp,2019,8.45298341762853
+SDN,Sudan,exports_pct_gdp,2018,7.65020198466392
+SDN,Sudan,exports_pct_gdp,2017,6.11214425821293
+SDN,Sudan,exports_pct_gdp,2016,5.00449100738247
+SDN,Sudan,exports_pct_gdp,2015,6.42291092918573
+SDN,Sudan,exports_pct_gdp,2014,7.60891112283276
+SDN,Sudan,exports_pct_gdp,2013,9.50689116839014
+SDN,Sudan,exports_pct_gdp,2012,6.85645263673087
+SDN,Sudan,exports_pct_gdp,2011,12.4787060282521
+SDN,Sudan,exports_pct_gdp,2010,17.4756063457453
+SDN,Sudan,imports_pct_gdp,2025,1.27888825694147
+SDN,Sudan,imports_pct_gdp,2024,1.27448191209378
+SDN,Sudan,imports_pct_gdp,2023,1.36562018959182
+SDN,Sudan,imports_pct_gdp,2022,1.12767260530269
+SDN,Sudan,imports_pct_gdp,2021,1.87767821048496
+SDN,Sudan,imports_pct_gdp,2020,4.82983238157553
+SDN,Sudan,imports_pct_gdp,2019,17.666637037634
+SDN,Sudan,imports_pct_gdp,2018,14.2177167427683
+SDN,Sudan,imports_pct_gdp,2017,11.7192455714973
+SDN,Sudan,imports_pct_gdp,2016,10.2771788829636
+SDN,Sudan,imports_pct_gdp,2015,11.9553619254684
+SDN,Sudan,imports_pct_gdp,2014,13.2361978812986
+SDN,Sudan,imports_pct_gdp,2013,17.3516333336233
+SDN,Sudan,imports_pct_gdp,2012,14.9997218879992
+SDN,Sudan,imports_pct_gdp,2011,15.0336329952659
+SDN,Sudan,imports_pct_gdp,2010,15.2527036042897
+SDN,Sudan,gdp_current_usd,2025,60162634574.4689
+SDN,Sudan,gdp_current_usd,2024,49672435513.1126
+SDN,Sudan,gdp_current_usd,2023,39898289820.7951
+SDN,Sudan,gdp_current_usd,2022,51666875363.0963
+SDN,Sudan,gdp_current_usd,2021,34229513774.9936
+SDN,Sudan,gdp_current_usd,2020,27034593750.0
+SDN,Sudan,gdp_current_usd,2019,32338079165.2893
+SDN,Sudan,gdp_current_usd,2018,32333780383.2924
+SDN,Sudan,gdp_current_usd,2017,41283617976.1905
+SDN,Sudan,gdp_current_usd,2016,42630376000.0
+SDN,Sudan,gdp_current_usd,2015,51726758676.7677
+SDN,Sudan,gdp_current_usd,2014,49516748617.9775
+SDN,Sudan,gdp_current_usd,2013,43024018082.1918
+SDN,Sudan,gdp_current_usd,2012,37632919966.6667
+SDN,Sudan,gdp_current_usd,2011,55018567210.5263
+SDN,Sudan,gdp_current_usd,2010,58962978034.4828
+SDN,Sudan,gdp_per_capita_usd,2025,1164.53991699219
+SDN,Sudan,gdp_per_capita_usd,2024,984.607666015625
+SDN,Sudan,gdp_per_capita_usd,2023,797.283447265625
+SDN,Sudan,gdp_per_capita_usd,2022,1046.24084472656
+SDN,Sudan,gdp_per_capita_usd,2021,712.122009277344
+SDN,Sudan,gdp_per_capita_usd,2020,577.795227050781
+SDN,Sudan,gdp_per_capita_usd,2019,709.975280761719
+SDN,Sudan,gdp_per_capita_usd,2018,731.027465820313
+SDN,Sudan,gdp_per_capita_usd,2017,966.505676269531
+SDN,Sudan,gdp_per_capita_usd,2016,1033.21594238281
+SDN,Sudan,gdp_per_capita_usd,2015,1292.37963867188
+SDN,Sudan,gdp_per_capita_usd,2014,1275.43835449219
+SDN,Sudan,gdp_per_capita_usd,2013,1138.62780761719
+SDN,Sudan,gdp_per_capita_usd,2012,1019.22210693359
+SDN,Sudan,gdp_per_capita_usd,2011,1332.6572265625
+SDN,Sudan,gdp_per_capita_usd,2010,1305.63598632813
+SDN,Sudan,total_reserves_usd,2017,177933851.813136
+SDN,Sudan,total_reserves_usd,2016,168284353.053784
+SDN,Sudan,total_reserves_usd,2015,173516490.886743
+SDN,Sudan,total_reserves_usd,2014,181457168.977028
+SDN,Sudan,total_reserves_usd,2013,192956941.623251
+SDN,Sudan,total_reserves_usd,2012,192632614.669593
+SDN,Sudan,total_reserves_usd,2011,192529339.697522
+SDN,Sudan,total_reserves_usd,2010,1036244170.70595
+SDN,Sudan,unemployment_rate,2022,7.53
+SDN,Sudan,unemployment_rate,2021,11.087
+SDN,Sudan,unemployment_rate,2020,11.995
+SDN,Sudan,unemployment_rate,2019,11.697
+SDN,Sudan,unemployment_rate,2018,12.347
+SDN,Sudan,unemployment_rate,2017,13.0
+SDN,Sudan,unemployment_rate,2016,13.656
+SDN,Sudan,unemployment_rate,2015,14.39
+SDN,Sudan,unemployment_rate,2014,15.41
+SDN,Sudan,unemployment_rate,2013,16.273
+SDN,Sudan,unemployment_rate,2012,16.973
+SDN,Sudan,unemployment_rate,2011,17.44
+SDN,Sudan,unemployment_rate,2010,15.168
+SDN,Sudan,youth_unemployment_rate,2022,12.0
+SDN,Sudan,youth_unemployment_rate,2021,17.406
+SDN,Sudan,youth_unemployment_rate,2020,19.783
+SDN,Sudan,youth_unemployment_rate,2019,19.37
+SDN,Sudan,youth_unemployment_rate,2018,20.795
+SDN,Sudan,youth_unemployment_rate,2017,22.198
+SDN,Sudan,youth_unemployment_rate,2016,23.625
+SDN,Sudan,youth_unemployment_rate,2015,25.229
+SDN,Sudan,youth_unemployment_rate,2014,27.283
+SDN,Sudan,youth_unemployment_rate,2013,29.155
+SDN,Sudan,youth_unemployment_rate,2012,30.834
+SDN,Sudan,youth_unemployment_rate,2011,32.17
+SDN,Sudan,youth_unemployment_rate,2010,26.4
+SDN,Sudan,gini_index,2014,34.2
+SSD,South Sudan,current_account_pct_gdp,2023,7.93071136684621
+SSD,South Sudan,current_account_pct_gdp,2022,-11.2233718358258
+SSD,South Sudan,current_account_pct_gdp,2021,-0.13161314202058
+SSD,South Sudan,current_account_pct_gdp,2020,-35.0491711578272
+SSD,South Sudan,current_account_pct_gdp,2019,-4.15741601037528
+SSD,South Sudan,current_account_pct_gdp,2018,-9.0382483224269
+SSD,South Sudan,current_account_pct_gdp,2017,8.30684638743949
+SSD,South Sudan,current_account_pct_gdp,2016,-5.76700049530002
+SSD,South Sudan,current_account_pct_gdp,2015,-4.169014055128
+SSD,South Sudan,current_account_pct_gdp,2014,-5.65945565697319
+SSD,South Sudan,reserves_months_imports,2023,0.174842702708606
+SSD,South Sudan,reserves_months_imports,2022,0.161236777638856
+SSD,South Sudan,reserves_months_imports,2021,0.885919595057179
+SSD,South Sudan,reserves_months_imports,2020,0.453781682593365
+SSD,South Sudan,reserves_months_imports,2019,1.03609029459434
+SSD,South Sudan,reserves_months_imports,2018,0.109546774819367
+SSD,South Sudan,reserves_months_imports,2017,0.182679467354685
+SSD,South Sudan,reserves_months_imports,2016,0.361618094817873
+SSD,South Sudan,reserves_months_imports,2015,0.759703291939908
+SSD,South Sudan,reserves_months_imports,2014,0.951484917211162
+SSD,South Sudan,gdp_growth,2015,-10.7933646271143
+SSD,South Sudan,gdp_growth,2014,3.37364847715736
+SSD,South Sudan,gdp_growth,2013,13.1297311406943
+SSD,South Sudan,gdp_growth,2012,-46.0821223743007
+SSD,South Sudan,gdp_growth,2011,-4.64031673600859
+SSD,South Sudan,gdp_growth,2010,5.49341639529945
+SSD,South Sudan,inflation,2024,91.4408220769046
+SSD,South Sudan,inflation,2023,2.38280434813754
+SSD,South Sudan,inflation,2022,-6.68732094212668
+SSD,South Sudan,inflation,2021,10.5167158294358
+SSD,South Sudan,inflation,2020,29.6758435538572
+SSD,South Sudan,inflation,2019,87.2413641500032
+SSD,South Sudan,inflation,2018,83.5015294922
+SSD,South Sudan,inflation,2017,187.851630279442
+SSD,South Sudan,inflation,2016,379.999585624026
+SSD,South Sudan,inflation,2015,52.7663304192143
+SSD,South Sudan,inflation,2014,1.6742990629552
+SSD,South Sudan,inflation,2013,-0.0580909784225664
+SSD,South Sudan,inflation,2012,45.5258978371706
+SSD,South Sudan,inflation,2011,46.8521757193597
+SSD,South Sudan,inflation,2010,1.16962180301108
+SSD,South Sudan,political_stability,2024,-1.4896464
+SSD,South Sudan,political_stability,2023,-1.52967079999999
+SSD,South Sudan,political_stability,2022,-1.6425543
+SSD,South Sudan,political_stability,2021,-2.21948739999999
+SSD,South Sudan,political_stability,2020,-2.1055063
+SSD,South Sudan,political_stability,2019,-2.39114589999999
+SSD,South Sudan,political_stability,2018,-2.3307387
+SSD,South Sudan,political_stability,2017,-2.44555199999999
+SSD,South Sudan,political_stability,2016,-2.33343
+SSD,South Sudan,political_stability,2015,-2.2792733
+SSD,South Sudan,political_stability,2014,-2.5030889
+SSD,South Sudan,political_stability,2013,-2.0671128
+SSD,South Sudan,political_stability,2012,-1.4983578
+SSD,South Sudan,political_stability,2011,-1.51136989999999
+SSD,South Sudan,government_effectiveness,2024,-2.1728459
+SSD,South Sudan,government_effectiveness,2023,-2.2060236
+SSD,South Sudan,government_effectiveness,2022,-2.2168775
+SSD,South Sudan,government_effectiveness,2021,-2.2425859
+SSD,South Sudan,government_effectiveness,2020,-2.16308659999999
+SSD,South Sudan,government_effectiveness,2019,-2.09482199999999
+SSD,South Sudan,government_effectiveness,2018,-2.0765061
+SSD,South Sudan,government_effectiveness,2017,-2.13822209999999
+SSD,South Sudan,government_effectiveness,2016,-2.05300419999999
+SSD,South Sudan,government_effectiveness,2015,-1.981766
+SSD,South Sudan,government_effectiveness,2014,-1.8301131
+SSD,South Sudan,government_effectiveness,2013,-1.6555038
+SSD,South Sudan,government_effectiveness,2012,-1.4942658
+SSD,South Sudan,government_effectiveness,2011,-1.57631069999999
+SSD,South Sudan,rule_of_law,2024,-1.9725304
+SSD,South Sudan,rule_of_law,2023,-2.00017059999999
+SSD,South Sudan,rule_of_law,2022,-1.9298809
+SSD,South Sudan,rule_of_law,2021,-1.97781689999999
+SSD,South Sudan,rule_of_law,2020,-1.90756779999999
+SSD,South Sudan,rule_of_law,2019,-1.87228589999999
+SSD,South Sudan,rule_of_law,2018,-1.8708086
+SSD,South Sudan,rule_of_law,2017,-1.7533888
+SSD,South Sudan,rule_of_law,2016,-1.7566012
+SSD,South Sudan,rule_of_law,2015,-1.6930815
+SSD,South Sudan,rule_of_law,2014,-1.6791346
+SSD,South Sudan,rule_of_law,2013,-1.3517382
+SSD,South Sudan,rule_of_law,2012,-1.1549676
+SSD,South Sudan,rule_of_law,2011,-1.3454875
+SSD,South Sudan,regulatory_quality,2024,-1.9295182
+SSD,South Sudan,regulatory_quality,2023,-2.0014186
+SSD,South Sudan,regulatory_quality,2022,-1.934717
+SSD,South Sudan,regulatory_quality,2021,-1.93385449999999
+SSD,South Sudan,regulatory_quality,2020,-1.9522498
+SSD,South Sudan,regulatory_quality,2019,-1.8807648
+SSD,South Sudan,regulatory_quality,2018,-1.8857358
+SSD,South Sudan,regulatory_quality,2017,-1.79473739999999
+SSD,South Sudan,regulatory_quality,2016,-1.75850469999999
+SSD,South Sudan,regulatory_quality,2015,-1.6736197
+SSD,South Sudan,regulatory_quality,2014,-1.66875929999999
+SSD,South Sudan,regulatory_quality,2013,-1.5704737
+SSD,South Sudan,regulatory_quality,2012,-1.4227969
+SSD,South Sudan,regulatory_quality,2011,-1.5768821
+SSD,South Sudan,control_of_corruption,2024,-2.0647211
+SSD,South Sudan,control_of_corruption,2023,-1.87741769999999
+SSD,South Sudan,control_of_corruption,2022,-1.861122
+SSD,South Sudan,control_of_corruption,2021,-1.82343179999999
+SSD,South Sudan,control_of_corruption,2020,-1.80683669999999
+SSD,South Sudan,control_of_corruption,2019,-1.8861426
+SSD,South Sudan,control_of_corruption,2018,-1.8304337
+SSD,South Sudan,control_of_corruption,2017,-1.7562035
+SSD,South Sudan,control_of_corruption,2016,-1.7919554
+SSD,South Sudan,control_of_corruption,2015,-1.77074769999999
+SSD,South Sudan,control_of_corruption,2014,-1.71827969999999
+SSD,South Sudan,control_of_corruption,2013,-1.4236144
+SSD,South Sudan,control_of_corruption,2012,-1.34178249999999
+SSD,South Sudan,control_of_corruption,2011,-1.2275676
+SSD,South Sudan,control_of_corruption,2010,-0.214174099999999
+SSD,South Sudan,fdi_net_inflows_pct_gdp,2015,0.0012502291294692
+SSD,South Sudan,fdi_net_inflows_pct_gdp,2014,0.00741877910985015
+SSD,South Sudan,fdi_net_inflows_pct_gdp,2013,-4.30359174766787
+SSD,South Sudan,fdi_net_inflows_pct_gdp,2012,1.34937246395858
+SSD,South Sudan,exports_pct_gdp,2015,36.6513492804707
+SSD,South Sudan,exports_pct_gdp,2014,38.3916172930278
+SSD,South Sudan,exports_pct_gdp,2013,9.74075785850552
+SSD,South Sudan,exports_pct_gdp,2012,42.8320523585268
+SSD,South Sudan,exports_pct_gdp,2011,66.0761203752424
+SSD,South Sudan,exports_pct_gdp,2010,61.4344828173072
+SSD,South Sudan,imports_pct_gdp,2015,28.8999999040295
+SSD,South Sudan,imports_pct_gdp,2014,26.2429005140531
+SSD,South Sudan,imports_pct_gdp,2013,41.0704887322407
+SSD,South Sudan,imports_pct_gdp,2012,28.7877590362221
+SSD,South Sudan,imports_pct_gdp,2011,27.1507393796766
+SSD,South Sudan,imports_pct_gdp,2010,29.5089655488059
+SSD,South Sudan,gdp_current_usd,2015,11997800760.2242
+SSD,South Sudan,gdp_current_usd,2014,13962212847.4576
+SSD,South Sudan,gdp_current_usd,2013,18426469016.9492
+SSD,South Sudan,gdp_current_usd,2012,11931472169.4915
+SSD,South Sudan,gdp_current_usd,2011,14907308932.7534
+SSD,South Sudan,gdp_current_usd,2010,14602072410.9506
+SSD,South Sudan,gdp_per_capita_usd,2015,1080.14718624765
+SSD,South Sudan,gdp_per_capita_usd,2014,1242.73450181032
+SSD,South Sudan,gdp_per_capita_usd,2013,1650.18943353528
+SSD,South Sudan,gdp_per_capita_usd,2012,1109.26050083408
+SSD,South Sudan,gdp_per_capita_usd,2011,1448.98435006408
+SSD,South Sudan,gdp_per_capita_usd,2010,1498.27034985194
+SSD,South Sudan,total_reserves_usd,2024,15961778.4894403
+SSD,South Sudan,total_reserves_usd,2023,72880855.2161365
+SSD,South Sudan,total_reserves_usd,2022,94914465.1760948
+SSD,South Sudan,total_reserves_usd,2021,341932479.973586
+SSD,South Sudan,total_reserves_usd,2020,183614816.68196
+SSD,South Sudan,total_reserves_usd,2019,378281747.007865
+SSD,South Sudan,total_reserves_usd,2018,36396368.1998606
+SSD,South Sudan,total_reserves_usd,2017,33820210.9558201
+SSD,South Sudan,total_reserves_usd,2016,68159818.6400242
+SSD,South Sudan,total_reserves_usd,2015,229880518.366327
+SSD,South Sudan,total_reserves_usd,2014,416808670.07584
+SSD,South Sudan,total_reserves_usd,2013,947810456.615822
+SSD,South Sudan,total_reserves_usd,2012,1282090260.28818
+SSD,South Sudan,unemployment_rate,2023,12.374
+SSD,South Sudan,unemployment_rate,2022,12.475
+SSD,South Sudan,unemployment_rate,2021,13.95
+SSD,South Sudan,unemployment_rate,2020,14.246
+SSD,South Sudan,unemployment_rate,2019,12.656
+SSD,South Sudan,unemployment_rate,2018,12.853
+SSD,South Sudan,unemployment_rate,2017,12.983
+SSD,South Sudan,unemployment_rate,2016,12.854
+SSD,South Sudan,unemployment_rate,2015,12.464
+SSD,South Sudan,unemployment_rate,2014,12.561
+SSD,South Sudan,unemployment_rate,2013,12.665
+SSD,South Sudan,unemployment_rate,2012,12.803
+SSD,South Sudan,unemployment_rate,2011,12.585
+SSD,South Sudan,unemployment_rate,2010,12.473
+SSD,South Sudan,youth_unemployment_rate,2023,18.524
+SSD,South Sudan,youth_unemployment_rate,2022,18.717
+SSD,South Sudan,youth_unemployment_rate,2021,20.797
+SSD,South Sudan,youth_unemployment_rate,2020,21.846
+SSD,South Sudan,youth_unemployment_rate,2019,19.263
+SSD,South Sudan,youth_unemployment_rate,2018,19.555
+SSD,South Sudan,youth_unemployment_rate,2017,19.849
+SSD,South Sudan,youth_unemployment_rate,2016,19.847
+SSD,South Sudan,youth_unemployment_rate,2015,19.419
+SSD,South Sudan,youth_unemployment_rate,2014,19.576
+SSD,South Sudan,youth_unemployment_rate,2013,19.733
+SSD,South Sudan,youth_unemployment_rate,2012,19.907
+SSD,South Sudan,youth_unemployment_rate,2011,19.605
+SSD,South Sudan,youth_unemployment_rate,2010,19.401
+SSD,South Sudan,gini_index,2016,44.0
+ETH,Ethiopia,debt_to_gdp,2019,31.4488445666124
+ETH,Ethiopia,debt_to_gdp,2018,32.5332245901733
+ETH,Ethiopia,debt_to_gdp,2017,30.0951138170263
+ETH,Ethiopia,debt_to_gdp,2016,29.0056817322355
+ETH,Ethiopia,debt_to_gdp,2015,27.9431250379303
+ETH,Ethiopia,debt_to_gdp,2014,26.9372797365191
+ETH,Ethiopia,debt_to_gdp,2013,10.733283781495
+ETH,Ethiopia,current_account_pct_gdp,2024,-2.53176480495898
+ETH,Ethiopia,current_account_pct_gdp,2023,-3.52359702026291
+ETH,Ethiopia,current_account_pct_gdp,2022,-4.19066632561125
+ETH,Ethiopia,current_account_pct_gdp,2021,-4.13241831248994
+ETH,Ethiopia,current_account_pct_gdp,2020,-2.75526110013781
+ETH,Ethiopia,current_account_pct_gdp,2019,-5.47194445069538
+ETH,Ethiopia,current_account_pct_gdp,2018,-5.53324917435327
+ETH,Ethiopia,current_account_pct_gdp,2017,-7.76343039992897
+ETH,Ethiopia,current_account_pct_gdp,2016,-11.5449209376397
+ETH,Ethiopia,current_account_pct_gdp,2015,-12.1838327178753
+ETH,Ethiopia,current_account_pct_gdp,2014,-10.3781721184148
+ETH,Ethiopia,current_account_pct_gdp,2013,-6.36626399169653
+ETH,Ethiopia,current_account_pct_gdp,2012,-7.10674868080212
+ETH,Ethiopia,current_account_pct_gdp,2011,-3.30367964138339
+ETH,Ethiopia,current_account_pct_gdp,2010,-2.1222608717343
+ETH,Ethiopia,reserves_months_imports,2024,1.7806234891991
+ETH,Ethiopia,reserves_months_imports,2023,1.04253332393312
+ETH,Ethiopia,reserves_months_imports,2022,0.578588743645571
+ETH,Ethiopia,reserves_months_imports,2021,0.92146131951932
+ETH,Ethiopia,reserves_months_imports,2020,2.04857901561174
+ETH,Ethiopia,reserves_months_imports,2019,1.80527864372518
+ETH,Ethiopia,reserves_months_imports,2018,2.35373732912292
+ETH,Ethiopia,reserves_months_imports,2017,1.84484716277073
+ETH,Ethiopia,reserves_months_imports,2016,1.78101039203727
+ETH,Ethiopia,reserves_months_imports,2015,2.28152768719768
+ETH,Ethiopia,reserves_months_imports,2014,2.3002950163837
+ETH,Ethiopia,reserves_months_imports,2013,1.97097009114637
+ETH,Ethiopia,reserves_months_imports,2012,1.94022284437674
+ETH,Ethiopia,reserves_months_imports,2011,2.87144325080088
+ETH,Ethiopia,reserves_months_imports,2010,2.69323946325897
+ETH,Ethiopia,gdp_growth,2025,9.7715182202934
+ETH,Ethiopia,gdp_growth,2024,7.61277447616879
+ETH,Ethiopia,gdp_growth,2023,6.59424599054353
+ETH,Ethiopia,gdp_growth,2022,5.32175988485454
+ETH,Ethiopia,gdp_growth,2021,5.64153069324176
+ETH,Ethiopia,gdp_growth,2020,6.05953089248577
+ETH,Ethiopia,gdp_growth,2019,8.36408573111346
+ETH,Ethiopia,gdp_growth,2018,6.81614778557282
+ETH,Ethiopia,gdp_growth,2017,9.56418965754014
+ETH,Ethiopia,gdp_growth,2016,9.43348265981905
+ETH,Ethiopia,gdp_growth,2015,10.3924630141307
+ETH,Ethiopia,gdp_growth,2014,10.2574929627477
+ETH,Ethiopia,gdp_growth,2013,10.5822700502552
+ETH,Ethiopia,gdp_growth,2012,8.64781163513926
+ETH,Ethiopia,gdp_growth,2011,11.1782962297008
+ETH,Ethiopia,gdp_growth,2010,12.5505383347633
+ETH,Ethiopia,inflation,2025,13.2296432836809
+ETH,Ethiopia,inflation,2024,21.0377460577711
+ETH,Ethiopia,inflation,2023,30.2188278135278
+ETH,Ethiopia,inflation,2022,33.8898797100898
+ETH,Ethiopia,inflation,2021,26.8395221557722
+ETH,Ethiopia,inflation,2020,20.3563468559061
+ETH,Ethiopia,inflation,2019,15.8096321719344
+ETH,Ethiopia,inflation,2018,13.8330356586661
+ETH,Ethiopia,inflation,2017,10.6871150284238
+ETH,Ethiopia,inflation,2016,6.62813337230924
+ETH,Ethiopia,inflation,2015,9.56889955968623
+ETH,Ethiopia,inflation,2014,6.89001951597192
+ETH,Ethiopia,inflation,2013,7.46402192944517
+ETH,Ethiopia,inflation,2012,23.600417677317
+ETH,Ethiopia,inflation,2011,33.2499598823344
+ETH,Ethiopia,inflation,2010,8.14926402965082
+ETH,Ethiopia,political_stability,2024,-1.88497389999999
+ETH,Ethiopia,political_stability,2023,-1.86375129999999
+ETH,Ethiopia,political_stability,2022,-1.8659545
+ETH,Ethiopia,political_stability,2021,-2.0139565
+ETH,Ethiopia,political_stability,2020,-1.5934093
+ETH,Ethiopia,political_stability,2019,-1.1789771
+ETH,Ethiopia,political_stability,2018,-1.2054246
+ETH,Ethiopia,political_stability,2017,-1.5195725
+ETH,Ethiopia,political_stability,2016,-1.43965759999999
+ETH,Ethiopia,political_stability,2015,-1.26354339999999
+ETH,Ethiopia,political_stability,2014,-1.1765231
+ETH,Ethiopia,political_stability,2013,-1.3952471
+ETH,Ethiopia,political_stability,2012,-1.613535
+ETH,Ethiopia,political_stability,2011,-1.5281949
+ETH,Ethiopia,political_stability,2010,-1.5760665
+ETH,Ethiopia,government_effectiveness,2024,-0.645991
+ETH,Ethiopia,government_effectiveness,2023,-0.6883758
+ETH,Ethiopia,government_effectiveness,2022,-0.7000773
+ETH,Ethiopia,government_effectiveness,2021,-0.650462099999999
+ETH,Ethiopia,government_effectiveness,2020,-0.551689499999999
+ETH,Ethiopia,government_effectiveness,2019,-0.5253376
+ETH,Ethiopia,government_effectiveness,2018,-0.5328814
+ETH,Ethiopia,government_effectiveness,2017,-0.5281279
+ETH,Ethiopia,government_effectiveness,2016,-0.4771006
+ETH,Ethiopia,government_effectiveness,2015,-0.5298526
+ETH,Ethiopia,government_effectiveness,2014,-0.451422999999999
+ETH,Ethiopia,government_effectiveness,2013,-0.5207719
+ETH,Ethiopia,government_effectiveness,2012,-0.4212532
+ETH,Ethiopia,government_effectiveness,2011,-0.5169232
+ETH,Ethiopia,government_effectiveness,2010,-0.4772744
+ETH,Ethiopia,rule_of_law,2024,-1.04892419999999
+ETH,Ethiopia,rule_of_law,2023,-1.03931399999999
+ETH,Ethiopia,rule_of_law,2022,-0.9181925
+ETH,Ethiopia,rule_of_law,2021,-0.9484534
+ETH,Ethiopia,rule_of_law,2020,-0.8139468
+ETH,Ethiopia,rule_of_law,2019,-0.7767788
+ETH,Ethiopia,rule_of_law,2018,-0.7938799
+ETH,Ethiopia,rule_of_law,2017,-0.782502799999999
+ETH,Ethiopia,rule_of_law,2016,-0.798565
+ETH,Ethiopia,rule_of_law,2015,-0.805187299999999
+ETH,Ethiopia,rule_of_law,2014,-0.7533654
+ETH,Ethiopia,rule_of_law,2013,-0.8458441
+ETH,Ethiopia,rule_of_law,2012,-0.7490211
+ETH,Ethiopia,rule_of_law,2011,-0.847511
+ETH,Ethiopia,rule_of_law,2010,-0.8369645
+ETH,Ethiopia,regulatory_quality,2024,-0.8332379
+ETH,Ethiopia,regulatory_quality,2023,-0.8373693
+ETH,Ethiopia,regulatory_quality,2022,-0.7815691
+ETH,Ethiopia,regulatory_quality,2021,-0.7684521
+ETH,Ethiopia,regulatory_quality,2020,-0.8158694
+ETH,Ethiopia,regulatory_quality,2019,-0.828078099999999
+ETH,Ethiopia,regulatory_quality,2018,-0.846342199999999
+ETH,Ethiopia,regulatory_quality,2017,-0.898545399999999
+ETH,Ethiopia,regulatory_quality,2016,-0.9613611
+ETH,Ethiopia,regulatory_quality,2015,-0.902880599999999
+ETH,Ethiopia,regulatory_quality,2014,-0.9043825
+ETH,Ethiopia,regulatory_quality,2013,-1.06822369999999
+ETH,Ethiopia,regulatory_quality,2012,-0.917400999999999
+ETH,Ethiopia,regulatory_quality,2011,-0.861597699999999
+ETH,Ethiopia,regulatory_quality,2010,-0.7207448
+ETH,Ethiopia,control_of_corruption,2024,-0.437863299999999
+ETH,Ethiopia,control_of_corruption,2023,-0.4629488
+ETH,Ethiopia,control_of_corruption,2022,-0.406565399999999
+ETH,Ethiopia,control_of_corruption,2021,-0.4003096
+ETH,Ethiopia,control_of_corruption,2020,-0.368558799999999
+ETH,Ethiopia,control_of_corruption,2019,-0.4268519
+ETH,Ethiopia,control_of_corruption,2018,-0.4565279
+ETH,Ethiopia,control_of_corruption,2017,-0.5649481
+ETH,Ethiopia,control_of_corruption,2016,-0.435890499999999
+ETH,Ethiopia,control_of_corruption,2015,-0.5196265
+ETH,Ethiopia,control_of_corruption,2014,-0.5429668
+ETH,Ethiopia,control_of_corruption,2013,-0.5672534
+ETH,Ethiopia,control_of_corruption,2012,-0.6106685
+ETH,Ethiopia,control_of_corruption,2011,-0.6055573
+ETH,Ethiopia,control_of_corruption,2010,-0.6997533
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2024,2.68582028017543
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2023,2.40146315356828
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2022,2.98033315911234
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2021,3.90520609775086
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2020,2.4279259279615
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2019,2.77536541538477
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2018,4.03228222144798
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2017,5.26039764214773
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2016,6.0502150951561
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2015,4.22926466080082
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2014,3.33569111068815
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2013,2.82040845857162
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2012,0.643172898229037
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2011,1.96735663905254
+ETH,Ethiopia,fdi_net_inflows_pct_gdp,2010,0.963030625359937
+ETH,Ethiopia,exports_pct_gdp,2025,13.2837545839474
+ETH,Ethiopia,exports_pct_gdp,2024,5.53927082166771
+ETH,Ethiopia,exports_pct_gdp,2023,6.59591829052029
+ETH,Ethiopia,exports_pct_gdp,2022,8.24396037766464
+ETH,Ethiopia,exports_pct_gdp,2021,7.63170919167145
+ETH,Ethiopia,exports_pct_gdp,2020,7.12719989764702
+ETH,Ethiopia,exports_pct_gdp,2019,7.93996502525176
+ETH,Ethiopia,exports_pct_gdp,2018,8.37267815589761
+ETH,Ethiopia,exports_pct_gdp,2017,7.62937471525016
+ETH,Ethiopia,exports_pct_gdp,2016,7.8120625822914
+ETH,Ethiopia,exports_pct_gdp,2015,9.36331359735926
+ETH,Ethiopia,exports_pct_gdp,2014,11.6416199095703
+ETH,Ethiopia,exports_pct_gdp,2013,12.484073558977
+ETH,Ethiopia,exports_pct_gdp,2012,13.7672981990263
+ETH,Ethiopia,exports_pct_gdp,2011,16.6868531997337
+ETH,Ethiopia,imports_pct_gdp,2025,20.176028072184
+ETH,Ethiopia,imports_pct_gdp,2024,11.8611650370138
+ETH,Ethiopia,imports_pct_gdp,2023,14.0022832166203
+ETH,Ethiopia,imports_pct_gdp,2022,18.351539318761
+ETH,Ethiopia,imports_pct_gdp,2021,16.7133482738948
+ETH,Ethiopia,imports_pct_gdp,2020,16.8789144437579
+ETH,Ethiopia,imports_pct_gdp,2019,20.8753289040091
+ETH,Ethiopia,imports_pct_gdp,2018,22.8266908218905
+ETH,Ethiopia,imports_pct_gdp,2017,23.4742747776515
+ETH,Ethiopia,imports_pct_gdp,2016,27.0869584993198
+ETH,Ethiopia,imports_pct_gdp,2015,30.2928105475922
+ETH,Ethiopia,imports_pct_gdp,2014,29.0994642402923
+ETH,Ethiopia,imports_pct_gdp,2013,28.9877135217855
+ETH,Ethiopia,imports_pct_gdp,2012,31.630605984481
+ETH,Ethiopia,imports_pct_gdp,2011,31.5460822119553
+ETH,Ethiopia,gdp_current_usd,2025,126358758448.356
+ETH,Ethiopia,gdp_current_usd,2024,149740297952.375
+ETH,Ethiopia,gdp_current_usd,2023,135874093203.18
+ETH,Ethiopia,gdp_current_usd,2022,123140304665.399
+ETH,Ethiopia,gdp_current_usd,2021,109070960370.972
+ETH,Ethiopia,gdp_current_usd,2020,98676811061.9985
+ETH,Ethiopia,gdp_current_usd,2019,91834517113.6386
+ETH,Ethiopia,gdp_current_usd,2018,83337901071.9697
+ETH,Ethiopia,gdp_current_usd,2017,76366081766.6667
+ETH,Ethiopia,gdp_current_usd,2016,68475871209.607
+ETH,Ethiopia,gdp_current_usd,2015,62103418181.8182
+ETH,Ethiopia,gdp_current_usd,2014,55612228233.5179
+ETH,Ethiopia,gdp_current_usd,2013,47648276605.0123
+ETH,Ethiopia,gdp_current_usd,2012,43310721414.0829
+ETH,Ethiopia,gdp_current_usd,2011,31952763089.33
+ETH,Ethiopia,gdp_current_usd,2010,29933790334.3418
+ETH,Ethiopia,gdp_per_capita_usd,2025,932.729352775179
+ETH,Ethiopia,gdp_per_capita_usd,2024,1133.88279681256
+ETH,Ethiopia,gdp_per_capita_usd,2023,1055.81091593061
+ETH,Ethiopia,gdp_per_capita_usd,2022,982.103161502198
+ETH,Ethiopia,gdp_per_capita_usd,2021,893.009835441784
+ETH,Ethiopia,gdp_per_capita_usd,2020,829.790982552951
+ETH,Ethiopia,gdp_per_capita_usd,2019,793.473247218996
+ETH,Ethiopia,gdp_per_capita_usd,2018,739.702022272086
+ETH,Ethiopia,gdp_per_capita_usd,2017,696.348429076216
+ETH,Ethiopia,gdp_per_capita_usd,2016,641.651523286233
+ETH,Ethiopia,gdp_per_capita_usd,2015,597.912113218663
+ETH,Ethiopia,gdp_per_capita_usd,2014,549.986577082588
+ETH,Ethiopia,gdp_per_capita_usd,2013,484.039833104062
+ETH,Ethiopia,gdp_per_capita_usd,2012,452.101031885754
+ETH,Ethiopia,gdp_per_capita_usd,2011,343.024942351887
+ETH,Ethiopia,gdp_per_capita_usd,2010,330.619412798644
+ETH,Ethiopia,total_reserves_usd,2024,3784387425.19121
+ETH,Ethiopia,total_reserves_usd,2023,2028214254.61106
+ETH,Ethiopia,total_reserves_usd,2022,1191712941.06266
+ETH,Ethiopia,total_reserves_usd,2021,1644005887.02273
+ETH,Ethiopia,total_reserves_usd,2020,3046114358.80765
+ETH,Ethiopia,total_reserves_usd,2019,2992704274.84051
+ETH,Ethiopia,total_reserves_usd,2018,3987464165.90059
+ETH,Ethiopia,total_reserves_usd,2017,3045571314.79781
+ETH,Ethiopia,total_reserves_usd,2016,3030943950.63996
+ETH,Ethiopia,total_reserves_usd,2015,3835287576.46954
+ETH,Ethiopia,total_reserves_usd,2014,3525244981.05226
+ETH,Ethiopia,total_reserves_usd,2013,2363513607.3673
+ETH,Ethiopia,total_reserves_usd,2012,2301655547.62419
+ETH,Ethiopia,total_reserves_usd,2011,2837310958.4935
+ETH,Ethiopia,total_reserves_usd,2010,2241164555.88825
+ETH,Ethiopia,unemployment_rate,2025,3.323
+ETH,Ethiopia,unemployment_rate,2024,3.357
+ETH,Ethiopia,unemployment_rate,2023,3.375
+ETH,Ethiopia,unemployment_rate,2022,3.386
+ETH,Ethiopia,unemployment_rate,2021,3.935
+ETH,Ethiopia,unemployment_rate,2020,3.998
+ETH,Ethiopia,unemployment_rate,2019,2.928
+ETH,Ethiopia,unemployment_rate,2018,2.811
+ETH,Ethiopia,unemployment_rate,2017,2.665
+ETH,Ethiopia,unemployment_rate,2016,2.556
+ETH,Ethiopia,unemployment_rate,2015,2.442
+ETH,Ethiopia,unemployment_rate,2014,2.361
+ETH,Ethiopia,unemployment_rate,2013,2.251
+ETH,Ethiopia,unemployment_rate,2012,2.252
+ETH,Ethiopia,unemployment_rate,2011,2.27
+ETH,Ethiopia,unemployment_rate,2010,2.295
+ETH,Ethiopia,youth_unemployment_rate,2025,5.353
+ETH,Ethiopia,youth_unemployment_rate,2024,5.449
+ETH,Ethiopia,youth_unemployment_rate,2023,5.455
+ETH,Ethiopia,youth_unemployment_rate,2022,5.45
+ETH,Ethiopia,youth_unemployment_rate,2021,6.246
+ETH,Ethiopia,youth_unemployment_rate,2020,6.356
+ETH,Ethiopia,youth_unemployment_rate,2019,4.752
+ETH,Ethiopia,youth_unemployment_rate,2018,4.515
+ETH,Ethiopia,youth_unemployment_rate,2017,4.25
+ETH,Ethiopia,youth_unemployment_rate,2016,4.031
+ETH,Ethiopia,youth_unemployment_rate,2015,3.813
+ETH,Ethiopia,youth_unemployment_rate,2014,3.634
+ETH,Ethiopia,youth_unemployment_rate,2013,3.429
+ETH,Ethiopia,youth_unemployment_rate,2012,3.414
+ETH,Ethiopia,youth_unemployment_rate,2011,3.42
+ETH,Ethiopia,youth_unemployment_rate,2010,3.435
+ETH,Ethiopia,gini_index,2021,31.1
+ETH,Ethiopia,gini_index,2015,35.0
+ETH,Ethiopia,gini_index,2010,33.2
+SOM,Somalia,debt_to_gdp,2024,12.6627391994652
+SOM,Somalia,debt_to_gdp,2022,43.3780260707635
+SOM,Somalia,debt_to_gdp,2021,47.306970368027
+SOM,Somalia,gdp_growth,2025,2.99114404482197
+SOM,Somalia,gdp_growth,2024,4.11139335779471
+SOM,Somalia,gdp_growth,2023,4.17524257571303
+SOM,Somalia,gdp_growth,2022,2.71821202053759
+SOM,Somalia,gdp_growth,2021,3.44719850031242
+SOM,Somalia,gdp_growth,2020,-2.76455696202532
+SOM,Somalia,gdp_growth,2019,2.80033312513012
+SOM,Somalia,gdp_growth,2018,2.05431507261069
+SOM,Somalia,gdp_growth,2017,14.7357956045195
+SOM,Somalia,gdp_growth,2016,7.03487260042162
+SOM,Somalia,gdp_growth,2015,10.4621881235147
+SOM,Somalia,gdp_growth,2014,8.97800590574617
+SOM,Somalia,gdp_growth,2013,10.9592986164311
+SOM,Somalia,gdp_growth,2012,6.69435192556698
+SOM,Somalia,gdp_growth,2011,6.69435192567755
+SOM,Somalia,gdp_growth,2010,6.69435192550543
+SOM,Somalia,political_stability,2024,-2.2630781
+SOM,Somalia,political_stability,2023,-2.1717975
+SOM,Somalia,political_stability,2022,-2.092858
+SOM,Somalia,political_stability,2021,-2.60696149999999
+SOM,Somalia,political_stability,2020,-2.3507544
+SOM,Somalia,political_stability,2019,-2.0704895
+SOM,Somalia,political_stability,2018,-2.06147769999999
+SOM,Somalia,political_stability,2017,-2.022776
+SOM,Somalia,political_stability,2016,-2.2701767
+SOM,Somalia,political_stability,2015,-2.2815589
+SOM,Somalia,political_stability,2014,-2.4369844
+SOM,Somalia,political_stability,2013,-2.85136569999999
+SOM,Somalia,political_stability,2012,-2.90139839999999
+SOM,Somalia,political_stability,2011,-3.01651169999999
+SOM,Somalia,political_stability,2010,-2.9277889
+SOM,Somalia,government_effectiveness,2024,-1.95005229999999
+SOM,Somalia,government_effectiveness,2023,-1.8653529
+SOM,Somalia,government_effectiveness,2022,-1.94568789999999
+SOM,Somalia,government_effectiveness,2021,-1.96354459999999
+SOM,Somalia,government_effectiveness,2020,-1.9389024
+SOM,Somalia,government_effectiveness,2019,-2.0111906
+SOM,Somalia,government_effectiveness,2018,-2.0330208
+SOM,Somalia,government_effectiveness,2017,-2.00100279999999
+SOM,Somalia,government_effectiveness,2016,-1.97665619999999
+SOM,Somalia,government_effectiveness,2015,-2.050969
+SOM,Somalia,government_effectiveness,2014,-2.2056492
+SOM,Somalia,government_effectiveness,2013,-2.0903583
+SOM,Somalia,government_effectiveness,2012,-2.06505629999999
+SOM,Somalia,government_effectiveness,2011,-2.09105699999999
+SOM,Somalia,government_effectiveness,2010,-2.0844758
+SOM,Somalia,rule_of_law,2024,-2.2054496
+SOM,Somalia,rule_of_law,2023,-2.1303739
+SOM,Somalia,rule_of_law,2022,-2.2051746
+SOM,Somalia,rule_of_law,2021,-2.16817529999999
+SOM,Somalia,rule_of_law,2020,-2.18341659999999
+SOM,Somalia,rule_of_law,2019,-2.27689089999999
+SOM,Somalia,rule_of_law,2018,-2.3047801
+SOM,Somalia,rule_of_law,2017,-2.3167845
+SOM,Somalia,rule_of_law,2016,-2.2378636
+SOM,Somalia,rule_of_law,2015,-2.1954112
+SOM,Somalia,rule_of_law,2014,-2.2284291
+SOM,Somalia,rule_of_law,2013,-2.3576872
+SOM,Somalia,rule_of_law,2012,-2.35479259999999
+SOM,Somalia,rule_of_law,2011,-2.380498
+SOM,Somalia,rule_of_law,2010,-2.3849652
+SOM,Somalia,regulatory_quality,2024,-1.72760539999999
+SOM,Somalia,regulatory_quality,2023,-1.6997338
+SOM,Somalia,regulatory_quality,2022,-1.7887408
+SOM,Somalia,regulatory_quality,2021,-1.7880177
+SOM,Somalia,regulatory_quality,2020,-1.8686121
+SOM,Somalia,regulatory_quality,2019,-1.9736596
+SOM,Somalia,regulatory_quality,2018,-1.9778262
+SOM,Somalia,regulatory_quality,2017,-2.0883575
+SOM,Somalia,regulatory_quality,2016,-2.08945249999999
+SOM,Somalia,regulatory_quality,2015,-2.0369376
+SOM,Somalia,regulatory_quality,2014,-2.0809389
+SOM,Somalia,regulatory_quality,2013,-2.2176149
+SOM,Somalia,regulatory_quality,2012,-2.1097626
+SOM,Somalia,regulatory_quality,2011,-2.19839659999999
+SOM,Somalia,regulatory_quality,2010,-2.16569539999999
+SOM,Somalia,control_of_corruption,2024,-1.7861136
+SOM,Somalia,control_of_corruption,2023,-1.61685259999999
+SOM,Somalia,control_of_corruption,2022,-1.59878449999999
+SOM,Somalia,control_of_corruption,2021,-1.6031075
+SOM,Somalia,control_of_corruption,2020,-1.5494727
+SOM,Somalia,control_of_corruption,2019,-1.6343465
+SOM,Somalia,control_of_corruption,2018,-1.80642059999999
+SOM,Somalia,control_of_corruption,2017,-1.721871
+SOM,Somalia,control_of_corruption,2016,-1.7350014
+SOM,Somalia,control_of_corruption,2015,-1.7297878
+SOM,Somalia,control_of_corruption,2014,-1.73994569999999
+SOM,Somalia,control_of_corruption,2013,-1.64551309999999
+SOM,Somalia,control_of_corruption,2012,-1.649052
+SOM,Somalia,control_of_corruption,2011,-1.6615444
+SOM,Somalia,control_of_corruption,2010,-1.684578
+SOM,Somalia,fdi_net_inflows_pct_gdp,2024,6.39257959388318
+SOM,Somalia,fdi_net_inflows_pct_gdp,2023,6.17357181967512
+SOM,Somalia,fdi_net_inflows_pct_gdp,2022,6.23346074683917
+SOM,Somalia,fdi_net_inflows_pct_gdp,2021,6.33765685964357
+SOM,Somalia,fdi_net_inflows_pct_gdp,2020,6.18915159944367
+SOM,Somalia,fdi_net_inflows_pct_gdp,2019,5.16404805914972
+SOM,Somalia,fdi_net_inflows_pct_gdp,2018,5.18226851263813
+SOM,Somalia,fdi_net_inflows_pct_gdp,2017,4.84156553446397
+SOM,Somalia,fdi_net_inflows_pct_gdp,2016,4.9896102178043
+SOM,Somalia,fdi_net_inflows_pct_gdp,2015,4.92510820324606
+SOM,Somalia,fdi_net_inflows_pct_gdp,2014,4.55624629490798
+SOM,Somalia,fdi_net_inflows_pct_gdp,2013,5.09591217775954
+SOM,Somalia,fdi_net_inflows_pct_gdp,2012,2.45906325256211
+SOM,Somalia,fdi_net_inflows_pct_gdp,2011,3.50997923598382
+SOM,Somalia,fdi_net_inflows_pct_gdp,2010,4.16696585149836
+SOM,Somalia,exports_pct_gdp,2025,29.2484917491797
+SOM,Somalia,exports_pct_gdp,2024,31.2108297819002
+SOM,Somalia,exports_pct_gdp,2023,21.9383099105676
+SOM,Somalia,exports_pct_gdp,2022,17.6810741938645
+SOM,Somalia,exports_pct_gdp,2021,16.1552251397237
+SOM,Somalia,exports_pct_gdp,2020,13.6532220676866
+SOM,Somalia,exports_pct_gdp,2019,13.0660813308688
+SOM,Somalia,exports_pct_gdp,2018,14.2131334942208
+SOM,Somalia,exports_pct_gdp,2017,13.0465010418362
+SOM,Somalia,exports_pct_gdp,2016,16.1359579394828
+SOM,Somalia,exports_pct_gdp,2015,16.8715688310983
+SOM,Somalia,exports_pct_gdp,2014,19.1628937165159
+SOM,Somalia,exports_pct_gdp,2013,18.6178689226979
+SOM,Somalia,exports_pct_gdp,2012,19.5524000374862
+SOM,Somalia,imports_pct_gdp,2025,98.8149470599555
+SOM,Somalia,imports_pct_gdp,2024,99.1142308013704
+SOM,Somalia,imports_pct_gdp,2023,81.1826975725497
+SOM,Somalia,imports_pct_gdp,2022,73.0765461138881
+SOM,Somalia,imports_pct_gdp,2021,62.9442159654118
+SOM,Somalia,imports_pct_gdp,2020,62.0421882243857
+SOM,Somalia,imports_pct_gdp,2019,57.231977818854
+SOM,Somalia,imports_pct_gdp,2018,59.6087895338499
+SOM,Somalia,imports_pct_gdp,2017,55.6291480514478
+SOM,Somalia,imports_pct_gdp,2016,58.225604612142
+SOM,Somalia,imports_pct_gdp,2015,59.6077634074256
+SOM,Somalia,imports_pct_gdp,2014,62.5381477394163
+SOM,Somalia,imports_pct_gdp,2013,64.7231302031399
+SOM,Somalia,imports_pct_gdp,2012,69.0212460407427
+SOM,Somalia,gdp_current_usd,2025,12995200000.2658
+SOM,Somalia,gdp_current_usd,2024,11967000000.0
+SOM,Somalia,gdp_current_usd,2023,10958000000.0
+SOM,Somalia,gdp_current_usd,2022,10203000000.0
+SOM,Somalia,gdp_current_usd,2021,9483000000.0
+SOM,Somalia,gdp_current_usd,2020,8628000000.0
+SOM,Somalia,gdp_current_usd,2019,8656000000.0
+SOM,Somalia,gdp_current_usd,2018,7873000000.0
+SOM,Somalia,gdp_current_usd,2017,7621501710.0012
+SOM,Somalia,gdp_current_usd,2016,6613743069.99912
+SOM,Somalia,gdp_current_usd,2015,6152149099.99942
+SOM,Somalia,gdp_current_usd,2014,5728399719.99958
+SOM,Somalia,gdp_current_usd,2013,5062881600.00104
+SOM,Somalia,gdp_current_usd,2012,4364670159.99578
+SOM,Somalia,gdp_current_usd,2011,2906000096.93249
+SOM,Somalia,gdp_current_usd,2010,2687807003.73935
+SOM,Somalia,gdp_per_capita_usd,2025,661.173877723116
+SOM,Somalia,gdp_per_capita_usd,2024,629.538899449007
+SOM,Somalia,gdp_per_capita_usd,2023,596.885985135589
+SOM,Somalia,gdp_per_capita_usd,2022,573.141165798229
+SOM,Somalia,gdp_per_capita_usd,2021,549.056994756254
+SOM,Somalia,gdp_per_capita_usd,2020,518.16113333875
+SOM,Somalia,gdp_per_capita_usd,2019,539.954816211694
+SOM,Somalia,gdp_per_capita_usd,2018,509.497273804534
+SOM,Somalia,gdp_per_capita_usd,2017,510.939952317726
+SOM,Somalia,gdp_per_capita_usd,2016,460.928490585175
+SOM,Somalia,gdp_per_capita_usd,2015,445.583080073396
+SOM,Somalia,gdp_per_capita_usd,2014,429.431656725102
+SOM,Somalia,gdp_per_capita_usd,2013,393.398703952979
+SOM,Somalia,gdp_per_capita_usd,2012,350.261946720512
+SOM,Somalia,gdp_per_capita_usd,2011,235.325945610434
+SOM,Somalia,gdp_per_capita_usd,2010,219.202453852397
+SOM,Somalia,unemployment_rate,2025,18.948
+SOM,Somalia,unemployment_rate,2024,18.949
+SOM,Somalia,unemployment_rate,2023,18.96
+SOM,Somalia,unemployment_rate,2022,19.112
+SOM,Somalia,unemployment_rate,2021,19.662
+SOM,Somalia,unemployment_rate,2020,19.414
+SOM,Somalia,unemployment_rate,2019,18.828
+SOM,Somalia,unemployment_rate,2018,18.7
+SOM,Somalia,unemployment_rate,2017,18.455
+SOM,Somalia,unemployment_rate,2016,18.611
+SOM,Somalia,unemployment_rate,2015,18.495
+SOM,Somalia,unemployment_rate,2014,18.595
+SOM,Somalia,unemployment_rate,2013,18.655
+SOM,Somalia,unemployment_rate,2012,18.771
+SOM,Somalia,unemployment_rate,2011,18.761
+SOM,Somalia,unemployment_rate,2010,18.741
+SOM,Somalia,youth_unemployment_rate,2025,34.23
+SOM,Somalia,youth_unemployment_rate,2024,34.137
+SOM,Somalia,youth_unemployment_rate,2023,34.091
+SOM,Somalia,youth_unemployment_rate,2022,34.286
+SOM,Somalia,youth_unemployment_rate,2021,35.287
+SOM,Somalia,youth_unemployment_rate,2020,35.91
+SOM,Somalia,youth_unemployment_rate,2019,33.844
+SOM,Somalia,youth_unemployment_rate,2018,33.602
+SOM,Somalia,youth_unemployment_rate,2017,33.201
+SOM,Somalia,youth_unemployment_rate,2016,33.467
+SOM,Somalia,youth_unemployment_rate,2015,33.352
+SOM,Somalia,youth_unemployment_rate,2014,33.548
+SOM,Somalia,youth_unemployment_rate,2013,33.655
+SOM,Somalia,youth_unemployment_rate,2012,33.826
+SOM,Somalia,youth_unemployment_rate,2011,33.743
+SOM,Somalia,youth_unemployment_rate,2010,33.644
+DJI,Djibouti,current_account_pct_gdp,2024,14.6941756648345
+DJI,Djibouti,current_account_pct_gdp,2023,18.5034837806032
+DJI,Djibouti,current_account_pct_gdp,2022,18.418217152052
+DJI,Djibouti,current_account_pct_gdp,2021,-6.63481531701171
+DJI,Djibouti,current_account_pct_gdp,2020,11.6521171854969
+DJI,Djibouti,current_account_pct_gdp,2019,18.2584391861665
+DJI,Djibouti,current_account_pct_gdp,2018,14.711779905443
+DJI,Djibouti,current_account_pct_gdp,2017,-4.79510874009854
+DJI,Djibouti,current_account_pct_gdp,2016,-1.00034788975653
+DJI,Djibouti,current_account_pct_gdp,2015,29.4599511791353
+DJI,Djibouti,current_account_pct_gdp,2014,23.8932174835351
+DJI,Djibouti,current_account_pct_gdp,2013,-30.7512096888003
+DJI,Djibouti,current_account_pct_gdp,2012,-10.9311673573902
+DJI,Djibouti,current_account_pct_gdp,2011,-13.8678242864019
+DJI,Djibouti,current_account_pct_gdp,2010,4.47357137871551
+DJI,Djibouti,reserves_months_imports,2024,0.850017224988693
+DJI,Djibouti,reserves_months_imports,2023,1.10411747889346
+DJI,Djibouti,reserves_months_imports,2022,1.34430440635494
+DJI,Djibouti,reserves_months_imports,2021,1.25571117105207
+DJI,Djibouti,reserves_months_imports,2020,2.29585382544443
+DJI,Djibouti,reserves_months_imports,2019,1.21983600051018
+DJI,Djibouti,reserves_months_imports,2018,1.24125456382954
+DJI,Djibouti,reserves_months_imports,2017,1.49154157981283
+DJI,Djibouti,reserves_months_imports,2016,1.64742258520207
+DJI,Djibouti,reserves_months_imports,2015,1.43676965414638
+DJI,Djibouti,reserves_months_imports,2014,1.48167498855892
+DJI,Djibouti,reserves_months_imports,2013,1.28168987137256
+DJI,Djibouti,reserves_months_imports,2012,4.01859282386055
+DJI,Djibouti,reserves_months_imports,2011,4.17092204640401
+DJI,Djibouti,reserves_months_imports,2010,5.87691030696574
+DJI,Djibouti,gdp_growth,2025,6.4954610524268
+DJI,Djibouti,gdp_growth,2024,6.98048467276334
+DJI,Djibouti,gdp_growth,2023,6.80733529403308
+DJI,Djibouti,gdp_growth,2022,5.16653702854374
+DJI,Djibouti,gdp_growth,2021,4.40715667561153
+DJI,Djibouti,gdp_growth,2020,1.2021151728969
+DJI,Djibouti,gdp_growth,2019,5.54508081154978
+DJI,Djibouti,gdp_growth,2018,4.77433934943193
+DJI,Djibouti,gdp_growth,2017,5.458091517212
+DJI,Djibouti,gdp_growth,2016,7.1234323372872
+DJI,Djibouti,gdp_growth,2015,7.30898563450799
+DJI,Djibouti,gdp_growth,2014,7.19298728463697
+DJI,Djibouti,inflation,2025,-0.313731799533481
+DJI,Djibouti,inflation,2024,2.1120116728497
+DJI,Djibouti,inflation,2023,1.44905087029086
+DJI,Djibouti,inflation,2022,5.17222088647606
+DJI,Djibouti,inflation,2021,1.18086783934059
+DJI,Djibouti,inflation,2020,1.77900535643955
+DJI,Djibouti,inflation,2019,3.31763203299603
+DJI,Djibouti,inflation,2018,0.138836400011405
+DJI,Djibouti,inflation,2017,0.577285724560661
+DJI,Djibouti,inflation,2016,2.4025290543489
+DJI,Djibouti,inflation,2015,-0.522166521445793
+DJI,Djibouti,inflation,2014,1.34186494340162
+DJI,Djibouti,inflation,2013,2.70603242872186
+DJI,Djibouti,inflation,2012,3.73120950756887
+DJI,Djibouti,inflation,2011,5.0687139477798
+DJI,Djibouti,inflation,2010,3.95007875923886
+DJI,Djibouti,political_stability,2024,-0.5563593
+DJI,Djibouti,political_stability,2023,-0.4640183
+DJI,Djibouti,political_stability,2022,-0.4774121
+DJI,Djibouti,political_stability,2021,-0.5273642
+DJI,Djibouti,political_stability,2020,-0.4591955
+DJI,Djibouti,political_stability,2019,-0.3842768
+DJI,Djibouti,political_stability,2018,-0.296717499999999
+DJI,Djibouti,political_stability,2017,-0.7552217
+DJI,Djibouti,political_stability,2016,-0.7074408
+DJI,Djibouti,political_stability,2015,-0.493180099999999
+DJI,Djibouti,political_stability,2014,-0.3843552
+DJI,Djibouti,political_stability,2013,-0.2955231
+DJI,Djibouti,political_stability,2012,0.1173704
+DJI,Djibouti,political_stability,2011,0.1177782
+DJI,Djibouti,political_stability,2010,0.3584284
+DJI,Djibouti,government_effectiveness,2024,-0.4930443
+DJI,Djibouti,government_effectiveness,2023,-0.536184
+DJI,Djibouti,government_effectiveness,2022,-0.5581809
+DJI,Djibouti,government_effectiveness,2021,-0.647701299999999
+DJI,Djibouti,government_effectiveness,2020,-0.675007399999999
+DJI,Djibouti,government_effectiveness,2019,-0.6529552
+DJI,Djibouti,government_effectiveness,2018,-0.772010699999999
+DJI,Djibouti,government_effectiveness,2017,-0.779234499999999
+DJI,Djibouti,government_effectiveness,2016,-0.712875399999999
+DJI,Djibouti,government_effectiveness,2015,-0.7524266
+DJI,Djibouti,government_effectiveness,2014,-0.6905333
+DJI,Djibouti,government_effectiveness,2013,-0.7216376
+DJI,Djibouti,government_effectiveness,2012,-0.768965799999999
+DJI,Djibouti,government_effectiveness,2011,-0.725115499999999
+DJI,Djibouti,government_effectiveness,2010,-0.729241799999999
+DJI,Djibouti,rule_of_law,2024,-1.01039869999999
+DJI,Djibouti,rule_of_law,2023,-1.03950379999999
+DJI,Djibouti,rule_of_law,2022,-1.0215603
+DJI,Djibouti,rule_of_law,2021,-1.0311038
+DJI,Djibouti,rule_of_law,2020,-1.0447412
+DJI,Djibouti,rule_of_law,2019,-1.0072723
+DJI,Djibouti,rule_of_law,2018,-0.9865925
+DJI,Djibouti,rule_of_law,2017,-1.01021689999999
+DJI,Djibouti,rule_of_law,2016,-1.0026644
+DJI,Djibouti,rule_of_law,2015,-1.0027773
+DJI,Djibouti,rule_of_law,2014,-1.0251459
+DJI,Djibouti,rule_of_law,2013,-0.917468
+DJI,Djibouti,rule_of_law,2012,-0.865352799999999
+DJI,Djibouti,rule_of_law,2011,-0.864629
+DJI,Djibouti,rule_of_law,2010,-0.7820756
+DJI,Djibouti,regulatory_quality,2024,-0.852795899999999
+DJI,Djibouti,regulatory_quality,2023,-0.788349299999999
+DJI,Djibouti,regulatory_quality,2022,-0.769363799999999
+DJI,Djibouti,regulatory_quality,2021,-0.7686696
+DJI,Djibouti,regulatory_quality,2020,-0.830967799999999
+DJI,Djibouti,regulatory_quality,2019,-0.772907799999999
+DJI,Djibouti,regulatory_quality,2018,-0.7398709
+DJI,Djibouti,regulatory_quality,2017,-0.6812526
+DJI,Djibouti,regulatory_quality,2016,-0.715720799999999
+DJI,Djibouti,regulatory_quality,2015,-0.7293921
+DJI,Djibouti,regulatory_quality,2014,-0.7204568
+DJI,Djibouti,regulatory_quality,2013,-0.753186199999999
+DJI,Djibouti,regulatory_quality,2012,-0.689775799999999
+DJI,Djibouti,regulatory_quality,2011,-0.7534194
+DJI,Djibouti,regulatory_quality,2010,-0.7631836
+DJI,Djibouti,control_of_corruption,2024,-0.8908098
+DJI,Djibouti,control_of_corruption,2023,-0.905052699999999
+DJI,Djibouti,control_of_corruption,2022,-0.9087909
+DJI,Djibouti,control_of_corruption,2021,-0.9086172
+DJI,Djibouti,control_of_corruption,2020,-0.814078299999999
+DJI,Djibouti,control_of_corruption,2019,-0.9286163
+DJI,Djibouti,control_of_corruption,2018,-0.821555599999999
+DJI,Djibouti,control_of_corruption,2017,-0.7643067
+DJI,Djibouti,control_of_corruption,2016,-0.7112911
+DJI,Djibouti,control_of_corruption,2015,-0.729731599999999
+DJI,Djibouti,control_of_corruption,2014,-0.7346191
+DJI,Djibouti,control_of_corruption,2013,-0.620851399999999
+DJI,Djibouti,control_of_corruption,2012,-0.5478799
+DJI,Djibouti,control_of_corruption,2011,-0.5260663
+DJI,Djibouti,control_of_corruption,2010,-0.5264958
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2024,1.63337101411676
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2023,3.51446231641349
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2022,5.24930012962196
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2021,4.91482788768696
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2020,5.03254315668511
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2019,5.66550441566635
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2018,5.83497725047345
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2017,5.97013597143086
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2016,6.1420623506391
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2015,5.93271216592944
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2014,6.88983261287099
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2013,13.9893763417185
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2012,8.1261509172004
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2011,6.37538483893525
+DJI,Djibouti,fdi_net_inflows_pct_gdp,2010,3.23415329697175
+DJI,Djibouti,exports_pct_gdp,2025,110.493588636595
+DJI,Djibouti,exports_pct_gdp,2024,126.415267144255
+DJI,Djibouti,exports_pct_gdp,2023,150.741322598259
+DJI,Djibouti,exports_pct_gdp,2022,159.250735528808
+DJI,Djibouti,exports_pct_gdp,2021,142.728193974095
+DJI,Djibouti,exports_pct_gdp,2020,117.134854035476
+DJI,Djibouti,exports_pct_gdp,2019,166.717864481384
+DJI,Djibouti,exports_pct_gdp,2018,156.619986522272
+DJI,Djibouti,exports_pct_gdp,2017,150.098361470494
+DJI,Djibouti,exports_pct_gdp,2016,103.764025112093
+DJI,Djibouti,exports_pct_gdp,2015,145.421307480105
+DJI,Djibouti,exports_pct_gdp,2014,157.949327841603
+DJI,Djibouti,exports_pct_gdp,2013,156.414102493532
+DJI,Djibouti,imports_pct_gdp,2025,95.8024545556204
+DJI,Djibouti,imports_pct_gdp,2024,114.822195954032
+DJI,Djibouti,imports_pct_gdp,2023,135.160721202385
+DJI,Djibouti,imports_pct_gdp,2022,143.034673702738
+DJI,Djibouti,imports_pct_gdp,2021,120.749534759797
+DJI,Djibouti,imports_pct_gdp,2020,108.610017288247
+DJI,Djibouti,imports_pct_gdp,2019,154.221365882795
+DJI,Djibouti,imports_pct_gdp,2018,143.778914001572
+DJI,Djibouti,imports_pct_gdp,2017,155.869604932974
+DJI,Djibouti,imports_pct_gdp,2016,109.307973495828
+DJI,Djibouti,imports_pct_gdp,2015,122.942148774525
+DJI,Djibouti,imports_pct_gdp,2014,140.615207979648
+DJI,Djibouti,imports_pct_gdp,2013,191.30621456487
+DJI,Djibouti,gdp_current_usd,2025,4624533092.31886
+DJI,Djibouti,gdp_current_usd,2024,4152145939.98458
+DJI,Djibouti,gdp_current_usd,2023,3898447007.38798
+DJI,Djibouti,gdp_current_usd,2022,3562814908.76149
+DJI,Djibouti,gdp_current_usd,2021,3392796953.08939
+DJI,Djibouti,gdp_current_usd,2020,3144136196.6228
+DJI,Djibouti,gdp_current_usd,2019,3088851450.30694
+DJI,Djibouti,gdp_current_usd,2018,2913464658.08768
+DJI,Djibouti,gdp_current_usd,2017,2762581334.22612
+DJI,Djibouti,gdp_current_usd,2016,2604955228.70117
+DJI,Djibouti,gdp_current_usd,2015,2424391785.43897
+DJI,Djibouti,gdp_current_usd,2014,2220637966.25047
+DJI,Djibouti,gdp_current_usd,2013,2044440443.16654
+DJI,Djibouti,gdp_current_usd,2012,1353632941.5207
+DJI,Djibouti,gdp_current_usd,2011,1239144501.77525
+DJI,Djibouti,gdp_current_usd,2010,1128611700.3618
+DJI,Djibouti,gdp_per_capita_usd,2025,3905.604954681
+DJI,Djibouti,gdp_per_capita_usd,2024,3552.72335079222
+DJI,Djibouti,gdp_per_capita_usd,2023,3381.29779710722
+DJI,Djibouti,gdp_per_capita_usd,2022,3133.25779772463
+DJI,Djibouti,gdp_per_capita_usd,2021,3025.91126413549
+DJI,Djibouti,gdp_per_capita_usd,2020,2844.88810647853
+DJI,Djibouti,gdp_per_capita_usd,2019,2837.16902340932
+DJI,Djibouti,gdp_per_capita_usd,2018,2718.08338799203
+DJI,Djibouti,gdp_per_capita_usd,2017,2618.95521147369
+DJI,Djibouti,gdp_per_capita_usd,2016,2510.4300076241
+DJI,Djibouti,gdp_per_capita_usd,2015,2376.12554719873
+DJI,Djibouti,gdp_per_capita_usd,2014,2214.62084142432
+DJI,Djibouti,gdp_per_capita_usd,2013,2075.94498424748
+DJI,Djibouti,gdp_per_capita_usd,2012,1400.19357858954
+DJI,Djibouti,gdp_per_capita_usd,2011,1306.34552844977
+DJI,Djibouti,gdp_per_capita_usd,2010,1213.23352553429
+DJI,Djibouti,total_reserves_usd,2025,655743660.361958
+DJI,Djibouti,total_reserves_usd,2024,348725427.269846
+DJI,Djibouti,total_reserves_usd,2023,502033555.759362
+DJI,Djibouti,total_reserves_usd,2022,589437241.827389
+DJI,Djibouti,total_reserves_usd,2021,588417559.788355
+DJI,Djibouti,total_reserves_usd,2020,686339280.94212
+DJI,Djibouti,total_reserves_usd,2019,501857934.384136
+DJI,Djibouti,total_reserves_usd,2018,454193909.718601
+DJI,Djibouti,total_reserves_usd,2017,556097628.852465
+DJI,Djibouti,total_reserves_usd,2016,407414266.733581
+DJI,Djibouti,total_reserves_usd,2015,364857284.064063
+DJI,Djibouti,total_reserves_usd,2014,393148391.657684
+DJI,Djibouti,total_reserves_usd,2013,424961509.881339
+DJI,Djibouti,total_reserves_usd,2012,248630000.267239
+DJI,Djibouti,total_reserves_usd,2011,244112095.169796
+DJI,Djibouti,total_reserves_usd,2010,248997896.289132
+DJI,Djibouti,unemployment_rate,2025,26.015
+DJI,Djibouti,unemployment_rate,2024,26.007
+DJI,Djibouti,unemployment_rate,2023,26.074
+DJI,Djibouti,unemployment_rate,2022,26.272
+DJI,Djibouti,unemployment_rate,2021,27.628
+DJI,Djibouti,unemployment_rate,2020,27.701
+DJI,Djibouti,unemployment_rate,2019,26.257
+DJI,Djibouti,unemployment_rate,2018,26.18
+DJI,Djibouti,unemployment_rate,2017,26.064
+DJI,Djibouti,unemployment_rate,2016,25.982
+DJI,Djibouti,unemployment_rate,2015,26.063
+DJI,Djibouti,unemployment_rate,2014,26.16
+DJI,Djibouti,unemployment_rate,2013,26.149
+DJI,Djibouti,unemployment_rate,2012,26.179
+DJI,Djibouti,unemployment_rate,2011,26.31
+DJI,Djibouti,unemployment_rate,2010,26.368
+DJI,Djibouti,youth_unemployment_rate,2025,76.766
+DJI,Djibouti,youth_unemployment_rate,2024,76.494
+DJI,Djibouti,youth_unemployment_rate,2023,76.393
+DJI,Djibouti,youth_unemployment_rate,2022,76.609
+DJI,Djibouti,youth_unemployment_rate,2021,79.377
+DJI,Djibouti,youth_unemployment_rate,2020,81.882
+DJI,Djibouti,youth_unemployment_rate,2019,75.906
+DJI,Djibouti,youth_unemployment_rate,2018,74.98
+DJI,Djibouti,youth_unemployment_rate,2017,73.951
+DJI,Djibouti,youth_unemployment_rate,2016,73.014
+DJI,Djibouti,youth_unemployment_rate,2015,72.492
+DJI,Djibouti,youth_unemployment_rate,2014,72.035
+DJI,Djibouti,youth_unemployment_rate,2013,71.343
+DJI,Djibouti,youth_unemployment_rate,2012,70.783
+DJI,Djibouti,youth_unemployment_rate,2011,70.486
+DJI,Djibouti,youth_unemployment_rate,2010,70.021
+DJI,Djibouti,gini_index,2017,41.6
+DJI,Djibouti,gini_index,2013,44.1
+DJI,Djibouti,gini_index,2012,45.1
+ERI,Eritrea,gdp_growth,2011,8.67980010138049
+ERI,Eritrea,gdp_growth,2010,2.19419034888082
+ERI,Eritrea,political_stability,2024,-0.7086146
+ERI,Eritrea,political_stability,2023,-0.7897784
+ERI,Eritrea,political_stability,2022,-1.0696541
+ERI,Eritrea,political_stability,2021,-1.02707899999999
+ERI,Eritrea,political_stability,2020,-1.0705711
+ERI,Eritrea,political_stability,2019,-0.9764301
+ERI,Eritrea,political_stability,2018,-0.9260353
+ERI,Eritrea,political_stability,2017,-0.834184199999999
+ERI,Eritrea,political_stability,2016,-0.7487988
+ERI,Eritrea,political_stability,2015,-0.7893504
+ERI,Eritrea,political_stability,2014,-0.651784799999999
+ERI,Eritrea,political_stability,2013,-0.983509699999999
+ERI,Eritrea,political_stability,2012,-0.9125405
+ERI,Eritrea,political_stability,2011,-0.8949954
+ERI,Eritrea,political_stability,2010,-0.8910469
+ERI,Eritrea,government_effectiveness,2024,-1.45617889999999
+ERI,Eritrea,government_effectiveness,2023,-1.3802453
+ERI,Eritrea,government_effectiveness,2022,-1.34348739999999
+ERI,Eritrea,government_effectiveness,2021,-1.394653
+ERI,Eritrea,government_effectiveness,2020,-1.3975653
+ERI,Eritrea,government_effectiveness,2019,-1.4628029
+ERI,Eritrea,government_effectiveness,2018,-1.42377589999999
+ERI,Eritrea,government_effectiveness,2017,-1.2739169
+ERI,Eritrea,government_effectiveness,2016,-1.2669749
+ERI,Eritrea,government_effectiveness,2015,-1.2742181
+ERI,Eritrea,government_effectiveness,2014,-1.2490594
+ERI,Eritrea,government_effectiveness,2013,-1.3919184
+ERI,Eritrea,government_effectiveness,2012,-1.3263806
+ERI,Eritrea,government_effectiveness,2011,-1.2937716
+ERI,Eritrea,government_effectiveness,2010,-1.1909988
+ERI,Eritrea,rule_of_law,2024,-1.8026292
+ERI,Eritrea,rule_of_law,2023,-1.79714659999999
+ERI,Eritrea,rule_of_law,2022,-1.7694664
+ERI,Eritrea,rule_of_law,2021,-1.6516587
+ERI,Eritrea,rule_of_law,2020,-1.6238593
+ERI,Eritrea,rule_of_law,2019,-1.6886873
+ERI,Eritrea,rule_of_law,2018,-1.6817801
+ERI,Eritrea,rule_of_law,2017,-1.633707
+ERI,Eritrea,rule_of_law,2016,-1.6534478
+ERI,Eritrea,rule_of_law,2015,-1.6533883
+ERI,Eritrea,rule_of_law,2014,-1.676812
+ERI,Eritrea,rule_of_law,2013,-1.570103
+ERI,Eritrea,rule_of_law,2012,-1.51498929999999
+ERI,Eritrea,rule_of_law,2011,-1.5167327
+ERI,Eritrea,rule_of_law,2010,-1.5184043
+ERI,Eritrea,regulatory_quality,2024,-2.0353648
+ERI,Eritrea,regulatory_quality,2023,-2.0283618
+ERI,Eritrea,regulatory_quality,2022,-1.9894957
+ERI,Eritrea,regulatory_quality,2021,-1.98880149999999
+ERI,Eritrea,regulatory_quality,2020,-1.95704219999999
+ERI,Eritrea,regulatory_quality,2019,-1.9646637
+ERI,Eritrea,regulatory_quality,2018,-1.9132827
+ERI,Eritrea,regulatory_quality,2017,-1.9095327
+ERI,Eritrea,regulatory_quality,2016,-1.92438579999999
+ERI,Eritrea,regulatory_quality,2015,-1.8843157
+ERI,Eritrea,regulatory_quality,2014,-1.9053624
+ERI,Eritrea,regulatory_quality,2013,-1.9571541
+ERI,Eritrea,regulatory_quality,2012,-1.8952942
+ERI,Eritrea,regulatory_quality,2011,-1.87367889999999
+ERI,Eritrea,regulatory_quality,2010,-1.8738187
+ERI,Eritrea,control_of_corruption,2024,-1.6331361
+ERI,Eritrea,control_of_corruption,2023,-1.4131414
+ERI,Eritrea,control_of_corruption,2022,-1.3644356
+ERI,Eritrea,control_of_corruption,2021,-1.36851339999999
+ERI,Eritrea,control_of_corruption,2020,-1.3612091
+ERI,Eritrea,control_of_corruption,2019,-1.4238042
+ERI,Eritrea,control_of_corruption,2018,-1.4338129
+ERI,Eritrea,control_of_corruption,2017,-1.320663
+ERI,Eritrea,control_of_corruption,2016,-1.35281649999999
+ERI,Eritrea,control_of_corruption,2015,-1.3519275
+ERI,Eritrea,control_of_corruption,2014,-1.124763
+ERI,Eritrea,control_of_corruption,2013,-0.9908114
+ERI,Eritrea,control_of_corruption,2012,-0.872825699999999
+ERI,Eritrea,control_of_corruption,2011,-0.7517438
+ERI,Eritrea,control_of_corruption,2010,-0.720041399999999
+ERI,Eritrea,fdi_net_inflows_pct_gdp,2011,1.8886183675912
+ERI,Eritrea,fdi_net_inflows_pct_gdp,2010,5.72501513985957
+ERI,Eritrea,exports_pct_gdp,2011,18.1548372567671
+ERI,Eritrea,exports_pct_gdp,2010,6.37837659786896
+ERI,Eritrea,imports_pct_gdp,2011,29.2389528621013
+ERI,Eritrea,imports_pct_gdp,2010,31.0930888587001
+ERI,Eritrea,gdp_current_usd,2011,2065001626.01626
+ERI,Eritrea,gdp_current_usd,2010,1589515447.15447
+ERI,Eritrea,gdp_per_capita_usd,2011,688.68165957684
+ERI,Eritrea,gdp_per_capita_usd,2010,539.699512069686
+ERI,Eritrea,total_reserves_usd,2019,191694416.403147
+ERI,Eritrea,total_reserves_usd,2018,163033689.39269
+ERI,Eritrea,total_reserves_usd,2017,143412422.685212
+ERI,Eritrea,total_reserves_usd,2016,145371150.939987
+ERI,Eritrea,total_reserves_usd,2015,145070693.229695
+ERI,Eritrea,total_reserves_usd,2014,151753160.388458
+ERI,Eritrea,total_reserves_usd,2013,133338047.50637
+ERI,Eritrea,total_reserves_usd,2012,132764717.792848
+ERI,Eritrea,total_reserves_usd,2011,115328815.906209
+ERI,Eritrea,total_reserves_usd,2010,114149602.728927
+ERI,Eritrea,unemployment_rate,2025,5.978
+ERI,Eritrea,unemployment_rate,2024,5.947
+ERI,Eritrea,unemployment_rate,2023,5.909
+ERI,Eritrea,unemployment_rate,2022,6.033
+ERI,Eritrea,unemployment_rate,2021,6.489
+ERI,Eritrea,unemployment_rate,2020,6.375
+ERI,Eritrea,unemployment_rate,2019,5.812
+ERI,Eritrea,unemployment_rate,2018,5.756
+ERI,Eritrea,unemployment_rate,2017,5.804
+ERI,Eritrea,unemployment_rate,2016,5.772
+ERI,Eritrea,unemployment_rate,2015,5.751
+ERI,Eritrea,unemployment_rate,2014,5.637
+ERI,Eritrea,unemployment_rate,2013,5.624
+ERI,Eritrea,unemployment_rate,2012,5.692
+ERI,Eritrea,unemployment_rate,2011,5.801
+ERI,Eritrea,unemployment_rate,2010,5.854
+ERI,Eritrea,youth_unemployment_rate,2025,10.241
+ERI,Eritrea,youth_unemployment_rate,2024,10.056
+ERI,Eritrea,youth_unemployment_rate,2023,9.965
+ERI,Eritrea,youth_unemployment_rate,2022,10.186
+ERI,Eritrea,youth_unemployment_rate,2021,10.976
+ERI,Eritrea,youth_unemployment_rate,2020,11.1
+ERI,Eritrea,youth_unemployment_rate,2019,9.845
+ERI,Eritrea,youth_unemployment_rate,2018,9.802
+ERI,Eritrea,youth_unemployment_rate,2017,9.989
+ERI,Eritrea,youth_unemployment_rate,2016,9.998
+ERI,Eritrea,youth_unemployment_rate,2015,10.034
+ERI,Eritrea,youth_unemployment_rate,2014,9.896
+ERI,Eritrea,youth_unemployment_rate,2013,9.945
+ERI,Eritrea,youth_unemployment_rate,2012,10.103
+ERI,Eritrea,youth_unemployment_rate,2011,10.326
+ERI,Eritrea,youth_unemployment_rate,2010,10.469

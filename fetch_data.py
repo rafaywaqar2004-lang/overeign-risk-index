@@ -39,6 +39,19 @@ COUNTRIES = {
     "NPL": "Nepal",
     "PAK": "Pakistan",
     "LKA": "Sri Lanka",
+    # Turkey, Sudan/South Sudan, and the Horn of Africa -- added for their direct
+    # ties to already-tracked content: Turkey's regional weight and Syria/
+    # Mediterranean role, Sudan's already-tracked civil war (previously covered
+    # only as spillover context for other countries), and Ethiopia/Djibouti/
+    # Somalia/Eritrea's position on the Bab-el-Mandeb chokepoint this app's own
+    # Geo-Economic dashboard already covers.
+    "TUR": "Turkey",
+    "SDN": "Sudan",
+    "SSD": "South Sudan",
+    "ETH": "Ethiopia",
+    "SOM": "Somalia",
+    "DJI": "Djibouti",
+    "ERI": "Eritrea",
 }
 
 # Economic pillar
