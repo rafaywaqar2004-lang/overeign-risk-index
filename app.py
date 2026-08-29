@@ -1350,8 +1350,13 @@ with tab1:
         )
         fig.update_traces(texttemplate="%{text:.1f}", textposition="outside")
         fig.update_layout(showlegend=True, legend_title_text="")
+        # A fixed height starves the y-axis of room per country as the tracked
+        # set grows -- Plotly then silently thins out tick labels rather than
+        # overlapping them, so bars for every country still render but some
+        # names go missing. Scaling with the row count keeps one label per bar
+        # regardless of how many countries are tracked.
         rank_click = st.plotly_chart(
-            style_chart(fig, height=560), use_container_width=True,
+            style_chart(fig, height=max(560, 22 * len(chart_df))), use_container_width=True,
             on_select="rerun", selection_mode="points", key="risk_rank_select",
         )
         st.caption("Click a bar to pre-select that country in the Country Deep Dive tab above.")
@@ -3248,8 +3253,11 @@ with tab6:
             custom_data=["country"],
         )
         fig6.update_traces(marker_color=ACCENT)
+        # Same fixed-vs-scaling-height fix as the Regional Overview ranking:
+        # without enough vertical room per bar, Plotly quietly drops some
+        # y-axis country labels rather than overlapping them.
         scenario_click = st.plotly_chart(
-            style_chart(fig6, height=560), use_container_width=True,
+            style_chart(fig6, height=max(560, 22 * len(scenario_df))), use_container_width=True,
             on_select="rerun", selection_mode="points", key="scenario_rank_select",
         )
         st.caption("Click a bar to pre-select that country in the Country Deep Dive tab above.")
