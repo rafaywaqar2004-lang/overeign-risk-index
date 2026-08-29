@@ -51,7 +51,7 @@ class CountryBriefPDF(FPDF):
             return
         self.set_font("Helvetica", "I", 8)
         self.set_text_color(*TEXT_MUTED)
-        self.cell(0, 8, "Sovereign Risk Scorecard - Country Brief", align="L")
+        self.cell(0, 8, "MENASA Risk Monitor - Country Brief", align="L")
         self.cell(0, 8, f"Page {self.page_no()}", align="R", new_x="LMARGIN", new_y="NEXT")
         self.ln(2)
 
@@ -112,7 +112,7 @@ class CountryBriefPDF(FPDF):
 def generate_country_pdf(
     country_name, country_code, row, brief_text, ratings,
     trade_profile, events, arrangements, partner_info, last_refreshed,
-    top_risk_factors=None, confidence=None,
+    top_risk_factors=None, confidence=None, total_countries=34,
 ):
     pdf = CountryBriefPDF(format="A4")
     pdf.set_auto_page_break(auto=True, margin=18)
@@ -128,7 +128,7 @@ def generate_country_pdf(
     pdf.set_font("Helvetica", "", 8.5)
     pdf.set_text_color(*TEXT_MUTED)
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    pdf.cell(0, 6, sanitize_text(f"Generated {generated} | Data last refreshed {last_refreshed} | MENASA Sovereign Risk Scorecard"), new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 6, sanitize_text(f"Generated {generated} | Data last refreshed {last_refreshed} | MENASA Risk Monitor"), new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
 
     # ---- Score summary + credit ratings, side by side ----
@@ -137,7 +137,7 @@ def generate_country_pdf(
     summary_rows = [
         ["Score", score_display],
         ["Risk Tier", str(row.get("risk_tier", "N/A"))],
-        ["Regional Rank", f"{int(row['risk_rank'])} of 26" if row.get("risk_rank") == row.get("risk_rank") else "N/A"],
+        ["Regional Rank", f"{int(row['risk_rank'])} of {total_countries}" if row.get("risk_rank") == row.get("risk_rank") else "N/A"],
         ["Confidence", f"{factors_used} of 10 factors reported" + (" (lower confidence)" if factors_used < 8 else "")],
     ]
     if row.get("yoy_change") == row.get("yoy_change"):

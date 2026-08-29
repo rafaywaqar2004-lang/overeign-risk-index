@@ -1521,6 +1521,7 @@ with tab2:
         last_refreshed=LAST_REFRESHED,
         top_risk_factors=_top_risk_factors_for_pdf,
         confidence=(_conf_label_pdf, _conf_detail_pdf),
+        total_countries=len(scored),
     )
     st.download_button(
         label=f"📄 Generate Executive Report — {selected} (PDF)",
