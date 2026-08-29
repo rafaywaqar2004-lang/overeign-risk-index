@@ -4,6 +4,9 @@ Computes:
   2. scored_history.csv    - composite risk score per country PER YEAR (for trend charts)
   3. driver_data.csv       - each country's normalized 0-100 risk sub-score per
                              factor (for radar charts + "what's driving this score")
+  4. driver_history.csv    - the same per-factor normalized sub-scores, but PER YEAR
+                             (for the YoY point-attribution breakdown -- exactly which
+                             factors drove a score change, and by how much)
 
 Methodology (v3):
 - 10 factors across two pillars, 5 each:
@@ -177,6 +180,7 @@ def main():
     GOV_FACTORS = ["political_stability", "government_effectiveness", "rule_of_law", "regulatory_quality", "control_of_corruption"]
 
     history_rows = []
+    driver_history_rows = []
     years = sorted(long_df["year"].unique())
     for year in years:
         year_slice = long_df[long_df["year"] == year]
@@ -201,11 +205,23 @@ def main():
             if econ_coverage.get(country_code, 0) == 0 or gov_coverage.get(country_code, 0) == 0:
                 continue  # one whole pillar missing this year — not a comparable composite
             history_rows.append({"country_code": country_code, "year": year, "risk_score": score})
+            # Same-gated per-factor normalized sub-scores for this country-year --
+            # lets the app decompose a YoY score change into each factor's exact
+            # point contribution (weight x change in sub-score, rescaled weights
+            # recomputed from whichever factors are non-null that year), rather
+            # than only naming the top driver without quantifying it.
+            driver_history_rows.append({
+                "country_code": country_code, "year": year,
+                **{f: year_risk_df.loc[country_code, f] for f in WEIGHTS},
+            })
 
     history_df = pd.DataFrame(history_rows)
     country_lookup = df[["country_code", "country"]].drop_duplicates()
     history_df = history_df.merge(country_lookup, on="country_code", how="left")
     history_df.to_csv("scored_history.csv", index=False)
+
+    driver_history_df = pd.DataFrame(driver_history_rows)
+    driver_history_df.to_csv("driver_history.csv", index=False)
 
     # ---------- 4. YEAR-OVER-YEAR CHANGE (latest year in history vs. prior year) ----------
     yoy_rows = []
@@ -232,7 +248,8 @@ def main():
 
     # ---------- Console summary ----------
     print(df_sorted[["country", "risk_score", "risk_tier", "risk_rank", "yoy_change"]].to_string(index=False))
-    print(f"\nSaved scored_data.csv, driver_data.csv, scored_history.csv ({len(history_df)} country-year rows), live_sovereign_risk_data.csv")
+    print(f"\nSaved scored_data.csv, driver_data.csv, scored_history.csv ({len(history_df)} country-year rows), "
+          f"driver_history.csv ({len(driver_history_df)} country-year rows), live_sovereign_risk_data.csv")
 
 
 if __name__ == "__main__":
