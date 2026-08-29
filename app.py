@@ -822,42 +822,37 @@ DATA_YEAR_RANGE = f"{int(long_df['year'].min())}-{int(long_df['year'].max())}"
 # the 27 tracked countries — orientation markers on the two geo maps, not a
 # data layer. Standard, stable geographic facts, not something that needs a
 # live source citation the way a statistic would.
-# At least two major cities per tracked country -- the capital/seat of
-# government plus the leading commercial, port, or population center -- so
-# the map reads as a real geographic reference rather than one dot per flag.
-MAJOR_CITIES = {
-    # North Africa
-    "Algiers": (36.75, 3.06), "Oran": (35.70, -0.63),
-    "Cairo": (30.04, 31.24), "Alexandria": (31.20, 29.92),
-    "Tripoli": (32.89, 13.19), "Benghazi": (32.12, 20.07),
-    "Rabat": (34.02, -6.83), "Casablanca": (33.57, -7.59),
-    "Tunis": (36.81, 10.18), "Sfax": (34.74, 10.76),
-    # Gulf
-    "Manama": (26.23, 50.59), "Muharraq": (26.26, 50.61),
-    "Kuwait City": (29.38, 47.99), "Al Ahmadi": (29.08, 48.09),
-    "Muscat": (23.59, 58.41), "Salalah": (17.02, 54.09),
-    "Doha": (25.29, 51.53), "Al Wakrah": (25.17, 51.60),
-    "Riyadh": (24.71, 46.68), "Jeddah": (21.54, 39.17),
-    "Dubai": (25.20, 55.27), "Abu Dhabi": (24.45, 54.38),
-    # Levant & Iraq
-    "Amman": (31.95, 35.93), "Aqaba": (29.53, 35.00),
-    "Beirut": (33.89, 35.50), "Sidon": (33.56, 35.37),
-    "Damascus": (33.51, 36.29), "Aleppo": (36.20, 37.16),
-    "Baghdad": (33.31, 44.36), "Basra": (30.51, 47.78),
-    "Jerusalem": (31.78, 35.22), "Tel Aviv": (32.09, 34.78),
-    "Gaza City": (31.50, 34.47), "Ramallah": (31.90, 35.20),
-    # Iran & Yemen
-    "Tehran": (35.69, 51.39), "Mashhad": (36.30, 59.61),
-    "Sanaa": (15.37, 44.19), "Aden": (12.78, 45.02),
-    # South Asia
-    "Kabul": (34.56, 69.21), "Herat": (34.34, 62.19),
-    "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00),
-    "New Delhi": (28.61, 77.21), "Mumbai": (19.08, 72.88),
-    "Dhaka": (23.81, 90.41), "Chittagong": (22.36, 91.78),
-    "Colombo": (6.93, 79.85), "Kandy": (7.29, 80.63),
-    "Kathmandu": (27.72, 85.32), "Pokhara": (28.21, 83.99),
-    "Thimphu": (27.47, 89.64), "Phuntsholing": (26.85, 89.39),
-    "Male": (4.17, 73.51), "Addu City": (-0.60, 73.08),
+# Capital/seat-of-government cities -- one per country, always shown with a
+# visible text label. Kept separate from MAJOR_CITIES_SECONDARY below so the
+# map can label only these by default; doubling every country's label count
+# made the Gulf cluster unreadable and blew out the map's footprint on
+# narrow/mobile viewports.
+MAJOR_CITIES_PRIMARY = {
+    "Algiers": (36.75, 3.06), "Cairo": (30.04, 31.24), "Tripoli": (32.89, 13.19),
+    "Rabat": (34.02, -6.83), "Tunis": (36.81, 10.18), "Manama": (26.23, 50.59),
+    "Kuwait City": (29.38, 47.99), "Muscat": (23.59, 58.41), "Doha": (25.29, 51.53),
+    "Riyadh": (24.71, 46.68), "Jeddah": (21.54, 39.17), "Dubai": (25.20, 55.27),
+    "Abu Dhabi": (24.45, 54.38), "Amman": (31.95, 35.93), "Beirut": (33.89, 35.50),
+    "Damascus": (33.51, 36.29), "Baghdad": (33.31, 44.36), "Jerusalem": (31.78, 35.22),
+    "Tel Aviv": (32.09, 34.78), "Gaza City": (31.50, 34.47), "Ramallah": (31.90, 35.20),
+    "Tehran": (35.69, 51.39), "Sanaa": (15.37, 44.19), "Kabul": (34.56, 69.21),
+    "Islamabad": (33.68, 73.05), "Karachi": (24.86, 67.00), "New Delhi": (28.61, 77.21),
+    "Mumbai": (19.08, 72.88), "Dhaka": (23.81, 90.41), "Colombo": (6.93, 79.85),
+    "Kathmandu": (27.72, 85.32), "Thimphu": (27.47, 89.64), "Male": (4.17, 73.51),
+}
+
+# The second, leading commercial/port/population center per country that
+# still needed one for ">1 major city per country" coverage -- shown as a
+# small dot with the name available on hover only, not a permanent label, to
+# keep the map legible instead of doubling every visible text label.
+MAJOR_CITIES_SECONDARY = {
+    "Oran": (35.70, -0.63), "Alexandria": (31.20, 29.92), "Benghazi": (32.12, 20.07),
+    "Casablanca": (33.57, -7.59), "Sfax": (34.74, 10.76), "Muharraq": (26.26, 50.61),
+    "Al Ahmadi": (29.08, 48.09), "Salalah": (17.02, 54.09), "Al Wakrah": (25.17, 51.60),
+    "Aqaba": (29.53, 35.00), "Sidon": (33.56, 35.37), "Aleppo": (36.20, 37.16),
+    "Basra": (30.51, 47.78), "Mashhad": (36.30, 59.61), "Aden": (12.78, 45.02),
+    "Herat": (34.34, 62.19), "Chittagong": (22.36, 91.78), "Kandy": (7.29, 80.63),
+    "Pokhara": (28.21, 83.99), "Phuntsholing": (26.85, 89.39), "Addu City": (-0.60, 73.08),
 }
 
 # Named seas/gulfs shown as small italic water labels on every regional map,
@@ -1154,6 +1149,15 @@ with tab1:
         color_continuous_scale=["#34d399", "#fbbf24", "#f87171"], range_color=(0, 100),
         labels={"risk_score": "Risk Score", "risk_tier": "Risk Tier"},
     )
+    # A full-size default colorbar reserves a large, fixed chunk of the
+    # figure's width for its title/ticks regardless of container width --
+    # on a narrow/mobile viewport that leaves the actual map squeezed into a
+    # sliver. A slimmer, shorter bar keeps the map itself the dominant element
+    # at any width.
+    map_fig.update_coloraxes(colorbar=dict(
+        thickness=12, len=0.6, tickfont=dict(size=9, color=TEXT_MUTED),
+        title=dict(font=dict(size=10, color=TEXT_MUTED)),
+    ))
     _ov_lat_range, _ov_lon_range = [-5, 42], [-12, 100]
     map_fig.update_geos(
         scope="world", lataxis_range=_ov_lat_range, lonaxis_range=_ov_lon_range,
@@ -1163,21 +1167,24 @@ with tab1:
         **MAP_BASE_STYLE,
     )
     map_fig.add_trace(sea_label_trace(_ov_lat_range, _ov_lon_range))
-    # A light overlay of major cities (capitals + leading commercial centers)
-    # purely for geographic orientation — small, muted markers that don't
-    # compete visually with the risk-tier choropleth fill, the actual data layer.
-    city_lats = [c[0] for c in MAJOR_CITIES.values()]
-    city_lons = [c[1] for c in MAJOR_CITIES.values()]
-    city_names = list(MAJOR_CITIES.keys())
-    # With two cities per country, clusters like the Gulf get tight -- cycling
-    # the label position around each dot instead of always placing it above
-    # cuts down on direct label-on-label overlap.
+    # Capital cities get a small labeled dot for geographic orientation; the
+    # second/secondary city per country gets a dot only, name on hover --
+    # labeling all 54 cities made the Gulf cluster unreadable and blew out
+    # the map's footprint on narrow viewports.
     _city_positions = ["top center", "bottom center", "middle right", "middle left"]
+    primary_names = list(MAJOR_CITIES_PRIMARY.keys())
     map_fig.add_trace(go.Scattergeo(
-        lat=city_lats, lon=city_lons, mode="markers+text",
+        lat=[c[0] for c in MAJOR_CITIES_PRIMARY.values()], lon=[c[1] for c in MAJOR_CITIES_PRIMARY.values()],
+        mode="markers+text",
         marker=dict(size=4, color="rgba(230,237,243,0.75)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
-        text=city_names, textposition=[_city_positions[i % 4] for i in range(len(city_names))],
+        text=primary_names, textposition=[_city_positions[i % 4] for i in range(len(primary_names))],
         textfont=dict(size=7, color="rgba(230,237,243,0.8)"),
+        hoverinfo="text", showlegend=False,
+    ))
+    map_fig.add_trace(go.Scattergeo(
+        lat=[c[0] for c in MAJOR_CITIES_SECONDARY.values()], lon=[c[1] for c in MAJOR_CITIES_SECONDARY.values()],
+        mode="markers", text=list(MAJOR_CITIES_SECONDARY.keys()),
+        marker=dict(size=3.5, color="rgba(230,237,243,0.45)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
         hoverinfo="text", showlegend=False,
     ))
     map_fig.update_layout(margin=dict(t=10, b=10, l=10, r=10))
@@ -2317,12 +2324,19 @@ with tab4:
                 text=hover_texts, hoverinfo="text",
             ))
             _city_positions = ["top center", "bottom center", "middle right", "middle left"]
+            _cf_primary_names = list(MAJOR_CITIES_PRIMARY.keys())
             conflict_map_fig.add_trace(go.Scattergeo(
-                lat=[c[0] for c in MAJOR_CITIES.values()], lon=[c[1] for c in MAJOR_CITIES.values()],
-                mode="markers+text", text=list(MAJOR_CITIES.keys()),
+                lat=[c[0] for c in MAJOR_CITIES_PRIMARY.values()], lon=[c[1] for c in MAJOR_CITIES_PRIMARY.values()],
+                mode="markers+text", text=_cf_primary_names,
                 marker=dict(size=4, color="rgba(230,237,243,0.75)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
-                textposition=[_city_positions[i % 4] for i in range(len(MAJOR_CITIES))],
+                textposition=[_city_positions[i % 4] for i in range(len(_cf_primary_names))],
                 textfont=dict(size=7, color="rgba(230,237,243,0.8)"),
+                hoverinfo="text", showlegend=False,
+            ))
+            conflict_map_fig.add_trace(go.Scattergeo(
+                lat=[c[0] for c in MAJOR_CITIES_SECONDARY.values()], lon=[c[1] for c in MAJOR_CITIES_SECONDARY.values()],
+                mode="markers", text=list(MAJOR_CITIES_SECONDARY.keys()),
+                marker=dict(size=3.5, color="rgba(230,237,243,0.45)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
                 hoverinfo="text", showlegend=False,
             ))
             _cf_lat_range, _cf_lon_range = [-5, 42], [-18, 100]

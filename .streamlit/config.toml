@@ -5,3 +5,9 @@ backgroundColor = "#0a0a0a"
 secondaryBackgroundColor = "#161616"
 textColor = "#f5f5f4"
 font = "sans serif"
+
+[client]
+# Hides Streamlit Cloud's own "Deploy"/Fork/GitHub/hamburger-menu chrome on
+# top of the app -- that's platform UI injected outside app.py, not app
+# branding, but this is the one setting that actually controls it.
+toolbarMode = "minimal"
