@@ -374,12 +374,17 @@ def stat_card(label, value, sub=None, spark=None, accent=None):
 
 
 def custom_table(rows, headers):
-    html = '<table class="custom-table"><thead><tr>'
+    # Wrapped in its own horizontal-scroll container -- on a narrow viewport
+    # a wide table (many columns, or long cell content like a 4-country
+    # compare) has nowhere else to go, since the page itself doesn't scroll
+    # sideways. Without this, columns past the viewport edge were simply
+    # unreachable, not just visually cramped.
+    html = '<div style="overflow-x:auto;"><table class="custom-table"><thead><tr>'
     html += "".join(f"<th>{h}</th>" for h in headers)
     html += "</tr></thead><tbody>"
     for row in rows:
         html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
-    html += "</tbody></table>"
+    html += "</tbody></table></div>"
     st.markdown(html, unsafe_allow_html=True)
 
 
@@ -401,7 +406,7 @@ def style_chart(fig, height=420):
 
 def sourced_table(rows, headers):
     """Like custom_table, but the last column of each row is rendered as a link."""
-    html = '<table class="custom-table"><thead><tr>'
+    html = '<div style="overflow-x:auto;"><table class="custom-table"><thead><tr>'
     html += "".join(f"<th>{h}</th>" for h in headers)
     html += "</tr></thead><tbody>"
     for row in rows:
@@ -409,7 +414,7 @@ def sourced_table(rows, headers):
         source_name, source_url = row[-1]
         html += "<tr>" + "".join(f"<td>{c}</td>" for c in cells)
         html += f'<td><a href="{source_url}" target="_blank" rel="noopener noreferrer" style="color:{ACCENT};">{source_name} ↗</a></td></tr>'
-    html += "</tbody></table>"
+    html += "</tbody></table></div>"
     st.markdown(html, unsafe_allow_html=True)
 
 
@@ -1212,6 +1217,7 @@ with tab1:
             chart_df, x="risk_score", y="country", orientation="h",
             color="risk_tier", color_discrete_map=TIER_COLORS, text="risk_score",
             labels={"risk_score": "Risk Score (0-100)", "country": ""},
+            custom_data=["country"],
         )
         fig.update_traces(texttemplate="%{text:.1f}", textposition="outside")
         fig.update_layout(showlegend=True, legend_title_text="")
@@ -1223,12 +1229,13 @@ with tab1:
         if rank_click and rank_click.selection and rank_click.selection.get("points"):
             # color="risk_tier" splits this bar chart into one trace per tier,
             # so a raw point_indices lookup against chart_df would silently
-            # index into the wrong tier's rows -- reading the point's own "y"
-            # value (the country name, since this is a horizontal bar) instead
-            # sidesteps the multi-trace indexing mismatch entirely.
-            rank_country = rank_click.selection["points"][0].get("y")
-            if rank_country:
-                st.session_state["selected_country_from_map"] = rank_country
+            # index into the wrong tier's rows -- explicit customdata (same
+            # mechanism as the Geo-Economic map's click handler) sidesteps the
+            # multi-trace indexing mismatch entirely, rather than guessing at
+            # an undocumented "y" key in Streamlit's selection payload.
+            rank_cd = rank_click.selection["points"][0].get("customdata")
+            if rank_cd:
+                st.session_state["selected_country_from_map"] = rank_cd[0]
 
     with col2:
         with st.container(border=True):
@@ -1482,20 +1489,29 @@ with tab2:
                     angularaxis=dict(
                         gridcolor="rgba(148,163,184,0.12)", color=TEXT,
                         categoryorder="array", categoryarray=all_labels,
+                        tickfont=dict(size=10),
                     ),
                 ),
                 showlegend=bool(missing_factors),
                 legend=dict(orientation="h", y=-0.1, font=dict(color=TEXT_MUTED, size=10)),
             )
-            # A polar chart wants a roughly square aspect ratio regardless of
-            # container width — letting it stretch to fill a wide 2/3-page
-            # column (via use_container_width) leaves large empty space on
-            # both sides, since Plotly centers the actual circular plot rather
-            # than scaling it to a wide rectangle. Nesting it in a narrower
-            # centered sub-column keeps it properly proportioned.
-            radar_pad_l, radar_center, radar_pad_r = st.columns([1, 5, 1])
-            with radar_center:
-                st.plotly_chart(style_chart(fig3, height=420), use_container_width=True)
+            # A narrower centered sub-column here used to keep this polar
+            # chart square on wide desktop screens -- but Streamlit collapses
+            # multi-column layouts to full width on narrow viewports anyway,
+            # so that extra narrowing only ever helped desktop while actively
+            # starving the chart of width on mobile, clipping long angular
+            # labels like "Government Effectiveness" at the viewport edge.
+            # Using the container's actual width plus a real pixel margin
+            # (below) fixes mobile without meaningfully hurting desktop.
+            styled_fig3 = style_chart(fig3, height=420)
+            # style_chart's default 10px side margin is sized for cartesian
+            # charts, where axis labels stay inside the plot -- a radar
+            # chart's angular labels sit *outside* the circle and need real
+            # room. A fixed pixel margin eats a bigger share of a narrow
+            # container (more relative headroom exactly where it's needed)
+            # while staying unobtrusive on desktop.
+            styled_fig3.update_layout(margin=dict(t=40, b=40, l=105, r=105))
+            st.plotly_chart(styled_fig3, use_container_width=True)
             if missing_factors:
                 st.caption(
                     f"⚠️ Marked with an amber ✕: {', '.join(FACTOR_LABELS[f] for f in missing_factors)} — "
@@ -2043,14 +2059,20 @@ with tab3:
                 angularaxis=dict(
                     gridcolor="rgba(148,163,184,0.12)", color=TEXT,
                     categoryorder="array", categoryarray=all_labels,
+                    tickfont=dict(size=10),
                 ),
             ),
             showlegend=True,
             legend=dict(orientation="h", y=-0.12, font=dict(color=TEXT_MUTED, size=10)),
         )
-        cmp_pad_l, cmp_center, cmp_pad_r = st.columns([1, 5, 1])
-        with cmp_center:
-            st.plotly_chart(style_chart(fig_cmp, height=460), use_container_width=True)
+        # Same fix as the single-country radar in Country Deep Dive: no extra
+        # column narrowing (Streamlit collapses columns to full width on
+        # mobile anyway, so it only ever hurt narrow screens) plus a real
+        # pixel margin, since angular labels like "Government Effectiveness"
+        # sit outside the circle and were getting clipped at the edge.
+        styled_fig_cmp = style_chart(fig_cmp, height=460)
+        styled_fig_cmp.update_layout(margin=dict(t=40, b=60, l=105, r=105))
+        st.plotly_chart(styled_fig_cmp, use_container_width=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -3033,9 +3055,23 @@ with tab6:
         fig6 = px.bar(
             scenario_df, x="scenario_score", y="country", orientation="h",
             labels={"scenario_score": "Scenario Risk Score (0-100)", "country": ""},
+            custom_data=["country"],
         )
         fig6.update_traces(marker_color=ACCENT)
-        st.plotly_chart(style_chart(fig6, height=560), use_container_width=True)
+        scenario_click = st.plotly_chart(
+            style_chart(fig6, height=560), use_container_width=True,
+            on_select="rerun", selection_mode="points", key="scenario_rank_select",
+        )
+        st.caption("Click a bar to pre-select that country in the Country Deep Dive tab above.")
+        if scenario_click and scenario_click.selection and scenario_click.selection.get("points"):
+            # Explicit customdata (same mechanism as the Geo-Economic map's
+            # click handler) rather than an undocumented "y" key.
+            scenario_cd = scenario_click.selection["points"][0].get("customdata")
+            # Tab 6 runs after Country Deep Dive (tab 2) in script order -- same
+            # guarded-rerun fix as the Live Conflicts pills and Geo-Economic map.
+            if scenario_cd and st.session_state.get("selected_country_from_map") != scenario_cd[0]:
+                st.session_state["selected_country_from_map"] = scenario_cd[0]
+                st.rerun()
     else:
         st.caption("Set at least one factor weight above zero to see a ranking.")
 
