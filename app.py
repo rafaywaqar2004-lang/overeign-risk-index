@@ -1181,9 +1181,9 @@ with tab1:
     map_fig.add_trace(go.Scattergeo(
         lat=[c[0] for c in MAJOR_CITIES_PRIMARY.values()], lon=[c[1] for c in MAJOR_CITIES_PRIMARY.values()],
         mode="markers+text",
-        marker=dict(size=4, color="rgba(230,237,243,0.75)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+        marker=dict(size=4, color="rgba(245,245,244,0.9)", line=dict(width=0.5, color="rgba(10,14,20,0.7)")),
         text=primary_names, textposition=[_city_positions[i % 4] for i in range(len(primary_names))],
-        textfont=dict(size=7, color="rgba(230,237,243,0.8)"),
+        textfont=dict(size=8, color="#f5f5f4"),
         hoverinfo="text", showlegend=False,
     ))
     map_fig.add_trace(go.Scattergeo(
@@ -2350,9 +2350,9 @@ with tab4:
             conflict_map_fig.add_trace(go.Scattergeo(
                 lat=[c[0] for c in MAJOR_CITIES_PRIMARY.values()], lon=[c[1] for c in MAJOR_CITIES_PRIMARY.values()],
                 mode="markers+text", text=_cf_primary_names,
-                marker=dict(size=4, color="rgba(230,237,243,0.75)", line=dict(width=0.5, color="rgba(10,14,20,0.6)")),
+                marker=dict(size=4, color="rgba(245,245,244,0.9)", line=dict(width=0.5, color="rgba(10,14,20,0.7)")),
                 textposition=[_city_positions[i % 4] for i in range(len(_cf_primary_names))],
-                textfont=dict(size=7, color="rgba(230,237,243,0.8)"),
+                textfont=dict(size=8, color="#f5f5f4"),
                 hoverinfo="text", showlegend=False,
             ))
             conflict_map_fig.add_trace(go.Scattergeo(
