@@ -585,7 +585,7 @@ CREDIT_RATINGS = {
     "IND": {"sp": "BBB", "moodys": "Baa3", "fitch": "BBB-"},
     "MDV": {"sp": "B-", "moodys": "Not Rated", "fitch": "Not Rated"},
     "NPL": {"sp": "Not Rated", "moodys": "Not Rated", "fitch": "Not Rated"},
-    "PAK": {"sp": "B-", "moodys": "Caa1", "fitch": "CCC-"},
+    "PAK": {"sp": "B-", "moodys": "B3 (upgraded from Caa1, Aug 24, 2026)", "fitch": "CCC-"},
     "LKA": {"sp": "CCC+", "moodys": "Caa1", "fitch": "RD"},
 }
 
@@ -607,6 +607,7 @@ CREDIT_RATINGS_SOURCES = [
     ("Moody's Ratings: Israel downgrade notice", "https://ratings.moodys.com/ratings-news/415081"),
     ("Bloomberg: Israel's Rating Cut by Fitch as War Seen Lasting Into 2025", "https://www.bloomberg.com/news/articles/2024-08-12/israel-s-rating-cut-by-fitch-as-gaza-war-seen-lasting-into-2025"),
     ("Business Standard: S&P raises Pakistan's sovereign rating to 'B-'", "https://www.business-standard.com/amp/world-news/sp-rating-upgrades-pakistan-sovereign-rating-b-125072401514_1.html"),
+    ("Bloomberg: Moody's Upgrades Pakistan to B3 as External Risks Ease (Aug 24, 2026)", "https://www.bloomberg.com/news/articles/2026-08-24/moody-s-upgrades-pakistan-to-b3-as-external-risks-ease"),
 ]
 
 
