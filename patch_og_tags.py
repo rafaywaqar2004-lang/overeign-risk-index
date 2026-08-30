@@ -37,6 +37,21 @@ DESCRIPTION = (
 )
 IMAGE_URL = f"{SITE_URL}/app/static/og-image.png"
 
+GA_MEASUREMENT_ID = "G-QP9RPS41KJ"
+
+GA_BLOCK_START = "<!-- BEGIN ga-analytics (managed by patch_og_tags.py) -->"
+GA_BLOCK_END = "<!-- END ga-analytics -->"
+
+GA_BLOCK = f"""{GA_BLOCK_START}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{ dataLayer.push(arguments); }}
+      gtag('js', new Date());
+      gtag('config', '{GA_MEASUREMENT_ID}');
+    </script>
+    {GA_BLOCK_END}"""
+
 OG_BLOCK_START = "<!-- BEGIN og-tags (managed by patch_og_tags.py) -->"
 OG_BLOCK_END = "<!-- END og-tags -->"
 
@@ -107,11 +122,11 @@ def main():
 
     # Remove any previously-injected blocks first, so re-running this script
     # (e.g. a redeploy without a clean install) replaces rather than duplicates.
-    for start, end in [(OG_BLOCK_START, OG_BLOCK_END), (LOADER_BLOCK_START, LOADER_BLOCK_END)]:
+    for start, end in [(OG_BLOCK_START, OG_BLOCK_END), (LOADER_BLOCK_START, LOADER_BLOCK_END), (GA_BLOCK_START, GA_BLOCK_END)]:
         html = re.sub(re.escape(start) + r".*?" + re.escape(end), "", html, flags=re.DOTALL)
 
     html = html.replace("<title>Streamlit</title>", f"<title>{TITLE}</title>")
-    html = html.replace("</head>", OG_BLOCK + "\n  </head>")
+    html = html.replace("</head>", OG_BLOCK + "\n  " + GA_BLOCK + "\n  </head>")
     html = html.replace("</body>", LOADER_BLOCK + "\n</body>")
 
     with open(index_path, "w", encoding="utf-8") as f:
