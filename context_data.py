@@ -227,9 +227,9 @@ FINANCING_ARRANGEMENTS['SDN'] = [
     },
     {
         'program': "UN Sudan Humanitarian Response Plan / Crisis Response Plan 2026",
-        'amount': "$1.5 billion mobilization target announced at a US-convened meeting (February 2026); broader 2026 appeal covers 33.7 million people in need",
+        'amount': "$1.5 billion mobilization target announced at a US-convened meeting (February 2026); broader 2026 Humanitarian Needs and Response Plan seeks $2.9 billion for 20.4 million people in need",
         'approved': "2026 appeal cycle (ongoing, chronically underfunded in prior years)",
-        'status': "Active but severely underfunded -- this is humanitarian aid, not sovereign financing; no IMF/World Bank budget-support program is active given the absence of a unified, functioning government counterpart.",
+        'status': "Active but severely underfunded -- the $2.9bn 2026 response plan was only about 21% funded as of May 2026; this is humanitarian aid, not sovereign financing, and no IMF/World Bank budget-support program is active given the absence of a unified, functioning government counterpart.",
     },
 ]
 
@@ -243,8 +243,8 @@ FINANCING_ARRANGEMENTS['SSD'] = [
     {
         'program': "Nine-month Staff-Monitored Program (SMP), 2025-2026",
         'amount': "No direct financing (non-financial monitoring arrangement)",
-        'approved': "Staff-level agreement reached June 2025; program expected to begin around August 2025",
-        'status': "Active/ongoing as of the most recent public IMF statements; aims to restore fiscal and exchange-rate stability after the 2024 pipeline-driven revenue collapse.",
+        'approved': "Staff-level agreement reached June 20, 2025; program expected to begin around August 2025",
+        'status': "Running behind its original 9-month schedule -- IMF/World Bank missions in April, May and July 2026 were still reviewing progress under the SMP and PFM reforms, with no review-completion or program-conclusion announcement publicly available as of August 2026. Aims to restore fiscal and exchange-rate stability after the 2024 pipeline-driven revenue collapse.",
     },
 ]
 
@@ -708,12 +708,12 @@ ECONOMIC_SANCTIONS['SDN'] = [
 ECONOMIC_SANCTIONS['SSD'] = [
     {
         'name': "UN Security Council arms embargo",
-        'period': "2018-present (renewed annually; most recently extended in 2025)",
+        'period': "2018-present (renewed annually; most recently extended through May 31, 2027 via Resolution 2821 of May 29, 2026)",
         'imposing_body': "UN Security Council (Resolution 2428 of 2018 and successor renewal resolutions)",
         'reason': "Ongoing armed conflict, targeted attacks on civilians, and R-ARCSS implementation failures; embargo paired with targeted travel bans and asset freezes on designated individuals",
-        'status': "Active -- renewed in a US-sponsored vote on May 30, 2024 (9 votes in favor; Russia, China, Mozambique, Algeria, Sierra Leone, and Guyana abstained) despite African Union and South Sudanese government appeals to lift it; renewed again in 2025",
+        'status': "Active -- renewed in a US-sponsored vote on May 30, 2024 (9 votes in favor; Russia, China, Mozambique, Algeria, Sierra Leone, and Guyana abstained) despite African Union and South Sudanese government appeals to lift it; renewed again May 29, 2026 (Resolution 2821, 9-0-6 with China, DRC, Liberia, Pakistan, Russia and Somalia abstaining) through May 31, 2027",
         'economic_impact': "Restricts formal arms imports/exports to South Sudan; enforcement is inconsistent given porous borders and has not stopped the flow of weapons to armed factions.",
-        'sources': [("US News: UN extends arms embargo on South Sudan", "https://www.usnews.com/news/us/articles/2024-05-30/un-extends-arms-embargo-on-south-sudan-despite-appeals-from-african-union-russia-and-china")],
+        'sources': [("US News: UN extends arms embargo on South Sudan", "https://www.usnews.com/news/us/articles/2024-05-30/un-extends-arms-embargo-on-south-sudan-despite-appeals-from-african-union-russia-and-china"), ("UN Press: Security Council renews South Sudan arms embargo (Resolution 2821)", "https://press.un.org/en/2026/sc16374.doc.htm")],
     },
     {
         'name': "US Global Magnitsky sanctions on Benjamin Bol Mel",
