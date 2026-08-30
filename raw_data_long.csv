@@ -183,6 +183,22 @@ DZA,Algeria,imports_pct_gdp,2013,28.3516432281546
 DZA,Algeria,imports_pct_gdp,2012,26.374847332557
 DZA,Algeria,imports_pct_gdp,2011,26.2320035517219
 DZA,Algeria,imports_pct_gdp,2010,28.5029863779305
+DZA,Algeria,official_exchange_rate_lcu_usd,2025,131.605925
+DZA,Algeria,official_exchange_rate_lcu_usd,2024,134.053241666667
+DZA,Algeria,official_exchange_rate_lcu_usd,2023,135.842933333333
+DZA,Algeria,official_exchange_rate_lcu_usd,2022,141.994975
+DZA,Algeria,official_exchange_rate_lcu_usd,2021,135.064058333333
+DZA,Algeria,official_exchange_rate_lcu_usd,2020,126.7768
+DZA,Algeria,official_exchange_rate_lcu_usd,2019,119.353558333333
+DZA,Algeria,official_exchange_rate_lcu_usd,2018,116.593791666667
+DZA,Algeria,official_exchange_rate_lcu_usd,2017,110.973016666667
+DZA,Algeria,official_exchange_rate_lcu_usd,2016,109.443066666667
+DZA,Algeria,official_exchange_rate_lcu_usd,2015,100.691433333333
+DZA,Algeria,official_exchange_rate_lcu_usd,2014,80.5790166666667
+DZA,Algeria,official_exchange_rate_lcu_usd,2013,79.3684
+DZA,Algeria,official_exchange_rate_lcu_usd,2012,77.5359666666667
+DZA,Algeria,official_exchange_rate_lcu_usd,2011,72.9378833333333
+DZA,Algeria,official_exchange_rate_lcu_usd,2010,74.3859833333333
 DZA,Algeria,gdp_current_usd,2025,287031225987.736
 DZA,Algeria,gdp_current_usd,2024,269322281664.773
 DZA,Algeria,gdp_current_usd,2023,247923887214.655
@@ -457,6 +473,22 @@ BHR,Bahrain,imports_pct_gdp,2013,83.7628572125021
 BHR,Bahrain,imports_pct_gdp,2012,80.5583845887584
 BHR,Bahrain,imports_pct_gdp,2011,71.8932922709265
 BHR,Bahrain,imports_pct_gdp,2010,48.8587714119882
+BHR,Bahrain,official_exchange_rate_lcu_usd,2025,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2024,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2023,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2022,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2021,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2020,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2019,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2018,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2017,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2016,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2015,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2014,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2013,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2012,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2011,0.376
+BHR,Bahrain,official_exchange_rate_lcu_usd,2010,0.376
 BHR,Bahrain,gdp_current_usd,2025,48965725531.9149
 BHR,Bahrain,gdp_current_usd,2024,47210732712.766
 BHR,Bahrain,gdp_current_usd,2023,46192260638.2979
@@ -724,6 +756,22 @@ EGY,Egypt,imports_pct_gdp,2013,23.3551924317351
 EGY,Egypt,imports_pct_gdp,2012,24.3148026512211
 EGY,Egypt,imports_pct_gdp,2011,24.6882065494858
 EGY,Egypt,imports_pct_gdp,2010,26.5871042599039
+EGY,Egypt,official_exchange_rate_lcu_usd,2025,49.2277558333333
+EGY,Egypt,official_exchange_rate_lcu_usd,2024,45.29926
+EGY,Egypt,official_exchange_rate_lcu_usd,2023,30.6264136980311
+EGY,Egypt,official_exchange_rate_lcu_usd,2022,19.1604397412204
+EGY,Egypt,official_exchange_rate_lcu_usd,2021,15.6445272777113
+EGY,Egypt,official_exchange_rate_lcu_usd,2020,15.7591729166667
+EGY,Egypt,official_exchange_rate_lcu_usd,2019,16.7705818428763
+EGY,Egypt,official_exchange_rate_lcu_usd,2018,17.7672904218107
+EGY,Egypt,official_exchange_rate_lcu_usd,2017,17.7825335150636
+EGY,Egypt,official_exchange_rate_lcu_usd,2016,10.0254007885465
+EGY,Egypt,official_exchange_rate_lcu_usd,2015,7.69125833333333
+EGY,Egypt,official_exchange_rate_lcu_usd,2014,7.07760856060606
+EGY,Egypt,official_exchange_rate_lcu_usd,2013,6.870325
+EGY,Egypt,official_exchange_rate_lcu_usd,2012,6.05605833333333
+EGY,Egypt,official_exchange_rate_lcu_usd,2011,5.93282765151515
+EGY,Egypt,official_exchange_rate_lcu_usd,2010,5.6219429176105
 EGY,Egypt,gdp_current_usd,2025,365254630179.737
 EGY,Egypt,gdp_current_usd,2024,389059910593.1
 EGY,Egypt,gdp_current_usd,2023,395926071447.591
@@ -964,6 +1012,20 @@ IRN,Iran,imports_pct_gdp,2013,21.9038111775683
 IRN,Iran,imports_pct_gdp,2012,21.6140464814866
 IRN,Iran,imports_pct_gdp,2011,16.2861016653904
 IRN,Iran,imports_pct_gdp,2010,19.3709904542309
+IRN,Iran,official_exchange_rate_lcu_usd,2023,42000.0
+IRN,Iran,official_exchange_rate_lcu_usd,2022,42000.0
+IRN,Iran,official_exchange_rate_lcu_usd,2021,42000.0
+IRN,Iran,official_exchange_rate_lcu_usd,2020,42000.0
+IRN,Iran,official_exchange_rate_lcu_usd,2019,42000.0
+IRN,Iran,official_exchange_rate_lcu_usd,2018,40864.329009777
+IRN,Iran,official_exchange_rate_lcu_usd,2017,33226.2981524127
+IRN,Iran,official_exchange_rate_lcu_usd,2016,30914.8524362967
+IRN,Iran,official_exchange_rate_lcu_usd,2015,29011.4913770529
+IRN,Iran,official_exchange_rate_lcu_usd,2014,25941.6641445972
+IRN,Iran,official_exchange_rate_lcu_usd,2013,18414.4480100374
+IRN,Iran,official_exchange_rate_lcu_usd,2012,12175.5472222222
+IRN,Iran,official_exchange_rate_lcu_usd,2011,10616.3066439076
+IRN,Iran,official_exchange_rate_lcu_usd,2010,10254.176470289
 IRN,Iran,gdp_current_usd,2025,362682115433.364
 IRN,Iran,gdp_current_usd,2024,475252089215.416
 IRN,Iran,gdp_current_usd,2023,457510482317.483
@@ -1227,6 +1289,21 @@ IRQ,Iraq,imports_pct_gdp,2013,27.7464818743646
 IRQ,Iraq,imports_pct_gdp,2012,29.1002492300431
 IRQ,Iraq,imports_pct_gdp,2011,27.7538051840835
 IRQ,Iraq,imports_pct_gdp,2010,34.0806504059643
+IRQ,Iraq,official_exchange_rate_lcu_usd,2024,1300.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2023,1312.5
+IRQ,Iraq,official_exchange_rate_lcu_usd,2022,1450.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2021,1450.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2020,1192.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2019,1182.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2018,1182.75
+IRQ,Iraq,official_exchange_rate_lcu_usd,2017,1184.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2016,1182.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2015,1167.33333333333
+IRQ,Iraq,official_exchange_rate_lcu_usd,2014,1166.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2013,1166.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2012,1166.16666666667
+IRQ,Iraq,official_exchange_rate_lcu_usd,2011,1170.0
+IRQ,Iraq,official_exchange_rate_lcu_usd,2010,1170.0
 IRQ,Iraq,gdp_current_usd,2025,254367293538.462
 IRQ,Iraq,gdp_current_usd,2024,279641257615.385
 IRQ,Iraq,gdp_current_usd,2023,268881051643.549
@@ -1495,6 +1572,22 @@ ISR,Israel,imports_pct_gdp,2013,31.374418442059
 ISR,Israel,imports_pct_gdp,2012,35.3024648732099
 ISR,Israel,imports_pct_gdp,2011,34.7735478331397
 ISR,Israel,imports_pct_gdp,2010,32.1457670493261
+ISR,Israel,official_exchange_rate_lcu_usd,2025,3.45189166666667
+ISR,Israel,official_exchange_rate_lcu_usd,2024,3.69971964970892
+ISR,Israel,official_exchange_rate_lcu_usd,2023,3.6673747160226
+ISR,Israel,official_exchange_rate_lcu_usd,2022,3.35961440158189
+ISR,Israel,official_exchange_rate_lcu_usd,2021,3.23019832251082
+ISR,Israel,official_exchange_rate_lcu_usd,2020,3.44240585198793
+ISR,Israel,official_exchange_rate_lcu_usd,2019,3.56452734661093
+ISR,Israel,official_exchange_rate_lcu_usd,2018,3.59055812689938
+ISR,Israel,official_exchange_rate_lcu_usd,2017,3.59955554812834
+ISR,Israel,official_exchange_rate_lcu_usd,2016,3.84056666666667
+ISR,Israel,official_exchange_rate_lcu_usd,2015,3.88683333333333
+ISR,Israel,official_exchange_rate_lcu_usd,2014,3.577925
+ISR,Israel,official_exchange_rate_lcu_usd,2013,3.61075833333333
+ISR,Israel,official_exchange_rate_lcu_usd,2012,3.85592182539683
+ISR,Israel,official_exchange_rate_lcu_usd,2011,3.5781293062201
+ISR,Israel,official_exchange_rate_lcu_usd,2010,3.738975
 ISR,Israel,gdp_current_usd,2025,610777842873.595
 ISR,Israel,gdp_current_usd,2024,542284494490.778
 ISR,Israel,gdp_current_usd,2023,513393395491.904
@@ -1753,6 +1846,22 @@ JOR,Jordan,fdi_net_inflows_pct_gdp,2013,5.1397527233423
 JOR,Jordan,fdi_net_inflows_pct_gdp,2012,4.4426748997237
 JOR,Jordan,fdi_net_inflows_pct_gdp,2011,4.5528280155948
 JOR,Jordan,fdi_net_inflows_pct_gdp,2010,5.59019642688163
+JOR,Jordan,official_exchange_rate_lcu_usd,2025,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2024,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2023,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2022,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2021,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2020,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2019,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2018,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2017,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2016,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2015,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2014,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2013,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2012,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2011,0.71
+JOR,Jordan,official_exchange_rate_lcu_usd,2010,0.71
 JOR,Jordan,gdp_current_usd,2025,61610052535.2113
 JOR,Jordan,gdp_current_usd,2024,58618380563.3803
 JOR,Jordan,gdp_current_usd,2023,56123472112.6761
@@ -2019,6 +2128,22 @@ KWT,Kuwait,imports_pct_gdp,2013,26.7444733437666
 KWT,Kuwait,imports_pct_gdp,2012,26.2795979898817
 KWT,Kuwait,imports_pct_gdp,2011,25.8988177648389
 KWT,Kuwait,imports_pct_gdp,2010,30.3545103903329
+KWT,Kuwait,official_exchange_rate_lcu_usd,2025,0.306454776364578
+KWT,Kuwait,official_exchange_rate_lcu_usd,2024,0.306690648597046
+KWT,Kuwait,official_exchange_rate_lcu_usd,2023,0.30718535125088
+KWT,Kuwait,official_exchange_rate_lcu_usd,2022,0.306250154417753
+KWT,Kuwait,official_exchange_rate_lcu_usd,2021,0.301643110769949
+KWT,Kuwait,official_exchange_rate_lcu_usd,2020,0.306233121756716
+KWT,Kuwait,official_exchange_rate_lcu_usd,2019,0.303611163035755
+KWT,Kuwait,official_exchange_rate_lcu_usd,2018,0.301956493524177
+KWT,Kuwait,official_exchange_rate_lcu_usd,2017,0.303349758333333
+KWT,Kuwait,official_exchange_rate_lcu_usd,2016,0.302137441178496
+KWT,Kuwait,official_exchange_rate_lcu_usd,2015,0.300852025
+KWT,Kuwait,official_exchange_rate_lcu_usd,2014,0.284567141666667
+KWT,Kuwait,official_exchange_rate_lcu_usd,2013,0.283589441666667
+KWT,Kuwait,official_exchange_rate_lcu_usd,2012,0.279935558333333
+KWT,Kuwait,official_exchange_rate_lcu_usd,2011,0.275978944444444
+KWT,Kuwait,official_exchange_rate_lcu_usd,2010,0.286606591666667
 KWT,Kuwait,gdp_current_usd,2025,157209026926.418
 KWT,Kuwait,gdp_current_usd,2024,160903106639.233
 KWT,Kuwait,gdp_current_usd,2023,165462656226.772
@@ -2278,6 +2403,22 @@ LBN,Lebanon,imports_pct_gdp,2013,59.5275738453946
 LBN,Lebanon,imports_pct_gdp,2012,59.736289044944
 LBN,Lebanon,imports_pct_gdp,2011,65.7767851809418
 LBN,Lebanon,imports_pct_gdp,2010,60.0735300752172
+LBN,Lebanon,official_exchange_rate_lcu_usd,2025,89500.0
+LBN,Lebanon,official_exchange_rate_lcu_usd,2024,89500.0
+LBN,Lebanon,official_exchange_rate_lcu_usd,2023,13875.625
+LBN,Lebanon,official_exchange_rate_lcu_usd,2022,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2021,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2020,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2019,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2018,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2017,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2016,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2015,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2014,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2013,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2012,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2011,1507.5
+LBN,Lebanon,official_exchange_rate_lcu_usd,2010,1507.5
 LBN,Lebanon,gdp_current_usd,2024,25971643441.3408
 LBN,Lebanon,gdp_current_usd,2023,20078620356.9931
 LBN,Lebanon,gdp_current_usd,2022,20992421948.8081
@@ -2526,6 +2667,22 @@ LBY,Libya,imports_pct_gdp,2013,46.4457533337369
 LBY,Libya,imports_pct_gdp,2012,31.3564620676424
 LBY,Libya,imports_pct_gdp,2011,24.8595388907261
 LBY,Libya,imports_pct_gdp,2010,31.8052059029276
+LBY,Libya,official_exchange_rate_lcu_usd,2025,5.30256666666666
+LBY,Libya,official_exchange_rate_lcu_usd,2024,4.83220833333333
+LBY,Libya,official_exchange_rate_lcu_usd,2023,4.81288333333334
+LBY,Libya,official_exchange_rate_lcu_usd,2022,4.813175
+LBY,Libya,official_exchange_rate_lcu_usd,2021,4.514425
+LBY,Libya,official_exchange_rate_lcu_usd,2020,1.38866668346465
+LBY,Libya,official_exchange_rate_lcu_usd,2019,1.39826289736928
+LBY,Libya,official_exchange_rate_lcu_usd,2018,1.36496666666667
+LBY,Libya,official_exchange_rate_lcu_usd,2017,1.3938200108235
+LBY,Libya,official_exchange_rate_lcu_usd,2016,1.39036867889833
+LBY,Libya,official_exchange_rate_lcu_usd,2015,1.38120985962103
+LBY,Libya,official_exchange_rate_lcu_usd,2014,1.27240206718888
+LBY,Libya,official_exchange_rate_lcu_usd,2013,1.27169182111774
+LBY,Libya,official_exchange_rate_lcu_usd,2012,1.26165963821484
+LBY,Libya,official_exchange_rate_lcu_usd,2011,1.22415249460346
+LBY,Libya,official_exchange_rate_lcu_usd,2010,1.26678941001316
 LBY,Libya,gdp_current_usd,2025,48098909613.6316
 LBY,Libya,gdp_current_usd,2024,48487151215.345
 LBY,Libya,gdp_current_usd,2023,44027664915.187
@@ -2795,6 +2952,22 @@ MAR,Morocco,imports_pct_gdp,2013,43.6044908923701
 MAR,Morocco,imports_pct_gdp,2012,46.1250057504935
 MAR,Morocco,imports_pct_gdp,2011,44.8713872259271
 MAR,Morocco,imports_pct_gdp,2010,39.7530309299157
+MAR,Morocco,official_exchange_rate_lcu_usd,2025,9.35027697089947
+MAR,Morocco,official_exchange_rate_lcu_usd,2024,9.94235921679198
+MAR,Morocco,official_exchange_rate_lcu_usd,2023,10.1314260970897
+MAR,Morocco,official_exchange_rate_lcu_usd,2022,10.1606602430359
+MAR,Morocco,official_exchange_rate_lcu_usd,2021,8.98848402414138
+MAR,Morocco,official_exchange_rate_lcu_usd,2020,9.49684732221969
+MAR,Morocco,official_exchange_rate_lcu_usd,2019,9.61707609950743
+MAR,Morocco,official_exchange_rate_lcu_usd,2018,9.38610242091972
+MAR,Morocco,official_exchange_rate_lcu_usd,2017,9.6919978888289
+MAR,Morocco,official_exchange_rate_lcu_usd,2016,9.8074760315025
+MAR,Morocco,official_exchange_rate_lcu_usd,2015,9.76434827950111
+MAR,Morocco,official_exchange_rate_lcu_usd,2014,8.40633668826152
+MAR,Morocco,official_exchange_rate_lcu_usd,2013,8.4055039167443
+MAR,Morocco,official_exchange_rate_lcu_usd,2012,8.62844458333333
+MAR,Morocco,official_exchange_rate_lcu_usd,2011,8.089875
+MAR,Morocco,official_exchange_rate_lcu_usd,2010,8.41715833333333
 MAR,Morocco,gdp_current_usd,2025,182374250612.28
 MAR,Morocco,gdp_current_usd,2024,160610994054.734
 MAR,Morocco,gdp_current_usd,2023,146036093666.762
@@ -3058,6 +3231,22 @@ OMN,Oman,imports_pct_gdp,2013,46.511896912702
 OMN,Oman,imports_pct_gdp,2012,39.3529056464546
 OMN,Oman,imports_pct_gdp,2011,37.7242615226627
 OMN,Oman,imports_pct_gdp,2010,37.2909163665466
+OMN,Oman,official_exchange_rate_lcu_usd,2025,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2024,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2023,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2022,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2021,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2020,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2019,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2018,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2017,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2016,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2015,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2014,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2013,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2012,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2011,0.3845
+OMN,Oman,official_exchange_rate_lcu_usd,2010,0.3845
 OMN,Oman,gdp_current_usd,2025,109604780696.23
 OMN,Oman,gdp_current_usd,2024,107137198699.61
 OMN,Oman,gdp_current_usd,2023,106174707932.38
@@ -3580,6 +3769,22 @@ QAT,Qatar,imports_pct_gdp,2013,29.6653730820309
 QAT,Qatar,imports_pct_gdp,2012,29.2739243592311
 QAT,Qatar,imports_pct_gdp,2011,26.1019286002011
 QAT,Qatar,imports_pct_gdp,2010,23.7506175279123
+QAT,Qatar,official_exchange_rate_lcu_usd,2025,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2024,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2023,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2022,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2021,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2020,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2019,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2018,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2017,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2016,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2015,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2014,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2013,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2012,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2011,3.64
+QAT,Qatar,official_exchange_rate_lcu_usd,2010,3.64
 QAT,Qatar,gdp_current_usd,2025,215559615384.615
 QAT,Qatar,gdp_current_usd,2024,216294505494.505
 QAT,Qatar,gdp_current_usd,2023,213002809340.659
@@ -3848,6 +4053,22 @@ SAU,Saudi Arabia,imports_pct_gdp,2013,29.8789849870989
 SAU,Saudi Arabia,imports_pct_gdp,2012,28.6208309025235
 SAU,Saudi Arabia,imports_pct_gdp,2011,29.0860881073216
 SAU,Saudi Arabia,imports_pct_gdp,2010,32.9799704964413
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2025,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2024,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2023,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2022,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2021,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2020,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2019,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2018,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2017,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2016,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2015,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2014,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2013,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2012,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2011,3.75
+SAU,Saudi Arabia,official_exchange_rate_lcu_usd,2010,3.75
 SAU,Saudi Arabia,gdp_current_usd,2025,1276942933333.33
 SAU,Saudi Arabia,gdp_current_usd,2024,1254140800000.0
 SAU,Saudi Arabia,gdp_current_usd,2023,1218584800000.0
@@ -4056,6 +4277,19 @@ SYR,Syria,imports_pct_gdp,2013,36.9272368113289
 SYR,Syria,imports_pct_gdp,2012,27.6540725102336
 SYR,Syria,imports_pct_gdp,2011,31.3267640239015
 SYR,Syria,imports_pct_gdp,2010,31.843378069124
+SYR,Syria,official_exchange_rate_lcu_usd,2022,2505.74691085873
+SYR,Syria,official_exchange_rate_lcu_usd,2021,1256.0
+SYR,Syria,official_exchange_rate_lcu_usd,2020,877.945250896057
+SYR,Syria,official_exchange_rate_lcu_usd,2019,436.5
+SYR,Syria,official_exchange_rate_lcu_usd,2018,436.5
+SYR,Syria,official_exchange_rate_lcu_usd,2017,492.610833333333
+SYR,Syria,official_exchange_rate_lcu_usd,2016,460.275833333333
+SYR,Syria,official_exchange_rate_lcu_usd,2015,237.029166666667
+SYR,Syria,official_exchange_rate_lcu_usd,2014,154.13
+SYR,Syria,official_exchange_rate_lcu_usd,2013,108.733333333333
+SYR,Syria,official_exchange_rate_lcu_usd,2012,64.5808333333333
+SYR,Syria,official_exchange_rate_lcu_usd,2011,48.3366666666667
+SYR,Syria,official_exchange_rate_lcu_usd,2010,11.225
 SYR,Syria,gdp_current_usd,2022,23737634644.3994
 SYR,Syria,gdp_current_usd,2021,14892885528.1402
 SYR,Syria,gdp_current_usd,2020,12501503673.2425
@@ -4303,6 +4537,21 @@ TUN,Tunisia,imports_pct_gdp,2013,54.0652513616158
 TUN,Tunisia,imports_pct_gdp,2012,55.6378761572116
 TUN,Tunisia,imports_pct_gdp,2011,54.0517255325681
 TUN,Tunisia,imports_pct_gdp,2010,52.1912811425565
+TUN,Tunisia,official_exchange_rate_lcu_usd,2024,3.10745
+TUN,Tunisia,official_exchange_rate_lcu_usd,2023,3.10616666666667
+TUN,Tunisia,official_exchange_rate_lcu_usd,2022,3.1036
+TUN,Tunisia,official_exchange_rate_lcu_usd,2021,2.79446666666667
+TUN,Tunisia,official_exchange_rate_lcu_usd,2020,2.81235833333333
+TUN,Tunisia,official_exchange_rate_lcu_usd,2019,2.93443333333333
+TUN,Tunisia,official_exchange_rate_lcu_usd,2018,2.64686666666667
+TUN,Tunisia,official_exchange_rate_lcu_usd,2017,2.419425
+TUN,Tunisia,official_exchange_rate_lcu_usd,2016,2.14803333333333
+TUN,Tunisia,official_exchange_rate_lcu_usd,2015,1.961625
+TUN,Tunisia,official_exchange_rate_lcu_usd,2014,1.697675
+TUN,Tunisia,official_exchange_rate_lcu_usd,2013,1.62465833333333
+TUN,Tunisia,official_exchange_rate_lcu_usd,2012,1.56189166666667
+TUN,Tunisia,official_exchange_rate_lcu_usd,2011,1.40778333333333
+TUN,Tunisia,official_exchange_rate_lcu_usd,2010,1.4314
 TUN,Tunisia,gdp_current_usd,2025,57502836548.0878
 TUN,Tunisia,gdp_current_usd,2024,51412122479.8468
 TUN,Tunisia,gdp_current_usd,2023,48205328303.3398
@@ -4539,6 +4788,22 @@ ARE,UAE,imports_pct_gdp,2013,61.6429155817142
 ARE,UAE,imports_pct_gdp,2012,61.036813624374
 ARE,UAE,imports_pct_gdp,2011,58.5481559098621
 ARE,UAE,imports_pct_gdp,2010,58.040188125584
+ARE,UAE,official_exchange_rate_lcu_usd,2025,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2024,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2023,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2022,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2021,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2020,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2019,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2018,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2017,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2016,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2015,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2014,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2013,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2012,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2011,3.6725
+ARE,UAE,official_exchange_rate_lcu_usd,2010,3.6725
 ARE,UAE,gdp_current_usd,2024,552324919095.872
 ARE,UAE,gdp_current_usd,2023,522622268401.125
 ARE,UAE,gdp_current_usd,2022,511403404642.173
@@ -4749,6 +5014,20 @@ YEM,Yemen,imports_pct_gdp,2013,30.152279647517
 YEM,Yemen,imports_pct_gdp,2012,36.497920216673
 YEM,Yemen,imports_pct_gdp,2011,32.7190337847532
 YEM,Yemen,imports_pct_gdp,2010,34.3905592167085
+YEM,Yemen,official_exchange_rate_lcu_usd,2023,1355.11637864823
+YEM,Yemen,official_exchange_rate_lcu_usd,2022,1115.00238710662
+YEM,Yemen,official_exchange_rate_lcu_usd,2021,1028.107754329
+YEM,Yemen,official_exchange_rate_lcu_usd,2020,743.005964356532
+YEM,Yemen,official_exchange_rate_lcu_usd,2019,486.730922939068
+YEM,Yemen,official_exchange_rate_lcu_usd,2018,214.89
+YEM,Yemen,official_exchange_rate_lcu_usd,2017,282.195
+YEM,Yemen,official_exchange_rate_lcu_usd,2016,283.895833333333
+YEM,Yemen,official_exchange_rate_lcu_usd,2015,230.833333333333
+YEM,Yemen,official_exchange_rate_lcu_usd,2014,214.89
+YEM,Yemen,official_exchange_rate_lcu_usd,2013,214.89
+YEM,Yemen,official_exchange_rate_lcu_usd,2012,214.349166666667
+YEM,Yemen,official_exchange_rate_lcu_usd,2011,213.8
+YEM,Yemen,official_exchange_rate_lcu_usd,2010,219.59
 YEM,Yemen,gdp_current_usd,2018,21606160663.0318
 YEM,Yemen,gdp_current_usd,2017,26842229044.5848
 YEM,Yemen,gdp_current_usd,2016,31317825274.1507
@@ -4962,6 +5241,17 @@ AFG,Afghanistan,imports_pct_gdp,2023,50.764299620256
 AFG,Afghanistan,imports_pct_gdp,2022,54.5054272070161
 AFG,Afghanistan,imports_pct_gdp,2021,37.06956357719
 AFG,Afghanistan,imports_pct_gdp,2020,36.2890774127896
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2020,76.8135364354897
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2019,77.7379491783367
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2018,72.083247177304
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2017,68.0269040822312
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2016,67.8660857692308
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2015,61.1434615416667
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2014,57.2475
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2013,55.3775
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2012,50.9214
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2011,46.747007738581
+AFG,Afghanistan,official_exchange_rate_lcu_usd,2010,46.4524610013175
 AFG,Afghanistan,gdp_current_usd,2024,17778508875.7396
 AFG,Afghanistan,gdp_current_usd,2023,17152234636.8715
 AFG,Afghanistan,gdp_current_usd,2022,14497243872.1337
@@ -5222,6 +5512,22 @@ BGD,Bangladesh,imports_pct_gdp,2013,26.7585286129376
 BGD,Bangladesh,imports_pct_gdp,2012,27.9493338849842
 BGD,Bangladesh,imports_pct_gdp,2011,27.4987748801959
 BGD,Bangladesh,imports_pct_gdp,2010,21.7787299851405
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2025,121.920836605034
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2024,115.603653796648
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2023,106.309484297483
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2022,91.7454544396961
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2021,85.08376325
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2020,84.8713916666667
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2019,84.4535225
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2018,83.4662019166666
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2017,80.4375416666667
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2016,78.4680916666667
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2015,77.9469083333333
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2014,77.6414083333333
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2013,78.103235
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2012,81.8626583333333
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2011,74.1524
+BGD,Bangladesh,official_exchange_rate_lcu_usd,2010,69.6492916666667
 BGD,Bangladesh,gdp_current_usd,2025,456319229255.578
 BGD,Bangladesh,gdp_current_usd,2024,450119432068.852
 BGD,Bangladesh,gdp_current_usd,2023,437415333018.291
@@ -5498,6 +5804,22 @@ BTN,Bhutan,imports_pct_gdp,2013,57.618172334879
 BTN,Bhutan,imports_pct_gdp,2012,58.2569173603391
 BTN,Bhutan,imports_pct_gdp,2011,64.8723983474244
 BTN,Bhutan,imports_pct_gdp,2010,65.623621455957
+BTN,Bhutan,official_exchange_rate_lcu_usd,2025,87.1584483507393
+BTN,Bhutan,official_exchange_rate_lcu_usd,2024,83.669281580941
+BTN,Bhutan,official_exchange_rate_lcu_usd,2023,82.5992764460784
+BTN,Bhutan,official_exchange_rate_lcu_usd,2022,78.6044905829916
+BTN,Bhutan,official_exchange_rate_lcu_usd,2021,73.9180128154351
+BTN,Bhutan,official_exchange_rate_lcu_usd,2020,74.0995668836052
+BTN,Bhutan,official_exchange_rate_lcu_usd,2019,70.4203405359551
+BTN,Bhutan,official_exchange_rate_lcu_usd,2018,68.3894670935422
+BTN,Bhutan,official_exchange_rate_lcu_usd,2017,65.1215686450659
+BTN,Bhutan,official_exchange_rate_lcu_usd,2016,67.1953128073894
+BTN,Bhutan,official_exchange_rate_lcu_usd,2015,64.1519444632786
+BTN,Bhutan,official_exchange_rate_lcu_usd,2014,61.0295144607843
+BTN,Bhutan,official_exchange_rate_lcu_usd,2013,58.5978454166667
+BTN,Bhutan,official_exchange_rate_lcu_usd,2012,53.4372333333333
+BTN,Bhutan,official_exchange_rate_lcu_usd,2011,46.6704666666667
+BTN,Bhutan,official_exchange_rate_lcu_usd,2010,45.7258121212121
 BTN,Bhutan,gdp_current_usd,2025,3579320145.13077
 BTN,Bhutan,gdp_current_usd,2024,3346603858.7495
 BTN,Bhutan,gdp_current_usd,2023,3012896789.79753
@@ -5777,6 +6099,22 @@ IND,India,imports_pct_gdp,2013,28.4132706461587
 IND,India,imports_pct_gdp,2012,31.2592910673332
 IND,India,imports_pct_gdp,2011,31.0834686939585
 IND,India,imports_pct_gdp,2010,26.8542732486216
+IND,India,official_exchange_rate_lcu_usd,2025,87.1584483507393
+IND,India,official_exchange_rate_lcu_usd,2024,83.669281580941
+IND,India,official_exchange_rate_lcu_usd,2023,82.5992764460784
+IND,India,official_exchange_rate_lcu_usd,2022,78.6044905829916
+IND,India,official_exchange_rate_lcu_usd,2021,73.9180128154351
+IND,India,official_exchange_rate_lcu_usd,2020,74.0995668836052
+IND,India,official_exchange_rate_lcu_usd,2019,70.4203405359551
+IND,India,official_exchange_rate_lcu_usd,2018,68.3894670935422
+IND,India,official_exchange_rate_lcu_usd,2017,65.1215686450659
+IND,India,official_exchange_rate_lcu_usd,2016,67.1953128073894
+IND,India,official_exchange_rate_lcu_usd,2015,64.1519444632786
+IND,India,official_exchange_rate_lcu_usd,2014,61.0295144607843
+IND,India,official_exchange_rate_lcu_usd,2013,58.5978454166667
+IND,India,official_exchange_rate_lcu_usd,2012,53.4372333333333
+IND,India,official_exchange_rate_lcu_usd,2011,46.6704666666667
+IND,India,official_exchange_rate_lcu_usd,2010,45.7258121212121
 IND,India,gdp_current_usd,2025,3956067115771.63
 IND,India,gdp_current_usd,2024,3760813470500.86
 IND,India,gdp_current_usd,2023,3500906030644.76
@@ -6035,6 +6373,22 @@ MDV,Maldives,imports_pct_gdp,2017,72.8526621264145
 MDV,Maldives,imports_pct_gdp,2016,72.7665791488222
 MDV,Maldives,imports_pct_gdp,2015,67.2927178888456
 MDV,Maldives,imports_pct_gdp,2014,74.6851237568163
+MDV,Maldives,official_exchange_rate_lcu_usd,2025,15.415677547363
+MDV,Maldives,official_exchange_rate_lcu_usd,2024,15.3891963292547
+MDV,Maldives,official_exchange_rate_lcu_usd,2023,15.3867943548387
+MDV,Maldives,official_exchange_rate_lcu_usd,2022,15.386625
+MDV,Maldives,official_exchange_rate_lcu_usd,2021,15.3726984126984
+MDV,Maldives,official_exchange_rate_lcu_usd,2020,15.3812695278705
+MDV,Maldives,official_exchange_rate_lcu_usd,2019,15.3820419226831
+MDV,Maldives,official_exchange_rate_lcu_usd,2018,15.3908372695852
+MDV,Maldives,official_exchange_rate_lcu_usd,2017,15.3869685099846
+MDV,Maldives,official_exchange_rate_lcu_usd,2016,15.3684076818158
+MDV,Maldives,official_exchange_rate_lcu_usd,2015,15.3663312211982
+MDV,Maldives,official_exchange_rate_lcu_usd,2014,15.3803935180893
+MDV,Maldives,official_exchange_rate_lcu_usd,2013,15.3667100302841
+MDV,Maldives,official_exchange_rate_lcu_usd,2012,15.3648353163596
+MDV,Maldives,official_exchange_rate_lcu_usd,2011,14.6020084036964
+MDV,Maldives,official_exchange_rate_lcu_usd,2010,12.8
 MDV,Maldives,gdp_current_usd,2025,7741066860.6337
 MDV,Maldives,gdp_current_usd,2024,7061608267.25451
 MDV,Maldives,gdp_current_usd,2023,6621008703.95743
@@ -6305,6 +6659,22 @@ NPL,Nepal,imports_pct_gdp,2013,32.5707170600577
 NPL,Nepal,imports_pct_gdp,2012,29.1716147715423
 NPL,Nepal,imports_pct_gdp,2011,28.4906232102531
 NPL,Nepal,imports_pct_gdp,2010,36.4023696022884
+NPL,Nepal,official_exchange_rate_lcu_usd,2025,139.115437592696
+NPL,Nepal,official_exchange_rate_lcu_usd,2024,133.726644315443
+NPL,Nepal,official_exchange_rate_lcu_usd,2023,132.115460088756
+NPL,Nepal,official_exchange_rate_lcu_usd,2022,125.199457792609
+NPL,Nepal,official_exchange_rate_lcu_usd,2021,118.134081604947
+NPL,Nepal,official_exchange_rate_lcu_usd,2020,118.345187275986
+NPL,Nepal,official_exchange_rate_lcu_usd,2019,112.609482758621
+NPL,Nepal,official_exchange_rate_lcu_usd,2018,108.930134109273
+NPL,Nepal,official_exchange_rate_lcu_usd,2017,104.511885242862
+NPL,Nepal,official_exchange_rate_lcu_usd,2016,107.383815174654
+NPL,Nepal,official_exchange_rate_lcu_usd,2015,102.405134331356
+NPL,Nepal,official_exchange_rate_lcu_usd,2014,97.5548421567946
+NPL,Nepal,official_exchange_rate_lcu_usd,2013,93.0843938075485
+NPL,Nepal,official_exchange_rate_lcu_usd,2012,85.2257559923835
+NPL,Nepal,official_exchange_rate_lcu_usd,2011,74.02
+NPL,Nepal,official_exchange_rate_lcu_usd,2010,73.2623590158046
 NPL,Nepal,gdp_current_usd,2025,45489810283.1132
 NPL,Nepal,gdp_current_usd,2024,43298911699.9284
 NPL,Nepal,gdp_current_usd,2023,41049329851.0546
@@ -6574,6 +6944,22 @@ PAK,Pakistan,imports_pct_gdp,2013,18.7127751361147
 PAK,Pakistan,imports_pct_gdp,2012,19.4450091286838
 PAK,Pakistan,imports_pct_gdp,2011,18.8800834134221
 PAK,Pakistan,imports_pct_gdp,2010,19.3517774869368
+PAK,Pakistan,official_exchange_rate_lcu_usd,2025,281.143001173202
+PAK,Pakistan,official_exchange_rate_lcu_usd,2024,278.580716167563
+PAK,Pakistan,official_exchange_rate_lcu_usd,2023,280.356111655149
+PAK,Pakistan,official_exchange_rate_lcu_usd,2022,204.867187469982
+PAK,Pakistan,official_exchange_rate_lcu_usd,2021,162.906253747418
+PAK,Pakistan,official_exchange_rate_lcu_usd,2020,161.838479684718
+PAK,Pakistan,official_exchange_rate_lcu_usd,2019,150.036253839864
+PAK,Pakistan,official_exchange_rate_lcu_usd,2018,121.824068875756
+PAK,Pakistan,official_exchange_rate_lcu_usd,2017,105.455162087938
+PAK,Pakistan,official_exchange_rate_lcu_usd,2016,104.769117033301
+PAK,Pakistan,official_exchange_rate_lcu_usd,2015,102.769271604675
+PAK,Pakistan,official_exchange_rate_lcu_usd,2014,101.100088423521
+PAK,Pakistan,official_exchange_rate_lcu_usd,2013,101.628899206349
+PAK,Pakistan,official_exchange_rate_lcu_usd,2012,93.3951972222222
+PAK,Pakistan,official_exchange_rate_lcu_usd,2011,86.3433833333333
+PAK,Pakistan,official_exchange_rate_lcu_usd,2010,85.1938163257576
 PAK,Pakistan,gdp_current_usd,2025,407307214476.222
 PAK,Pakistan,gdp_current_usd,2024,371747087751.306
 PAK,Pakistan,gdp_current_usd,2023,336686348609.266
@@ -6840,6 +7226,20 @@ LKA,Sri Lanka,imports_pct_gdp,2018,28.3631481374973
 LKA,Sri Lanka,imports_pct_gdp,2017,26.9162097641559
 LKA,Sri Lanka,imports_pct_gdp,2016,26.6475009824081
 LKA,Sri Lanka,imports_pct_gdp,2015,27.0245869884029
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2023,327.506533333333
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2022,322.632674256475
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2021,198.764316844656
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2020,185.592557772213
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2019,178.744925045848
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2018,162.464858736778
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2017,152.446413948767
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2016,145.581667492026
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2015,135.856912797089
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2014,130.564685218829
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2013,129.069030932888
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2012,127.60335350681
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2011,110.565207851396
+LKA,Sri Lanka,official_exchange_rate_lcu_usd,2010,113.064480448821
 LKA,Sri Lanka,gdp_current_usd,2025,108825231671.196
 LKA,Sri Lanka,gdp_current_usd,2024,99616111265.7633
 LKA,Sri Lanka,gdp_current_usd,2023,84080307355.5983
@@ -7121,6 +7521,22 @@ TUR,Turkey,imports_pct_gdp,2013,28.6650931929463
 TUR,Turkey,imports_pct_gdp,2012,28.3619431820769
 TUR,Turkey,imports_pct_gdp,2011,30.1612264563406
 TUR,Turkey,imports_pct_gdp,2010,25.3533908870685
+TUR,Turkey,official_exchange_rate_lcu_usd,2025,39.4548130977983
+TUR,Turkey,official_exchange_rate_lcu_usd,2024,32.8058614432703
+TUR,Turkey,official_exchange_rate_lcu_usd,2023,23.7385661219918
+TUR,Turkey,official_exchange_rate_lcu_usd,2022,16.5488604173067
+TUR,Turkey,official_exchange_rate_lcu_usd,2021,8.85040754928315
+TUR,Turkey,official_exchange_rate_lcu_usd,2020,7.00860541558522
+TUR,Turkey,official_exchange_rate_lcu_usd,2019,5.67381930843574
+TUR,Turkey,official_exchange_rate_lcu_usd,2018,4.82837014720942
+TUR,Turkey,official_exchange_rate_lcu_usd,2017,3.64813263536867
+TUR,Turkey,official_exchange_rate_lcu_usd,2016,3.02013474808043
+TUR,Turkey,official_exchange_rate_lcu_usd,2015,2.72000852790578
+TUR,Turkey,official_exchange_rate_lcu_usd,2014,2.18854241775473
+TUR,Turkey,official_exchange_rate_lcu_usd,2013,1.90376824244752
+TUR,Turkey,official_exchange_rate_lcu_usd,2012,1.79600094441355
+TUR,Turkey,official_exchange_rate_lcu_usd,2011,1.67495455197133
+TUR,Turkey,official_exchange_rate_lcu_usd,2010,1.5028486296723
 TUR,Turkey,gdp_current_usd,2025,1597293229287.0
 TUR,Turkey,gdp_current_usd,2024,1359123768774.12
 TUR,Turkey,gdp_current_usd,2023,1141242864657.45
@@ -7386,6 +7802,19 @@ SDN,Sudan,imports_pct_gdp,2013,17.3516333336233
 SDN,Sudan,imports_pct_gdp,2012,14.9997218879992
 SDN,Sudan,imports_pct_gdp,2011,15.0336329952659
 SDN,Sudan,imports_pct_gdp,2010,15.2527036042897
+SDN,Sudan,official_exchange_rate_lcu_usd,2022,546.75885
+SDN,Sudan,official_exchange_rate_lcu_usd,2021,370.790583333333
+SDN,Sudan,official_exchange_rate_lcu_usd,2020,53.9960119047619
+SDN,Sudan,official_exchange_rate_lcu_usd,2019,45.7670454545455
+SDN,Sudan,official_exchange_rate_lcu_usd,2018,24.3289109018116
+SDN,Sudan,official_exchange_rate_lcu_usd,2017,6.68336
+SDN,Sudan,official_exchange_rate_lcu_usd,2016,6.21171364583333
+SDN,Sudan,official_exchange_rate_lcu_usd,2015,6.02573259791667
+SDN,Sudan,official_exchange_rate_lcu_usd,2014,5.73686666666667
+SDN,Sudan,official_exchange_rate_lcu_usd,2013,4.75676054708821
+SDN,Sudan,official_exchange_rate_lcu_usd,2012,3.57295833333333
+SDN,Sudan,official_exchange_rate_lcu_usd,2011,2.66661962177469
+SDN,Sudan,official_exchange_rate_lcu_usd,2010,2.30600092016667
 SDN,Sudan,gdp_current_usd,2025,60162634574.4689
 SDN,Sudan,gdp_current_usd,2024,49672435513.1126
 SDN,Sudan,gdp_current_usd,2023,39898289820.7951
@@ -7581,6 +8010,20 @@ SSD,South Sudan,imports_pct_gdp,2013,41.0704887322407
 SSD,South Sudan,imports_pct_gdp,2012,28.7877590362221
 SSD,South Sudan,imports_pct_gdp,2011,27.1507393796766
 SSD,South Sudan,imports_pct_gdp,2010,29.5089655488059
+SSD,South Sudan,official_exchange_rate_lcu_usd,2024,2163.10387269883
+SSD,South Sudan,official_exchange_rate_lcu_usd,2023,930.331429534051
+SSD,South Sudan,official_exchange_rate_lcu_usd,2022,534.511188691756
+SSD,South Sudan,official_exchange_rate_lcu_usd,2021,306.354619937276
+SSD,South Sudan,official_exchange_rate_lcu_usd,2020,165.907316666667
+SSD,South Sudan,official_exchange_rate_lcu_usd,2019,157.999166666667
+SSD,South Sudan,official_exchange_rate_lcu_usd,2018,141.385833333333
+SSD,South Sudan,official_exchange_rate_lcu_usd,2017,113.6475
+SSD,South Sudan,official_exchange_rate_lcu_usd,2016,46.7291666666667
+SSD,South Sudan,official_exchange_rate_lcu_usd,2015,3.60416666666667
+SSD,South Sudan,official_exchange_rate_lcu_usd,2014,2.95
+SSD,South Sudan,official_exchange_rate_lcu_usd,2013,2.95
+SSD,South Sudan,official_exchange_rate_lcu_usd,2012,2.95
+SSD,South Sudan,official_exchange_rate_lcu_usd,2011,2.98895
 SSD,South Sudan,gdp_current_usd,2015,11997800760.2242
 SSD,South Sudan,gdp_current_usd,2014,13962212847.4576
 SSD,South Sudan,gdp_current_usd,2013,18426469016.9492
@@ -7824,6 +8267,21 @@ ETH,Ethiopia,imports_pct_gdp,2014,29.0994642402923
 ETH,Ethiopia,imports_pct_gdp,2013,28.9877135217855
 ETH,Ethiopia,imports_pct_gdp,2012,31.630605984481
 ETH,Ethiopia,imports_pct_gdp,2011,31.5460822119553
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2024,82.6013363504764
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2023,54.6009480676569
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2022,51.7562150334169
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2021,43.73377831884
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2020,34.9271654040404
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2019,29.06975
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2018,27.4293865941667
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2017,23.8661044574125
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2016,21.7315472222222
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2015,20.57684875
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2014,19.585789907695
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2013,18.6266289575478
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2012,17.7047613782674
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2011,16.8992257595275
+ETH,Ethiopia,official_exchange_rate_lcu_usd,2010,14.4095898080066
 ETH,Ethiopia,gdp_current_usd,2025,126358758448.356
 ETH,Ethiopia,gdp_current_usd,2024,149740297952.375
 ETH,Ethiopia,gdp_current_usd,2023,135874093203.18
@@ -8043,6 +8501,14 @@ SOM,Somalia,imports_pct_gdp,2015,59.6077634074256
 SOM,Somalia,imports_pct_gdp,2014,62.5381477394163
 SOM,Somalia,imports_pct_gdp,2013,64.7231302031399
 SOM,Somalia,imports_pct_gdp,2012,69.0212460407427
+SOM,Somalia,official_exchange_rate_lcu_usd,2017,23097.9873219373
+SOM,Somalia,official_exchange_rate_lcu_usd,2016,23061.7843138651
+SOM,Somalia,official_exchange_rate_lcu_usd,2015,22254.2356837607
+SOM,Somalia,official_exchange_rate_lcu_usd,2014,20230.9291310541
+SOM,Somalia,official_exchange_rate_lcu_usd,2013,19283.7999504521
+SOM,Somalia,official_exchange_rate_lcu_usd,2012,22516.0002967711
+SOM,Somalia,official_exchange_rate_lcu_usd,2011,29966.8354404084
+SOM,Somalia,official_exchange_rate_lcu_usd,2010,31269.6625712251
 SOM,Somalia,gdp_current_usd,2025,12995200000.2658
 SOM,Somalia,gdp_current_usd,2024,11967000000.0
 SOM,Somalia,gdp_current_usd,2023,10958000000.0
@@ -8281,6 +8747,22 @@ DJI,Djibouti,imports_pct_gdp,2016,109.307973495828
 DJI,Djibouti,imports_pct_gdp,2015,122.942148774525
 DJI,Djibouti,imports_pct_gdp,2014,140.615207979648
 DJI,Djibouti,imports_pct_gdp,2013,191.30621456487
+DJI,Djibouti,official_exchange_rate_lcu_usd,2025,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2024,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2023,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2022,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2021,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2020,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2019,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2018,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2017,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2016,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2015,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2014,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2013,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2012,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2011,177.721
+DJI,Djibouti,official_exchange_rate_lcu_usd,2010,177.721
 DJI,Djibouti,gdp_current_usd,2025,4624533092.31886
 DJI,Djibouti,gdp_current_usd,2024,4152145939.98458
 DJI,Djibouti,gdp_current_usd,2023,3898447007.38798
@@ -8447,6 +8929,22 @@ ERI,Eritrea,exports_pct_gdp,2011,18.1548372567671
 ERI,Eritrea,exports_pct_gdp,2010,6.37837659786896
 ERI,Eritrea,imports_pct_gdp,2011,29.2389528621013
 ERI,Eritrea,imports_pct_gdp,2010,31.0930888587001
+ERI,Eritrea,official_exchange_rate_lcu_usd,2025,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2024,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2023,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2022,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2021,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2020,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2019,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2018,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2017,15.075
+ERI,Eritrea,official_exchange_rate_lcu_usd,2016,15.35
+ERI,Eritrea,official_exchange_rate_lcu_usd,2015,15.375
+ERI,Eritrea,official_exchange_rate_lcu_usd,2014,15.375
+ERI,Eritrea,official_exchange_rate_lcu_usd,2013,15.375
+ERI,Eritrea,official_exchange_rate_lcu_usd,2012,15.375
+ERI,Eritrea,official_exchange_rate_lcu_usd,2011,15.375
+ERI,Eritrea,official_exchange_rate_lcu_usd,2010,15.375
 ERI,Eritrea,gdp_current_usd,2011,2065001626.01626
 ERI,Eritrea,gdp_current_usd,2010,1589515447.15447
 ERI,Eritrea,gdp_per_capita_usd,2011,688.68165957684
@@ -8493,3 +8991,468 @@ ERI,Eritrea,youth_unemployment_rate,2013,9.945
 ERI,Eritrea,youth_unemployment_rate,2012,10.103
 ERI,Eritrea,youth_unemployment_rate,2011,10.326
 ERI,Eritrea,youth_unemployment_rate,2010,10.469
+AFG,Afghanistan,currency_depreciation_pct,2011,0.634082093637926
+AFG,Afghanistan,currency_depreciation_pct,2012,8.929752861965138
+AFG,Afghanistan,currency_depreciation_pct,2013,8.750937719701342
+AFG,Afghanistan,currency_depreciation_pct,2014,3.376822716807376
+AFG,Afghanistan,currency_depreciation_pct,2015,6.805470180648414
+AFG,Afghanistan,currency_depreciation_pct,2016,10.994837482308583
+AFG,Afghanistan,currency_depreciation_pct,2017,0.23696417905584116
+AFG,Afghanistan,currency_depreciation_pct,2018,5.96285124216366
+AFG,Afghanistan,currency_depreciation_pct,2019,7.844682672415917
+AFG,Afghanistan,currency_depreciation_pct,2020,-1.1891396063540838
+ARE,UAE,currency_depreciation_pct,2011,0.0
+ARE,UAE,currency_depreciation_pct,2012,0.0
+ARE,UAE,currency_depreciation_pct,2013,0.0
+ARE,UAE,currency_depreciation_pct,2014,0.0
+ARE,UAE,currency_depreciation_pct,2015,0.0
+ARE,UAE,currency_depreciation_pct,2016,0.0
+ARE,UAE,currency_depreciation_pct,2017,0.0
+ARE,UAE,currency_depreciation_pct,2018,0.0
+ARE,UAE,currency_depreciation_pct,2019,0.0
+ARE,UAE,currency_depreciation_pct,2020,0.0
+ARE,UAE,currency_depreciation_pct,2021,0.0
+ARE,UAE,currency_depreciation_pct,2022,0.0
+ARE,UAE,currency_depreciation_pct,2023,0.0
+ARE,UAE,currency_depreciation_pct,2024,0.0
+ARE,UAE,currency_depreciation_pct,2025,0.0
+BGD,Bangladesh,currency_depreciation_pct,2011,6.46540435024759
+BGD,Bangladesh,currency_depreciation_pct,2012,10.397854059117844
+BGD,Bangladesh,currency_depreciation_pct,2013,-4.592354328423414
+BGD,Bangladesh,currency_depreciation_pct,2014,-0.5913028655812983
+BGD,Bangladesh,currency_depreciation_pct,2015,0.39347560349293226
+BGD,Bangladesh,currency_depreciation_pct,2016,0.668638878022719
+BGD,Bangladesh,currency_depreciation_pct,2017,2.5098737055646185
+BGD,Bangladesh,currency_depreciation_pct,2018,3.765232237641815
+BGD,Bangladesh,currency_depreciation_pct,2019,1.1828986591712287
+BGD,Bangladesh,currency_depreciation_pct,2020,0.49479187403543845
+BGD,Bangladesh,currency_depreciation_pct,2021,0.2502275256277164
+BGD,Bangladesh,currency_depreciation_pct,2022,7.829568104694876
+BGD,Bangladesh,currency_depreciation_pct,2023,15.874388487943856
+BGD,Bangladesh,currency_depreciation_pct,2024,8.742559105222805
+BGD,Bangladesh,currency_depreciation_pct,2025,5.464518292387368
+BHR,Bahrain,currency_depreciation_pct,2011,0.0
+BHR,Bahrain,currency_depreciation_pct,2012,0.0
+BHR,Bahrain,currency_depreciation_pct,2013,0.0
+BHR,Bahrain,currency_depreciation_pct,2014,0.0
+BHR,Bahrain,currency_depreciation_pct,2015,0.0
+BHR,Bahrain,currency_depreciation_pct,2016,0.0
+BHR,Bahrain,currency_depreciation_pct,2017,0.0
+BHR,Bahrain,currency_depreciation_pct,2018,0.0
+BHR,Bahrain,currency_depreciation_pct,2019,0.0
+BHR,Bahrain,currency_depreciation_pct,2020,0.0
+BHR,Bahrain,currency_depreciation_pct,2021,0.0
+BHR,Bahrain,currency_depreciation_pct,2022,0.0
+BHR,Bahrain,currency_depreciation_pct,2023,0.0
+BHR,Bahrain,currency_depreciation_pct,2024,0.0
+BHR,Bahrain,currency_depreciation_pct,2025,0.0
+BTN,Bhutan,currency_depreciation_pct,2011,2.0659109190897755
+BTN,Bhutan,currency_depreciation_pct,2012,14.499033650116921
+BTN,Bhutan,currency_depreciation_pct,2013,9.657333962524381
+BTN,Bhutan,currency_depreciation_pct,2014,4.149758454132462
+BTN,Bhutan,currency_depreciation_pct,2015,5.116262238167855
+BTN,Bhutan,currency_depreciation_pct,2016,4.7440001539670655
+BTN,Bhutan,currency_depreciation_pct,2017,-3.086144071190997
+BTN,Bhutan,currency_depreciation_pct,2018,5.018150693340044
+BTN,Bhutan,currency_depreciation_pct,2019,2.9695705036495017
+BTN,Bhutan,currency_depreciation_pct,2020,5.224664237134109
+BTN,Bhutan,currency_depreciation_pct,2021,-0.24501366985759046
+BTN,Bhutan,currency_depreciation_pct,2022,6.340102485246864
+BTN,Bhutan,currency_depreciation_pct,2023,5.082134409190095
+BTN,Bhutan,currency_depreciation_pct,2024,1.2954170797865368
+BTN,Bhutan,currency_depreciation_pct,2025,4.1701885134784025
+DJI,Djibouti,currency_depreciation_pct,2011,0.0
+DJI,Djibouti,currency_depreciation_pct,2012,0.0
+DJI,Djibouti,currency_depreciation_pct,2013,0.0
+DJI,Djibouti,currency_depreciation_pct,2014,0.0
+DJI,Djibouti,currency_depreciation_pct,2015,0.0
+DJI,Djibouti,currency_depreciation_pct,2016,0.0
+DJI,Djibouti,currency_depreciation_pct,2017,0.0
+DJI,Djibouti,currency_depreciation_pct,2018,0.0
+DJI,Djibouti,currency_depreciation_pct,2019,0.0
+DJI,Djibouti,currency_depreciation_pct,2020,0.0
+DJI,Djibouti,currency_depreciation_pct,2021,0.0
+DJI,Djibouti,currency_depreciation_pct,2022,0.0
+DJI,Djibouti,currency_depreciation_pct,2023,0.0
+DJI,Djibouti,currency_depreciation_pct,2024,0.0
+DJI,Djibouti,currency_depreciation_pct,2025,0.0
+DZA,Algeria,currency_depreciation_pct,2011,-1.9467377254540972
+DZA,Algeria,currency_depreciation_pct,2012,6.304108541674699
+DZA,Algeria,currency_depreciation_pct,2013,2.363333317569994
+DZA,Algeria,currency_depreciation_pct,2014,1.5253131808965652
+DZA,Algeria,currency_depreciation_pct,2015,24.95986858448006
+DZA,Algeria,currency_depreciation_pct,2016,8.691537148311552
+DZA,Algeria,currency_depreciation_pct,2017,1.3979414563188364
+DZA,Algeria,currency_depreciation_pct,2018,5.064992525960884
+DZA,Algeria,currency_depreciation_pct,2019,2.36699281086592
+DZA,Algeria,currency_depreciation_pct,2020,6.219539467717602
+DZA,Algeria,currency_depreciation_pct,2021,6.536888715705882
+DZA,Algeria,currency_depreciation_pct,2022,5.131577380535806
+DZA,Algeria,currency_depreciation_pct,2023,-4.332577027227198
+DZA,Algeria,currency_depreciation_pct,2024,-1.3174713050950169
+DZA,Algeria,currency_depreciation_pct,2025,-1.8256303512244836
+EGY,Egypt,currency_depreciation_pct,2011,5.529845081329735
+EGY,Egypt,currency_depreciation_pct,2012,2.0770986291285394
+EGY,Egypt,currency_depreciation_pct,2013,13.445489158927698
+EGY,Egypt,currency_depreciation_pct,2014,3.017085226769617
+EGY,Egypt,currency_depreciation_pct,2015,8.670298271973422
+EGY,Egypt,currency_depreciation_pct,2016,30.34799188966484
+EGY,Egypt,currency_depreciation_pct,2017,77.37478919924301
+EGY,Egypt,currency_depreciation_pct,2018,-0.08571946871344145
+EGY,Egypt,currency_depreciation_pct,2019,-5.609795051871632
+EGY,Egypt,currency_depreciation_pct,2020,-6.030851736007124
+EGY,Egypt,currency_depreciation_pct,2021,-0.7274851260382598
+EGY,Egypt,currency_depreciation_pct,2022,22.47375328827103
+EGY,Egypt,currency_depreciation_pct,2023,59.84191444282786
+EGY,Egypt,currency_depreciation_pct,2024,47.90912330330136
+EGY,Egypt,currency_depreciation_pct,2025,8.672317899527059
+ERI,Eritrea,currency_depreciation_pct,2011,0.0
+ERI,Eritrea,currency_depreciation_pct,2012,0.0
+ERI,Eritrea,currency_depreciation_pct,2013,0.0
+ERI,Eritrea,currency_depreciation_pct,2014,0.0
+ERI,Eritrea,currency_depreciation_pct,2015,0.0
+ERI,Eritrea,currency_depreciation_pct,2016,-0.1626016260162625
+ERI,Eritrea,currency_depreciation_pct,2017,-1.7915309446254093
+ERI,Eritrea,currency_depreciation_pct,2018,0.0
+ERI,Eritrea,currency_depreciation_pct,2019,0.0
+ERI,Eritrea,currency_depreciation_pct,2020,0.0
+ERI,Eritrea,currency_depreciation_pct,2021,0.0
+ERI,Eritrea,currency_depreciation_pct,2022,0.0
+ERI,Eritrea,currency_depreciation_pct,2023,0.0
+ERI,Eritrea,currency_depreciation_pct,2024,0.0
+ERI,Eritrea,currency_depreciation_pct,2025,0.0
+ETH,Ethiopia,currency_depreciation_pct,2011,17.277632359371868
+ETH,Ethiopia,currency_depreciation_pct,2012,4.7667013282295
+ETH,Ethiopia,currency_depreciation_pct,2013,5.206890731732735
+ETH,Ethiopia,currency_depreciation_pct,2014,5.149407079151218
+ETH,Ethiopia,currency_depreciation_pct,2015,5.060091254811365
+ETH,Ethiopia,currency_depreciation_pct,2016,5.611639013589001
+ETH,Ethiopia,currency_depreciation_pct,2017,9.822389604213495
+ETH,Ethiopia,currency_depreciation_pct,2018,14.930304789005861
+ETH,Ethiopia,currency_depreciation_pct,2019,5.980313851357318
+ETH,Ethiopia,currency_depreciation_pct,2020,20.14952107961163
+ETH,Ethiopia,currency_depreciation_pct,2021,25.214221689404106
+ETH,Ethiopia,currency_depreciation_pct,2022,18.34379974236282
+ETH,Ethiopia,currency_depreciation_pct,2023,5.4964085615674785
+ETH,Ethiopia,currency_depreciation_pct,2024,51.28187197065475
+IND,India,currency_depreciation_pct,2011,2.0659109190897755
+IND,India,currency_depreciation_pct,2012,14.499033650116921
+IND,India,currency_depreciation_pct,2013,9.657333962524381
+IND,India,currency_depreciation_pct,2014,4.149758454132462
+IND,India,currency_depreciation_pct,2015,5.116262238167855
+IND,India,currency_depreciation_pct,2016,4.7440001539670655
+IND,India,currency_depreciation_pct,2017,-3.086144071190997
+IND,India,currency_depreciation_pct,2018,5.018150693340044
+IND,India,currency_depreciation_pct,2019,2.9695705036495017
+IND,India,currency_depreciation_pct,2020,5.224664237134109
+IND,India,currency_depreciation_pct,2021,-0.24501366985759046
+IND,India,currency_depreciation_pct,2022,6.340102485246864
+IND,India,currency_depreciation_pct,2023,5.082134409190095
+IND,India,currency_depreciation_pct,2024,1.2954170797865368
+IND,India,currency_depreciation_pct,2025,4.1701885134784025
+IRN,Iran,currency_depreciation_pct,2011,3.531538341161331
+IRN,Iran,currency_depreciation_pct,2012,14.687222502275826
+IRN,Iran,currency_depreciation_pct,2013,51.241235190055924
+IRN,Iran,currency_depreciation_pct,2014,40.87668623277139
+IRN,Iran,currency_depreciation_pct,2015,11.833578660739237
+IRN,Iran,currency_depreciation_pct,2016,6.560714285613374
+IRN,Iran,currency_depreciation_pct,2017,7.47681303308492
+IRN,Iran,currency_depreciation_pct,2018,22.98790801890661
+IRN,Iran,currency_depreciation_pct,2019,2.779125505648911
+IRN,Iran,currency_depreciation_pct,2020,0.0
+IRN,Iran,currency_depreciation_pct,2021,0.0
+IRN,Iran,currency_depreciation_pct,2022,0.0
+IRN,Iran,currency_depreciation_pct,2023,0.0
+IRQ,Iraq,currency_depreciation_pct,2011,0.0
+IRQ,Iraq,currency_depreciation_pct,2012,-0.3276353276350491
+IRQ,Iraq,currency_depreciation_pct,2013,-0.014291839360005021
+IRQ,Iraq,currency_depreciation_pct,2014,0.0
+IRQ,Iraq,currency_depreciation_pct,2015,0.11435105774700466
+IRQ,Iraq,currency_depreciation_pct,2016,1.256424900057393
+IRQ,Iraq,currency_depreciation_pct,2017,0.1692047377326565
+IRQ,Iraq,currency_depreciation_pct,2018,-0.10557432432432433
+IRQ,Iraq,currency_depreciation_pct,2019,-0.06341154090044387
+IRQ,Iraq,currency_depreciation_pct,2020,0.8460236886632826
+IRQ,Iraq,currency_depreciation_pct,2021,21.644295302013422
+IRQ,Iraq,currency_depreciation_pct,2022,0.0
+IRQ,Iraq,currency_depreciation_pct,2023,-9.482758620689655
+IRQ,Iraq,currency_depreciation_pct,2024,-0.9523809523809524
+ISR,Israel,currency_depreciation_pct,2011,-4.301865986798518
+ISR,Israel,currency_depreciation_pct,2012,7.763624380310255
+ISR,Israel,currency_depreciation_pct,2013,-6.358103280225841
+ISR,Israel,currency_depreciation_pct,2014,-0.9093196027610997
+ISR,Israel,currency_depreciation_pct,2015,8.633728581044322
+ISR,Israel,currency_depreciation_pct,2016,-1.1903434672611024
+ISR,Israel,currency_depreciation_pct,2017,-6.275405153883441
+ISR,Israel,currency_depreciation_pct,2018,-0.24995922715065377
+ISR,Israel,currency_depreciation_pct,2019,-0.7249786626049884
+ISR,Israel,currency_depreciation_pct,2020,-3.4260220990900954
+ISR,Israel,currency_depreciation_pct,2021,-6.164512222013677
+ISR,Israel,currency_depreciation_pct,2022,4.006443758241925
+ISR,Israel,currency_depreciation_pct,2023,9.160584449685642
+ISR,Israel,currency_depreciation_pct,2024,0.8819642439319431
+ISR,Israel,currency_depreciation_pct,2025,-6.698561148052069
+JOR,Jordan,currency_depreciation_pct,2011,0.0
+JOR,Jordan,currency_depreciation_pct,2012,0.0
+JOR,Jordan,currency_depreciation_pct,2013,0.0
+JOR,Jordan,currency_depreciation_pct,2014,0.0
+JOR,Jordan,currency_depreciation_pct,2015,0.0
+JOR,Jordan,currency_depreciation_pct,2016,0.0
+JOR,Jordan,currency_depreciation_pct,2017,0.0
+JOR,Jordan,currency_depreciation_pct,2018,0.0
+JOR,Jordan,currency_depreciation_pct,2019,0.0
+JOR,Jordan,currency_depreciation_pct,2020,0.0
+JOR,Jordan,currency_depreciation_pct,2021,0.0
+JOR,Jordan,currency_depreciation_pct,2022,0.0
+JOR,Jordan,currency_depreciation_pct,2023,0.0
+JOR,Jordan,currency_depreciation_pct,2024,0.0
+JOR,Jordan,currency_depreciation_pct,2025,0.0
+KWT,Kuwait,currency_depreciation_pct,2011,-3.7080958816827705
+KWT,Kuwait,currency_depreciation_pct,2012,1.4336651286400957
+KWT,Kuwait,currency_depreciation_pct,2013,1.3052587370780306
+KWT,Kuwait,currency_depreciation_pct,2014,0.3447589565584819
+KWT,Kuwait,currency_depreciation_pct,2015,5.722685773893248
+KWT,Kuwait,currency_depreciation_pct,2016,0.4272586094429576
+KWT,Kuwait,currency_depreciation_pct,2017,0.4012469126991729
+KWT,Kuwait,currency_depreciation_pct,2018,-0.4592931989828697
+KWT,Kuwait,currency_depreciation_pct,2019,0.5479827548220995
+KWT,Kuwait,currency_depreciation_pct,2020,0.8635910138298227
+KWT,Kuwait,currency_depreciation_pct,2021,-1.4988617039320538
+KWT,Kuwait,currency_depreciation_pct,2022,1.5273160510924502
+KWT,Kuwait,currency_depreciation_pct,2023,0.305370240516284
+KWT,Kuwait,currency_depreciation_pct,2024,-0.16104369945361557
+KWT,Kuwait,currency_depreciation_pct,2025,-0.07690884399213192
+LBN,Lebanon,currency_depreciation_pct,2011,0.0
+LBN,Lebanon,currency_depreciation_pct,2012,0.0
+LBN,Lebanon,currency_depreciation_pct,2013,0.0
+LBN,Lebanon,currency_depreciation_pct,2014,0.0
+LBN,Lebanon,currency_depreciation_pct,2015,0.0
+LBN,Lebanon,currency_depreciation_pct,2016,0.0
+LBN,Lebanon,currency_depreciation_pct,2017,0.0
+LBN,Lebanon,currency_depreciation_pct,2018,0.0
+LBN,Lebanon,currency_depreciation_pct,2019,0.0
+LBN,Lebanon,currency_depreciation_pct,2020,0.0
+LBN,Lebanon,currency_depreciation_pct,2021,0.0
+LBN,Lebanon,currency_depreciation_pct,2022,0.0
+LBN,Lebanon,currency_depreciation_pct,2023,820.4394693200663
+LBN,Lebanon,currency_depreciation_pct,2024,545.0159902707085
+LBN,Lebanon,currency_depreciation_pct,2025,0.0
+LBY,Libya,currency_depreciation_pct,2011,-3.3657461194956633
+LBY,Libya,currency_depreciation_pct,2012,3.0639273927656823
+LBY,Libya,currency_depreciation_pct,2013,0.7951576319818564
+LBY,Libya,currency_depreciation_pct,2014,0.055850486678121126
+LBY,Libya,currency_depreciation_pct,2015,8.55136872518128
+LBY,Libya,currency_depreciation_pct,2016,0.663101208951184
+LBY,Libya,currency_depreciation_pct,2017,0.24823142074119348
+LBY,Libya,currency_depreciation_pct,2018,-2.0700911116768044
+LBY,Libya,currency_depreciation_pct,2019,2.439343869394355
+LBY,Libya,currency_depreciation_pct,2020,-0.6862953971448758
+LBY,Libya,currency_depreciation_pct,2021,225.0906105658666
+LBY,Libya,currency_depreciation_pct,2022,6.617675562225534
+LBY,Libya,currency_depreciation_pct,2023,-0.006059756120655529
+LBY,Libya,currency_depreciation_pct,2024,0.4015264584983457
+LBY,Libya,currency_depreciation_pct,2025,9.733817354039237
+LKA,Sri Lanka,currency_depreciation_pct,2011,-2.2104843072765976
+LKA,Sri Lanka,currency_depreciation_pct,2012,15.410042622371714
+LKA,Sri Lanka,currency_depreciation_pct,2013,1.1486198330985053
+LKA,Sri Lanka,currency_depreciation_pct,2014,1.158801824985175
+LKA,Sri Lanka,currency_depreciation_pct,2015,4.053337676562478
+LKA,Sri Lanka,currency_depreciation_pct,2016,7.158086029425357
+LKA,Sri Lanka,currency_depreciation_pct,2017,4.71539210602667
+LKA,Sri Lanka,currency_depreciation_pct,2018,6.571781210529445
+LKA,Sri Lanka,currency_depreciation_pct,2019,10.020669353147062
+LKA,Sri Lanka,currency_depreciation_pct,2020,3.8309522491945467
+LKA,Sri Lanka,currency_depreciation_pct,2021,7.097137531026084
+LKA,Sri Lanka,currency_depreciation_pct,2022,62.31921271292782
+LKA,Sri Lanka,currency_depreciation_pct,2023,1.5106526603636932
+MAR,Morocco,currency_depreciation_pct,2011,-3.888287713885986
+MAR,Morocco,currency_depreciation_pct,2012,6.657328862724466
+MAR,Morocco,currency_depreciation_pct,2013,-2.583787430467617
+MAR,Morocco,currency_depreciation_pct,2014,0.009907454989840487
+MAR,Morocco,currency_depreciation_pct,2015,16.15461813629112
+MAR,Morocco,currency_depreciation_pct,2016,0.44168592482439417
+MAR,Morocco,currency_depreciation_pct,2017,-1.17745016457521
+MAR,Morocco,currency_depreciation_pct,2018,-3.156165234639164
+MAR,Morocco,currency_depreciation_pct,2019,2.4608050096802425
+MAR,Morocco,currency_depreciation_pct,2020,-1.2501593628223318
+MAR,Morocco,currency_depreciation_pct,2021,-5.352969052044214
+MAR,Morocco,currency_depreciation_pct,2022,13.04086668837899
+MAR,Morocco,currency_depreciation_pct,2023,-0.28771895966345873
+MAR,Morocco,currency_depreciation_pct,2024,-1.8661428162816085
+MAR,Morocco,currency_depreciation_pct,2025,-5.955148400718837
+MDV,Maldives,currency_depreciation_pct,2011,14.078190653878123
+MDV,Maldives,currency_depreciation_pct,2012,5.224123227254782
+MDV,Maldives,currency_depreciation_pct,2013,0.012201327810553837
+MDV,Maldives,currency_depreciation_pct,2014,0.08904630710303223
+MDV,Maldives,currency_depreciation_pct,2015,-0.09143002013934318
+MDV,Maldives,currency_depreciation_pct,2016,0.013513053881952529
+MDV,Maldives,currency_depreciation_pct,2017,0.12077261713171267
+MDV,Maldives,currency_depreciation_pct,2018,0.025143091688850344
+MDV,Maldives,currency_depreciation_pct,2019,-0.05714664347390764
+MDV,Maldives,currency_depreciation_pct,2020,-0.00502140623775658
+MDV,Maldives,currency_depreciation_pct,2021,-0.05572436759248262
+MDV,Maldives,currency_depreciation_pct,2022,0.09059299107889172
+MDV,Maldives,currency_depreciation_pct,2023,0.001100662677489614
+MDV,Maldives,currency_depreciation_pct,2024,0.01561062272366023
+MDV,Maldives,currency_depreciation_pct,2025,0.1720766799105638
+NPL,Nepal,currency_depreciation_pct,2011,1.0341476774341207
+NPL,Nepal,currency_depreciation_pct,2012,15.13882192972643
+NPL,Nepal,currency_depreciation_pct,2013,9.220965802717329
+NPL,Nepal,currency_depreciation_pct,2014,4.802575562224471
+NPL,Nepal,currency_depreciation_pct,2015,4.971862049416038
+NPL,Nepal,currency_depreciation_pct,2016,4.861749243146648
+NPL,Nepal,currency_depreciation_pct,2017,-2.674453247094053
+NPL,Nepal,currency_depreciation_pct,2018,4.227508532779782
+NPL,Nepal,currency_depreciation_pct,2019,3.3777142380611322
+NPL,Nepal,currency_depreciation_pct,2020,5.093447174124332
+NPL,Nepal,currency_depreciation_pct,2021,-0.1783812894281032
+NPL,Nepal,currency_depreciation_pct,2022,5.980811034100532
+NPL,Nepal,currency_depreciation_pct,2023,5.523987418222902
+NPL,Nepal,currency_depreciation_pct,2024,1.2195273933910409
+NPL,Nepal,currency_depreciation_pct,2025,4.029707994871664
+OMN,Oman,currency_depreciation_pct,2011,0.0
+OMN,Oman,currency_depreciation_pct,2012,0.0
+OMN,Oman,currency_depreciation_pct,2013,0.0
+OMN,Oman,currency_depreciation_pct,2014,0.0
+OMN,Oman,currency_depreciation_pct,2015,0.0
+OMN,Oman,currency_depreciation_pct,2016,0.0
+OMN,Oman,currency_depreciation_pct,2017,0.0
+OMN,Oman,currency_depreciation_pct,2018,0.0
+OMN,Oman,currency_depreciation_pct,2019,0.0
+OMN,Oman,currency_depreciation_pct,2020,0.0
+OMN,Oman,currency_depreciation_pct,2021,0.0
+OMN,Oman,currency_depreciation_pct,2022,0.0
+OMN,Oman,currency_depreciation_pct,2023,0.0
+OMN,Oman,currency_depreciation_pct,2024,0.0
+OMN,Oman,currency_depreciation_pct,2025,0.0
+PAK,Pakistan,currency_depreciation_pct,2011,1.3493549850849333
+PAK,Pakistan,currency_depreciation_pct,2012,8.167173460952968
+PAK,Pakistan,currency_depreciation_pct,2013,8.81598008143368
+PAK,Pakistan,currency_depreciation_pct,2014,-0.5203350493389652
+PAK,Pakistan,currency_depreciation_pct,2015,1.6510204958096364
+PAK,Pakistan,currency_depreciation_pct,2016,1.9459566049264763
+PAK,Pakistan,currency_depreciation_pct,2017,0.6548161080893196
+PAK,Pakistan,currency_depreciation_pct,2018,15.522148431357133
+PAK,Pakistan,currency_depreciation_pct,2019,23.15813715997337
+PAK,Pakistan,currency_depreciation_pct,2020,7.866249351607181
+PAK,Pakistan,currency_depreciation_pct,2021,0.6597776157933157
+PAK,Pakistan,currency_depreciation_pct,2022,25.757718170613252
+PAK,Pakistan,currency_depreciation_pct,2023,36.847737852713934
+PAK,Pakistan,currency_depreciation_pct,2024,-0.6332644139999296
+PAK,Pakistan,currency_depreciation_pct,2025,0.9197639523971111
+QAT,Qatar,currency_depreciation_pct,2011,0.0
+QAT,Qatar,currency_depreciation_pct,2012,0.0
+QAT,Qatar,currency_depreciation_pct,2013,0.0
+QAT,Qatar,currency_depreciation_pct,2014,0.0
+QAT,Qatar,currency_depreciation_pct,2015,0.0
+QAT,Qatar,currency_depreciation_pct,2016,0.0
+QAT,Qatar,currency_depreciation_pct,2017,0.0
+QAT,Qatar,currency_depreciation_pct,2018,0.0
+QAT,Qatar,currency_depreciation_pct,2019,0.0
+QAT,Qatar,currency_depreciation_pct,2020,0.0
+QAT,Qatar,currency_depreciation_pct,2021,0.0
+QAT,Qatar,currency_depreciation_pct,2022,0.0
+QAT,Qatar,currency_depreciation_pct,2023,0.0
+QAT,Qatar,currency_depreciation_pct,2024,0.0
+QAT,Qatar,currency_depreciation_pct,2025,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2011,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2012,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2013,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2014,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2015,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2016,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2017,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2018,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2019,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2020,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2021,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2022,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2023,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2024,0.0
+SAU,Saudi Arabia,currency_depreciation_pct,2025,0.0
+SDN,Sudan,currency_depreciation_pct,2011,15.638272233731609
+SDN,Sudan,currency_depreciation_pct,2012,33.98830129943518
+SDN,Sudan,currency_depreciation_pct,2013,33.1322703293456
+SDN,Sudan,currency_depreciation_pct,2014,20.604487231933916
+SDN,Sudan,currency_depreciation_pct,2015,5.035256143016497
+SDN,Sudan,currency_depreciation_pct,2016,3.0864470816538008
+SDN,Sudan,currency_depreciation_pct,2017,7.592854098853046
+SDN,Sudan,currency_depreciation_pct,2018,264.0221520584197
+SDN,Sudan,currency_depreciation_pct,2019,88.11793770487917
+SDN,Sudan,currency_depreciation_pct,2020,17.98011291419099
+SDN,Sudan,currency_depreciation_pct,2021,586.6999436686787
+SDN,Sudan,currency_depreciation_pct,2022,47.45758780731366
+SOM,Somalia,currency_depreciation_pct,2011,-4.16642529432213
+SOM,Somalia,currency_depreciation_pct,2012,-24.863603494115743
+SOM,Somalia,currency_depreciation_pct,2013,-14.355126593165457
+SOM,Somalia,currency_depreciation_pct,2014,4.911527722936147
+SOM,Somalia,currency_depreciation_pct,2015,10.001056004891348
+SOM,Somalia,currency_depreciation_pct,2016,3.628741249890161
+SOM,Somalia,currency_depreciation_pct,2017,0.15698268433823628
+SSD,South Sudan,currency_depreciation_pct,2012,-1.303133207313599
+SSD,South Sudan,currency_depreciation_pct,2013,0.0
+SSD,South Sudan,currency_depreciation_pct,2014,0.0
+SSD,South Sudan,currency_depreciation_pct,2015,22.17514124293796
+SSD,South Sudan,currency_depreciation_pct,2016,1196.5317919075142
+SSD,South Sudan,currency_depreciation_pct,2017,143.20463664734712
+SSD,South Sudan,currency_depreciation_pct,2018,24.407341413874498
+SSD,South Sudan,currency_depreciation_pct,2019,11.750352168711412
+SSD,South Sudan,currency_depreciation_pct,2020,5.00518462650117
+SSD,South Sudan,currency_depreciation_pct,2021,84.65407439069672
+SSD,South Sudan,currency_depreciation_pct,2022,74.47466233778145
+SSD,South Sudan,currency_depreciation_pct,2023,74.05275122698285
+SSD,South Sudan,currency_depreciation_pct,2024,132.50895369429827
+SYR,Syria,currency_depreciation_pct,2011,330.61618411284365
+SYR,Syria,currency_depreciation_pct,2012,33.60630301358511
+SYR,Syria,currency_depreciation_pct,2013,68.3678077861074
+SYR,Syria,currency_depreciation_pct,2014,41.75045984058903
+SYR,Syria,currency_depreciation_pct,2015,53.7852245939577
+SYR,Syria,currency_depreciation_pct,2016,94.18531474677829
+SYR,Syria,currency_depreciation_pct,2017,7.025135290251678
+SYR,Syria,currency_depreciation_pct,2018,-11.390499261587435
+SYR,Syria,currency_depreciation_pct,2019,0.0
+SYR,Syria,currency_depreciation_pct,2020,101.13293262223529
+SYR,Syria,currency_depreciation_pct,2021,43.06131261808058
+SYR,Syria,currency_depreciation_pct,2022,99.50214258429381
+TUN,Tunisia,currency_depreciation_pct,2011,-1.6498998649343264
+TUN,Tunisia,currency_depreciation_pct,2012,10.946878662673493
+TUN,Tunisia,currency_depreciation_pct,2013,4.018631253767697
+TUN,Tunisia,currency_depreciation_pct,2014,4.494278284152271
+TUN,Tunisia,currency_depreciation_pct,2015,15.547734401460817
+TUN,Tunisia,currency_depreciation_pct,2016,9.502750695639083
+TUN,Tunisia,currency_depreciation_pct,2017,12.63442528824833
+TUN,Tunisia,currency_depreciation_pct,2018,9.400649603383867
+TUN,Tunisia,currency_depreciation_pct,2019,10.864418305921204
+TUN,Tunisia,currency_depreciation_pct,2020,-4.160087694387342
+TUN,Tunisia,currency_depreciation_pct,2021,-0.6361801927798358
+TUN,Tunisia,currency_depreciation_pct,2022,11.062337476441403
+TUN,Tunisia,currency_depreciation_pct,2023,0.08269966060928324
+TUN,Tunisia,currency_depreciation_pct,2024,0.04131566239191479
+TUR,Turkey,currency_depreciation_pct,2011,11.45197985352378
+TUR,Turkey,currency_depreciation_pct,2012,7.226846382175268
+TUR,Turkey,currency_depreciation_pct,2013,6.000403194061752
+TUR,Turkey,currency_depreciation_pct,2014,14.958447617610164
+TUR,Turkey,currency_depreciation_pct,2015,24.28402144913837
+TUR,Turkey,currency_depreciation_pct,2016,11.034017617795
+TUR,Turkey,currency_depreciation_pct,2017,20.79370424407022
+TUR,Turkey,currency_depreciation_pct,2018,32.3518257093599
+TUR,Turkey,currency_depreciation_pct,2019,17.51003206982694
+TUR,Turkey,currency_depreciation_pct,2020,23.525354520277762
+TUR,Turkey,currency_depreciation_pct,2021,26.279152905402064
+TUR,Turkey,currency_depreciation_pct,2022,86.98416231292192
+TUR,Turkey,currency_depreciation_pct,2023,43.44532205472075
+TUR,Turkey,currency_depreciation_pct,2024,38.19647435604129
+TUR,Turkey,currency_depreciation_pct,2025,20.267572202076543
+YEM,Yemen,currency_depreciation_pct,2011,-2.636732091625298
+YEM,Yemen,currency_depreciation_pct,2012,0.2568599937637939
+YEM,Yemen,currency_depreciation_pct,2013,0.25231417585776295
+YEM,Yemen,currency_depreciation_pct,2014,0.0
+YEM,Yemen,currency_depreciation_pct,2015,7.419299796795112
+YEM,Yemen,currency_depreciation_pct,2016,22.98736462093865
+YEM,Yemen,currency_depreciation_pct,2017,-0.5991047185732967
+YEM,Yemen,currency_depreciation_pct,2018,-23.850528889597623
+YEM,Yemen,currency_depreciation_pct,2019,126.50236071435062
+YEM,Yemen,currency_depreciation_pct,2020,52.65230322124942
+YEM,Yemen,currency_depreciation_pct,2021,38.371399914585574
+YEM,Yemen,currency_depreciation_pct,2022,8.451899366748016
+YEM,Yemen,currency_depreciation_pct,2023,21.534841029775258

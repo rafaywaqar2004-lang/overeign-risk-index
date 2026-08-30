@@ -659,12 +659,13 @@ CURRENT_YEAR = datetime.now(timezone.utc).year
 
 def compute_confidence_flag(row, factor_cols):
     """Evaluates ONLY this country's own reported data payload — how many of
-    the 10 scored factors it reports, and how recent the least-current one is
+    the scored factors it reports, and how recent the least-current one is
     — into a plain confidence label. Never inferred by comparison to other
     countries. If debt-to-GDP specifically came from the IMF WEO fallback
     (tracked in the real debt_to_gdp_source column written by fetch_data.py)
     rather than the World Bank directly, that is named explicitly rather than
     folded silently into a generic "World Bank" claim."""
+    total_factors = len(factor_cols)
     factors_used = int(row.get("risk_score_factors_used", 0)) if pd.notna(row.get("risk_score_factors_used")) else 0
     years_reported = [int(row[f"{f}_year"]) for f in factor_cols if pd.notna(row.get(f"{f}_year"))]
 
@@ -676,29 +677,32 @@ def compute_confidence_flag(row, factor_cols):
         )
 
     if not years_reported:
-        return ("Low Confidence", "#f87171", "No factor-level data has been reported for any of the 10 scored indicators." + debt_note)
+        return ("Low Confidence", "#f87171", f"No factor-level data has been reported for any of the {total_factors} scored indicators." + debt_note)
 
     oldest_year = min(years_reported)
     lag = CURRENT_YEAR - oldest_year
 
-    if factors_used >= 9 and lag <= 2:
-        return ("High Confidence", "#34d399", f"{factors_used} of 10 factors reported; the least-recent dates to {oldest_year}." + debt_note)
-    if factors_used >= 6 and lag <= 4:
+    # Thresholds scale proportionally with the total factor count (90% / 60%
+    # of whatever total_factors is) rather than a hardcoded absolute count, so
+    # adding or removing a factor never silently shifts the confidence bar.
+    if factors_used >= round(total_factors * 0.9) and lag <= 2:
+        return ("High Confidence", "#34d399", f"{factors_used} of {total_factors} factors reported; the least-recent dates to {oldest_year}." + debt_note)
+    if factors_used >= round(total_factors * 0.6) and lag <= 4:
         return (
             "Medium Confidence", "#fbbf24",
-            f"{factors_used} of 10 factors reported, but at least one dates back to {oldest_year} "
+            f"{factors_used} of {total_factors} factors reported, but at least one dates back to {oldest_year} "
             f"({lag} years behind the current reporting cycle)." + debt_note,
         )
     return (
         "Low Confidence", "#f87171",
-        f"Only {factors_used} of 10 factors reported, and/or reporting is stale (oldest: {oldest_year}, "
+        f"Only {factors_used} of {total_factors} factors reported, and/or reporting is stale (oldest: {oldest_year}, "
         f"{lag} years behind) — treat this score cautiously." + debt_note,
     )
 
 
 def compute_shock_scenario(factor_scores, delta_current_account, delta_inflation, delta_political_stability):
     """Applies user-chosen shocks directly in RISK-SCORE POINTS (the same 0-100
-    scale the radar chart and composite already use) to 3 of the 10 scored
+    scale the radar chart and composite already use) to 3 of the scored
     factors, then recomputes the composite with the identical missing-data-aware
     weighted average compute_scores.py uses. This is a transparent points-based
     stress test — it does NOT assert a real-world elasticity between (for
@@ -1003,6 +1007,7 @@ FACTOR_LABELS = {
     "reserves_months_imports": "Reserves Cover",
     "gdp_growth": "GDP Growth",
     "inflation": "Inflation",
+    "currency_depreciation_pct": "Currency Depreciation",
     "political_stability": "Political Stability",
     "government_effectiveness": "Govt. Effectiveness",
     "rule_of_law": "Rule of Law",
@@ -1010,9 +1015,17 @@ FACTOR_LABELS = {
     "control_of_corruption": "Control of Corruption",
 }
 FACTOR_COLS = list(FACTOR_LABELS.keys())
-# Matches compute_scores.py's WEIGHTS exactly -- the default composite is an
-# equal-weighted average of all 10 factors, 10% each.
-WEIGHTS = {f: 0.10 for f in FACTOR_COLS}
+# Must match compute_scores.py's WEIGHTS exactly, since compute_yoy_attribution
+# below re-derives the exact point-by-point score attribution from these same
+# weights -- if the two ever drifted apart, the "which factor moved the score"
+# breakdown shown in the app would silently stop matching the actual composite
+# score. Economic pillar (6 factors, 1/12 each) and governance pillar (5
+# factors, 0.10 each) are each 50% of the composite by default.
+ECON_FACTOR_COLS = {
+    "debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports",
+    "gdp_growth", "inflation", "currency_depreciation_pct",
+}
+WEIGHTS = {f: (1 / 12 if f in ECON_FACTOR_COLS else 0.10) for f in FACTOR_COLS}
 
 
 def compute_yoy_attribution(country_code, driver_history_df, latest_year, prior_year):
@@ -1056,18 +1069,19 @@ RAW_LABELS = {
     "control_of_corruption": ("Control of Corruption", "WGI estimate, -2.5 to +2.5"),
 }
 
-# All 13 tracked indicators (the 10 scored factors plus the 3 descriptive
-# trade/investment-context indicators), each mapped to a clean display label,
-# its real unit, and its ACTUAL source — used by the sub-indicator trend
-# dropdown below the radar chart. Every one of these is a genuine World Bank
-# WDI or WGI series already being fetched by fetch_data.py; nothing here is
-# attributed to a data feed the app doesn't actually pull from.
+# All 21 tracked indicators (the 11 scored factors plus 10 descriptive
+# trade/investment/labor-market context indicators), each mapped to a clean
+# display label, its real unit, and its ACTUAL source — used by the
+# sub-indicator trend dropdown below the radar chart. Every one of these is a
+# genuine World Bank WDI or WGI series already being fetched by fetch_data.py;
+# nothing here is attributed to a data feed the app doesn't actually pull from.
 ALL_INDICATOR_LABELS = {
     "debt_to_gdp": ("Debt (% of GDP)", "%", "World Bank WDI: GC.DOD.TOTL.GD.ZS"),
     "current_account_pct_gdp": ("Current Account (% of GDP)", "% GDP", "World Bank WDI: BN.CAB.XOKA.GD.ZS"),
     "reserves_months_imports": ("Reserves Cover", "months of imports", "World Bank WDI: FI.RES.TOTL.MO"),
     "gdp_growth": ("GDP Growth Rate", "%", "World Bank WDI: NY.GDP.MKTP.KD.ZG"),
     "inflation": ("Inflation", "%", "World Bank WDI: FP.CPI.TOTL.ZG"),
+    "currency_depreciation_pct": ("Currency Depreciation (YoY)", "% change, LCU per USD", "World Bank WDI: PA.NUS.FCRF (derived)"),
     "political_stability": ("Political Stability & Absence of Violence", "WGI estimate, -2.5 to +2.5", "World Bank WGI: PV.EST"),
     "government_effectiveness": ("Government Effectiveness", "WGI estimate, -2.5 to +2.5", "World Bank WGI: GE.EST"),
     "rule_of_law": ("Rule of Law", "WGI estimate, -2.5 to +2.5", "World Bank WGI: RL.EST"),
@@ -1076,6 +1090,7 @@ ALL_INDICATOR_LABELS = {
     "fdi_net_inflows_pct_gdp": ("Foreign Direct Investment, Net Inflows", "% GDP", "World Bank WDI: BX.KLT.DINV.WD.GD.ZS"),
     "exports_pct_gdp": ("Exports of Goods & Services", "% GDP", "World Bank WDI: NE.EXP.GNFS.ZS"),
     "imports_pct_gdp": ("Imports of Goods & Services", "% GDP", "World Bank WDI: NE.IMP.GNFS.ZS"),
+    "official_exchange_rate_lcu_usd": ("Official Exchange Rate", "LCU per USD, period average", "World Bank WDI: PA.NUS.FCRF"),
     "gdp_current_usd": ("GDP (Current US$)", "USD", "World Bank WDI: NY.GDP.MKTP.CD"),
     "gdp_per_capita_usd": ("GDP Per Capita (Current US$)", "USD", "World Bank WDI: NY.GDP.PCAP.CD"),
     "total_reserves_usd": ("Total Reserves (Current US$)", "USD", "World Bank WDI: FI.RES.TOTL.CD"),
@@ -1131,7 +1146,7 @@ st.markdown('<div class="tag-label">Risk, Conflict &amp; Trade Intelligence · F
 st.markdown('<div class="masthead-title">MENASA <span>Risk Monitor</span></div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="masthead-sub">A composite sovereign risk score for all 34 MENA, South Asia &amp; Horn of Africa economies, '
-    'built on live World Bank data across 10 factors spanning economic and governance pillars — paired with '
+    'built on live World Bank data across 11 factors spanning economic and governance pillars — paired with '
     'a sourced Live Conflicts tracker, a 4-country Compare tool, and a Geo-Economic Interdependence Dashboard '
     'mapping the region\'s maritime chokepoints, critical-mineral concentration, and commodity markets.</div>',
     unsafe_allow_html=True,
@@ -1396,7 +1411,7 @@ with tab1:
             st.markdown(tier_badge_html("Lower Risk") + " score &lt; 33", unsafe_allow_html=True)
             st.markdown("<br>" + tier_badge_html("Moderate Risk") + " score 33–66", unsafe_allow_html=True)
             st.markdown("<br>" + tier_badge_html("Higher Risk") + " score &gt; 66", unsafe_allow_html=True)
-            st.markdown("<br>" + tier_badge_html("Insufficient data") + " &lt; 2 of 10 factors", unsafe_allow_html=True)
+            st.markdown("<br>" + tier_badge_html("Insufficient data") + " &lt; 2 of 11 factors", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1421,7 +1436,7 @@ with tab1:
 
         st.markdown("<br>", unsafe_allow_html=True)
         st.info(
-            "Iran's score is based on only 7 of 10 factors — debt, current account, and reserves "
+            "Iran's score is based on 9 of 11 factors — current account and reserves "
             "data are not consistently reported to the World Bank, likely due to sanctions. "
             "Treat that score as lower-confidence.",
             icon="⚠️",
@@ -1522,6 +1537,7 @@ with tab2:
         top_risk_factors=_top_risk_factors_for_pdf,
         confidence=(_conf_label_pdf, _conf_detail_pdf),
         total_countries=len(scored),
+        total_factors=len(FACTOR_COLS),
     )
     st.download_button(
         label=f"📄 Generate Executive Report — {selected} (PDF)",
@@ -1538,7 +1554,7 @@ with tab2:
             score_display = f"{row['risk_score']:.1f}" if pd.notna(row["risk_score"]) else "N/A"
             st.markdown(f'<div class="stat-value" style="font-size:2.1rem;">{score_display}</div>', unsafe_allow_html=True)
             st.markdown(tier_badge_html(row["risk_tier"]), unsafe_allow_html=True)
-            st.caption(f"Based on {int(row['risk_score_factors_used'])} of 10 factors")
+            st.caption(f"Based on {int(row['risk_score_factors_used'])} of {len(FACTOR_COLS)} factors")
 
             rank_col, yoy_col = st.columns(2)
             with rank_col:
@@ -1629,7 +1645,7 @@ with tab2:
                 st.plotly_chart(style_chart(fig_attr, height=320), use_container_width=True)
                 st.caption(
                     "Exact decomposition, not an estimate: the composite score is a weighted sum of "
-                    "10 normalized sub-scores, so each factor's (weight × change in sub-score) sums to "
+                    "11 normalized sub-scores, so each factor's (weight × change in sub-score) sums to "
                     f"precisely the total {row['yoy_change']:+.1f}-point change shown above — using the "
                     "actual rescaled weights each year, the same way the composite itself handles missing data."
                 )
@@ -1643,7 +1659,7 @@ with tab2:
         missing_factors = [f for f in FACTOR_COLS if pd.isna(driver_row[f])]
 
         if radar_factors:
-            # Always plot all 10 axis labels, in FACTOR_COLS order, so a missing
+            # Always plot all 11 axis labels, in FACTOR_COLS order, so a missing
             # factor shows as a visible gap rather than silently shrinking the
             # shape — no value is ever invented to fill it.
             all_labels = [FACTOR_LABELS[f] for f in FACTOR_COLS]
@@ -1944,10 +1960,11 @@ with tab2:
             st.caption(f"{drill_year} is the earliest year with data — there's no prior year to compare it against.")
 
     # ---- Sub-indicator historical trend explorer ----
-    # Supplements the radar chart (a single-year snapshot across all 10
+    # Supplements the radar chart (a single-year snapshot across all 11
     # factors) with the full multi-year trend for any ONE indicator the user
-    # picks, including the two descriptive trade-context indicators that
-    # aren't part of the composite score at all (FDI, exports, imports).
+    # picks, including the descriptive trade/investment/labor-market context
+    # indicators that aren't part of the composite score at all (FDI, exports,
+    # imports, the raw exchange rate level, GDP scale, unemployment, Gini, etc.).
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Indicator Explorer</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="font-size:1.05rem;">Historical Trend by Indicator</div>', unsafe_allow_html=True)
@@ -2201,7 +2218,7 @@ with tab3:
     st.markdown('<div class="section-title">Compare Countries</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="masthead-sub" style="margin-bottom:1rem;">Pick up to 4 countries to compare every '
-        'structured indicator from the Country Deep Dive side by side — composite score, all 10 risk '
+        'structured indicator from the Country Deep Dive side by side — composite score, all 11 risk '
         'factors, macro/development indicators, and credit ratings. Long-form sections (Country Brief, '
         'Key Economic Partners, historical context) stay in the single-country Deep Dive, since dense '
         'prose does not compare cleanly across four countries at once.</div>',
@@ -2382,7 +2399,7 @@ with tab4:
     st.markdown('<div class="section-tag">Curated &amp; Sourced, Not a Live Feed</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Live Conflicts &amp; Regional Flashpoints</div>', unsafe_allow_html=True)
     st.markdown(
-        "The 10-factor composite score above is built on **annual** World Bank data, which by nature "
+        "The 11-factor composite score above is built on **annual** World Bank data, which by nature "
         "lags acute, fast-moving events — a war that started two months ago won't yet show up in a "
         "debt-to-GDP or governance figure. This tab is the qualitative complement: the region's most "
         "consequential live conflicts and flashpoints, each mapped to the specific tracked countries "
@@ -3227,39 +3244,41 @@ with tab5:
 SHOCK_PRESETS = {
     "Red Sea / Shipping Shock": {
         "weights": {
-            "debt_to_gdp": 5, "current_account_pct_gdp": 20, "reserves_months_imports": 20,
-            "gdp_growth": 10, "inflation": 15, "political_stability": 15,
+            "debt_to_gdp": 5, "current_account_pct_gdp": 20, "reserves_months_imports": 15,
+            "gdp_growth": 10, "inflation": 10, "currency_depreciation_pct": 15, "political_stability": 15,
             "government_effectiveness": 5, "rule_of_law": 5, "regulatory_quality": 0, "control_of_corruption": 5,
         },
         "rationale": (
             "Models a Bab el-Mandeb/Suez shipping disruption: overweights current account, reserves, "
-            "and inflation (higher import costs pass through fast) and political stability (conflict-adjacent "
-            "risk), while de-emphasizing longer-run institutional-quality factors that a shipping shock "
-            "doesn't move on its own."
+            "inflation, and currency pressure (higher import costs pass through to prices and the exchange "
+            "rate fast) and political stability (conflict-adjacent risk), while de-emphasizing longer-run "
+            "institutional-quality factors that a shipping shock doesn't move on its own."
         ),
     },
     "Commodity Price Cycle": {
         "weights": {
-            "debt_to_gdp": 15, "current_account_pct_gdp": 25, "reserves_months_imports": 15,
-            "gdp_growth": 20, "inflation": 10, "political_stability": 5,
+            "debt_to_gdp": 15, "current_account_pct_gdp": 20, "reserves_months_imports": 15,
+            "gdp_growth": 15, "inflation": 10, "currency_depreciation_pct": 15, "political_stability": 5,
             "government_effectiveness": 5, "rule_of_law": 0, "regulatory_quality": 0, "control_of_corruption": 5,
         },
         "rationale": (
-            "Models an oil/commodity terms-of-trade swing: overweights current account and GDP growth "
-            "(the two factors a commodity cycle hits hardest and fastest for both exporters and importers), "
-            "with debt sustainability following behind and governance factors weighted down."
+            "Models an oil/commodity terms-of-trade swing: overweights current account, GDP growth, and "
+            "currency pressure (the factors a commodity cycle hits hardest and fastest for both exporters "
+            "and importers), with debt sustainability following behind and governance factors weighted down."
         ),
     },
     "Capital Flight / Sudden Stop": {
         "weights": {
-            "debt_to_gdp": 20, "current_account_pct_gdp": 10, "reserves_months_imports": 25,
-            "gdp_growth": 5, "inflation": 5, "political_stability": 15,
+            "debt_to_gdp": 15, "current_account_pct_gdp": 10, "reserves_months_imports": 20,
+            "gdp_growth": 5, "inflation": 5, "currency_depreciation_pct": 25, "political_stability": 15,
             "government_effectiveness": 10, "rule_of_law": 5, "regulatory_quality": 0, "control_of_corruption": 5,
         },
         "rationale": (
-            "Models an investor-confidence sudden stop: overweights reserves cover and debt sustainability "
-            "(what a fleeing investor actually checks first) plus political and institutional stability, "
-            "since capital flight is a confidence event more than a growth or inflation one."
+            "Models an investor-confidence sudden stop: overweights currency pressure and reserves cover "
+            "(a sudden stop is the textbook currency-crisis scenario -- capital flees, demand for dollars "
+            "spikes, the exchange rate is usually the fastest-moving signal) plus debt sustainability and "
+            "political/institutional stability, since capital flight is a confidence event more than a "
+            "growth or inflation one."
         ),
     },
 }
@@ -3268,10 +3287,13 @@ with tab6:
     st.markdown('<div class="section-tag">Interactive Reweighting</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
     st.markdown(
-        "The default methodology weights all 10 factors equally (10% each). Adjust the sliders "
-        "below to model a different risk appetite — e.g. a bank focused purely on debt "
-        "sustainability, or a consultancy weighting governance more heavily — and watch the "
-        "ranking update live. This does not change the saved default score anywhere else in the app."
+        "The default methodology weights the two pillars equally (50% economic, 50% governance), "
+        "which works out to 1/12 (about 8.3%) for each of the 6 economic factors and 10% for each "
+        "of the 5 governance factors. The sliders below default to an equal 10 each across all 11 "
+        "factors for simplicity — adjust them to model a different risk appetite, e.g. a bank "
+        "focused purely on debt sustainability, or a consultancy weighting governance more heavily "
+        "— and watch the ranking update live. This does not change the saved default score anywhere "
+        "else in the app."
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -3362,16 +3384,18 @@ with tab7:
     st.markdown('<div class="section-title">Methodology</div>', unsafe_allow_html=True)
     st.markdown(
         "Each country is scored **0–100** (100 = highest risk) on a weighted composite "
-        "of 10 factors across two pillars, weighted equally at 10% by default — adjustable "
-        "live in the Scenario Explorer tab:"
+        "of 11 factors across two pillars, each pillar weighted equally at 50% by default "
+        "(1/12 per economic factor, 10% per governance factor) — adjustable live in the "
+        "Scenario Explorer tab:"
     )
     sourced_table(
         [
-            ["Debt (% of GDP)", "Economic", "10%", ("World Bank WDI: GC.DOD.TOTL.GD.ZS", "https://data.worldbank.org/indicator/GC.DOD.TOTL.GD.ZS")],
-            ["Current Account (% of GDP)", "Economic", "10%", ("World Bank WDI: BN.CAB.XOKA.GD.ZS", "https://data.worldbank.org/indicator/BN.CAB.XOKA.GD.ZS")],
-            ["Reserves (months of imports)", "Economic", "10%", ("World Bank WDI: FI.RES.TOTL.MO", "https://data.worldbank.org/indicator/FI.RES.TOTL.MO")],
-            ["GDP Growth", "Economic", "10%", ("World Bank WDI: NY.GDP.MKTP.KD.ZG", "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG")],
-            ["Inflation", "Economic", "10%", ("World Bank WDI: FP.CPI.TOTL.ZG", "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG")],
+            ["Debt (% of GDP)", "Economic", "8.3%", ("World Bank WDI: GC.DOD.TOTL.GD.ZS", "https://data.worldbank.org/indicator/GC.DOD.TOTL.GD.ZS")],
+            ["Current Account (% of GDP)", "Economic", "8.3%", ("World Bank WDI: BN.CAB.XOKA.GD.ZS", "https://data.worldbank.org/indicator/BN.CAB.XOKA.GD.ZS")],
+            ["Reserves (months of imports)", "Economic", "8.3%", ("World Bank WDI: FI.RES.TOTL.MO", "https://data.worldbank.org/indicator/FI.RES.TOTL.MO")],
+            ["GDP Growth", "Economic", "8.3%", ("World Bank WDI: NY.GDP.MKTP.KD.ZG", "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG")],
+            ["Inflation", "Economic", "8.3%", ("World Bank WDI: FP.CPI.TOTL.ZG", "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG")],
+            ["Currency Depreciation (YoY % change, LCU/USD)", "Economic", "8.3%", ("World Bank WDI: PA.NUS.FCRF", "https://data.worldbank.org/indicator/PA.NUS.FCRF")],
             ["Political Stability", "Governance", "10%", ("World Bank WGI: PV.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/PV.EST")],
             ["Government Effectiveness", "Governance", "10%", ("World Bank WGI: GE.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/GE.EST")],
             ["Rule of Law", "Governance", "10%", ("World Bank WGI: RL.EST", "https://databank.worldbank.org/metadataglossary/worldwide-governance-indicators/series/RL.EST")],
@@ -3381,10 +3405,13 @@ with tab7:
         ["Factor", "Pillar", "Weight", "Source"],
     )
     st.caption(
-        "All 10 factors are pulled live from the World Bank's public API (WDI = World Development "
+        "All 11 factors are pulled live from the World Bank's public API (WDI = World Development "
         "Indicators, WGI = Worldwide Governance Indicators) — the same underlying database the IMF, "
         "credit rating agencies, and academic researchers use as a baseline. Click any source link "
-        "above to see the indicator's full definition and country coverage on the World Bank's own site."
+        "above to see the indicator's full definition and country coverage on the World Bank's own site. "
+        "Currency Depreciation was added after this project's own historical backtest (below) surfaced "
+        "that Egypt's 2022-23 currency crisis didn't move the prior 10-factor score at all — closing a "
+        "real, documented gap rather than a cosmetic addition."
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -3431,34 +3458,29 @@ with tab7:
 - **Debt-to-GDP coverage is sparse** for several Gulf states and conflict/sanctions-affected
   countries — only 31 of 34 report it consistently, even after the IMF World Economic Outlook
   fallback fills some World Bank gaps.
-- **Iran's score is lower-confidence** — only 7 of 10 factors are available, likely due to
-  sanctions limiting fiscal data reporting.
+- **Iran's score is lower-confidence** — only 9 of 11 factors are available (current account and
+  reserves are missing), likely due to sanctions limiting fiscal data reporting.
 - **The composite score is annual and backward-looking** — it will not reflect an event from the
   last few months (e.g. the February 2026 Iran war) until World Bank data catches up. See the
   Live Conflicts tab for the qualitative, currently-relevant complement to this gap.
 - **Historical context is curated, not live** — the event list in each country's Deep Dive tab
   and the Live Conflicts tab were hand-researched and fact-checked via web search as of August
   2026, not pulled from a live news feed. They highlight major events but are not exhaustive.
-- **Financing Arrangements now cover all 34 countries explicitly** — either a verified IMF/
-  multilateral program (amount, approval date, status), or a sourced explanation of why none
-  exists (net-creditor Gulf states with no IMF borrowing, or sanctions/arrears-blocked cases like
-  Iran and Syria). Instrument-level bond/loan maturity schedules (a true "debt rollover wall") are
-  still out of scope entirely — that needs a specialized debt database (Bloomberg, the IMF's
-  sovereign debt investor relations portal, or national debt management offices), not a research
-  pass over public web sources.
-- **Key Economic Partners and Trade/Sector Profiles cover all 34 countries in comparable depth**
-  — each entry now runs 5-8 sourced sentences covering creditors, major foreign investors, key
-  allies/rivals, and at least one named recent (2024-2026) development, backed by 4-6 cited
-  sources per country. Where a claim cites a specific figure or date, that figure has a named
-  source; general economic structure (e.g. "Kuwait relies on oil exports") reflects well-
-  established economic geography rather than requiring a single citation.
-- **Major Economic Sanctions covers all 34 countries** — either the verified sanctions regimes a
-  country has faced (imposing body, reason, current status, and economic impact where a real
-  figure exists), or an explicit statement that none was found, rather than an empty section.
-  FATF grey-listing (a financial-transparency watchlist) is deliberately distinguished from an
-  actual sanction where relevant (e.g. Pakistan). This is a snapshot as of the research date, not
-  a live feed — a sanctions regime can be imposed, modified, or lifted at any time (Syria's 2025
-  sanctions rollback after Assad's fall is a recent example already reflected here).
+- **Financing Arrangements, Key Economic Partners, Trade/Sector Profiles, Major Economic
+  Sanctions, and HDI are deliberately scoped to 7 of the 34 countries** (Turkey and the Horn of
+  Africa group: Sudan, South Sudan, Ethiopia, Somalia, Djibouti, Eritrea) rather than attempted
+  for all 34 — these are the cases with the strongest, most current public sourcing, and each
+  entry runs several sourced sentences with named citations rather than a thin, uncited stub.
+  Where present, Financing Arrangements gives a verified IMF/multilateral program (amount,
+  approval date, status) or a sourced explanation of why none exists; Major Economic Sanctions
+  gives the verified sanctions regimes a country has faced (imposing body, reason, current
+  status, economic impact) or an explicit statement that none was found. Instrument-level
+  bond/loan maturity schedules (a true "debt rollover wall") are out of scope entirely for any
+  country — that needs a specialized debt database (Bloomberg, the IMF's sovereign debt investor
+  relations portal, or national debt management offices), not a research pass over public web
+  sources. This is a snapshot as of the research date, not a live feed — a sanctions regime or
+  IMF program can be imposed, modified, or lifted at any time (Syria's 2025 sanctions rollback
+  after Assad's fall would be a recent example, if Syria were in this scoped set).
 - Weights are a transparent, reasonable starting point — not a backtested or econometrically
   validated model. Research/screening tool, not investment advice.
 - **Built with AI assistance**, under the author's direction — both the code and the qualitative
@@ -3471,9 +3493,10 @@ with tab7:
     st.markdown('<div class="section-tag">Rigor, Honestly Scoped</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Toward a Statistically Validated Model</div>', unsafe_allow_html=True)
     st.markdown(
-        "Equal weighting is a deliberate starting point, not a claim that all 10 factors matter "
-        "equally in reality. A real validation pass would run in two directions: **(1) redundancy** "
-        "— principal component analysis across the 10 factors to check for multicollinearity (Government "
+        "Pillar-balanced weighting (50% economic, 50% governance, equal within each pillar) is a "
+        "deliberate starting point, not a claim that all 11 factors matter equally in reality. A real "
+        "validation pass would run in two directions: **(1) redundancy** "
+        "— principal component analysis across the 11 factors to check for multicollinearity (Government "
         "Effectiveness and Control of Corruption, both WGI dimensions, are the likeliest candidates to "
         "be capturing overlapping variance rather than independent signal), and **(2) predictive "
         "validity** — backtesting the composite score's year-over-year direction against realized "
@@ -3508,7 +3531,7 @@ with tab7:
         {
             "code": "SYR", "label": "Syria — civil war escalation", "mark_years": [2011, 2012],
             "verdict_type": "success",
-            "verdict": "The score jumped **+31.8 points in a single year** (2011→2012) — exactly when the "
+            "verdict": "The score jumped **+22.0 points in a single year** (2011→2012) — exactly when the "
                        "uprising escalated into full civil war. The sharpest, most immediate capture of any "
                        "case tested here: registered in the same year it happened, not with a lag.",
         },
@@ -3516,14 +3539,14 @@ with tab7:
             "code": "LKA", "label": "Sri Lanka — 2022 economic collapse & default", "mark_years": [2022],
             "verdict_type": "success",
             "verdict": "The 2022 collapse (fuel/food shortages, mass protests, the president's ouster) shows "
-                       "as a **+9.3 point jump in exactly that year** — and the recovery is captured too: the "
-                       "score fell in both 2023 and 2024 as the 2023 IMF program took hold. Both the crisis "
-                       "and the stabilization land in the correct years.",
+                       "as a **+13.9 point jump in exactly that year** — and the recovery is captured too: the "
+                       "score fell sharply in 2023 (-16.2) as the 2023 IMF program took hold, then held roughly "
+                       "steady in 2024. Both the crisis and the stabilization land in the correct years.",
         },
         {
             "code": "AFG", "label": "Afghanistan — 2021 Taliban takeover", "mark_years": [2021],
             "verdict_type": "success",
-            "verdict": "The August 2021 regime change shows as a **+9.9 point jump in the same calendar "
+            "verdict": "The August 2021 regime change shows as a **+14.2 point jump in the same calendar "
                        "year** — a same-year capture of a sudden political shock, not a lagged one.",
         },
         {
@@ -3537,21 +3560,33 @@ with tab7:
         },
         {
             "code": "PAK", "label": "Pakistan — 2022-2023 balance-of-payments crisis", "mark_years": [2022, 2023],
-            "verdict_type": "lag",
-            "verdict": "The crisis built through 2022, but the score barely moved that year (+0.6). The bulk "
-                       "of the increase (**+5.5**) landed in **2023**, the year the IMF program was actually "
-                       "signed and the crisis was most acute — again roughly a one-year lag, followed by a "
-                       "correct improvement in 2024 as the program took hold.",
+            "verdict_type": "success",
+            "verdict": "Adding a currency-depreciation factor changed this case: the score now rises "
+                       "**+3.4 points in 2022 itself** — the year the rupee first depreciated sharply and "
+                       "reserves came under real pressure — rather than waiting for 2023 as the prior "
+                       "10-factor version did. It then falls in both 2023 (-2.9) and 2024 (-1.3) as the IMF "
+                       "Stand-By Arrangement took hold. One honest caveat: Pakistan's currency actually "
+                       "depreciated *more* in 2023 (36.8%) than 2022 (25.8%) in raw terms, but that risk "
+                       "signal gets compressed by cross-sectional normalization, since Lebanon's currency "
+                       "collapsed by over 800% that same year (see Egypt's case below for the same effect) — "
+                       "a real limitation of ranking countries only relative to each other.",
         },
         {
             "code": "EGY", "label": "Egypt — 2022-2023 currency crisis", "mark_years": [2022, 2023],
             "verdict_type": "miss",
-            "verdict": "**The clearest miss.** Egypt's currency crisis — the EGP devalued sharply multiple "
-                       "times starting in 2022, with the IMF program expanded twice — barely registers: the "
-                       "score actually *fell* in 2022, the crisis's most acute year. None of the 10 tracked "
-                       "factors is an exchange-rate indicator by design (see the Economic/Macro gaps this "
-                       "audit already surfaces), and that gap shows up directly here rather than being papered "
-                       "over.",
+            "verdict": "**Still a miss, but for a more interesting reason now.** A currency-depreciation "
+                       "factor was added to this model specifically because Egypt's crisis didn't move the "
+                       "prior 10-factor score at all. It helps partially: Egypt's normalized currency-risk "
+                       "reading does rise from near-zero to 22.6 in 2022, a real signal. But the composite "
+                       "still *falls* slightly in both 2022 (-0.7) and 2023 (-3.7), for two reasons visible "
+                       "directly in the driver data: the current account and GDP growth readings improve in "
+                       "*relative* terms those years (Egypt's import compression narrows its deficit on paper, "
+                       "and its growth held up better than many peers mid-crisis), and in 2023 specifically, "
+                       "Egypt's own currency signal gets crushed by cross-sectional normalization — Lebanon's "
+                       "exchange rate depreciated over 800% that year, which compresses every other country's "
+                       "currency-risk score on the same 0-100 scale. So closing the 'no FX indicator' gap "
+                       "wasn't enough on its own; it surfaced a second, deeper limitation of ranking countries "
+                       "only relative to each other rather than against an absolute threshold.",
         },
     ]
     VERDICT_COLOR = {"success": "#34d399", "lag": "#fbbf24", "miss": "#f87171"}
@@ -3585,21 +3620,24 @@ with tab7:
         st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown(
-        "**Overall:** of these 6 cases, 3 captured the crisis in the same calendar year it happened "
-        "(Syria, Sri Lanka, Afghanistan), 2 captured it correctly but roughly a year late (Lebanon, "
-        "Pakistan) — consistent with this being annual, backward-looking data, not a live feed — and 1 "
-        "missed it substantially (Egypt), specifically because no tracked factor captures exchange-rate "
-        "shocks. That's exactly the kind of test a composite index should go through before anyone treats "
-        "it as more than what it claims to be: a transparent screening tool, not an early-warning system."
+        "**Overall:** of these 6 cases, 4 captured the crisis in the same calendar year it happened "
+        "(Syria, Sri Lanka, Afghanistan, and now Pakistan since the currency-depreciation factor was "
+        "added), 1 captured it correctly but roughly a year late (Lebanon) — consistent with this being "
+        "annual, backward-looking data, not a live feed — and 1 still misses it substantially (Egypt), "
+        "for the more nuanced reason explained above: a real signal exists but gets diluted by an even "
+        "larger currency shock elsewhere the same year. That's exactly the kind of test a composite index "
+        "should go through before anyone treats it as more than what it claims to be: a transparent "
+        "screening tool, not an early-warning system."
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Beyond World Bank &amp; IMF</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
+    _imf_fallback_count = int((scored.get("debt_to_gdp_source") == "IMF WEO (fallback)").sum()) if "debt_to_gdp_source" in scored.columns else 0
     st.markdown(
-        "The 10-factor risk score is built primarily on World Bank data, with IMF World Economic "
-        "Outlook debt figures used as an automatic fallback for the 13 countries where the World Bank "
-        "has no debt-to-GDP figure on file (see below) — for consistency and reproducibility. The "
+        f"The 11-factor risk score is built primarily on World Bank data, with IMF World Economic "
+        f"Outlook debt figures used as an automatic fallback for the {_imf_fallback_count} countries where "
+        f"the World Bank has no debt-to-GDP figure on file (see below) — for consistency and reproducibility. The "
         "qualitative layers — Historical Context, Live Conflicts, Key Economic Partners, Trade/Sector "
         "Profiles, and Credit Ratings — draw on a much broader set of reputable sources, reflecting "
         "how real political risk research actually works: no single database covers conflict "

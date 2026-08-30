@@ -63,11 +63,24 @@ ECON_INDICATORS = {
     "FP.CPI.TOTL.ZG": "inflation",
 }
 
+# Raw exchange-rate LEVEL (LCU per US$) -- fetched here purely as the input to a
+# DERIVED year-over-year risk factor (currency_depreciation_pct, built below in
+# main()). The level itself isn't a risk signal (a currency trading at, say,
+# 3.75 per dollar forever, like Saudi Arabia's peg, isn't "risky" just because
+# of the number) -- what matters for sovereign risk is how FAST it's moving,
+# which is exactly the gap this app's own backtest validation section flagged:
+# Egypt's 2022-23 currency crisis didn't register because no tracked factor
+# was an exchange-rate indicator. This key is intentionally NOT in
+# ECON_INDICATORS -- it never enters the composite score directly, only via
+# the derived pct-change factor computed from it.
+FX_RATE_INDICATOR = {"PA.NUS.FCRF": "official_exchange_rate_lcu_usd"}
+
 # Investment/trade context (descriptive only — NOT part of the risk score)
 CONTEXT_INDICATORS = {
     "BX.KLT.DINV.WD.GD.ZS": "fdi_net_inflows_pct_gdp",
     "NE.EXP.GNFS.ZS": "exports_pct_gdp",
     "NE.IMP.GNFS.ZS": "imports_pct_gdp",
+    **FX_RATE_INDICATOR,
     # Dollar-denominated scale indicators — descriptive context (how large the
     # economy/reserve buffer actually is in absolute terms), not part of the
     # risk score, which is intentionally built on ratios (% of GDP, months of
@@ -300,14 +313,42 @@ def main():
         print(f"Fetched: {name}")
 
     long_df = pd.DataFrame(all_rows)
+
+    # ---------- Derive currency_depreciation_pct from the raw FX rate level ----------
+    # Year-over-year % change in LCU-per-USD, per country: a positive value means
+    # the local currency needed MORE units per dollar than the prior year (i.e.
+    # depreciation). Computed here, in long format, so it flows into BOTH the
+    # current snapshot (wide_df below) and every historical year in
+    # scored_history.csv via compute_scores.py's existing per-year pivot logic --
+    # exactly like every other factor, not a bolted-on current-year-only patch.
+    fx_col = FX_RATE_INDICATOR["PA.NUS.FCRF"]
+    fx_long = long_df[long_df["indicator"] == fx_col].sort_values(["country_code", "year"])
+    depreciation_rows = []
+    for code, group in fx_long.groupby("country_code"):
+        group = group.sort_values("year")
+        prior_value = None
+        prior_year = None
+        for _, r in group.iterrows():
+            if prior_value is not None and r["year"] == prior_year + 1 and prior_value != 0:
+                pct_change = (r["value"] - prior_value) / abs(prior_value) * 100
+                depreciation_rows.append({
+                    "country_code": code, "country": r["country"],
+                    "indicator": "currency_depreciation_pct",
+                    "year": r["year"], "value": pct_change,
+                })
+            prior_value = r["value"]
+            prior_year = r["year"]
+
+    long_df = pd.concat([long_df, pd.DataFrame(depreciation_rows)], ignore_index=True)
     long_df.to_csv("raw_data_long.csv", index=False)
 
     # Also produce a "latest available value per indicator" wide table for convenience
+    ALL_WIDE_COLUMNS = list(INDICATORS.values()) + ["currency_depreciation_pct"]
     latest_rows = []
     for code, name in COUNTRIES.items():
         row = {"country_code": code, "country": name}
         sub = long_df[long_df["country_code"] == code]
-        for col_name in INDICATORS.values():
+        for col_name in ALL_WIDE_COLUMNS:
             ind_sub = sub[sub["indicator"] == col_name].sort_values("year", ascending=False)
             if not ind_sub.empty:
                 row[col_name] = ind_sub.iloc[0]["value"]

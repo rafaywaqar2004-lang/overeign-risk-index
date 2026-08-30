@@ -112,7 +112,7 @@ class CountryBriefPDF(FPDF):
 def generate_country_pdf(
     country_name, country_code, row, brief_text, ratings,
     trade_profile, events, arrangements, partner_info, last_refreshed,
-    top_risk_factors=None, confidence=None, total_countries=34,
+    top_risk_factors=None, confidence=None, total_countries=34, total_factors=11,
 ):
     pdf = CountryBriefPDF(format="A4")
     pdf.set_auto_page_break(auto=True, margin=18)
@@ -138,7 +138,7 @@ def generate_country_pdf(
         ["Score", score_display],
         ["Risk Tier", str(row.get("risk_tier", "N/A"))],
         ["Regional Rank", f"{int(row['risk_rank'])} of {total_countries}" if row.get("risk_rank") == row.get("risk_rank") else "N/A"],
-        ["Confidence", f"{factors_used} of 10 factors reported" + (" (lower confidence)" if factors_used < 8 else "")],
+        ["Confidence", f"{factors_used} of {total_factors} factors reported" + (" (lower confidence)" if factors_used < round(total_factors * 0.8) else "")],
     ]
     if row.get("yoy_change") == row.get("yoy_change"):
         direction = "worsening" if row["yoy_change"] > 0 else "improving"

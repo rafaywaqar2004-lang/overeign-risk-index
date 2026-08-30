@@ -8,11 +8,17 @@ Computes:
                              (for the YoY point-attribution breakdown -- exactly which
                              factors drove a score change, and by how much)
 
-Methodology (v3):
-- 10 factors across two pillars, 5 each:
-    Economic:   debt, current account, reserves, GDP growth, inflation
-    Governance: political stability, government effectiveness, rule of
-                law, regulatory quality, control of corruption
+Methodology (v4):
+- 11 factors across two pillars:
+    Economic (6, 1/12 weight each -- 50% of the composite):
+        debt, current account, reserves, GDP growth, inflation,
+        currency depreciation (YoY % change in the official USD exchange rate --
+        added to close a gap this project's own historical backtest surfaced:
+        Egypt's 2022-23 currency crisis didn't move the score at all under the
+        prior 10-factor version, since no tracked factor was an FX indicator)
+    Governance (5, 1/10 weight each -- 50% of the composite):
+        political stability, government effectiveness, rule of law,
+        regulatory quality, control of corruption
 - Each factor is min-max normalized to 0-100 (100 = riskiest) CROSS-SECTIONALLY
   (i.e. relative to the other countries in the sample, for that same year).
 - Missing factors are dropped per-country and remaining weights rescaled
@@ -25,11 +31,12 @@ import pandas as pd
 from datetime import datetime, timezone
 
 WEIGHTS = {
-    "debt_to_gdp": 0.10,
-    "current_account_pct_gdp": 0.10,
-    "reserves_months_imports": 0.10,
-    "gdp_growth": 0.10,
-    "inflation": 0.10,
+    "debt_to_gdp": 1 / 12,
+    "current_account_pct_gdp": 1 / 12,
+    "reserves_months_imports": 1 / 12,
+    "gdp_growth": 1 / 12,
+    "inflation": 1 / 12,
+    "currency_depreciation_pct": 1 / 12,
     "political_stability": 0.10,
     "government_effectiveness": 0.10,
     "rule_of_law": 0.10,
@@ -43,6 +50,7 @@ HIGHER_IS_RISKIER = {
     "reserves_months_imports": False,
     "gdp_growth": False,
     "inflation": True,
+    "currency_depreciation_pct": True,
     "political_stability": False,
     "government_effectiveness": False,
     "rule_of_law": False,
@@ -56,6 +64,7 @@ FACTOR_LABELS = {
     "reserves_months_imports": "Reserves Cover",
     "gdp_growth": "GDP Growth",
     "inflation": "Inflation",
+    "currency_depreciation_pct": "Currency Depreciation",
     "political_stability": "Political Stability",
     "government_effectiveness": "Govt. Effectiveness",
     "rule_of_law": "Rule of Law",
@@ -96,11 +105,12 @@ _LIVE_EXPORT_RENAME = {
     "country": "Country", "country_code": "Country Code",
     "debt_to_gdp": "Debt To GDP (%)", "current_account_pct_gdp": "Current Account (% GDP)",
     "reserves_months_imports": "Reserves (Months Of Imports)", "gdp_growth": "GDP Growth (%)",
-    "inflation": "Inflation (%)", "political_stability": "Political Stability (WGI)",
+    "inflation": "Inflation (%)", "currency_depreciation_pct": "Currency Depreciation YoY (%)",
+    "political_stability": "Political Stability (WGI)",
     "government_effectiveness": "Government Effectiveness (WGI)", "rule_of_law": "Rule Of Law (WGI)",
     "regulatory_quality": "Regulatory Quality (WGI)", "control_of_corruption": "Control Of Corruption (WGI)",
     "fdi_net_inflows_pct_gdp": "FDI Net Inflows (% GDP)", "exports_pct_gdp": "Exports (% GDP)",
-    "imports_pct_gdp": "Imports (% GDP)",
+    "imports_pct_gdp": "Imports (% GDP)", "official_exchange_rate_lcu_usd": "Official Exchange Rate (LCU per USD)",
     "risk_score": "Composite Risk Score", "risk_score_factors_used": "Factors Used",
     "risk_tier": "Risk Tier", "risk_rank": "Regional Rank",
     "yoy_change": "YoY Change", "yoy_latest_year": "YoY Latest Year", "yoy_prior_year": "YoY Prior Year",
@@ -176,7 +186,7 @@ def main():
     # built from a completely different, much narrower factor set than neighboring
     # years — creating a fake-looking swing in the trend/YoY that reflects a change
     # in what's being measured, not real-world risk.
-    ECON_FACTORS = ["debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports", "gdp_growth", "inflation"]
+    ECON_FACTORS = ["debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports", "gdp_growth", "inflation", "currency_depreciation_pct"]
     GOV_FACTORS = ["political_stability", "government_effectiveness", "rule_of_law", "regulatory_quality", "control_of_corruption"]
 
     history_rows = []
