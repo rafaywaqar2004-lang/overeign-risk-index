@@ -2,6 +2,7 @@ import re
 import numpy as np
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 import plotly.express as px
 import plotly.graph_objects as go
 import yfinance as yf
@@ -2677,8 +2678,14 @@ with tab4:
             if map_click and map_click.selection and map_click.selection.get("points"):
                 clicked_point = map_click.selection["points"][0]
                 clicked_cd = clicked_point.get("customdata")
-                if clicked_cd:
+                if clicked_cd and clicked_cd[0] != st.session_state.get("focused_conflict"):
                     st.session_state["focused_conflict"] = clicked_cd[0]
+                    # A click doesn't trigger a fresh page load -- the map and the
+                    # matching conflict card can be a long scroll apart, so without
+                    # this the user sees no visible change at all and reasonably
+                    # assumes the click did nothing. Scrolled into view once, right
+                    # before the conflict list renders below.
+                    st.session_state["_scroll_to_conflict_pending"] = True
 
             # Plotly's selection system has long-standing, well-documented gaps
             # on geo subplots specifically (the same reason the chokepoint map
@@ -2695,6 +2702,7 @@ with tab4:
             )
             if _selected_focus != "— Select a conflict —" and _selected_focus != st.session_state.get("focused_conflict"):
                 st.session_state["focused_conflict"] = _selected_focus
+                st.session_state["_scroll_to_conflict_pending"] = True
                 st.rerun()
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -2704,6 +2712,37 @@ with tab4:
             visible_conflicts.sort(key=lambda c: c["name"] != focused_name)
             if focused_name in matching_names:
                 st.info(f"📍 Jumped here from the map: **{focused_name}**. Scroll down for the rest, or click a different marker above.", icon="📍")
+
+        st.markdown('<div id="conflict-detail-anchor"></div>', unsafe_allow_html=True)
+        if st.session_state.pop("_scroll_to_conflict_pending", False):
+            # st.markdown can't reliably execute injected <script> tags -- Streamlit
+            # renders that content straight into the page's own React tree, which
+            # doesn't run scripts the way a normal browser parse would. components.v1.html
+            # runs in its own same-origin iframe, so the script has to reach back into
+            # window.parent to scroll the actual page rather than its own 0-height frame.
+            # Retried for ~1s since the anchor may not exist in the parent DOM yet on the
+            # very first paint after a rerun.
+            components.html(
+                """
+                <script>
+                (function() {
+                    var attempts = 0;
+                    var timer = setInterval(function() {
+                        attempts++;
+                        var doc = window.parent.document;
+                        var el = doc.getElementById('conflict-detail-anchor');
+                        if (el) {
+                            el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                            clearInterval(timer);
+                        } else if (attempts > 20) {
+                            clearInterval(timer);
+                        }
+                    }, 50);
+                })();
+                </script>
+                """,
+                height=0,
+            )
 
         st.markdown(
             f'<div class="section-tag">Showing {len(visible_conflicts)} of {len(LIVE_CONFLICTS)} Tracked Flashpoints</div>',
