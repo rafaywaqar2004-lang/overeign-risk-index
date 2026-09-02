@@ -12,6 +12,24 @@ designed to be useful as a genuine research reference, not just a scorecard.
 
 **Live app:** https://menasa-risk-monitor.onrender.com
 
+## Written analytic briefs
+
+`briefs/` holds two standalone written analytic pieces built on this tool's own data -- the analytical
+narrative half to this dashboard's quantitative half:
+
+- [`sovereign-debt-and-political-instability.md`](briefs/sovereign-debt-and-political-instability.md) --
+  three case studies (Pakistan, Sri Lanka, Bangladesh) in fiscal-political feedback loops, grounded in
+  `scored_data.csv`/`driver_data.csv` and this repo's curated historical-context/credit-rating/
+  current-government records. Published: https://claude.ai/code/artifact/8908bad9-96cc-48e4-8aa1-752d37f7968d
+- [`mena-geopolitical-risk-brief-issue-01.md`](briefs/mena-geopolitical-risk-brief-issue-01.md) -- Issue
+  No. 1 of a monthly regional-digest series, grounded in the regional snapshot data and the curated
+  `LIVE_CONFLICTS` dataset. Published: https://claude.ai/code/artifact/9203fd21-1872-464b-94cb-b72b3b9143a7
+
+Both were originally written and committed in the companion Gulf AI & Tech-Bloc Alignment Tracker repo
+(`rafaywaqar2004-lang/oaqjp-final-project-emb-ai`) -- the one a session had write access to at the time --
+then moved here once a session had push access to this repo directly, since both are grounded in this
+project's data and belong with it, not with the Gulf tracker.
+
 ## Features
 
 - **Regional Overview** — a choropleth risk map, ranked bar chart across all
