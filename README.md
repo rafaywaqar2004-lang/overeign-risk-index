@@ -222,3 +222,29 @@ guesses. What *was* built:
 - **Two-column PDF layout**: the country brief's score summary and credit
   ratings now render side by side on the page, matching the denser,
   structured look of an actual analyst one-pager.
+
+## v9 additions — Economic/Political Risk split & Upcoming Catalysts
+
+Inspired by comparing this tool's approach against a commercial country-risk
+product (Fitch Solutions' BMI Country Risk Service): two features adapted to
+what a public-data, non-fabricating tool can responsibly do.
+
+- **Economic Risk Index / Political Risk Index**: the composite score's two
+  existing pillars (economic fundamentals and governance/political risk),
+  now reported as their own 0-100 sub-scores rather than only a single
+  blended number. Not a new model — since each pillar is exactly 50% of the
+  composite's weight, `composite = 0.5×economic + 0.5×political` whenever
+  both have full coverage. Shown on every Country Deep Dive page, plus a
+  region-wide Economic Risk vs. Political Risk quadrant chart on the
+  Overview tab, surfacing profiles a single blended score hides (e.g. a
+  Gulf state with low economic risk but comparatively higher political
+  risk, or a fiscally strained but comparatively stable-governed state).
+- **Upcoming Catalysts**: a deliberately small, non-exhaustive calendar of
+  concrete, dated, sourced forward-looking events — scheduled elections,
+  IMF program review windows, similar institutional milestones — verified
+  against official/primary sources (IMF press releases and program
+  documents, national election authorities, major wire services), not
+  estimated or projected. Consistent with this project's "never silently
+  fill a gap" principle: a country with nothing verified shows an explicit
+  "no confirmed near-term catalyst identified" message rather than a
+  manufactured placeholder. See `catalysts_data.py`.

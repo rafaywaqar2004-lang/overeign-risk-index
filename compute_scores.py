@@ -26,6 +26,13 @@ Methodology (v4):
 - FDI (net inflows, % GDP) is tracked separately as descriptive investment
   context — it is NOT part of the risk score, since investment direction
   isn't unambiguously "risk," it's a related but distinct signal.
+- Economic Risk Index / Political Risk Index (v9): the same two pillars,
+  reported as their own 0-100 sub-scores (not a separate model) in both
+  scored_data.csv and scored_history.csv. Since each pillar carries exactly
+  50% of the composite's weight, risk_score == 0.5*economic + 0.5*political
+  whenever both pillars have full coverage -- letting the app show, e.g., a
+  Gulf state's low economic risk against its comparatively higher political
+  risk, or the reverse, rather than only the blended number.
 """
 import pandas as pd
 from datetime import datetime, timezone
@@ -72,6 +79,15 @@ FACTOR_LABELS = {
     "control_of_corruption": "Control of Corruption",
 }
 
+# The composite's two pillars, each exactly 50% of the total weight (6 econ
+# factors x 1/12 = 0.5; 5 governance factors x 0.10 = 0.5). Split out here so
+# the same two lists drive both the historical pillar-coverage gate below AND
+# the Economic/Political Risk Index sub-scores -- a separate reading of "is
+# this a fragile-but-well-governed economy, or a stable economy with acute
+# governance/political risk" that a single blended composite hides.
+ECON_FACTORS = ["debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports", "gdp_growth", "inflation", "currency_depreciation_pct"]
+GOV_FACTORS = ["political_stability", "government_effectiveness", "rule_of_law", "regulatory_quality", "control_of_corruption"]
+
 
 def normalize_to_risk_0_100(series, higher_is_riskier):
     valid = series.dropna()
@@ -112,6 +128,8 @@ _LIVE_EXPORT_RENAME = {
     "fdi_net_inflows_pct_gdp": "FDI Net Inflows (% GDP)", "exports_pct_gdp": "Exports (% GDP)",
     "imports_pct_gdp": "Imports (% GDP)", "official_exchange_rate_lcu_usd": "Official Exchange Rate (LCU per USD)",
     "risk_score": "Composite Risk Score", "risk_score_factors_used": "Factors Used",
+    "economic_risk_score": "Economic Risk Index", "economic_risk_factors_used": "Economic Factors Used",
+    "political_risk_score": "Political Risk Index", "political_risk_factors_used": "Political Factors Used",
     "risk_tier": "Risk Tier", "risk_rank": "Regional Rank",
     "yoy_change": "YoY Change", "yoy_latest_year": "YoY Latest Year", "yoy_prior_year": "YoY Prior Year",
 }
@@ -169,6 +187,17 @@ def main():
     df["risk_tier"] = df["risk_score"].apply(risk_tier)
     df["risk_rank"] = df["risk_score"].rank(ascending=False, method="min")
 
+    # ---------- Economic Risk Index / Political Risk Index (pillar sub-scores) ----------
+    # Same normalized sub-scores, same missing-data rescaling, restricted to one
+    # pillar's factors -- NOT a new model, just the existing composite's two
+    # halves reported separately. Because each pillar is exactly 50% of the
+    # composite by construction, risk_score == 0.5*economic + 0.5*political
+    # whenever both pillars have full coverage.
+    df["economic_risk_score"] = compute_weighted_score(risk_df[ECON_FACTORS])
+    df["economic_risk_factors_used"] = risk_df[ECON_FACTORS].notna().sum(axis=1)
+    df["political_risk_score"] = compute_weighted_score(risk_df[GOV_FACTORS])
+    df["political_risk_factors_used"] = risk_df[GOV_FACTORS].notna().sum(axis=1)
+
     df_sorted = df.sort_values("risk_score", ascending=False, na_position="last")
     df_sorted.to_csv("scored_data.csv", index=False)
 
@@ -186,9 +215,6 @@ def main():
     # built from a completely different, much narrower factor set than neighboring
     # years — creating a fake-looking swing in the trend/YoY that reflects a change
     # in what's being measured, not real-world risk.
-    ECON_FACTORS = ["debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports", "gdp_growth", "inflation", "currency_depreciation_pct"]
-    GOV_FACTORS = ["political_stability", "government_effectiveness", "rule_of_law", "regulatory_quality", "control_of_corruption"]
-
     history_rows = []
     driver_history_rows = []
     years = sorted(long_df["year"].unique())
@@ -214,7 +240,11 @@ def main():
                 continue
             if econ_coverage.get(country_code, 0) == 0 or gov_coverage.get(country_code, 0) == 0:
                 continue  # one whole pillar missing this year — not a comparable composite
-            history_rows.append({"country_code": country_code, "year": year, "risk_score": score})
+            history_rows.append({
+                "country_code": country_code, "year": year, "risk_score": score,
+                "economic_risk_score": compute_weighted_score(year_risk_df.loc[[country_code], ECON_FACTORS]).iloc[0],
+                "political_risk_score": compute_weighted_score(year_risk_df.loc[[country_code], GOV_FACTORS]).iloc[0],
+            })
             # Same-gated per-factor normalized sub-scores for this country-year --
             # lets the app decompose a YoY score change into each factor's exact
             # point contribution (weight x change in sub-score, rescaled weights

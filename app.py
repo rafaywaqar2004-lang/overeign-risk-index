@@ -8,6 +8,26 @@ import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime, timezone
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS, HDI_DATA, CURRENT_GOVERNMENT
+from catalysts_data import UPCOMING_CATALYSTS, LAST_REVIEWED as CATALYSTS_LAST_REVIEWED
+
+
+def catalyst_sort_key(date_str):
+    """UPCOMING_CATALYSTS mixes exact ISO dates ('2026-09-23') with honest
+    windows/placeholders ('TBA (pending, per IMF)', '2026 Q4 (on or after Nov
+    1, 2026)', 'By mid-2028') where the source itself doesn't give an exact
+    date -- deliberately, rather than guessing one. Sorts by the most
+    specific date found in the string (day > month > year > none), so a
+    calendar mixing both still reads chronologically instead of by string."""
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", date_str)
+    if m:
+        return tuple(int(g) for g in m.groups())
+    m = re.search(r"(\d{4})-(\d{2})\b", date_str)
+    if m:
+        return (int(m.group(1)), int(m.group(2)), 99)
+    m = re.search(r"(20\d{2})", date_str)
+    if m:
+        return (int(m.group(1)), 99, 99)
+    return (9999, 99, 99)
 from geoeconomic_data import MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS, TRADE_ARTERIES, TRADE_ALLIANCES, MENASA_COUNTRY_ALLIANCES, COUNTRY_CAPITAL_COORDS, RESOURCE_BENCHMARKS, SEMICONDUCTOR_SUBDIVISIONS, ENERGY_FLOW_GRANULARITY, UNCTAD_RMT_2025
 from pdf_export import generate_country_pdf
 # Reuse the exact scoring methodology from compute_scores.py for the
@@ -1487,6 +1507,52 @@ with tab1:
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Two Pillars, One Composite</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Economic Risk vs. Political Risk</div>', unsafe_allow_html=True)
+    quad_df = scored.dropna(subset=["economic_risk_score", "political_risk_score"]).copy()
+    fig_quad = px.scatter(
+        quad_df, x="economic_risk_score", y="political_risk_score",
+        color="risk_tier", color_discrete_map=TIER_COLORS, text="country_code",
+        hover_name="country",
+        hover_data={"economic_risk_score": ":.1f", "political_risk_score": ":.1f", "risk_tier": True, "country_code": False},
+        labels={"economic_risk_score": "Economic Risk Index (0-100)", "political_risk_score": "Political Risk Index (0-100)"},
+    )
+    fig_quad.update_traces(textposition="top center", textfont=dict(size=8))
+    fig_quad.add_hline(y=50, line_dash="dot", line_color="rgba(255,255,255,0.2)")
+    fig_quad.add_vline(x=50, line_dash="dot", line_color="rgba(255,255,255,0.2)")
+    st.plotly_chart(style_chart(fig_quad, height=520), use_container_width=True)
+    st.caption(
+        "Same underlying data as the composite score, split into its two halves so a country's "
+        "risk profile isn't reduced to one number. The bottom-left quadrant (low on both axes) is "
+        "where most Gulf net-creditor states sit; the top-left quadrant — sound fundamentals but "
+        "elevated political/governance risk — and the bottom-right — fiscally strained but "
+        "comparatively stable governance — are the two profiles a single blended score would hide."
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Forward-Looking</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Upcoming Catalysts Calendar</div>', unsafe_allow_html=True)
+    _all_catalysts = [
+        {"country": scored.loc[scored["country_code"] == cc, "country"].iloc[0], "country_code": cc, **event}
+        for cc, events in UPCOMING_CATALYSTS.items() if cc in scored["country_code"].values
+        for event in events
+    ]
+    if _all_catalysts:
+        _sortable = sorted(_all_catalysts, key=lambda e: catalyst_sort_key(e["date"]))
+        custom_table(
+            [[e["date"], e["country"], e["category"], e["event"]] for e in _sortable],
+            ["Date", "Country", "Category", "Event"],
+        )
+        st.caption(
+            f"{len(_sortable)} confirmed, sourced, dated events across {len(UPCOMING_CATALYSTS)} of "
+            f"{TOTAL_COUNTRIES} countries as of {CATALYSTS_LAST_REVIEWED} — open a country's Deep Dive "
+            "tab for full detail and sources. Every other country has no confirmed near-term catalyst "
+            "in the current sourced data, not zero risk."
+        )
+    else:
+        st.caption("No confirmed near-term catalysts on file.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f'<div class="section-tag">{DATA_YEAR_RANGE}</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Historical Trend</div>', unsafe_allow_html=True)
     trend_countries = st.multiselect(
@@ -1627,6 +1693,34 @@ with tab2:
                 unsafe_allow_html=True,
             )
             st.caption(conf_detail)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        with st.container(border=True):
+            st.markdown('<div class="section-tag">The Composite, Split in Two</div>', unsafe_allow_html=True)
+            econ_sub = row.get("economic_risk_score")
+            pol_sub = row.get("political_risk_score")
+            sub_col1, sub_col2 = st.columns(2)
+            with sub_col1:
+                econ_display = f"{econ_sub:.1f}" if pd.notna(econ_sub) else "N/A"
+                st.markdown('<div class="stat-label">Economic Risk Index</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="stat-value" style="font-size:1.5rem;">{econ_display}</div>', unsafe_allow_html=True)
+                if pd.notna(row.get("economic_risk_factors_used")):
+                    st.caption(f"{int(row['economic_risk_factors_used'])} of 6 factors")
+            with sub_col2:
+                pol_display = f"{pol_sub:.1f}" if pd.notna(pol_sub) else "N/A"
+                st.markdown('<div class="stat-label">Political Risk Index</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="stat-value" style="font-size:1.5rem;">{pol_display}</div>', unsafe_allow_html=True)
+                if pd.notna(row.get("political_risk_factors_used")):
+                    st.caption(f"{int(row['political_risk_factors_used'])} of 5 factors")
+            st.caption(
+                "The same composite score, reported as its two underlying pillars instead of one "
+                "blended number — economic fundamentals (debt, reserves, growth, inflation, current "
+                "account, currency) vs. governance/political risk (stability, rule of law, "
+                "effectiveness, regulatory quality, corruption control). Each pillar is exactly half "
+                "the composite's weight, so when both have full coverage the composite score above "
+                "is precisely the average of these two."
+            )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1828,6 +1922,38 @@ with tab2:
                 "[UNDP's Human Development Report](https://hdr.undp.org/data-center/human-development-index) "
                 "— a periodic reference figure, not a live pull."
             )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown('<div class="section-tag">Forward-Looking</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Upcoming Catalysts</div>', unsafe_allow_html=True)
+        catalysts = UPCOMING_CATALYSTS.get(country_code)
+        if catalysts:
+            for cat in sorted(catalysts, key=lambda c: catalyst_sort_key(c["date"])):
+                st.markdown(
+                    f'<div class="narrative-box"><b>{cat["date"]}</b> — '
+                    f'<span class="tier-badge" style="background:{ACCENT_DIM};color:{ACCENT};">{cat["category"]}</span> '
+                    f'<b>{cat["event"]}</b><br>{cat["detail"]}</div>',
+                    unsafe_allow_html=True,
+                )
+                if cat.get("sources"):
+                    st.markdown(
+                        "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in cat["sources"]),
+                        unsafe_allow_html=True,
+                    )
+                st.markdown("<br>", unsafe_allow_html=True)
+        else:
+            st.caption(
+                "No confirmed near-term catalyst identified in current sourced data for "
+                f"{selected}. This means nothing has been verified against a reliable source as of "
+                f"{CATALYSTS_LAST_REVIEWED} — not that nothing is happening."
+            )
+        st.caption(
+            "Only concrete, dated events verified against an official or primary source (an IMF "
+            "press release or program document, a national election authority, a major wire "
+            "service) — never a projected or estimated date. Deliberately incomplete rather than "
+            "padded: most of the 34 countries have no entry here yet."
+        )
 
     st.markdown("<br>", unsafe_allow_html=True)
     with st.container(border=True):
