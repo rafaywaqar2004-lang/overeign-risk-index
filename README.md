@@ -34,7 +34,7 @@ project's data and belong with it, not with the Gulf tracker.
 
 - **Regional Overview** — a choropleth risk map, ranked bar chart across all
   34 countries, 5 sub-regional averages, and a multi-country historical trend
-  comparison (2010-2024)
+  comparison (2010-present)
 - **Country Deep Dive**, for every one of the 34 countries:
   - An auto-generated analyst-style Country Brief
   - Composite score with regional rank and year-over-year change
@@ -252,7 +252,7 @@ what a public-data, non-fabricating tool can responsibly do.
 ## v10 additions — Drivers Analysis (panel regressions)
 
 A new **Drivers Analysis** tab: panel regressions on this app's own
-34-country, 2010–2024 dataset testing which macro/governance variables
+34-country, 2010–present dataset testing which macro/governance variables
 statistically predict political stability — Pooled OLS, Fixed Effects
 (entity + time, clustered SE by country), and Random Effects, plus a
 Hausman test, a per-variable coverage table, interactive predictor

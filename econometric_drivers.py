@@ -16,7 +16,7 @@ same World Bank indicator API fetch_data.py already uses.
 
 Coverage note (checked directly against the World Bank API): GC.XPN.TOTL.GD.ZS
 (government expenditure) has real but uneven reporting -- e.g. Egypt reports
-2010-2015 then stops, Pakistan has none in 2010-2024 at all. This is not a
+2010-2015 then stops, Pakistan has none on file for the full panel at all. This is not a
 bug in the fetch; it reflects genuinely sparse Government Finance Statistics
 reporting for several of these 34 economies. The IMF DataMapper fallback
 series named for reserves (FI_RES_MOM) does not exist as a real IMF
@@ -30,6 +30,7 @@ import subprocess
 import json
 import time
 from collections import OrderedDict
+from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
@@ -39,7 +40,12 @@ from scipy import stats as scipy_stats
 from fetch_data import COUNTRIES, fetch_indicator_series, fetch_imf_datamapper_fallback, fetch_acled_events
 
 MIN_YEAR = 2010
-MAX_YEAR = 2024
+# Tracks the current year rather than a fixed cutoff, exactly like
+# fetch_data.py's own CURRENT_YEAR -- a hardcoded MAX_YEAR would silently
+# exclude newer data (e.g. 2025 figures) that the World Bank API and this
+# app's own raw_data_long.csv already have on file, even though nothing
+# forced the panel to stop at an old year.
+MAX_YEAR = datetime.now(timezone.utc).year
 
 DV_COL = "political_stability"
 DV_LABEL = "Political Stability (WGI)"
@@ -76,7 +82,7 @@ ALL_COLS = [DV_COL] + list(IV_LABELS.keys())
 @st.cache_data(ttl=86400, show_spinner=False)
 def fetch_new_indicators_long():
     """Fetches trade_openness and gov_expenditure for all 34 countries,
-    2010-2024, from the World Bank API — the same fetch_indicator_series
+    2010-present, from the World Bank API — the same fetch_indicator_series
     fetch_data.py's own pipeline already uses for every other indicator.
     Returns a long-format DataFrame: country_code, country, indicator, year, value."""
     rows = []
@@ -92,7 +98,7 @@ def fetch_new_indicators_long():
 
 def _fetch_imf_datamapper_full_series(series_code, country_codes, retries=3):
     """Like fetch_data.fetch_imf_datamapper_fallback, but returns every
-    available year (2010-2024) per country rather than only the latest —
+    available year (2010-present) per country rather than only the latest —
     needed here because this is a per-year PANEL fallback, not a single
     current-snapshot fallback. Same real API call, same graceful empty
     return on failure or a non-existent series (see IMF_PANEL_FALLBACK_SERIES)."""

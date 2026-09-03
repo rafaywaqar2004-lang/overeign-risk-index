@@ -4027,7 +4027,7 @@ with tab7:
     st.markdown('<div class="section-title">Historical Validation Against Known Crises</div>', unsafe_allow_html=True)
     st.markdown(
         "Six well-documented, unambiguous crises, checked against this project's own historical scores "
-        "(2010-2024) with no cherry-picking of only the successes — including one clear miss below. "
+        f"({DATA_YEAR_RANGE}) with no cherry-picking of only the successes — including one clear miss below. "
         "This tests direction and timing only: did the score rise (or fall) in the right year, not "
         "whether the exact magnitude is calibrated correctly."
     )
@@ -4235,7 +4235,7 @@ with tab8:
     st.markdown('<div class="section-tag">Econometric Drivers</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Drivers Analysis</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="narrative-box">Panel regressions on this app\'s own 34-country, 2010–2024 dataset, '
+        f'<div class="narrative-box">Panel regressions on this app\'s own 34-country, {ed.MIN_YEAR}–{ed.MAX_YEAR} dataset, '
         'testing which macroeconomic and governance variables statistically predict political stability. '
         'This is illustrative, academic-style analysis for a research/screening tool — not a '
         'publication-quality paper. Read the Methodology section below before treating any coefficient as '
@@ -4261,7 +4261,7 @@ with tab8:
     else:
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown('<div class="section-tag">Panel</div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-title" style="font-size:1.05rem;">Variable Coverage, 2010–2024</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-title" style="font-size:1.05rem;">Variable Coverage, {ed.MIN_YEAR}–{ed.MAX_YEAR}</div>', unsafe_allow_html=True)
         _cov = ed.variable_coverage(drv_panel, ed.ALL_COLS)
         _cov_rows = []
         _cov_labels = {ed.DV_COL: f"{ed.DV_LABEL} (dependent variable)", **ed.IV_LABELS}
