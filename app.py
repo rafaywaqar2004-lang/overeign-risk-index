@@ -12,6 +12,7 @@ from catalysts_data import UPCOMING_CATALYSTS, LAST_REVIEWED as CATALYSTS_LAST_R
 import econometric_drivers as ed
 from fetch_data import fetch_acled_events
 import shock_scenarios as ss
+import market_signals as ms
 
 
 def catalyst_sort_key(date_str):
@@ -40,6 +41,28 @@ from pdf_export import generate_country_pdf
 from compute_scores import WEIGHTS, HIGHER_IS_RISKIER, normalize_to_risk_0_100
 
 st.set_page_config(page_title="MENASA Risk Monitor", page_icon="assets/favicon.png", layout="wide")
+
+# ============================================================
+# MARKET DATA SETTINGS (sidebar) — optional API credentials for the Country
+# Deep Dive's "Market Signals" sub-section. Session-state only: these live in
+# st.session_state for the current browser session and are NEVER written to
+# disk, logged, or sent anywhere except the named provider's own API the user
+# is choosing to query. The app works fully without any of them — every
+# affected signal just shows "Not configured" instead of a live figure.
+# ============================================================
+with st.sidebar:
+    st.markdown("#### Market Data Settings")
+    st.caption(
+        "Optional. Powers the live Market Signals sub-section on Country Deep "
+        "Dive. Kept only in this browser session — never saved to disk."
+    )
+    with st.expander("ACLED (conflict events)", expanded=False):
+        st.caption("Free account: [acleddata.com/register](https://acleddata.com/register/)")
+        st.text_input("ACLED email", key="acled_email_input", placeholder="you@example.com")
+        st.text_input("ACLED API key", key="acled_key_input", type="password")
+    with st.expander("UN Comtrade (trade concentration)", expanded=False):
+        st.caption("Free key: [comtradeapi.un.org](https://comtradeapi.un.org/)")
+        st.text_input("UN Comtrade API key", key="comtrade_key_input", type="password")
 
 # ============================================================
 # DESIGN SYSTEM — "Institute Brief": a near-black editorial theme
@@ -1860,6 +1883,74 @@ with tab2:
                 )
         else:
             st.caption("No factor data available for radar chart.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Market Signals</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Live Market-Based Indicators</div>', unsafe_allow_html=True)
+    st.caption(
+        "Supplementary to — never a substitute for — the World Bank/WGI-based risk scores above. "
+        "Each row is either real, live data or an honest \"Not configured\" / \"Not available\" — "
+        "nothing here is estimated or fabricated to fill a gap."
+    )
+    with st.spinner("Checking live market data sources..."):
+        _signals = ms.get_market_signals(
+            long_df, country_code, selected,
+            acled_key=st.session_state.get("acled_key_input") or None,
+            acled_email=st.session_state.get("acled_email_input") or None,
+            comtrade_key=st.session_state.get("comtrade_key_input") or None,
+        )
+
+    _fx, _acled, _hhi, _bond = _signals["fx_pressure"], _signals["acled"], _signals["trade_hhi"], _signals["bond_yield"]
+
+    def _signal_badge(level, color):
+        return f'<span class="tier-badge" style="background:{color}22;color:{color};">{level}</span>'
+
+    _fx_level_color = {"High": "#f87171", "Elevated": "#fbbf24", "Normal": "#34d399"}
+    _hhi_level_color = {
+        "High concentration": "#f87171",
+        "Moderate concentration": "#fbbf24",
+        "Low concentration (diversified)": "#34d399",
+    }
+    _trend_arrow = {"up": "▲ rising", "down": "▼ falling", "flat": "— flat"}
+
+    _signal_rows = []
+    if _fx["available"]:
+        _signal_rows.append([
+            "Exchange Rate Pressure",
+            _signal_badge(_fx["level"], _fx_level_color[_fx["level"]]),
+            f"{_fx['pressure_index']:.2f}× ({_fx['latest_change_pct']:+.1f}% in {_fx['latest_year']}, vs "
+            f"{_fx['volatility']:.1f} pp typical annual swing over the prior {_fx['n_years'] - 1} yrs)",
+            "World Bank WDI: PA.NUS.FCRF (annual, derived)",
+        ])
+    else:
+        _signal_rows.append(["Exchange Rate Pressure", _signal_badge("N/A", "#94a3b8"), _fx["reason"], "World Bank WDI: PA.NUS.FCRF"])
+
+    if _acled["available"]:
+        _c = _acled["counts"]
+        _signal_rows.append([
+            "Conflict Events (ACLED)",
+            _signal_badge(_trend_arrow[_acled["trend"]], "#f87171" if _acled["trend"] == "up" else ("#34d399" if _acled["trend"] == "down" else "#94a3b8")),
+            f"{_c[30]} in last 30d · {_c[90]} in last 90d · {_c[365]} in last 365d",
+            "ACLED (live API)",
+        ])
+    else:
+        _acled_label = "Not configured" if _acled.get("status") == "not_configured" else "Request failed"
+        _signal_rows.append(["Conflict Events (ACLED)", _signal_badge(_acled_label, "#94a3b8"), _acled["reason"], "ACLED"])
+
+    if _hhi["available"]:
+        _signal_rows.append([
+            "Trade Concentration (Import HHI)",
+            _signal_badge(_hhi["level"], _hhi_level_color[_hhi["level"]]),
+            f"HHI {_hhi['hhi']:.0f} / 10,000 across {_hhi['n_partners']} partners ({_hhi['year']})",
+            "UN Comtrade (live API)",
+        ])
+    else:
+        _hhi_label = "Not configured" if _hhi.get("status") == "not_configured" else "Request failed"
+        _signal_rows.append(["Trade Concentration (Import HHI)", _signal_badge(_hhi_label, "#94a3b8"), _hhi["reason"], "UN Comtrade"])
+
+    _signal_rows.append(["Sovereign Bond Yield", _signal_badge("N/A", "#94a3b8"), _bond["reason"], "—"])
+
+    custom_table(_signal_rows, ["Signal", "Status", "Detail", "Source"])
 
     st.markdown("<br>", unsafe_allow_html=True)
     gov_col, indicators_col = st.columns([1, 2])
@@ -4072,6 +4163,62 @@ with tab7:
     st.markdown(
         "".join(f'<a class="pill-link" href="{url}" target="_blank" rel="noopener noreferrer">{name} ↗</a>' for name, url in CREDIT_RATINGS_SOURCES),
         unsafe_allow_html=True,
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Country Deep Dive</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Market Signals</div>', unsafe_allow_html=True)
+    st.markdown(
+        "Four supplementary, market-based indicators shown on each Country Deep Dive page, below the "
+        "World Bank/WGI-based risk scores. They are additive context, not part of the composite score, "
+        "any factor weight, or any pillar — nothing about the risk_score, risk_tier, or the 11 tracked "
+        "factors changes because of this section."
+    )
+    custom_table(
+        [
+            [
+                "Exchange Rate Pressure",
+                "abs(latest year's % change in official exchange rate) ÷ std. dev. of the country's own "
+                "prior years' % changes.",
+                "World Bank WDI (PA.NUS.FCRF, annual, ultimately IMF-sourced) — real data already fetched "
+                "elsewhere in this app for the currency_depreciation_pct factor. <b>Disclosed limitation:</b> "
+                "IMF's own monthly effective-exchange-rate SDMX API was evaluated and found unusable within "
+                "reasonable effort — its real indicator codes are undocumented composite strings (discovered "
+                "only via a wildcard structural query) that returned empty datasets even for reference "
+                "queries during live testing. Rather than ship an unverified monthly figure, this indicator "
+                "uses real annual data instead — always disclosed as annual, never presented as monthly.",
+            ],
+            [
+                "Conflict Events (ACLED)",
+                "Raw event counts in the last 30 / 90 / 365 days, with a simple trend flag comparing the "
+                "most recent 30-day rate to the preceding 60-day rate.",
+                "ACLED's live API (acleddata.com) — the same real integration already used elsewhere in "
+                "this codebase. Requires a free ACLED account; enter the email + key in the sidebar's "
+                "\"Market Data Settings\" to activate. Without it, this row honestly reads \"Not configured\" "
+                "rather than showing a fabricated count. The curated Live Conflicts tab is unaffected either way.",
+            ],
+            [
+                "Trade Concentration (Import HHI)",
+                "Herfindahl-Hirschman Index (0–10,000) over import-partner shares: Σ(partner share)² × 10,000.",
+                "UN Comtrade's live data API (comtradeapi.un.org), using Comtrade's own current numeric "
+                "reporter codes (confirmed against its public reference file, not assumed from memory — "
+                "two of this app's 34 countries, Sudan and Ethiopia, have superseded historical codes that "
+                "had to be disambiguated). Requires a free Comtrade API key entered in the sidebar; without "
+                "one, this row reads \"Not configured.\"",
+            ],
+            [
+                "Sovereign Bond Yield",
+                "Not implemented as live data.",
+                "Investigated and deliberately not shipped: a full scan of the World Bank WDI indicator "
+                "catalog (1,498 series) found no sovereign-bond-yield series, and IMF's free public APIs "
+                "don't cover market yields either. Real yield data for most of these economies exists only "
+                "via commercial terminals (Bloomberg, Refinitiv) or non-machine-readable national "
+                "debt-office bulletins — so this row always honestly reads \"N/A\" with that reason shown, "
+                "rather than substituting a proxy (like a lending or deposit interest rate) and mislabeling "
+                "it as a bond yield.",
+            ],
+        ],
+        ["Signal", "Formula / Method", "Source &amp; Notes"],
     )
 
     st.markdown("<br>", unsafe_allow_html=True)

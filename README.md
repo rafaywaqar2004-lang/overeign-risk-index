@@ -269,3 +269,42 @@ Stata Code" buttons that export a reproduction script matching whatever
 predictors are currently selected. See `econometric_drivers.py`. Explicitly
 illustrative, academic-style analysis — not a publication-quality paper, and
 not a claim of a validated causal model.
+
+## v11 additions — Shock Scenario Lab
+
+The former **Scenario Explorer** tab is upgraded into a **Shock Scenario
+Lab**: four calibrated shock scenarios (Strait of Hormuz closure, Red Sea/
+Bab-el-Mandeb disruption, Pakistan sovereign default, and a fully custom
+shock builder) that flow oil-price, shipping-cost, conflict, and currency
+shocks through disclosed transmission formulas — energy fiscal exposure,
+freight-cost pass-through, reserve depletion, and conflict/currency
+adjustments — into a per-country point delta on the existing composite risk
+score. Calibration constants (e.g. shipping-cost multipliers, energy import/
+export shares) are explicitly disclosed as modeling assumptions, not
+measured statistics, in a "Transmission Model & Assumptions" write-up in the
+tab itself. Four visualizations (before/after ranking, exposure scatter, an
+impact choropleth map, and a sector/channel impact heatmap) plus a full
+results table. The original weight-reweighting/normalization-sensitivity
+tool is preserved unchanged as a "Weight Sensitivity" sub-section within the
+new tab. See `shock_scenarios.py`. Every scenario carries the disclaimer:
+*"These scenarios use simplified transmission assumptions for analytical
+illustration. They are not forecasts."*
+
+## v12 additions — Market Signals
+
+A **Market Signals** sub-section on every Country Deep Dive page, additive
+to (never a replacement for) the existing World Bank/WGI-based risk scores:
+an Exchange Rate Pressure Index (built from this app's own already-fetched
+real annual World Bank FX data — the IMF's monthly effective-exchange-rate
+API was evaluated and found unworkable within reasonable effort, so this is
+explicitly disclosed as annual, not monthly, granularity), live ACLED
+conflict-event counts (30/90/365-day windows with a trend flag), a live UN
+Comtrade import-partner concentration index (HHI), and a Sovereign Bond
+Yield row that is honestly always "N/A" — no free World Bank/IMF API
+publishes market bond yields for this country set, confirmed by a full scan
+of the WDI indicator catalog, so this reports the real gap rather than
+substituting a mislabeled proxy. ACLED and UN Comtrade both require a free
+API key, entered in a new sidebar "Market Data Settings" panel and kept in
+session state only (never written to disk); without any keys configured,
+every affected row cleanly reads "Not configured" and the app is otherwise
+unaffected. See `market_signals.py`.

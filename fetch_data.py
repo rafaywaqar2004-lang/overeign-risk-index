@@ -231,7 +231,7 @@ def fetch_imf_debt_fallback(country_codes, retries=3):
 ACLED_API_URL = "https://api.acleddata.com/acled/read"
 
 
-def fetch_acled_events(country_names, event_date_from=None, retries=3):
+def fetch_acled_events(country_names, event_date_from=None, retries=3, api_key=None, email=None, return_status=False):
     """Fetches recent conflict/security incident events from the real ACLED
     API for the given country names. Returns a list of event dicts (event_date,
     country, event_type, actor1, actor2, fatalities, notes) or an empty list
@@ -241,18 +241,31 @@ def fetch_acled_events(country_names, event_date_from=None, retries=3):
     To activate: register a free account at https://acleddata.com/register/,
     then set ACLED_API_KEY and ACLED_EMAIL as repository secrets (see
     .github/workflows/refresh-data.yml, which already passes them through as
-    environment variables if present)."""
-    api_key = os.environ.get("ACLED_API_KEY")
-    email = os.environ.get("ACLED_EMAIL")
+    environment variables if present).
+
+    api_key/email may be passed explicitly (e.g. a per-session key a user
+    typed into the app) to override the environment variables for this one
+    call — used by market_signals.py so concurrent Streamlit sessions never
+    share or clobber each other's credentials via process-global env vars.
+
+    return_status=True additionally returns whether at least one request to
+    ACLED actually succeeded — needed so a caller can tell a genuine "zero
+    events reported" apart from "every request failed" (network error or a
+    rejected key), both of which otherwise return the same empty list.
+    Default False preserves the original bare-list return for existing
+    callers."""
+    api_key = api_key or os.environ.get("ACLED_API_KEY")
+    email = email or os.environ.get("ACLED_EMAIL")
     if not api_key or not email:
         print(
             "ACLED_API_KEY / ACLED_EMAIL not set — skipping the optional live ACLED conflict feed. "
             "Register at https://acleddata.com/register/ and set both as repo secrets to enable it. "
             "The curated Live Conflicts tab (context_data.py) is unaffected either way."
         )
-        return []
+        return ([], False) if return_status else []
 
     all_events = []
+    any_success = False
     for country in country_names:
         params = (
             f"key={api_key}&email={email}&country={country.replace(' ', '%20')}"
@@ -280,6 +293,7 @@ def fetch_acled_events(country_names, event_date_from=None, retries=3):
             continue
         if not payload.get("success"):
             continue
+        any_success = True
 
         for entry in payload.get("data", []):
             all_events.append({
@@ -293,7 +307,7 @@ def fetch_acled_events(country_names, event_date_from=None, retries=3):
             })
         time.sleep(0.2)
 
-    return all_events
+    return (all_events, any_success) if return_status else all_events
 
 
 def main():
