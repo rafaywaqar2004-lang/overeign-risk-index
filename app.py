@@ -9,6 +9,8 @@ import yfinance as yf
 from datetime import datetime, timezone
 from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FINANCING_ARRANGEMENTS, KEY_ECONOMIC_PARTNERS, COUNTRY_TRADE_PROFILE, CREDIT_RATINGS, CREDIT_RATINGS_SOURCES, ECONOMIC_SANCTIONS, HDI_DATA, CURRENT_GOVERNMENT
 from catalysts_data import UPCOMING_CATALYSTS, LAST_REVIEWED as CATALYSTS_LAST_REVIEWED
+import econometric_drivers as ed
+from fetch_data import fetch_acled_events
 
 
 def catalyst_sort_key(date_str):
@@ -1311,9 +1313,9 @@ st.markdown(
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
     ["Regional Overview", "Country Deep Dive", "Compare Countries", "Live Conflicts",
-     "Geo-Economic Interdependence", "Scenario Explorer", "Methodology"]
+     "Geo-Economic Interdependence", "Scenario Explorer", "Methodology", "Drivers Analysis"]
 )
 
 # ================= TAB 1: OVERVIEW =================
@@ -3933,6 +3935,296 @@ with tab7:
         '<a class="pill-link" href="https://github.com/rafaywaqar2004-lang/overeign-risk-index" target="_blank">GitHub Repo ↗</a>',
         unsafe_allow_html=True,
     )
+
+# ================= TAB 8: DRIVERS ANALYSIS =================
+with tab8:
+    st.markdown('<div class="section-tag">Econometric Drivers</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Drivers Analysis</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="narrative-box">Panel regressions on this app\'s own 34-country, 2010–2024 dataset, '
+        'testing which macroeconomic and governance variables statistically predict political stability. '
+        'This is illustrative, academic-style analysis for a research/screening tool — not a '
+        'publication-quality paper. Read the Methodology section below before treating any coefficient as '
+        'causal.</div>',
+        unsafe_allow_html=True,
+    )
+
+    _drv_error = None
+    try:
+        with st.spinner("Fetching World Bank / IMF panel data (cached 24h)…"):
+            drv_panel, drv_fallback_counts = ed.build_panel(long_df)
+    except Exception as e:
+        _drv_error = str(e)
+        drv_panel, drv_fallback_counts = None, {}
+
+    if _drv_error or drv_panel is None or drv_panel.empty:
+        st.error(
+            f"⚠️ Could not assemble the panel dataset for Drivers Analysis "
+            f"({_drv_error or 'no data returned'}). This usually means the World Bank or IMF API was "
+            f"unreachable just now — try reloading in a moment. The rest of the app is unaffected.",
+            icon="\U0001f6a8",
+        )
+    else:
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Panel</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Variable Coverage, 2010–2024</div>', unsafe_allow_html=True)
+        _cov = ed.variable_coverage(drv_panel, ed.ALL_COLS)
+        _cov_rows = []
+        _cov_labels = {ed.DV_COL: f"{ed.DV_LABEL} (dependent variable)", **ed.IV_LABELS}
+        for col, (n, total, pct) in _cov.items():
+            fb = drv_fallback_counts.get(col, 0)
+            fb_note = f" ({fb} filled by IMF fallback)" if fb else ""
+            _cov_rows.append([_cov_labels.get(col, col), f"{n} / {total}", f"{pct:.1f}%{fb_note}"])
+        custom_table(_cov_rows, ["Variable", "Non-Missing Country-Years", "Coverage"])
+        st.caption(
+            "Coverage is checked directly against the same World Bank / IMF sources used elsewhere in this "
+            "app — several series (debt-to-GDP and government expenditure especially) have genuinely "
+            "sparse historical reporting for several of these 34 economies. This is real, uneven data "
+            "coverage, not a display bug; it directly limits how many country-years survive listwise "
+            "deletion below. The IMF reserves-cover fallback series named in this tab's spec "
+            "(FI_RES_MOM) does not currently exist as a real IMF DataMapper indicator, so it fills 0 "
+            "cells — disclosed here rather than silently substituted with something else."
+        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Specification</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Select Predictors</div>', unsafe_allow_html=True)
+        _iv_cols = st.columns(4)
+        drv_selected_ivs = []
+        for _i, (_col_key, _label) in enumerate(ed.IV_LABELS.items()):
+            with _iv_cols[_i % 4]:
+                if st.checkbox(_label, value=True, key=f"drv_iv_{_col_key}"):
+                    drv_selected_ivs.append(_col_key)
+
+        if not drv_selected_ivs:
+            st.warning("Select at least one predictor above to run the regression.", icon="⚠️")
+        else:
+            drv_clean, drv_n_total, drv_n_dropped = ed.prepare_regression_frame(drv_panel, ed.DV_COL, drv_selected_ivs)
+            drv_n_countries = drv_clean.index.get_level_values("country_code").nunique() if not drv_clean.empty else 0
+            st.info(
+                f"Listwise deletion: {drv_n_total} possible country-years → **{drv_n_dropped} dropped** "
+                f"for a missing value in the dependent variable or a selected predictor → "
+                f"**{len(drv_clean)} retained**, across **{drv_n_countries} countries**.",
+                icon="\U0001f9ee",
+            )
+
+            if len(drv_clean) < len(drv_selected_ivs) + 5 or drv_n_countries < 5:
+                st.warning(
+                    "Very small effective sample for the number of predictors and/or countries selected — "
+                    "coefficients below will be noisy and unstable. Try deselecting a sparsely-covered "
+                    "variable (see the coverage table above) to recover more observations.",
+                    icon="⚠️",
+                )
+
+            if len(drv_clean) < len(drv_selected_ivs) + 2 or drv_n_countries < 3:
+                st.error(
+                    "Not enough retained observations to fit these models with this variable selection. "
+                    "Deselect one or more predictors above.",
+                    icon="\U0001f6a8",
+                )
+            else:
+                drv_pooled_res, drv_pooled_err = ed.fit_pooled(drv_clean, ed.DV_COL, drv_selected_ivs)
+                drv_fe_res, drv_fe_err = ed.fit_fe(drv_clean, ed.DV_COL, drv_selected_ivs, time_effects=True)
+                drv_fe_entity_res, drv_fe_entity_err = ed.fit_fe(drv_clean, ed.DV_COL, drv_selected_ivs, time_effects=False)
+                drv_re_res, drv_re_err = ed.fit_re(drv_clean, ed.DV_COL, drv_selected_ivs)
+
+                for _err, _name in [(drv_pooled_err, "Pooled OLS"), (drv_fe_err, "Fixed Effects"), (drv_re_err, "Random Effects")]:
+                    if _err:
+                        st.error(f"{_name} failed to fit: {_err}", icon="\U0001f6a8")
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown('<div class="section-tag">Results</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-title" style="font-size:1.05rem;">Pooled OLS vs. Fixed Effects vs. Random Effects</div>', unsafe_allow_html=True)
+                drv_results = {"Pooled OLS": (drv_pooled_res, drv_pooled_err), "Fixed Effects (entity+time)": (drv_fe_res, drv_fe_err), "Random Effects": (drv_re_res, drv_re_err)}
+                drv_rows, drv_model_labels = ed.results_table_rows(drv_results, drv_selected_ivs, drv_n_countries)
+                custom_table(drv_rows, ["Variable"] + drv_model_labels)
+                st.caption(
+                    "Cell format: coefficient (clustered-by-country std. error), significance stars "
+                    "(*** p<0.01, ** p<0.05, * p<0.10). Dependent variable: WGI Political Stability "
+                    "(higher = more stable). Fixed Effects is the preferred specification — see "
+                    "Methodology below."
+                )
+
+                if drv_fe_entity_res is not None and drv_re_res is not None:
+                    drv_hausman = ed.hausman_test(drv_fe_entity_res, drv_re_res)
+                    if drv_hausman:
+                        st.markdown("<br>", unsafe_allow_html=True)
+                        _h_verdict = (
+                            "rejects the null that Random Effects is consistent — Fixed Effects is the "
+                            "econometrically appropriate choice here"
+                            if drv_hausman["pvalue"] < 0.05 else
+                            "fails to reject the null at the 5% level — Random Effects would be more "
+                            "efficient if its exogeneity assumption holds, though Fixed Effects remains the "
+                            "more conservative choice given the endogeneity concerns in Methodology below"
+                        )
+                        st.markdown(
+                            f'<div class="narrative-box"><b>Hausman Test (entity-only FE vs. RE)</b><br>'
+                            f'χ² = {drv_hausman["statistic"]:.2f}, df = {drv_hausman["df"]}, '
+                            f'p-value = {drv_hausman["pvalue"]:.4f} — this {_h_verdict}.</div>',
+                            unsafe_allow_html=True,
+                        )
+                        st.caption(
+                            "Computed against an entity-only FE model (no time effects), not the entity+time "
+                            "FE reported in the results table above — the classic Hausman test doesn't "
+                            "extend cleanly to a two-way FE specification. See Methodology below."
+                        )
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                _viz_col1, _viz_col2 = st.columns(2)
+                with _viz_col1:
+                    st.markdown('<div class="section-tag">Relative Importance</div>', unsafe_allow_html=True)
+                    st.markdown('<div class="section-title" style="font-size:1rem;">Standardized Coefficients (Fixed Effects)</div>', unsafe_allow_html=True)
+                    drv_std_coefs, drv_std_err = ed.standardized_coefficients(drv_clean, ed.DV_COL, drv_selected_ivs)
+                    if drv_std_coefs is not None and len(drv_std_coefs):
+                        _std_labels = [ed.IV_LABELS.get(v, v) for v in drv_std_coefs.index]
+                        _fig_std = go.Figure(go.Bar(
+                            x=drv_std_coefs.values, y=_std_labels, orientation="h",
+                            marker_color=["#f87171" if v > 0 else "#34d399" for v in drv_std_coefs.values],
+                            text=[f"{v:+.3f}" for v in drv_std_coefs.values], textposition="outside",
+                        ))
+                        _fig_std.update_layout(xaxis_title="Standardized coefficient (σ units of political-stability risk)")
+                        # Extra left/right margin -- outside bar-value labels on the
+                        # longest bars otherwise clip against style_chart's default
+                        # 10px side margin, same fix already used for the radar
+                        # chart's angular labels in the Country Deep Dive tab.
+                        _styled_fig_std = style_chart(_fig_std, height=360)
+                        _styled_fig_std.update_layout(margin=dict(l=140, r=60))
+                        st.plotly_chart(_styled_fig_std, use_container_width=True)
+                    else:
+                        st.caption(f"Could not compute standardized coefficients: {drv_std_err}")
+
+                with _viz_col2:
+                    st.markdown('<div class="section-tag">Model Fit</div>', unsafe_allow_html=True)
+                    st.markdown('<div class="section-title" style="font-size:1rem;">Residuals vs. Fitted (Fixed Effects)</div>', unsafe_allow_html=True)
+                    if drv_fe_res is not None:
+                        _fitted = drv_fe_res.fitted_values.iloc[:, 0]
+                        _resid = drv_fe_res.resids
+                        _fig_resid = go.Figure(go.Scatter(x=_fitted.values, y=_resid.values, mode="markers", marker=dict(color=ACCENT, size=6, opacity=0.7)))
+                        _fig_resid.add_hline(y=0, line_dash="dot", line_color="rgba(255,255,255,0.3)")
+                        _fig_resid.update_layout(xaxis_title="Fitted value", yaxis_title="Residual")
+                        st.plotly_chart(style_chart(_fig_resid, height=360), use_container_width=True)
+                    else:
+                        st.caption("Fixed Effects model did not fit — no residuals to show.")
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown('<div class="section-tag">Multicollinearity Check</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-title" style="font-size:1rem;">Correlation Matrix</div>', unsafe_allow_html=True)
+                _corr_cols = [ed.DV_COL] + drv_selected_ivs
+                _corr_labels = [_cov_labels.get(c, c) for c in _corr_cols]
+                _corr = drv_panel[_corr_cols].corr()
+                _fig_corr = px.imshow(
+                    _corr.values, x=_corr_labels, y=_corr_labels, color_continuous_scale="RdBu", zmin=-1, zmax=1,
+                    text_auto=".2f", aspect="auto",
+                )
+                st.plotly_chart(style_chart(_fig_corr, height=420), use_container_width=True)
+                st.caption("Pairwise correlations computed on all available (non-listwise-deleted) country-years for each pair.")
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                with st.expander("Robustness Checks"):
+                    st.markdown("**1-year lagged predictors** — all selected predictors shifted back one year (t−1 predicting stability at t), re-fit as Fixed Effects.")
+                    drv_lagged_panel = ed.lag_predictors(drv_panel, drv_selected_ivs)
+                    drv_lag_clean, drv_lag_total, drv_lag_dropped = ed.prepare_regression_frame(drv_lagged_panel, ed.DV_COL, drv_selected_ivs)
+                    drv_lag_n_countries = drv_lag_clean.index.get_level_values("country_code").nunique() if not drv_lag_clean.empty else 0
+                    if len(drv_lag_clean) < len(drv_selected_ivs) + 2 or drv_lag_n_countries < 3:
+                        st.caption(f"Not enough observations after lagging and listwise deletion ({len(drv_lag_clean)} retained) to fit this model.")
+                    else:
+                        drv_lag_fe_res, drv_lag_fe_err = ed.fit_fe(drv_lag_clean, ed.DV_COL, drv_selected_ivs, time_effects=True)
+                        if drv_lag_fe_res is None:
+                            st.caption(f"Lagged model failed to fit: {drv_lag_fe_err}")
+                        else:
+                            _lag_rows, _lag_labels = ed.results_table_rows(
+                                {"Fixed Effects (contemporaneous)": (drv_fe_res, drv_fe_err), "Fixed Effects (1-yr lagged X)": (drv_lag_fe_res, drv_lag_fe_err)},
+                                drv_selected_ivs, drv_lag_n_countries,
+                            )
+                            custom_table(_lag_rows, ["Variable"] + _lag_labels)
+                            st.caption(f"Lagged sample: {drv_lag_total} possible → {drv_lag_dropped} dropped → {len(drv_lag_clean)} retained ({drv_lag_n_countries} countries).")
+
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    st.markdown("**Alternative dependent variable: conflict onset (binary, ACLED-based)**")
+                    with st.spinner("Checking for a live ACLED feed…"):
+                        try:
+                            drv_acled_events = fetch_acled_events(list(ed.COUNTRIES.values()))
+                        except Exception as _acled_e:
+                            drv_acled_events = []
+                            st.error(f"ACLED fetch failed: {_acled_e}", icon="\U0001f6a8")
+                    drv_conflict_panel = ed.conflict_onset_from_acled(drv_acled_events, drv_panel)
+                    if drv_conflict_panel is None:
+                        st.info(
+                            "ACLED (Armed Conflict Location & Event Data) requires a free registered API key "
+                            "which isn't configured in this deployment (`ACLED_API_KEY` / `ACLED_EMAIL`). "
+                            "Rather than approximate conflict onset with a fabricated or proxy figure, this "
+                            "check is disabled until real ACLED credentials are available — the same "
+                            "real-data-only discipline this app's Live Conflicts tab and data pipeline "
+                            "already apply (see fetch_data.py's fetch_acled_events).",
+                            icon="ℹ️",
+                        )
+                    else:
+                        _onset_clean, _onset_total, _onset_dropped = ed.prepare_regression_frame(drv_conflict_panel, "conflict_onset", drv_selected_ivs)
+                        _onset_n_countries = _onset_clean.index.get_level_values("country_code").nunique() if not _onset_clean.empty else 0
+                        if len(_onset_clean) < len(drv_selected_ivs) + 2 or _onset_n_countries < 3:
+                            st.caption("Not enough observations to fit the conflict-onset model.")
+                        else:
+                            _onset_res, _onset_err = ed.fit_fe(_onset_clean, "conflict_onset", drv_selected_ivs, time_effects=True)
+                            if _onset_res is None:
+                                st.caption(f"Conflict-onset model failed to fit: {_onset_err}")
+                            else:
+                                _onset_rows, _onset_labels = ed.results_table_rows({"FE, DV = conflict onset (LPM)": (_onset_res, _onset_err)}, drv_selected_ivs, _onset_n_countries)
+                                custom_table(_onset_rows, ["Variable"] + _onset_labels)
+                                st.caption(
+                                    "Linear probability model (Fixed Effects) with a binary DV (1 if a "
+                                    "country-year had more than 5 ACLED-recorded events) — shown for "
+                                    "comparability with the main specification rather than a logit/probit."
+                                )
+
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    st.markdown("**Leave-one-country-out** — the entity+time Fixed Effects model re-fit once per country, excluding that country each time.")
+                    drv_loo = ed.leave_one_out(drv_clean, ed.DV_COL, drv_selected_ivs)
+                    if drv_loo.empty:
+                        st.caption("Not enough countries remain after exclusion to run this check.")
+                    else:
+                        _fig_loo = go.Figure()
+                        for _iv in drv_selected_ivs:
+                            _fig_loo.add_trace(go.Box(y=drv_loo[_iv].values, name=ed.IV_LABELS.get(_iv, _iv), marker_color=ACCENT2, boxpoints="all", jitter=0.4, pointpos=0))
+                        if drv_fe_res is not None:
+                            for _i, _iv in enumerate(drv_selected_ivs):
+                                if _iv in drv_fe_res.params.index:
+                                    _fig_loo.add_shape(type="line", x0=_i - 0.4, x1=_i + 0.4, y0=drv_fe_res.params[_iv], y1=drv_fe_res.params[_iv], line=dict(color="#fbbf24", dash="dash"))
+                        _fig_loo.update_layout(yaxis_title="Coefficient with 1 country excluded", showlegend=False)
+                        st.plotly_chart(style_chart(_fig_loo, height=380), use_container_width=True)
+                        st.caption(
+                            f"{len(drv_loo)} re-fits, each excluding one country from the full-sample "
+                            "regression above (dashed amber line = full-sample coefficient). A box or point "
+                            "far from the dashed line means that one country is meaningfully driving that "
+                            "variable's estimate."
+                        )
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                with st.expander("Methodology"):
+                    st.markdown(ed.METHODOLOGY_MD)
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown('<div class="section-tag">Reproduce This</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-title" style="font-size:1rem;">Download Panel Data &amp; Code</div>', unsafe_allow_html=True)
+                st.caption("Exports match your current predictor selection above — change the checkboxes and re-download to regenerate.")
+                _dl_cols = st.columns(3)
+                with _dl_cols[0]:
+                    st.download_button(
+                        "\U0001f4c4 Download Panel Data (CSV)",
+                        data=drv_panel[["country_code", "country", "year"] + ed.ALL_COLS].to_csv(index=False),
+                        file_name="drivers_panel.csv", mime="text/csv",
+                    )
+                with _dl_cols[1]:
+                    st.download_button(
+                        "\U0001f4dc Download R Code (.R)",
+                        data=ed.generate_r_code(ed.DV_COL, drv_selected_ivs),
+                        file_name="drivers_analysis.R", mime="text/plain",
+                    )
+                with _dl_cols[2]:
+                    st.download_button(
+                        "\U0001f4dc Download Stata Code (.do)",
+                        data=ed.generate_stata_code(ed.DV_COL, drv_selected_ivs),
+                        file_name="drivers_analysis.do", mime="text/plain",
+                    )
 
 # ============================================================
 # FOOTER

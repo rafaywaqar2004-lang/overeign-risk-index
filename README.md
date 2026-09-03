@@ -248,3 +248,24 @@ what a public-data, non-fabricating tool can responsibly do.
   fill a gap" principle: a country with nothing verified shows an explicit
   "no confirmed near-term catalyst identified" message rather than a
   manufactured placeholder. See `catalysts_data.py`.
+
+## v10 additions — Drivers Analysis (panel regressions)
+
+A new **Drivers Analysis** tab: panel regressions on this app's own
+34-country, 2010–2024 dataset testing which macro/governance variables
+statistically predict political stability — Pooled OLS, Fixed Effects
+(entity + time, clustered SE by country), and Random Effects, plus a
+Hausman test, a per-variable coverage table, interactive predictor
+checkboxes, standardized-coefficient and residual plots, a correlation
+heatmap, and three robustness checks (1-year lagged predictors,
+leave-one-country-out, and an ACLED-based conflict-onset alternative DV —
+disabled with an explicit message rather than faked, since this deployment
+has no `ACLED_API_KEY`/`ACLED_EMAIL` configured). Two new World Bank
+indicators (trade openness, government expenditure) are fetched fresh; the
+other six reuse the existing pipeline's data. Includes a full Methodology
+write-up (endogeneity, omitted-variable bias, small-*T*, WGI's own
+backward-looking annual cadence) and one-click "Download R Code" / "Download
+Stata Code" buttons that export a reproduction script matching whatever
+predictors are currently selected. See `econometric_drivers.py`. Explicitly
+illustrative, academic-style analysis — not a publication-quality paper, and
+not a claim of a validated causal model.
