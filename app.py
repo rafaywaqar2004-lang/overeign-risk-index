@@ -11,6 +11,7 @@ from context_data import HISTORICAL_CONTEXT, STOCK_EXCHANGES, LIVE_CONFLICTS, FI
 from catalysts_data import UPCOMING_CATALYSTS, LAST_REVIEWED as CATALYSTS_LAST_REVIEWED
 import econometric_drivers as ed
 from fetch_data import fetch_acled_events
+import shock_scenarios as ss
 
 
 def catalyst_sort_key(date_str):
@@ -1315,7 +1316,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
     ["Regional Overview", "Country Deep Dive", "Compare Countries", "Live Conflicts",
-     "Geo-Economic Interdependence", "Scenario Explorer", "Methodology", "Drivers Analysis"]
+     "Geo-Economic Interdependence", "Shock Scenario Lab", "Methodology", "Drivers Analysis"]
 )
 
 # ================= TAB 1: OVERVIEW =================
@@ -3494,99 +3495,245 @@ SHOCK_PRESETS = {
 }
 
 with tab6:
-    st.markdown('<div class="section-tag">Interactive Reweighting</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">Scenario Explorer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">Geopolitical Stress Testing</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Shock Scenario Lab</div>', unsafe_allow_html=True)
+    st.warning(
+        "These scenarios use simplified transmission assumptions for analytical illustration. "
+        "They are not forecasts.",
+        icon="⚠️",
+    )
     st.markdown(
-        "The default methodology weights the two pillars equally (50% economic, 50% governance), "
-        "which works out to 1/12 (about 8.3%) for each of the 6 economic factors and 10% for each "
-        "of the 5 governance factors. The sliders below default to an equal 10 each across all 11 "
-        "factors for simplicity — adjust them to model a different risk appetite, e.g. a bank "
-        "focused purely on debt sustainability, or a consultancy weighting governance more heavily "
-        "— and watch the ranking update live. This does not change the saved default score anywhere "
-        "else in the app."
+        "Applies a specific, named geopolitical shock — or a shock you define yourself — and "
+        "recalculates every country's risk score from real underlying World Bank data (energy-trade "
+        "dependency, import/export exposure, reserve cover) combined with a transparent, documented "
+        "points calibration. See <b>Transmission Model &amp; Assumptions</b> below for exactly how, "
+        "and what's real data vs. a disclosed modeling choice.",
+        unsafe_allow_html=True,
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">Geopolitical Shock Tester</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-title" style="font-size:1.05rem;">Load a Shock Scenario</div>', unsafe_allow_html=True)
-    preset_choice = st.selectbox(
-        "Load a preset scenario",
-        ["Custom / Manual"] + list(SHOCK_PRESETS.keys()),
-        label_visibility="collapsed",
-        key="preset_choice",
-    )
-    if preset_choice != st.session_state.get("_applied_preset"):
-        if preset_choice in SHOCK_PRESETS:
-            for f, w in SHOCK_PRESETS[preset_choice]["weights"].items():
-                st.session_state[f"w_{f}"] = w
-        st.session_state["_applied_preset"] = preset_choice
-        st.rerun()
+    shock_scenario_names = list(ss.SCENARIOS.keys()) + ["Custom Shock Builder"]
+    shock_selected = st.radio("Select a shock scenario", shock_scenario_names, key="shock_scenario_choice")
 
-    if preset_choice in SHOCK_PRESETS:
-        st.caption(SHOCK_PRESETS[preset_choice]["rationale"])
+    with st.spinner("Fetching real energy-trade data (World Bank, cached 24h)…"):
+        try:
+            shock_energy_df = ss.fetch_energy_import_dependency()
+        except Exception as _shock_e:
+            shock_energy_df = pd.DataFrame(columns=["country_code", "country", "energy_import_dependency", "energy_import_dependency_year"])
+            st.error(
+                f"⚠️ Could not fetch energy-trade data from the World Bank ({_shock_e}) — the fiscal "
+                "(energy trade) impact term will show as zero for this run until this resolves.",
+                icon="\U0001f6a8",
+            )
 
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    slider_cols = st.columns(2)
-    custom_weights = {}
-    for i, (factor, label) in enumerate(FACTOR_LABELS.items()):
-        with slider_cols[i % 2]:
-            slider_key = f"w_{factor}"
-            slider_kwargs = {"key": slider_key}
-            if slider_key not in st.session_state:
-                slider_kwargs["value"] = 10
-            custom_weights[factor] = st.slider(label, 0, 100, **slider_kwargs)
-
-    total_w = sum(custom_weights.values())
-    st.markdown(f'<div class="stat-sub">Total weight: {total_w}% {"✓" if total_w == 100 else "(auto-normalized to 100%)"}</div>', unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-tag">Live Result</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">Re-Ranked Under Your Weights</div>', unsafe_allow_html=True)
-
-    if total_w > 0:
-        norm_weights = {f: w / total_w for f, w in custom_weights.items()}
-        scenario_scores = []
-        for _, drow in drivers.iterrows():
-            available = {f: drow[f] for f in FACTOR_COLS if pd.notna(drow[f]) and norm_weights[f] > 0}
-            if not available:
-                scenario_scores.append(None)
-                continue
-            avail_w = {f: norm_weights[f] for f in available}
-            tw = sum(avail_w.values())
-            rescaled = {f: w / tw for f, w in avail_w.items()}
-            score = sum(available[f] * rescaled[f] for f in available)
-            scenario_scores.append(round(score, 1))
-
-        scenario_df = drivers[["country"]].copy()
-        scenario_df["scenario_score"] = scenario_scores
-        scenario_df = scenario_df.dropna(subset=["scenario_score"]).sort_values("scenario_score", ascending=True)
-
-        fig6 = px.bar(
-            scenario_df, x="scenario_score", y="country", orientation="h",
-            labels={"scenario_score": "Scenario Risk Score (0-100)", "country": ""},
-            custom_data=["country"],
+    if shock_selected != "Custom Shock Builder":
+        shock_params = ss.SCENARIOS[shock_selected]
+        st.markdown(
+            f'<div class="narrative-box"><b>{shock_selected}</b><br>{shock_params["summary"]}</div>',
+            unsafe_allow_html=True,
         )
-        fig6.update_traces(marker_color=ACCENT)
-        # Same fixed-vs-scaling-height fix as the Regional Overview ranking:
-        # without enough vertical room per bar, Plotly quietly drops some
-        # y-axis country labels rather than overlapping them.
-        scenario_click = st.plotly_chart(
-            style_chart(fig6, height=max(560, 22 * len(scenario_df))), use_container_width=True,
-            on_select="rerun", selection_mode="points", key="scenario_rank_select",
-        )
-        st.caption("Click a bar to pre-select that country in the Country Deep Dive tab above.")
-        if scenario_click and scenario_click.selection and scenario_click.selection.get("points"):
-            # Explicit customdata (same mechanism as the Geo-Economic map's
-            # click handler) rather than an undocumented "y" key.
-            scenario_cd = scenario_click.selection["points"][0].get("customdata")
-            # Tab 6 runs after Country Deep Dive (tab 2) in script order -- same
-            # guarded-rerun fix as the Live Conflicts pills and Geo-Economic map.
-            if scenario_cd and st.session_state.get("selected_country_from_map") != scenario_cd[0]:
-                st.session_state["selected_country_from_map"] = scenario_cd[0]
-                st.rerun()
+        st.caption(shock_params["calibration_note"])
+        with st.spinner(f"Calculating shocked risk scores for {shock_selected}…"):
+            shock_impact = ss.compute_scenario_impact(scored, shock_energy_df, shock_selected)
     else:
-        st.caption("Set at least one factor weight above zero to see a ranking.")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Custom Parameters</div>', unsafe_allow_html=True)
+        shock_cols = st.columns(2)
+        with shock_cols[0]:
+            shock_oil_pct = st.slider("Oil price change (%)", -50, 150, 30, step=5, key="cshock_oil") / 100
+            shock_trade_pct = st.slider("Trade disruption / shipping cost increase (%)", 0, 300, 50, step=10, key="cshock_trade") / 100
+        with shock_cols[1]:
+            shock_conflict_delta = st.slider("Conflict intensity change (delta on a 0-10 scale)", -10, 10, 0, key="cshock_conflict")
+            shock_currency_pct = st.slider("Currency depreciation shock (%)", 0, 80, 0, step=5, key="cshock_currency") / 100
+        shock_currency_countries = st.multiselect(
+            "Apply the currency depreciation shock to:",
+            sorted(scored["country"].tolist()), default=[], key="cshock_currency_countries",
+        )
+        shock_currency_codes = scored[scored["country"].isin(shock_currency_countries)]["country_code"].tolist()
+        st.caption("Oil price and trade-disruption shocks apply to all 34 countries (each scaled by that country's real trade/energy exposure); the currency shock applies only to the countries selected above.")
+        shock_custom_params = {
+            "oil_price_change_pct": shock_oil_pct,
+            "override_trade_cost_pct": shock_trade_pct,
+            "inflation_passthrough": 0.30,
+            "conflict_delta": shock_conflict_delta,
+            "conflict_affected": set(ss.COUNTRIES.keys()),
+            "currency_shock": {c: shock_currency_pct for c in shock_currency_codes},
+            "trade_finance_contraction": {},
+            "egypt_suez_shock": False,
+        }
+        with st.spinner("Calculating shocked risk scores for your custom scenario…"):
+            shock_impact = ss.compute_scenario_impact(scored, shock_energy_df, None, custom_params=shock_custom_params)
+
+    if shock_impact.empty:
+        st.info("No countries have a baseline score to shock.")
+    else:
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Impact</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Base vs. Shocked Risk Score, All 34 Countries</div>', unsafe_allow_html=True)
+        shock_sorted = shock_impact.sort_values("delta", ascending=True)
+        shock_bar = go.Figure()
+        shock_bar.add_trace(go.Bar(
+            y=shock_sorted["country"], x=shock_sorted["base_score"], name="Base score",
+            orientation="h", marker_color="rgba(148,163,184,0.45)",
+        ))
+        shock_bar.add_trace(go.Bar(
+            y=shock_sorted["country"], x=shock_sorted["shocked_score"], name="Shocked score",
+            orientation="h", marker_color=ACCENT,
+        ))
+        shock_bar.update_layout(barmode="group", xaxis_title="Risk score (0-100)", legend=dict(orientation="h", y=1.05))
+        st.plotly_chart(style_chart(shock_bar, height=max(560, 20 * len(shock_sorted))), use_container_width=True)
+        st.caption("Sorted by delta (ascending) — the countries most helped by the scenario at the top, most hurt at the bottom.")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        shock_viz_col1, shock_viz_col2 = st.columns(2)
+        with shock_viz_col1:
+            st.markdown('<div class="section-tag">Does Risk Compound?</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Baseline Score vs. Shock Delta</div>', unsafe_allow_html=True)
+            shock_scatter = px.scatter(
+                shock_impact, x="base_score", y="delta", color="channel", hover_name="country",
+                labels={"base_score": "Baseline risk score", "delta": "Shock delta (points)"},
+            )
+            shock_scatter.add_hline(y=0, line_dash="dot", line_color="rgba(255,255,255,0.3)")
+            st.plotly_chart(style_chart(shock_scatter, height=420), use_container_width=True)
+            st.caption("A positive slope would mean already-high-risk countries are also hit hardest; a flat or negative pattern means exposure is driven by trade geography and energy dependence, not by starting risk level.")
+        with shock_viz_col2:
+            st.markdown('<div class="section-tag">Where</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title" style="font-size:1rem;">Shocked Risk Map</div>', unsafe_allow_html=True)
+            shock_map_df = shock_impact.copy()
+            shock_map_fig = px.choropleth(
+                shock_map_df, locations="country_code", locationmode="ISO-3", color="shocked_score",
+                hover_name="country", hover_data={"country_code": False, "shocked_score": ":.1f", "delta": ":+.1f"},
+                color_continuous_scale=["#34d399", "#fbbf24", "#f87171"], range_color=(0, 100),
+                labels={"shocked_score": "Shocked Score", "delta": "Delta"},
+            )
+            shock_map_fig.update_coloraxes(colorbar=dict(thickness=10, len=0.6, tickfont=dict(size=9, color=TEXT_MUTED)))
+            shock_map_fig.update_geos(scope="world", lataxis_range=[-5, 42], lonaxis_range=[-12, 100], **MAP_BASE_STYLE)
+            st.plotly_chart(style_chart(shock_map_fig, height=420), use_container_width=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Transmission Channels</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1rem;">Sector / Channel Impact Matrix</div>', unsafe_allow_html=True)
+        shock_channel_cols = ["fiscal_pts", "trade_pts", "reserve_pts", "conflict_pts", "currency_pts"]
+        shock_channel_labels = {"fiscal_pts": "Energy (fiscal)", "trade_pts": "Shipping / Trade", "reserve_pts": "Sovereign (reserves)", "conflict_pts": "Insurance (conflict)", "currency_pts": "Sovereign (currency)"}
+        shock_matrix_df = shock_impact.set_index("country")[shock_channel_cols].rename(columns=shock_channel_labels)
+        shock_matrix_df = shock_matrix_df.loc[shock_matrix_df.abs().sum(axis=1).sort_values(ascending=False).index]
+        shock_heatmap = px.imshow(
+            shock_matrix_df.values, x=shock_matrix_df.columns, y=shock_matrix_df.index,
+            color_continuous_scale="RdBu_r", color_continuous_midpoint=0, aspect="auto", text_auto=".1f",
+            labels={"color": "Risk points"},
+        )
+        st.plotly_chart(style_chart(shock_heatmap, height=max(600, 18 * len(shock_matrix_df))), use_container_width=True)
+        st.caption(
+            "Each cell is that channel's exact point contribution to the country's total shock delta "
+            "(they sum to the delta shown in the bar chart above) — not an independent per-sector "
+            "model, but the same underlying fiscal/trade/reserve/conflict/currency breakdown shown in "
+            "full. The single \"sector\" tag in the results table below names only the dominant channel."
+        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Full Results</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1rem;">All 34 Countries</div>', unsafe_allow_html=True)
+        shock_display = shock_impact[["country", "base_score", "shocked_score", "delta", "channel", "sector"]].sort_values("delta", ascending=False)
+        shock_display.columns = ["Country", "Base Score", "Shocked Score", "Delta", "Primary Channel", "Sector"]
+        st.dataframe(shock_display, use_container_width=True, hide_index=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        with st.expander("Transmission Model & Assumptions"):
+            st.markdown(ss.TRANSMISSION_METHODOLOGY_MD)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    with st.expander("Weight Sensitivity (factor reweighting — the original Scenario Explorer)"):
+        st.markdown(
+            "The default methodology weights the two pillars equally (50% economic, 50% governance), "
+            "which works out to 1/12 (about 8.3%) for each of the 6 economic factors and 10% for each "
+            "of the 5 governance factors. The sliders below default to an equal 10 each across all 11 "
+            "factors for simplicity — adjust them to model a different risk appetite, e.g. a bank "
+            "focused purely on debt sustainability, or a consultancy weighting governance more heavily "
+            "— and watch the ranking update live. This does not change the saved default score anywhere "
+            "else in the app."
+        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Reweighting Presets</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title" style="font-size:1.05rem;">Load a Weighting Preset</div>', unsafe_allow_html=True)
+        preset_choice = st.selectbox(
+            "Load a preset scenario",
+            ["Custom / Manual"] + list(SHOCK_PRESETS.keys()),
+            label_visibility="collapsed",
+            key="preset_choice",
+        )
+        if preset_choice != st.session_state.get("_applied_preset"):
+            if preset_choice in SHOCK_PRESETS:
+                for f, w in SHOCK_PRESETS[preset_choice]["weights"].items():
+                    st.session_state[f"w_{f}"] = w
+            st.session_state["_applied_preset"] = preset_choice
+            st.rerun()
+
+        if preset_choice in SHOCK_PRESETS:
+            st.caption(SHOCK_PRESETS[preset_choice]["rationale"])
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        slider_cols = st.columns(2)
+        custom_weights = {}
+        for i, (factor, label) in enumerate(FACTOR_LABELS.items()):
+            with slider_cols[i % 2]:
+                slider_key = f"w_{factor}"
+                slider_kwargs = {"key": slider_key}
+                if slider_key not in st.session_state:
+                    slider_kwargs["value"] = 10
+                custom_weights[factor] = st.slider(label, 0, 100, **slider_kwargs)
+
+        total_w = sum(custom_weights.values())
+        st.markdown(f'<div class="stat-sub">Total weight: {total_w}% {"✓" if total_w == 100 else "(auto-normalized to 100%)"}</div>', unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Live Result</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Re-Ranked Under Your Weights</div>', unsafe_allow_html=True)
+
+        if total_w > 0:
+            norm_weights = {f: w / total_w for f, w in custom_weights.items()}
+            scenario_scores = []
+            for _, drow in drivers.iterrows():
+                available = {f: drow[f] for f in FACTOR_COLS if pd.notna(drow[f]) and norm_weights[f] > 0}
+                if not available:
+                    scenario_scores.append(None)
+                    continue
+                avail_w = {f: norm_weights[f] for f in available}
+                tw = sum(avail_w.values())
+                rescaled = {f: w / tw for f, w in avail_w.items()}
+                score = sum(available[f] * rescaled[f] for f in available)
+                scenario_scores.append(round(score, 1))
+
+            scenario_df = drivers[["country"]].copy()
+            scenario_df["scenario_score"] = scenario_scores
+            scenario_df = scenario_df.dropna(subset=["scenario_score"]).sort_values("scenario_score", ascending=True)
+
+            fig6 = px.bar(
+                scenario_df, x="scenario_score", y="country", orientation="h",
+                labels={"scenario_score": "Scenario Risk Score (0-100)", "country": ""},
+                custom_data=["country"],
+            )
+            fig6.update_traces(marker_color=ACCENT)
+            # Same fixed-vs-scaling-height fix as the Regional Overview ranking:
+            # without enough vertical room per bar, Plotly quietly drops some
+            # y-axis country labels rather than overlapping them.
+            scenario_click = st.plotly_chart(
+                style_chart(fig6, height=max(560, 22 * len(scenario_df))), use_container_width=True,
+                on_select="rerun", selection_mode="points", key="scenario_rank_select",
+            )
+            st.caption("Click a bar to pre-select that country in the Country Deep Dive tab above.")
+            if scenario_click and scenario_click.selection and scenario_click.selection.get("points"):
+                # Explicit customdata (same mechanism as the Geo-Economic map's
+                # click handler) rather than an undocumented "y" key.
+                scenario_cd = scenario_click.selection["points"][0].get("customdata")
+                # Tab 6 runs after Country Deep Dive (tab 2) in script order -- same
+                # guarded-rerun fix as the Live Conflicts pills and Geo-Economic map.
+                if scenario_cd and st.session_state.get("selected_country_from_map") != scenario_cd[0]:
+                    st.session_state["selected_country_from_map"] = scenario_cd[0]
+                    st.rerun()
+        else:
+            st.caption("Set at least one factor weight above zero to see a ranking.")
 
 # ================= TAB 7: METHODOLOGY =================
 with tab7:
