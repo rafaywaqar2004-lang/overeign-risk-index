@@ -3762,24 +3762,60 @@ with tab6:
             "else in the app."
         )
 
+        # A genuinely data-driven alternative to the named shock presets above
+        # (which are hand-specified rationales, not derived from data): reuses
+        # the same live PCA already computed for the Methodology page's
+        # redundancy check (compute_factor_pca is @st.cache_data, so calling
+        # it again here is free) to build a weighting scheme from each
+        # factor's actual loading on the dominant component of historical
+        # variance, rather than an analyst's judgment call.
+        _weight_presets = dict(SHOCK_PRESETS)
+        _pca_for_weights = compute_factor_pca(driver_history, FACTOR_COLS)
+        if _pca_for_weights is not None:
+            # PCA loading signs are arbitrary (only the axis, not its
+            # direction, is meaningful) -- the absolute loading is what
+            # tells you how much a factor moves with the dominant pattern
+            # of variance, which is what a "how much should this factor
+            # count" weight needs.
+            _pc1_abs = {f: abs(w) for f, w in _pca_for_weights["pc1_loadings"]}
+            _pc1_total = sum(_pc1_abs.values())
+            _pca_weights = {f: round(w / _pc1_total * 100) for f, w in _pc1_abs.items()}
+            _weight_presets["PCA-Derived (data-driven, experimental)"] = {
+                "weights": _pca_weights,
+                "rationale": (
+                    f"Weights each factor by its absolute loading on the first principal component of "
+                    f"{_pca_for_weights['n']} complete-case country-year observations (explains "
+                    f"{_pca_for_weights['explained_pct'][0]:.0f}% of total variance) — see the "
+                    "Methodology page's live redundancy check for the full analysis. This heavily "
+                    "downweights the governance factors relative to the default, since four of the five "
+                    "(Rule of Law, Control of Corruption, Political Stability, Government Effectiveness) "
+                    "load onto that component almost identically, meaning they're substantially "
+                    "restating the same signal rather than five independent ones. "
+                    "**Disclosed, not a recommendation:** deriving weights from the same historical "
+                    "sample the redundancy check itself ran on is a real overfitting risk — this is "
+                    "shown as one additional, inspectable lens on the data, not a replacement for the "
+                    "equal-weight default anywhere else in this app."
+                ),
+            }
+
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown('<div class="section-tag">Reweighting Presets</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title" style="font-size:1.05rem;">Load a Weighting Preset</div>', unsafe_allow_html=True)
         preset_choice = st.selectbox(
             "Load a preset scenario",
-            ["Custom / Manual"] + list(SHOCK_PRESETS.keys()),
+            ["Custom / Manual"] + list(_weight_presets.keys()),
             label_visibility="collapsed",
             key="preset_choice",
         )
         if preset_choice != st.session_state.get("_applied_preset"):
-            if preset_choice in SHOCK_PRESETS:
-                for f, w in SHOCK_PRESETS[preset_choice]["weights"].items():
+            if preset_choice in _weight_presets:
+                for f, w in _weight_presets[preset_choice]["weights"].items():
                     st.session_state[f"w_{f}"] = w
             st.session_state["_applied_preset"] = preset_choice
             st.rerun()
 
-        if preset_choice in SHOCK_PRESETS:
-            st.caption(SHOCK_PRESETS[preset_choice]["rationale"])
+        if preset_choice in _weight_presets:
+            st.caption(_weight_presets[preset_choice]["rationale"])
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -4007,8 +4043,11 @@ with tab7:
             f"pillar — it's closer to 2-3 independent dimensions than 5 — but the composite still uses "
             f"equal weighting within each pillar here, deliberately: down-weighting the correlated "
             f"factors based on this same historical sample would be fitting the model to the data it was "
-            f"just validated against, the exact overfitting risk this section already flags. Reported as "
-            f"a finding, not yet acted on."
+            f"just validated against, the exact overfitting risk this section already flags. A "
+            f"\"PCA-Derived (data-driven, experimental)\" preset built from these exact loadings is "
+            f"available as one additional, optional lens in the Shock Scenario Lab's Weight Sensitivity "
+            f"tool — never a replacement for the default anywhere else in this app, and carrying the same "
+            f"overfitting caveat there."
         )
 
         _pca_chart_col1, _pca_chart_col2 = st.columns([1, 1])
