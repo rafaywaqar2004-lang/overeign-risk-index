@@ -104,3 +104,77 @@ def test_get_market_signals_never_raises_even_with_bad_inputs():
     assert set(signals.keys()) == {"fx_pressure", "acled", "trade_hhi", "bond_yield"}
     for sig in signals.values():
         assert "available" in sig
+
+
+# ---------------------------------------------------------------------------
+# Daily FX granularity (fx_daily_history.csv path), with annual fallback
+# ---------------------------------------------------------------------------
+def _fx_daily_df(rates, country_code="PAK", start_date="2026-08-01"):
+    start = pd.Timestamp(start_date)
+    rows = [
+        {"date": (start + pd.Timedelta(days=i)).strftime("%Y-%m-%d"), "country_code": country_code,
+         "currency_code": "PKR", "lcu_per_usd": rate}
+        for i, rate in enumerate(rates)
+    ]
+    return pd.DataFrame(rows)
+
+
+def test_exchange_rate_pressure_prefers_daily_when_enough_real_history():
+    # 10 rates -> 9 real day-over-day pct changes, above MIN_DAILY_OBSERVATIONS (8).
+    rates = [280.0, 280.5, 279.8, 281.0, 280.2, 279.9, 280.7, 281.5, 280.9, 285.0]
+    fx_daily_df = _fx_daily_df(rates)
+    long_df = _fx_long_df([1.0, 2.0])  # deliberately too little annual history to matter
+    result = ms.exchange_rate_pressure(long_df, "PAK", fx_daily_df=fx_daily_df)
+    assert result["available"] is True
+    assert result["granularity"] == "daily"
+    assert result["n_days"] == 10
+
+    pct_changes = [(rates[i] - rates[i - 1]) / rates[i - 1] * 100 for i in range(1, len(rates))]
+    expected_latest = pct_changes[-1]
+    expected_vol = pd.Series(pct_changes[:-1]).std(ddof=1)
+    assert result["latest_change_pct"] == pytest.approx(expected_latest)
+    assert result["volatility"] == pytest.approx(expected_vol)
+    assert result["pressure_index"] == pytest.approx(abs(expected_latest) / expected_vol)
+
+
+def test_exchange_rate_pressure_falls_back_to_annual_with_too_little_daily_history():
+    # Only 5 rates -> 4 real pct changes, below MIN_DAILY_OBSERVATIONS (8).
+    fx_daily_df = _fx_daily_df([280.0, 280.5, 279.8, 281.0, 280.2])
+    changes = [1.0, -1.0, 2.0, -2.0, 10.0]
+    long_df = _fx_long_df(changes)
+    result = ms.exchange_rate_pressure(long_df, "PAK", fx_daily_df=fx_daily_df, min_years=4)
+    assert result["available"] is True
+    assert result["granularity"] == "annual"
+
+
+def test_exchange_rate_pressure_falls_back_to_annual_when_no_daily_data_at_all():
+    changes = [1.0, -1.0, 2.0, -2.0, 10.0]
+    long_df = _fx_long_df(changes)
+    result = ms.exchange_rate_pressure(long_df, "PAK", fx_daily_df=None, min_years=4)
+    assert result["available"] is True
+    assert result["granularity"] == "annual"
+
+
+def test_exchange_rate_pressure_ignores_other_countries_daily_rows():
+    rates = [280.0, 280.5, 279.8, 281.0, 280.2, 279.9, 280.7, 281.5, 280.9, 285.0]
+    fx_daily_df = _fx_daily_df(rates, country_code="EGY")  # not PAK
+    changes = [1.0, -1.0, 2.0, -2.0, 10.0]
+    long_df = _fx_long_df(changes, country_code="PAK")
+    result = ms.exchange_rate_pressure(long_df, "PAK", fx_daily_df=fx_daily_df, min_years=4)
+    assert result["granularity"] == "annual"
+
+
+def test_exchange_rate_pressure_daily_zero_variance_falls_back_to_annual():
+    fx_daily_df = _fx_daily_df([280.0] * 10)  # all pct changes are 0 -> zero volatility
+    changes = [1.0, -1.0, 2.0, -2.0, 10.0]
+    long_df = _fx_long_df(changes)
+    result = ms.exchange_rate_pressure(long_df, "PAK", fx_daily_df=fx_daily_df, min_years=4)
+    assert result["available"] is True
+    assert result["granularity"] == "annual"
+
+
+def test_pressure_level_thresholds():
+    assert ms._pressure_level(0.5) == "Normal"
+    assert ms._pressure_level(1.0) == "Elevated"
+    assert ms._pressure_level(1.9) == "Elevated"
+    assert ms._pressure_level(2.0) == "High"

@@ -832,6 +832,23 @@ scored, history, drivers, driver_history, long_df = (
 )
 TOTAL_COUNTRIES = len(scored)
 
+
+@st.cache_data(ttl=3600)
+def load_fx_daily():
+    """fx_daily_history.csv is optional and NEVER fatal if missing — it's
+    written by its own daily GitHub Action (fx-daily-refresh.yml) that's
+    separate from the core data pipeline above, and won't exist at all until
+    that Action has run at least once. market_signals.py's
+    exchange_rate_pressure() already handles a None/empty frame by falling
+    back to the real annual World Bank calculation."""
+    try:
+        return pd.read_csv("fx_daily_history.csv")
+    except (FileNotFoundError, pd.errors.EmptyDataError, pd.errors.ParserError):
+        return None
+
+
+fx_daily_df = load_fx_daily()
+
 REQUIRED_COLUMNS = {
     "scored": ["country", "country_code", "risk_score", "risk_tier", "risk_rank", "risk_score_factors_used"],
     "history": ["country", "country_code", "year", "risk_score"],
@@ -1916,6 +1933,7 @@ with tab2:
             acled_key=st.session_state.get("acled_key_input") or os.environ.get("ACLED_API_KEY") or None,
             acled_email=st.session_state.get("acled_email_input") or os.environ.get("ACLED_EMAIL") or None,
             comtrade_key=st.session_state.get("comtrade_key_input") or os.environ.get("UN_COMTRADE_API_KEY") or None,
+            fx_daily_df=fx_daily_df,
         )
 
     _fx, _acled, _hhi, _bond = _signals["fx_pressure"], _signals["acled"], _signals["trade_hhi"], _signals["bond_yield"]
@@ -1932,12 +1950,21 @@ with tab2:
     _trend_arrow = {"up": "▲ rising", "down": "▼ falling", "flat": "— flat"}
 
     _signal_rows = []
-    if _fx["available"]:
+    if _fx["available"] and _fx["granularity"] == "daily":
+        _signal_rows.append([
+            "Exchange Rate Pressure",
+            _signal_badge(_fx["level"], _fx_level_color[_fx["level"]]),
+            f"{_fx['pressure_index']:.2f}× ({_fx['latest_change_pct']:+.2f}% on {_fx['latest_date']}, vs "
+            f"{_fx['volatility']:.2f} pp typical daily swing over the prior {_fx['n_days'] - 1} days)",
+            "ExchangeRate-API (open access, daily)",
+        ])
+    elif _fx["available"]:
         _signal_rows.append([
             "Exchange Rate Pressure",
             _signal_badge(_fx["level"], _fx_level_color[_fx["level"]]),
             f"{_fx['pressure_index']:.2f}× ({_fx['latest_change_pct']:+.1f}% in {_fx['latest_year']}, vs "
-            f"{_fx['volatility']:.1f} pp typical annual swing over the prior {_fx['n_years'] - 1} yrs)",
+            f"{_fx['volatility']:.1f} pp typical annual swing over the prior {_fx['n_years'] - 1} yrs) — "
+            "daily history still accumulating, showing the annual figure meanwhile",
             "World Bank WDI: PA.NUS.FCRF (annual, derived)",
         ])
     else:
@@ -1969,6 +1996,11 @@ with tab2:
     _signal_rows.append(["Sovereign Bond Yield", _signal_badge("N/A", "#94a3b8"), _bond["reason"], "—"])
 
     custom_table(_signal_rows, ["Signal", "Status", "Detail", "Source"])
+    st.caption(
+        'Daily exchange rates: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer">'
+        'Rates By Exchange Rate API</a>.',
+        unsafe_allow_html=True,
+    )
 
     st.markdown("<br>", unsafe_allow_html=True)
     gov_col, indicators_col = st.columns([1, 2])
@@ -4235,15 +4267,21 @@ with tab7:
         [
             [
                 "Exchange Rate Pressure",
-                "abs(latest year's % change in official exchange rate) ÷ std. dev. of the country's own "
-                "prior years' % changes.",
-                "World Bank WDI (PA.NUS.FCRF, annual, ultimately IMF-sourced) — real data already fetched "
-                "elsewhere in this app for the currency_depreciation_pct factor. <b>Disclosed limitation:</b> "
-                "IMF's own monthly effective-exchange-rate SDMX API was evaluated and found unusable within "
-                "reasonable effort — its real indicator codes are undocumented composite strings (discovered "
-                "only via a wildcard structural query) that returned empty datasets even for reference "
-                "queries during live testing. Rather than ship an unverified monthly figure, this indicator "
-                "uses real annual data instead — always disclosed as annual, never presented as monthly.",
+                "abs(latest change in the official USD exchange rate) ÷ std. dev. of the country's own "
+                "recent prior changes — daily where real daily history exists, annual otherwise.",
+                "Real, DAILY granularity once enough history has accumulated: a new GitHub Action "
+                "(<code>fx-daily-refresh.yml</code>, running <code>fx_daily.py</code>) fetches the free, "
+                "no-key ExchangeRate-API \"Open Access\" endpoint once a day and appends a real row per "
+                "country to <code>fx_daily_history.csv</code> — the free endpoint only ever returns "
+                "today's snapshot, so a real time series has to be accumulated this way rather than "
+                "fetched live. Until roughly a week or two of daily history has built up for a given "
+                "country, this falls back to the original real ANNUAL World Bank series "
+                "(PA.NUS.FCRF, ultimately IMF-sourced) already used elsewhere in this app for the "
+                "currency_depreciation_pct factor — the two are never blended; the in-app table always "
+                "discloses which one produced a given result. <b>Disclosed limitation this replaced:</b> "
+                "IMF's own monthly effective-exchange-rate SDMX API was evaluated first and found "
+                "unusable within reasonable effort — its real indicator codes are undocumented composite "
+                "strings that returned empty datasets even for reference queries during live testing.",
             ],
             [
                 "Conflict Events (ACLED)",

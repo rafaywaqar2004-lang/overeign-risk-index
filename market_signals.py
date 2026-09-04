@@ -10,24 +10,37 @@ honest reason string — it never fabricates a number to fill a gap, matching
 this project's existing practice (see FI_RES_MOM in econometric_drivers.py).
 
 1. Exchange Rate Pressure Index
-   Built from this app's OWN already-fetched real World Bank exchange-rate
-   series (PA.NUS.FCRF, "Official exchange rate, LCU per US$", ultimately
-   sourced from IMF International Financial Statistics) — specifically the
-   currency_depreciation_pct factor fetch_data.py already derives from it
-   and stores in raw_data_long.csv. No new network call is needed.
+   Real, DAILY granularity where available: fx_daily.py runs once a day via
+   its own GitHub Action, hitting the free, no-key ExchangeRate-API "Open
+   Access" endpoint (open.er-api.com) and appending one real row per country
+   to fx_daily_history.csv. pressure_index = abs(latest day-over-day %
+   change) / (std dev of the country's own recent daily % changes). Once at
+   least MIN_DAILY_OBSERVATIONS real days have accumulated for a country,
+   this daily figure is used and disclosed as "daily" granularity.
 
-   GRANULARITY DISCLOSURE: IMF's own monthly effective-exchange-rate SDMX
-   API (dataflow IMF.STA:EER, 6.0.0) was evaluated for this feature and
-   found unusable within reasonable effort — its real indicator codes are
-   undocumented composite strings (e.g. NEER_IX_RY2010_ACW, discovered only
-   via a wildcard structural query) that returned an EMPTY dataset even for
-   reference queries (Pakistan, Turkey, the US) during live testing against
-   the real API. Rather than ship a monthly figure that can't be verified as
-   correct, this indicator uses real ANNUAL data instead:
+   Before that history has built up (e.g. right after this feature first
+   shipped, or for a currency briefly missing from a given day's feed), this
+   falls back to the original real ANNUAL World Bank series (PA.NUS.FCRF,
+   "Official exchange rate, LCU per US$", ultimately sourced from IMF
+   International Financial Statistics) — specifically the
+   currency_depreciation_pct factor fetch_data.py already derives from it
+   and stores in raw_data_long.csv. This fallback path uses:
        pressure_index = abs(latest year's % change) / (std dev of the
                          country's own prior years' % changes)
-   This is disclosed as annual (not monthly) granularity here and on the
-   Methodology page.
+   and is disclosed as "annual" granularity — the two are never silently
+   blended; every result says explicitly which one it is.
+
+   GRANULARITY DISCLOSURE (why daily-via-World-Bank/IMF wasn't possible):
+   IMF's own monthly effective-exchange-rate SDMX API (dataflow
+   IMF.STA:EER, 6.0.0) was evaluated for this feature and found unusable
+   within reasonable effort — its real indicator codes are undocumented
+   composite strings (e.g. NEER_IX_RY2010_ACW, discovered only via a
+   wildcard structural query) that returned an EMPTY dataset even for
+   reference queries (Pakistan, Turkey, the US) during live testing against
+   the real API. ExchangeRate-API's free endpoint closed this gap instead —
+   see fx_daily.py's own module docstring for its terms of use and why a
+   new daily Action (not a live per-page-load fetch) was the only way to
+   build a real historical series from a "latest snapshot only" free API.
 
 2. ACLED Conflict Events
    Reuses fetch_data.fetch_acled_events(), a real, already-working
@@ -87,7 +100,56 @@ ACLED_WINDOWS = (30, 90, 365)
 # ---------------------------------------------------------------------------
 # 1. Exchange Rate Pressure Index
 # ---------------------------------------------------------------------------
-def exchange_rate_pressure(long_df, country_code, min_years=4):
+MIN_DAILY_OBSERVATIONS = 8  # daily pct-changes needed (9 raw daily rows) before trusting a daily volatility figure
+DAILY_LOOKBACK_ROWS = 31    # cap history used per country to the most recent ~30 days, so an old regime shift doesn't linger in the volatility denominator forever
+
+
+def _pressure_level(pressure):
+    if pressure >= 2.0:
+        return "High"
+    if pressure >= 1.0:
+        return "Elevated"
+    return "Normal"
+
+
+def _exchange_rate_pressure_daily(fx_daily_df, country_code, min_observations=MIN_DAILY_OBSERVATIONS):
+    """Real DAILY granularity, built from fx_daily.py's own accumulated
+    snapshots (see that module's docstring for the data source and why this
+    has to accumulate over time rather than being fetched live per page
+    load). Returns None (not a dict) if there isn't yet enough real daily
+    history for this country -- the caller falls back to the annual
+    calculation in that case."""
+    if fx_daily_df is None or fx_daily_df.empty:
+        return None
+    sub = fx_daily_df[fx_daily_df["country_code"] == country_code].dropna(subset=["lcu_per_usd"]).sort_values("date")
+    sub = sub.tail(DAILY_LOOKBACK_ROWS)
+    if len(sub) < min_observations + 1:
+        return None
+
+    rates = sub["lcu_per_usd"].to_numpy(dtype=float)
+    dates = sub["date"].to_numpy()
+    pct_changes = (rates[1:] - rates[:-1]) / rates[:-1] * 100
+
+    latest_change = float(pct_changes[-1])
+    prior_changes = pct_changes[:-1]
+    volatility = float(np.std(prior_changes, ddof=1))
+    if volatility == 0 or np.isnan(volatility):
+        return None
+
+    pressure = abs(latest_change) / volatility
+    return {
+        "available": True,
+        "granularity": "daily",
+        "latest_date": str(dates[-1]),
+        "latest_change_pct": latest_change,
+        "volatility": volatility,
+        "pressure_index": pressure,
+        "level": _pressure_level(pressure),
+        "n_days": len(sub),
+    }
+
+
+def _exchange_rate_pressure_annual(long_df, country_code, min_years=4):
     """Real, annual: abs(latest YoY FX % change) / std dev of the country's
     own prior years' YoY % changes. Needs at least `min_years` reported
     years (so the volatility denominator means something) or returns
@@ -113,22 +175,27 @@ def exchange_rate_pressure(long_df, country_code, min_years=4):
         return {"available": False, "reason": "No variation in this country's prior exchange-rate history to measure pressure against."}
 
     pressure = abs(latest_change) / volatility
-    if pressure >= 2.0:
-        level = "High"
-    elif pressure >= 1.0:
-        level = "Elevated"
-    else:
-        level = "Normal"
-
     return {
         "available": True,
+        "granularity": "annual",
         "latest_year": latest_year,
         "latest_change_pct": latest_change,
         "volatility": volatility,
         "pressure_index": pressure,
-        "level": level,
+        "level": _pressure_level(pressure),
         "n_years": len(sub),
     }
+
+
+def exchange_rate_pressure(long_df, country_code, fx_daily_df=None, min_years=4, min_daily_observations=MIN_DAILY_OBSERVATIONS):
+    """Tries the real daily series first (see _exchange_rate_pressure_daily);
+    falls back to the real annual World Bank series once daily history is
+    genuinely insufficient. The two are never blended -- the returned dict's
+    "granularity" key always says exactly which one produced the result."""
+    daily = _exchange_rate_pressure_daily(fx_daily_df, country_code, min_daily_observations)
+    if daily is not None:
+        return daily
+    return _exchange_rate_pressure_annual(long_df, country_code, min_years)
 
 
 # ---------------------------------------------------------------------------
@@ -275,12 +342,12 @@ def bond_yield_signal(country_code):
     }
 
 
-def get_market_signals(long_df, country_code, country_name, acled_key=None, acled_email=None, comtrade_key=None):
+def get_market_signals(long_df, country_code, country_name, acled_key=None, acled_email=None, comtrade_key=None, fx_daily_df=None):
     """Orchestrates all 4 signals for one country. Never raises — each
     sub-signal degrades to available=False on its own if its data/credential
     isn't there."""
     try:
-        fx = exchange_rate_pressure(long_df, country_code)
+        fx = exchange_rate_pressure(long_df, country_code, fx_daily_df=fx_daily_df)
     except Exception as exc:
         fx = {"available": False, "reason": f"Error computing exchange-rate pressure: {exc}"}
 

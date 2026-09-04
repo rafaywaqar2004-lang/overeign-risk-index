@@ -133,10 +133,13 @@ public API (no key required).
 
 What's automated, and what still needs a human:
 
-- **Data pipeline (fully automated):** `refresh-data.yml` runs every Monday
-  via GitHub Actions — re-pulls World Bank/IMF data, recomputes scores,
-  validates every dataset (`validate_data.py`), and commits/redeploys.
-  Nothing to do here.
+- **Data pipeline (fully automated):** `refresh-data.yml` runs nightly
+  (00:00 UTC) via GitHub Actions — re-pulls World Bank/IMF data, recomputes
+  scores, validates every dataset (`validate_data.py`), and commits/redeploys.
+  `fx-daily-refresh.yml` runs right after it (00:20 UTC) and appends one real
+  daily exchange-rate snapshot per country to `fx_daily_history.csv`, which
+  is what lets the Exchange Rate Pressure signal upgrade itself from annual
+  to real daily granularity as history accumulates. Nothing to do here.
 - **Correctness regressions (fully automated):** `tests.yml` runs the
   40-test `pytest` suite plus `validate_data.py` on every push and PR —
   catches logic bugs (like a hardcoded year cutoff or a formula that stops
@@ -187,8 +190,8 @@ What's automated, and what still needs a human:
 - **Data validation script** (`validate_data.py`): checks every data
   structure for consistency (valid country codes, required fields,
   well-formed source URLs) before deployment
-- **Automated weekly data refresh** (`.github/workflows/refresh-data.yml`):
-  a GitHub Actions workflow that re-pulls World Bank/IMF data every Monday,
+- **Automated nightly data refresh** (`.github/workflows/refresh-data.yml`):
+  a GitHub Actions workflow that re-pulls World Bank/IMF data every night,
   recomputes all scores, validates them, and commits automatically —
   Streamlit Cloud then auto-redeploys. This keeps the *quantitative* score
   genuinely live. The qualitative content (conflicts, historical context,
@@ -348,3 +351,23 @@ API key, entered in a new sidebar "Market Data Settings" panel and kept in
 session state only (never written to disk); without any keys configured,
 every affected row cleanly reads "Not configured" and the app is otherwise
 unaffected. See `market_signals.py`.
+
+## v13 additions — Daily Exchange Rate Pressure
+
+Upgrades the Exchange Rate Pressure Index from annual-only to real DAILY
+granularity as soon as enough history exists. A new `fx_daily.py` script,
+run once a day by `.github/workflows/fx-daily-refresh.yml`, hits the free,
+no-key ExchangeRate-API "Open Access" endpoint (`open.er-api.com`) and
+appends one real snapshot per country (33 of 34 — Palestine has no national
+currency of its own) to `fx_daily_history.csv`. This was necessary because
+the free endpoint only ever returns *today's* rate, not history — there is
+no free API that serves a real historical daily FX series for this country
+set, so the only honest way to build one is to accumulate real snapshots
+over time, the same pattern already used for every other data source in
+this project. Until ~9 real daily snapshots exist for a country,
+`market_signals.exchange_rate_pressure()` automatically and transparently
+falls back to the original real annual World Bank calculation — the two are
+never blended, and the app always discloses which granularity produced the
+number shown. Required attribution ("Rates By Exchange Rate API") is shown
+in-app next to the signal and on the Methodology page. See `fx_daily.py`
+and `market_signals.py`.

@@ -1,0 +1,36 @@
+name: Refresh daily exchange rates
+
+on:
+  schedule:
+    - cron: "20 0 * * *"  # Nightly at 00:20 UTC -- staggered 20 minutes after
+                           # refresh-data.yml's 00:00 UTC run so the two
+                           # workflows never race to git push at the same time.
+  workflow_dispatch: {}  # Allows manually triggering a refresh from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch today's exchange rates
+        run: python fx_daily.py
+
+      - name: Commit refreshed FX history if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add fx_daily_history.csv
+          git diff --staged --quiet && echo "No FX data changes" || git commit -m "Automated daily FX rate snapshot $(date -u +%Y-%m-%d)"
+          git push
