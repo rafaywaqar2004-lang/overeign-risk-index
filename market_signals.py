@@ -211,9 +211,15 @@ def fetch_trade_hhi(country_code, api_key, retries=2):
             "https://comtradeapi.un.org/data/v1/get/C/A/HS"
             f"?reporterCode={reporter}&period={year}&cmdCode=TOTAL&flowCode=M"
             "&partnerCode=&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false"
+            f"&subscription-key={api_key}"
         )
         result = None
         for _ in range(retries):
+            # Azure API Management (which fronts this API) accepts the key
+            # either as the Ocp-Apim-Subscription-Key header or the
+            # subscription-key query parameter -- both are sent here since
+            # the query-param form is the one actually confirmed working
+            # against this specific API with a real key during development.
             result = subprocess.run(
                 ["curl", "-s", "-m", "20", "-H", f"Ocp-Apim-Subscription-Key: {api_key}", url],
                 capture_output=True, text=True, timeout=25,

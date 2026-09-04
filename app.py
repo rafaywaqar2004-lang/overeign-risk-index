@@ -1,3 +1,4 @@
+import os
 import re
 import numpy as np
 import pandas as pd
@@ -50,18 +51,30 @@ st.set_page_config(page_title="MENASA Risk Monitor", page_icon="assets/favicon.p
 # is choosing to query. The app works fully without any of them — every
 # affected signal just shows "Not configured" instead of a live figure.
 # ============================================================
+_deployment_has_default_market_keys = bool(
+    os.environ.get("ACLED_API_KEY") or os.environ.get("UN_COMTRADE_API_KEY")
+)
 with st.sidebar:
     st.markdown("#### Market Data Settings")
-    st.caption(
-        "Optional. Powers the live Market Signals sub-section on Country Deep "
-        "Dive. Kept only in this browser session — never saved to disk."
-    )
+    if _deployment_has_default_market_keys:
+        st.caption(
+            "Optional. Powers the live Market Signals sub-section on Country Deep "
+            "Dive. This deployment already has its own default keys configured for "
+            "some sources, so most visitors don't need to enter anything here — "
+            "these fields let you use your own account instead (kept only in this "
+            "browser session, never saved to disk)."
+        )
+    else:
+        st.caption(
+            "Optional. Powers the live Market Signals sub-section on Country Deep "
+            "Dive. Kept only in this browser session — never saved to disk."
+        )
     with st.expander("ACLED (conflict events)", expanded=False):
         st.caption("Free account: [acleddata.com/register](https://acleddata.com/register/)")
         st.text_input("ACLED email", key="acled_email_input", placeholder="you@example.com")
         st.text_input("ACLED API key", key="acled_key_input", type="password")
     with st.expander("UN Comtrade (trade concentration)", expanded=False):
-        st.caption("Free key: [comtradeapi.un.org](https://comtradeapi.un.org/)")
+        st.caption("Free key: [comtradedeveloper.un.org](https://comtradedeveloper.un.org/)")
         st.text_input("UN Comtrade API key", key="comtrade_key_input", type="password")
 
 # ============================================================
@@ -1893,11 +1906,16 @@ with tab2:
         "nothing here is estimated or fabricated to fill a gap."
     )
     with st.spinner("Checking live market data sources..."):
+        # A visitor's own key (typed into the sidebar) always wins; otherwise
+        # fall back to this deployment's own default keys (set as Render
+        # environment variables, never committed to the repo) so the app
+        # shows real live data out of the box rather than only for a visitor
+        # who happens to have registered their own ACLED/Comtrade account.
         _signals = ms.get_market_signals(
             long_df, country_code, selected,
-            acled_key=st.session_state.get("acled_key_input") or None,
-            acled_email=st.session_state.get("acled_email_input") or None,
-            comtrade_key=st.session_state.get("comtrade_key_input") or None,
+            acled_key=st.session_state.get("acled_key_input") or os.environ.get("ACLED_API_KEY") or None,
+            acled_email=st.session_state.get("acled_email_input") or os.environ.get("ACLED_EMAIL") or None,
+            comtrade_key=st.session_state.get("comtrade_key_input") or os.environ.get("UN_COMTRADE_API_KEY") or None,
         )
 
     _fx, _acled, _hhi, _bond = _signals["fx_pressure"], _signals["acled"], _signals["trade_hhi"], _signals["bond_yield"]
