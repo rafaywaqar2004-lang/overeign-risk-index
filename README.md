@@ -129,6 +129,46 @@ streamlit run app.py       # launches the dashboard
 Python, pandas, Streamlit, Plotly. Quantitative data via the World Bank's
 public API (no key required).
 
+## Maintenance
+
+What's automated, and what still needs a human:
+
+- **Data pipeline (fully automated):** `refresh-data.yml` runs every Monday
+  via GitHub Actions — re-pulls World Bank/IMF data, recomputes scores,
+  validates every dataset (`validate_data.py`), and commits/redeploys.
+  Nothing to do here.
+- **Correctness regressions (fully automated):** `tests.yml` runs the
+  40-test `pytest` suite plus `validate_data.py` on every push and PR —
+  catches logic bugs (like a hardcoded year cutoff or a formula that stops
+  summing to the right total) before they reach production.
+- **Uptime (mostly automated):** `keep-warm.yml` pings the live app every 5
+  minutes so Render's free tier rarely fully sleeps.
+- **Curated/qualitative content (manual, periodic):** Live Conflicts,
+  Historical Context, Current Government, Financing Arrangements, and the
+  Upcoming Catalysts calendar are hand-researched snapshots, not a live
+  feed — they only stay current if someone (a future session, most likely)
+  does a research refresh pass every few months. There's no automated way
+  to detect when this content has gone stale; it has to be judgment-checked
+  periodically.
+- **Pinned dependency versions (manual, periodic):** `requirements.txt` /
+  `requirements-dev.txt` pin exact versions deliberately, so they don't
+  silently drift. Bump them occasionally (check for new releases, update the
+  pin, run `pytest`, do a quick manual click-through, ship if clean) rather
+  than never touching them — a security fix or bug fix in a dependency won't
+  reach this app otherwise. Treat a new major version (e.g. pandas 2.x → 3.x)
+  as its own deliberate task, not a routine bump — those carry real breaking
+  -change risk this test suite won't fully catch on its own.
+- **Live spot-checks (manual, occasional):** the automated tests cover this
+  project's own logic, not an upstream provider silently changing its API
+  shape (World Bank renaming an indicator, Comtrade changing its auth
+  scheme). An occasional click-through of the live app is still worth doing.
+- **ACLED/UN Comtrade API keys (one-time per source, already mostly done):**
+  set as environment variables directly on the Render service (Dashboard →
+  service → Environment), not as GitHub secrets — those only reach the
+  nightly data-refresh Action, not the live running app. `UN_COMTRADE_API_KEY`
+  is already set; `ACLED_API_KEY`/`ACLED_EMAIL` are pending ACLED's own
+  access-approval process.
+
 ## v6 additions
 
 - **Credit rating comparison**: actual S&P/Moody's/Fitch sovereign ratings
