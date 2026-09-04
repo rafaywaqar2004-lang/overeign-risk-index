@@ -1996,11 +1996,12 @@ with tab2:
     _signal_rows.append(["Sovereign Bond Yield", _signal_badge("N/A", "#94a3b8"), _bond["reason"], "—"])
 
     custom_table(_signal_rows, ["Signal", "Status", "Detail", "Source"])
-    st.caption(
-        'Daily exchange rates: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer">'
-        'Rates By Exchange Rate API</a>.',
-        unsafe_allow_html=True,
-    )
+    if _fx["available"] and _fx["granularity"] == "daily":
+        st.caption(
+            'Daily exchange rates: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer">'
+            'Rates By Exchange Rate API</a>.',
+            unsafe_allow_html=True,
+        )
 
     st.markdown("<br>", unsafe_allow_html=True)
     gov_col, indicators_col = st.columns([1, 2])
