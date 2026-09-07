@@ -38,7 +38,7 @@ project's data and belong with it, not with the Gulf tracker.
 - **Country Deep Dive**, for every one of the 34 countries:
   - An auto-generated analyst-style Country Brief
   - Composite score with regional rank and year-over-year change
-  - A 10-factor radar chart and historical trend line
+  - An 11-factor radar chart and historical trend line
   - **Key Sectors & Trade Profile** — main economic sectors, biggest exports,
     biggest imports, and leading trade partners
   - Sourced **Key Historical Context** — conflicts, protests, IMF programs,
@@ -58,7 +58,10 @@ project's data and belong with it, not with the Gulf tracker.
   Egypt-Ethiopia Nile dam dispute, and the Western Sahara/Algeria-Morocco
   rupture) — each with the armed/political groups involved, affected
   countries, a sourced summary, and market/trade impact
-- **Scenario Explorer** — live sliders to reweight all 10 factors and watch
+- **Shock Scenario Lab** — four calibrated shock scenarios (Strait of Hormuz
+  closure, Red Sea/Bab-el-Mandeb disruption, Pakistan sovereign default, and
+  a custom shock builder), plus a Weight Sensitivity tool (the original
+  Scenario Explorer) with live sliders to reweight all 11 factors and watch
   the ranking recompute in real time
 - **Methodology & Data** — full transparency on weights, normalization,
   direct World Bank indicator source links, and an explicit list of the
@@ -67,9 +70,15 @@ project's data and belong with it, not with the Gulf tracker.
 ## Methodology
 
 Each country is scored 0-100 (100 = highest risk) on a weighted composite of
-10 factors across two pillars, weighted equally at 10% by default (adjustable
-live in the Scenario Explorer). See the in-app Methodology tab for the full
-factor/weight/source table.
+11 factors across two pillars — 6 economic (Debt, Current Account, Reserves,
+GDP Growth, Inflation, Currency Depreciation), each weighted 8.3%, and 5
+governance (Political Stability, Government Effectiveness, Rule of Law,
+Regulatory Quality, Control of Corruption), each weighted 10% — with each
+pillar weighted equally at 50% by default (adjustable live in the Shock
+Scenario Lab's Weight Sensitivity tool). Currency Depreciation was added
+after this project's own historical backtest surfaced that Egypt's 2022-23
+currency crisis didn't move the prior 10-factor score at all. See the in-app
+Methodology tab for the full factor/weight/source table.
 
 ## Data sources
 
@@ -104,8 +113,9 @@ research pass.
 
 - **Debt-to-GDP coverage is sparse** — only 31 of 34 countries report it
   consistently to the World Bank (the IMF WEO fallback fills some gaps).
-- **Iran's score is lower-confidence** — only 7 of 10 factors are available,
-  likely due to sanctions limiting fiscal data reporting.
+- **Iran's score is lower-confidence** — only 9 of 11 factors are available
+  (current account and reserves are missing), likely due to sanctions
+  limiting fiscal data reporting.
 - **The composite score is annual and backward-looking** — see the Live
   Conflicts tab for the qualitative, currently-relevant complement.
 - Weights are a transparent, reasonable starting point — not a backtested or
