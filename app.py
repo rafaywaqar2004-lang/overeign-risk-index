@@ -4242,6 +4242,14 @@ with tab7:
     else:
         st.caption("R validation report not found at build time — see `r-validation/validation.Rmd` in the repository.")
 
+    st.markdown(
+        "A third, independent implementation of the same two checks is set up in Stata "
+        "(`stata-validation/validation.do`, with the panel data pre-exported to `.dta` format) — "
+        "run by hand rather than embedded here, since a genuinely independent hands-on run is the "
+        "point of that version. See `stata-validation/README.md` in the repository for the script "
+        "and how to run it."
+    )
+
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Beyond World Bank &amp; IMF</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
