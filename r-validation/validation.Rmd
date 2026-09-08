@@ -1,0 +1,155 @@
+---
+title: "MENASA Risk Monitor — Independent Validation in R"
+author: "Muhammad Rafay Waqar"
+date: "`r format(Sys.Date(), '%B %Y')`"
+output:
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Purpose
+
+The MENASA Risk Monitor's own in-app Methodology tab runs two validation checks on
+its 11-factor composite score, both written in Python: a principal component
+analysis (PCA) redundancy check across the 11 factors, and a historical backtest
+against six well-documented sovereign crises. This notebook reproduces both checks
+**independently, in R**, against the exact same underlying data files
+(`driver_history.csv`, `scored_history.csv`) committed to this repository —
+not a re-explanation of the Python result, a second, separately-coded
+computation of it.
+
+Where the two disagree, that would be worth knowing. Where they agree, that's a
+real (if modest) form of external validation: the same finding, reached by an
+independently written implementation in a different language and statistical
+package (R's `plm` and base `prcomp`, rather than the app's hand-rolled
+`numpy`/`pandas` eigendecomposition).
+
+```{r libs}
+library(plm)
+data_dir <- "../"
+```
+
+## 1. Independent PCA Redundancy Check
+
+The live app computes this via a manual eigendecomposition of the standardized
+factor correlation matrix (`numpy.linalg.eigh`), complete-case only. Here, the
+same complete-case data is fed into R's own `prcomp()`, a completely separate
+implementation.
+
+```{r pca}
+factor_cols <- c(
+  "debt_to_gdp", "current_account_pct_gdp", "reserves_months_imports",
+  "gdp_growth", "inflation", "currency_depreciation_pct",
+  "political_stability", "government_effectiveness", "rule_of_law",
+  "regulatory_quality", "control_of_corruption"
+)
+
+driver_history <- read.csv(file.path(data_dir, "driver_history.csv"))
+complete <- driver_history[complete.cases(driver_history[, factor_cols]), factor_cols]
+
+cat("Complete-case observations used:", nrow(complete), "of", nrow(driver_history), "\n")
+
+pca <- prcomp(complete, scale. = TRUE)
+var_explained <- (pca$sdev^2) / sum(pca$sdev^2) * 100
+
+cat("\nVariance explained by each principal component (%):\n")
+print(round(var_explained, 1))
+
+cat("\nPC1 loadings (which factors move together on the dominant component):\n")
+pc1 <- sort(pca$rotation[, 1], decreasing = TRUE)
+print(round(pc1, 3))
+```
+
+```{r pca-plot, fig.width=7, fig.height=4}
+barplot(var_explained, names.arg = paste0("PC", seq_along(var_explained)),
+        col = "#0d1b2a", border = NA, ylab = "Variance Explained (%)",
+        main = "Independent R Reproduction: Variance Explained by Component")
+```
+
+```{r pca-corr}
+cat("\nGovernance-cluster correlations (the app's claimed redundancy):\n")
+cat("Rule of Law vs. Control of Corruption:  ",
+    round(cor(complete$rule_of_law, complete$control_of_corruption), 2), "\n")
+cat("Rule of Law vs. Political Stability:    ",
+    round(cor(complete$rule_of_law, complete$political_stability), 2), "\n")
+cat("Govt. Effectiveness vs. Control of Corr:",
+    round(cor(complete$government_effectiveness, complete$control_of_corruption), 2), "\n")
+```
+
+**Read against the app's stated result:** the live Methodology tab reports PC1
+explaining a dominant share of variance, driven by the four governance factors
+(Rule of Law, Control of Corruption, Political Stability, Government
+Effectiveness) loading together with similar strength (0.38–0.45 each), while
+the economic factors split onto later components. The numbers above, computed
+independently in R, are the same check — compare the printed values directly
+against the live app's Methodology tab at the time this notebook was run.
+
+## 2. Independent Historical Crisis Backtest
+
+The app claims: of six well-documented crises, four were captured in the same
+calendar year the crisis began (Syria 2011→12, Sri Lanka 2022, Afghanistan
+2021, Pakistan 2022), one with roughly a one-year lag (Lebanon), and one still
+missed (Egypt). This section recomputes each year-over-year delta directly
+from `scored_history.csv`, independently of the app's own code.
+
+```{r backtest}
+scored_history <- read.csv(file.path(data_dir, "scored_history.csv"))
+
+crisis_cases <- data.frame(
+  code = c("SYR", "LKA", "AFG", "LBN", "PAK", "EGY"),
+  crisis_year = c(2012, 2022, 2021, 2020, 2022, 2022),
+  label = c("Syria (civil war escalation)", "Sri Lanka (2022 collapse & default)",
+            "Afghanistan (2021 Taliban takeover)", "Lebanon (2019-23 financial collapse)",
+            "Pakistan (2022-23 BoP crisis)", "Egypt (2022-23 currency crisis)")
+)
+
+for (i in seq_len(nrow(crisis_cases))) {
+  code <- crisis_cases$code[i]
+  yr <- crisis_cases$crisis_year[i]
+  ch <- scored_history[scored_history$country_code == code, c("year", "risk_score")]
+  ch <- ch[order(ch$year), ]
+  prior <- ch$risk_score[ch$year == (yr - 1)]
+  curr  <- ch$risk_score[ch$year == yr]
+  delta <- round(curr - prior, 1)
+  cat(sprintf("%-45s %d -> %d: %+.1f points\n", crisis_cases$label[i], yr - 1, yr, delta))
+}
+```
+
+**Read against the app's stated result:** the deltas above are computed fresh
+from the committed CSV, independently of the Streamlit app's own rendering
+logic. They should match the app's stated per-case figures (e.g., Sri Lanka
++13.9 in 2022, Syria +22.0 in 2012) exactly, since both draw on the same
+underlying `scored_history.csv` — the value of this check is confirming no
+transcription or rendering error crept into how the app displays its own
+backtest, not discovering a new result.
+
+## 3. Panel Structure Check (`plm`)
+
+As a genuinely different addition (not just a re-run of the app's own checks),
+this confirms the data is a valid balanced/unbalanced panel and reports basic
+panel diagnostics using R's `plm` package — the standard tool for exactly this
+kind of country-year data, and the tool the planned EM Macro & Geopolitical
+Risk Engine's sovereign distress model will build on directly.
+
+```{r panel}
+pdata <- pdata.frame(scored_history, index = c("country_code", "year"))
+cat("Panel dimensions:\n")
+print(pdim(pdata))
+```
+
+## Limitations of This Notebook
+
+- This is a validation and cross-check exercise, not a new statistical claim.
+  It confirms the app's own reported numbers reproduce under an independently
+  written implementation; it does not assess whether the underlying 11-factor
+  weighting scheme itself is the right one (the app's own README is explicit
+  that it isn't econometrically validated).
+- The panel check above is illustrative of the data's structure, not a fitted
+  model — the actual sovereign distress model (fixed/random-effects regression
+  with real out-of-sample validation) is a separate, larger project.
