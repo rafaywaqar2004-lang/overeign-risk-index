@@ -12,13 +12,18 @@ build step, after `pip install`, patching the freshly-installed package's
 index.html before the server ever starts.
 
 The loading screen exists for the same "no way to touch the shipped shell"
-reason, applied to a different problem: Render's free tier spins the
-container down after a few idle minutes, so the first visitor after a
-quiet spell hits a genuine ~20-30s cold start. Until Streamlit's own JS
-bundle loads, connects its websocket, and runs the Python script, the
-browser shows a blank page -- which reads as "broken," not "loading."
-This block renders instantly (it's static HTML/CSS, no JS bundle needed)
-and removes itself once the real app has actually rendered content.
+reason, applied to a different problem: until Streamlit's own JS bundle
+loads, connects its websocket, and runs the Python script, the browser
+shows a blank page -- which reads as "broken," not "loading." This block
+renders instantly (it's static HTML/CSS, no JS bundle needed) and removes
+itself once the real app has actually rendered content.
+
+(This deployment moved off Render's free tier to a paid Starter plan in
+September 2026, which doesn't spin the container down on inactivity --
+so the ~20-30s cold start that motivated this screen's original "waking
+up" copy no longer happens. The screen itself is kept, with generic
+copy, to cover the brief few-second SPA boot window that exists on any
+plan.)
 
 Idempotent: safe to run on every build. If either managed block is already
 present (e.g. a re-run without a fresh install), it's replaced rather than
@@ -87,8 +92,7 @@ LOADER_BLOCK = f"""{LOADER_BLOCK_START}
       "></div>
     <div style="font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em;">MENASA Risk Monitor</div>
     <div style="font-size: 0.88rem; color: #a3a3a3; margin-top: 0.6rem; max-width: 320px; line-height: 1.5;">
-      Waking up the live demo — this free-tier instance sleeps when idle,
-      so the first load can take up to 30 seconds.
+      Loading the live monitor — this only takes a moment.
     </div>
   </div>
   <style>

@@ -141,11 +141,16 @@ What's automated, and what still needs a human:
   is what lets the Exchange Rate Pressure signal upgrade itself from annual
   to real daily granularity as history accumulates. Nothing to do here.
 - **Correctness regressions (fully automated):** `tests.yml` runs the
-  40-test `pytest` suite plus `validate_data.py` on every push and PR —
+  51-test `pytest` suite plus `validate_data.py` on every push and PR —
   catches logic bugs (like a hardcoded year cutoff or a formula that stops
   summing to the right total) before they reach production.
-- **Uptime (mostly automated):** `keep-warm.yml` pings the live app every 5
-  minutes so Render's free tier rarely fully sleeps.
+- **Uptime (fully automated):** the Render service runs on a paid Starter
+  plan (as of September 2026), which doesn't spin down on inactivity the
+  way the free tier did — visitors no longer hit a cold-start delay.
+  `keep-warm.yml` (a 5-minute ping) is a holdover from the free-tier era;
+  it's now redundant for preventing sleep but harmless to leave running as
+  a lightweight uptime check (this is a public repo, so it costs nothing in
+  GitHub Actions minutes).
 - **Curated/qualitative content (manual, periodic):** Live Conflicts,
   Historical Context, Current Government, Financing Arrangements, and the
   Upcoming Catalysts calendar are hand-researched snapshots, not a live
