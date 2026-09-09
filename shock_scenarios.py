@@ -37,6 +37,18 @@ Disclosed modeling choices (illustrative, not measured):
     documented, transparent choice, the same honest framing this app's
     existing point-based country-level shock slider (app.py's
     compute_shock_scenario) already uses for the same reason.
+
+Two further scenarios (Iran-Israel-US War, India-Pakistan Crisis) model the
+two conflicts this app's own Live Conflicts tab already tracks in the most
+depth (context_data.py's LIVE_CONFLICTS), reusing that same real, sourced
+data rather than inventing new figures: the exact "affected" country lists,
+Qatar's real ~17% LNG-capacity loss (Iranian strikes on Ras Laffan/Mesaieed,
+also documented in geoeconomic_data.py), Israel's own Finance Ministry
+war-cost estimate (~$11.5bn), and Pakistan's real, already-quantified GDP
+impact from India's Indus Waters Treaty suspension (-1.5% to -2%, this
+scenario uses the -1.75% midpoint). See QATAR_LNG_CAPACITY_LOSS_PCT and the
+country_fiscal_shock_usd / country_direct_fiscal_pct_gdp_shock scenario
+parameters below for exactly how each is applied.
 """
 from collections import OrderedDict
 
@@ -101,6 +113,13 @@ CHOKEPOINT_EXPOSURE = {
 # the underlying Suez Canal Authority reporting this is drawn from):
 # pre-crisis (2023) Suez Canal annual revenue was approximately $8-9 billion.
 EGYPT_SUEZ_ANNUAL_REVENUE_USD_BASELINE = 8.5e9
+
+# Real, sourced figure (context_data.py's "2026 Iran-Israel-US War" entry and
+# geoeconomic_data.py's Corporate Gatekeepers/chokepoint sections, citing
+# EnergyNow/The Peninsula Qatar reporting on the Feb-Mar 2026 Iranian strikes
+# on QatarEnergy's Ras Laffan/Mesaieed LNG facilities): roughly 17% of
+# Qatar's LNG export capacity was destroyed.
+QATAR_LNG_CAPACITY_LOSS_PCT = 0.17
 
 # Directly-affected countries per the task spec for each preset (drives the
 # conflict-intensity bump; chokepoint-driven trade/fiscal terms below still
@@ -194,6 +213,67 @@ SCENARIOS = OrderedDict([
             "Pakistan's own repeated near-default balance-of-payments episodes (2022-2023)."
         ),
     }),
+    ("Iran-Israel-US War: Renewed Escalation", {
+        "oil_price_change_pct": (135 - 70) / 70,
+        "hormuz_multiplier": 2.0,
+        "redsea_multiplier": 1.3,
+        "inflation_passthrough": 0.30,
+        "conflict_delta": 3.0,
+        "conflict_affected": {"IRN", "ISR", "SAU", "QAT", "ARE", "KWT", "BHR", "OMN", "IRQ"},
+        "currency_shock": {},
+        "trade_finance_contraction": {},
+        "egypt_suez_shock": False,
+        "qatar_lng_shock": True,
+        "country_fiscal_shock_usd": {"ISR": 11.5e9},
+        "summary": (
+            "Models a further escalation of this app's own tracked, currently-active 2026 Iran-Israel-US "
+            "War (see Live Conflicts) beyond its already-realized economic impact. Brent crude assumed to "
+            "resume a spike to $135/bbl -- within the $120-140 range the conflict has already reached at "
+            "points -- plus continued partial Hormuz disruption and a smaller Red Sea spillover. Two "
+            "country-specific real shocks are layered on top: Qatar's already-destroyed ~17% of LNG export "
+            "capacity, and Israel's own Finance Ministry war-cost estimate (~35bn shekels, ~$11.5bn)."
+        ),
+        "calibration_note": (
+            "Historical calibration: every figure here is drawn from this conflict's own already-realized "
+            "impact, not a hypothetical -- Brent crude has reportedly spiked above $120-140/bbl during "
+            "2026 escalations (CNBC, Al Jazeera), the IMF cut its 2026 global growth forecast citing this "
+            "war's energy shock, CFR/WTO analysis puts a full-scale resumption's global cost as high as "
+            "$2.2 trillion, and Iranian strikes on QatarEnergy's Ras Laffan/Mesaieed facilities have "
+            "already destroyed roughly 17% of Qatar's LNG capacity (see this app's Live Conflicts and "
+            "Geo-Economic Interdependence tabs for full sourcing). This scenario asks what a further, "
+            "sustained escalation on top of that already-realized damage would mean for the composite score."
+        ),
+    }),
+    ("India-Pakistan Crisis: Renewed Escalation", {
+        "oil_price_change_pct": 0.0,
+        "hormuz_multiplier": 1.0,
+        "redsea_multiplier": 1.0,
+        "inflation_passthrough": 0.0,
+        "conflict_delta": 2.5,
+        "conflict_affected": {"IND", "PAK"},
+        "currency_shock": {},
+        "trade_finance_contraction": {},
+        "egypt_suez_shock": False,
+        "qatar_lng_shock": False,
+        "country_direct_fiscal_pct_gdp_shock": {"PAK": -0.0175},
+        "summary": (
+            "Models a renewed escalation of this app's own tracked India-Pakistan Kashmir Crisis (see "
+            "Live Conflicts) beyond the ceasefire that has held since May 2025. Both countries take a "
+            "shared conflict-escalation hit, but the real economic damage is asymmetric: Pakistan alone "
+            "carries a direct GDP-level shock from India's suspension of the 1960 Indus Waters Treaty, "
+            "which irrigates roughly 80% of Pakistani agriculture."
+        ),
+        "calibration_note": (
+            "Historical calibration: the -1.75% GDP shock applied to Pakistan is the midpoint of a real, "
+            "already-published estimate (-1.5% to -2% of GDP from the Indus Waters Treaty suspension -- "
+            "see this app's Live Conflicts tab). The real 2025 crisis was starkly asymmetric in market "
+            "terms too -- Pakistan's KSE-30 fell 7.2% in a single day (14.2% cumulative) while India's "
+            "Sensex/Nifty50 moved only about 0.5-0.6% -- which is why this scenario applies a real, "
+            "country-specific fiscal shock to Pakistan rather than a symmetric currency or trade shock to "
+            "both sides; no comparably-sized real economic-impact estimate specific to India from this "
+            "crisis was found, so none is fabricated here."
+        ),
+    }),
 ])
 
 
@@ -205,7 +285,8 @@ def compute_scenario_impact(scored_df, energy_df, scenario_key=None, *, custom_p
       "Custom / Manual" scenario -- same shape as one SCENARIOS value's core
       fields (oil_price_change_pct, hormuz_multiplier, redsea_multiplier,
       inflation_passthrough, conflict_delta, conflict_affected, currency_shock,
-      trade_finance_contraction, egypt_suez_shock).
+      trade_finance_contraction, egypt_suez_shock, qatar_lng_shock,
+      country_fiscal_shock_usd, country_direct_fiscal_pct_gdp_shock).
     Returns a DataFrame: country_code, country, base_score, shocked_score,
     delta, fiscal_pts, trade_pts, reserve_pts, conflict_pts, currency_pts,
     channel (dominant transmission channel), sector (heuristic sector tag)."""
@@ -295,12 +376,38 @@ def compute_scenario_impact(scored_df, energy_df, scenario_key=None, *, custom_p
             suez_loss_usd = EGYPT_SUEZ_ANNUAL_REVENUE_USD_BASELINE * 0.70 * (180 / 365)
             egypt_extra_fiscal_pct_gdp = -(suez_loss_usd / gdp)
 
+        # Same shape as the Egypt/Suez mechanism above, for Qatar's real,
+        # already-realized ~17% LNG export-capacity loss (see
+        # QATAR_LNG_CAPACITY_LOSS_PCT docstring) -- expressed as a fraction
+        # of Qatar's own real exports (% GDP), using the same
+        # ENERGY_EXPORT_SHARE_OF_EXPORTS assumption already disclosed above
+        # for every other major energy exporter, rather than a separately
+        # sourced USD revenue figure this app doesn't have for Qatar specifically.
+        qatar_extra_fiscal_pct_gdp = 0.0
+        if params.get("qatar_lng_shock") and code == "QAT" and pd.notna(exports_pct_gdp):
+            qatar_extra_fiscal_pct_gdp = -(exports_pct_gdp / 100) * ENERGY_EXPORT_SHARE_OF_EXPORTS * QATAR_LNG_CAPACITY_LOSS_PCT
+
+        # Generic one-off, real, already-quantified per-country shocks that
+        # don't fit the chokepoint/energy-dependency machinery above --
+        # either a real disclosed USD figure converted via that country's
+        # own real GDP (e.g. Israel's Finance Ministry war-cost estimate),
+        # or a real analyst estimate already expressed directly as a
+        # percent of GDP (e.g. Pakistan's Indus Waters Treaty-suspension
+        # impact). Both are 0 unless a scenario explicitly sets them.
+        usd_shock = params.get("country_fiscal_shock_usd", {}).get(code, 0.0)
+        usd_extra_fiscal_pct_gdp = -(usd_shock / gdp) if usd_shock and pd.notna(gdp) and gdp > 0 else 0.0
+        direct_pct_gdp_shock = params.get("country_direct_fiscal_pct_gdp_shock", {}).get(code, 0.0)
+
         currency_pct = currency_shock.get(code, 0.0)
         tf_pct = trade_finance.get(code, 0.0)
 
-        # egypt_extra_fiscal_pct_gdp is always <= 0 (a cost), consistent with
-        # the same negative-is-cost convention.
-        fiscal_total_pct_gdp = fiscal_pct_gdp + egypt_extra_fiscal_pct_gdp
+        # Each *_extra_fiscal_pct_gdp / *_shock term above is already signed
+        # (negative = cost), consistent with the same negative-is-cost
+        # convention used throughout this function.
+        fiscal_total_pct_gdp = (
+            fiscal_pct_gdp + egypt_extra_fiscal_pct_gdp + qatar_extra_fiscal_pct_gdp
+            + usd_extra_fiscal_pct_gdp + direct_pct_gdp_shock
+        )
         if fiscal_total_pct_gdp < 0:
             # Cost: convert the (positive) magnitude into positive (risk-increasing) points.
             fiscal_pts = -fiscal_total_pct_gdp * 100 * FISCAL_PTS_PER_GDP_PCT_IMPORTER
@@ -337,7 +444,7 @@ def compute_scenario_impact(scored_df, energy_df, scenario_key=None, *, custom_p
             tf_pts *= _scale
 
         channel_pts = {
-            "Fiscal (energy trade)": fiscal_pts,
+            "Fiscal (sovereign & trade)": fiscal_pts,
             "Trade / shipping cost": trade_pts,
             "Reserve depletion": reserve_pts,
             "Conflict escalation": conflict_pts,
@@ -345,8 +452,14 @@ def compute_scenario_impact(scored_df, energy_df, scenario_key=None, *, custom_p
         }
         channel = max(channel_pts, key=lambda k: abs(channel_pts[k])) if any(channel_pts.values()) else "None"
 
-        if channel == "Fiscal (energy trade)":
-            sector = "Energy"
+        if channel == "Fiscal (sovereign & trade)":
+            # Distinguishes an oil-price/LNG-capacity (energy) fiscal driver
+            # from a non-energy one (Suez toll loss, a war-cost estimate, a
+            # treaty-suspension GDP hit) by which sub-term is actually larger
+            # for this country -- not every entry in this channel is "Energy".
+            _energy_component = fiscal_pct_gdp + qatar_extra_fiscal_pct_gdp
+            _non_energy_component = egypt_extra_fiscal_pct_gdp + usd_extra_fiscal_pct_gdp + direct_pct_gdp_shock
+            sector = "Energy" if abs(_energy_component) >= abs(_non_energy_component) else "Sovereign"
         elif channel == "Trade / shipping cost":
             sector = "Shipping" if mult > 1.3 else "Food"
         elif channel == "Reserve depletion":
@@ -397,7 +510,22 @@ per the task's own inflation pass-through assumption) is assumed to pass through
 
 **Reserve depletion.** New reserve cover = real total reserves (USD) ÷ new monthly import cost
 (baseline monthly imports, scaled up by the same trade/fiscal cost multipliers above) — arithmetic on
-real reported figures, not a separate assumption.
+real reported figures, not a separate assumption. This term only reflects the oil-price-driven fiscal
+effect above, not the one-off country-specific shocks described next — a scope limitation shared with
+the pre-existing Egypt/Suez mechanism, not something introduced for the two scenarios below.
+
+**One-off, real, country-specific fiscal shocks (Iran-Israel-US War and India-Pakistan Crisis
+scenarios).** Three mechanisms apply a real, already-disclosed figure directly rather than deriving one
+from oil prices or chokepoint exposure: Qatar's real ~17% LNG export-capacity loss (`QATAR_LNG_CAPACITY_LOSS_PCT
+= {QATAR_LNG_CAPACITY_LOSS_PCT:.0%}`, from Iranian strikes on its Ras Laffan/Mesaieed facilities) is
+applied to Qatar's own real exports (% GDP) using the same `{ENERGY_EXPORT_SHARE_OF_EXPORTS:.0%}`
+energy-export-share assumption already used for every other major exporter above; a real disclosed USD
+figure (Israel's own Finance Ministry war-cost estimate, ~$11.5bn) is converted to a percent-of-GDP
+effect using that country's own real GDP; and a real, already-published percent-of-GDP economic-impact
+estimate (Pakistan's -1.5% to -2% GDP hit from India's Indus Waters Treaty suspension, this scenario
+uses the -1.75% midpoint) is applied directly, since it's already in the right units. All three route
+through the same `FISCAL_PTS_PER_GDP_PCT_IMPORTER`/`_EXPORTER` point-conversion constants as every
+other fiscal effect — see each scenario's own calibration note for full sourcing.
 
 **Converting a real percent-of-GDP effect into risk-score points.** No institution publishes a
 precise elasticity mapping a specific fiscal or trade shock to a specific governance-risk-score

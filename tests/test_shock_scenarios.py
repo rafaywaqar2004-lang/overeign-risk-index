@@ -104,3 +104,89 @@ def test_country_with_missing_base_score_is_dropped_not_fabricated():
     }
     result = compute_scenario_impact(scored, _synthetic_energy_df(), scenario_key=next(iter(SCENARIOS)))
     assert "YEM" not in result["country_code"].values
+
+
+# ---------------------------------------------------------------------------
+# Iran-Israel-US War / India-Pakistan Crisis: new one-off fiscal mechanisms
+# ---------------------------------------------------------------------------
+def _scored_df_with_qatar_israel_india():
+    df = _synthetic_scored_df()
+    df.loc[len(df)] = {
+        "country_code": "QAT", "country": "Qatar", "risk_score": 20.0,
+        "imports_pct_gdp": 30.0, "exports_pct_gdp": 50.0,
+        "gdp_current_usd": 2.2e11, "reserves_months_imports": 6.0,
+    }
+    df.loc[len(df)] = {
+        "country_code": "ISR", "country": "Israel", "risk_score": 35.0,
+        "imports_pct_gdp": 25.0, "exports_pct_gdp": 28.0,
+        "gdp_current_usd": 5.5e11, "reserves_months_imports": 10.0,
+    }
+    df.loc[len(df)] = {
+        "country_code": "IND", "country": "India", "risk_score": 40.0,
+        "imports_pct_gdp": 22.0, "exports_pct_gdp": 20.0,
+        "gdp_current_usd": 3.9e12, "reserves_months_imports": 9.0,
+    }
+    return df
+
+
+def _energy_df_with_qatar_israel_india():
+    df = _synthetic_energy_df()
+    df.loc[len(df)] = {"country_code": "QAT", "energy_import_dependency": -400.0}
+    df.loc[len(df)] = {"country_code": "ISR", "energy_import_dependency": 20.0}
+    df.loc[len(df)] = {"country_code": "IND", "energy_import_dependency": 35.0}
+    return df
+
+
+def test_iran_israel_and_india_pakistan_scenarios_exist_with_expected_shape():
+    assert "Iran-Israel-US War: Renewed Escalation" in SCENARIOS
+    assert "India-Pakistan Crisis: Renewed Escalation" in SCENARIOS
+    iran_israel = SCENARIOS["Iran-Israel-US War: Renewed Escalation"]
+    assert iran_israel["conflict_affected"] == {"IRN", "ISR", "SAU", "QAT", "ARE", "KWT", "BHR", "OMN", "IRQ"}
+    assert iran_israel["qatar_lng_shock"] is True
+    assert iran_israel["country_fiscal_shock_usd"] == {"ISR": 11.5e9}
+
+    india_pakistan = SCENARIOS["India-Pakistan Crisis: Renewed Escalation"]
+    assert india_pakistan["conflict_affected"] == {"IND", "PAK"}
+    assert india_pakistan["country_direct_fiscal_pct_gdp_shock"] == {"PAK": -0.0175}
+
+
+def test_qatar_lng_shock_only_applies_to_qatar_and_only_when_flagged():
+    scored = _scored_df_with_qatar_israel_india()
+    energy = _energy_df_with_qatar_israel_india()
+
+    result_off = compute_scenario_impact(scored, energy, scenario_key="Pakistan Sovereign Default")
+    qat_off = result_off[result_off["country_code"] == "QAT"].iloc[0]
+    assert qat_off["delta"] == pytest.approx(0.0, abs=1e-6)
+
+    result_on = compute_scenario_impact(scored, energy, scenario_key="Iran-Israel-US War: Renewed Escalation")
+    qat_on = result_on[result_on["country_code"] == "QAT"].iloc[0]
+    # Qatar is a large net energy exporter (energy_import_dependency very
+    # negative) so the oil-price windfall term is negative-risk (a benefit);
+    # the real 17% LNG-capacity loss should still push its net fiscal
+    # effect toward higher risk than a country with no such loss.
+    sau_on = result_on[result_on["country_code"] == "SAU"].iloc[0]
+    assert qat_on["fiscal_pts"] > sau_on["fiscal_pts"]
+
+
+def test_israel_country_specific_usd_shock_scales_with_its_own_real_gdp():
+    scored = _scored_df_with_qatar_israel_india()
+    energy = _energy_df_with_qatar_israel_india()
+    result = compute_scenario_impact(scored, energy, scenario_key="Iran-Israel-US War: Renewed Escalation")
+    isr_row = result[result["country_code"] == "ISR"].iloc[0]
+    # Israel's own real GDP in the synthetic frame is 5.5e11; the $11.5bn
+    # shock is ~2.09% of that -- confirm it's actually being applied (a
+    # meaningfully large fiscal_pts contribution), not silently dropped.
+    assert isr_row["fiscal_pts"] > 5.0
+
+
+def test_india_pakistan_scenario_hits_pakistan_harder_than_india():
+    """Mirrors the real, documented 2025 asymmetry (Pakistan's KSE-30 fell
+    7.2% in a day while India's Sensex barely moved) -- Pakistan carries a
+    real, disclosed GDP-level shock (the Indus Waters Treaty suspension)
+    that India does not."""
+    scored = _scored_df_with_qatar_israel_india()
+    energy = _energy_df_with_qatar_israel_india()
+    result = compute_scenario_impact(scored, energy, scenario_key="India-Pakistan Crisis: Renewed Escalation")
+    pak_delta = result[result["country_code"] == "PAK"].iloc[0]["delta"]
+    ind_delta = result[result["country_code"] == "IND"].iloc[0]["delta"]
+    assert pak_delta > ind_delta > 0

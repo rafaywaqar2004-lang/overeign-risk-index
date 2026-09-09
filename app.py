@@ -449,6 +449,38 @@ def custom_table(rows, headers):
     st.markdown(html, unsafe_allow_html=True)
 
 
+def build_event_timeline_figure(events, height=190):
+    """A real, data-driven visual timeline over HISTORICAL_CONTEXT's own
+    (year, text, source_name, source_url) tuples -- no new data, just a
+    different view of the exact events already shown in the Key Historical
+    Context table below it. Events sharing the same year are staggered
+    vertically so they stay individually hoverable rather than overlapping."""
+    if not events:
+        return None
+
+    by_year = {}
+    for year, text, src_name, src_url in sorted(events, key=lambda e: e[0]):
+        by_year.setdefault(year, []).append((text, src_name, src_url))
+
+    xs, ys, hover_texts = [], [], []
+    for year, entries in by_year.items():
+        for i, (text, src_name, _src_url) in enumerate(entries):
+            xs.append(year)
+            ys.append(i)
+            short_text = text if len(text) <= 160 else text[:157] + "…"
+            hover_texts.append(f"<b>{year}</b><br>{short_text}<br><i>{src_name}</i>")
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=xs, y=ys, mode="markers",
+        marker=dict(size=13, color=ACCENT, line=dict(width=1.5, color=SURFACE)),
+        hovertext=hover_texts, hoverinfo="text",
+    ))
+    fig.update_yaxes(visible=False, range=[-0.8, max(ys) + 0.8 if ys else 0.8])
+    fig.update_xaxes(title=None, dtick=1 if (max(xs) - min(xs)) <= 12 else None, tickformat="d")
+    return style_chart(fig, height=height)
+
+
 def style_chart(fig, height=420):
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
@@ -848,6 +880,53 @@ def load_fx_daily():
 
 
 fx_daily_df = load_fx_daily()
+
+
+@st.cache_data(ttl=3600)
+def load_research_briefs():
+    """Loads the standalone written analytic briefs from briefs/ -- real,
+    already-published pieces (see README's "Written analytic briefs"
+    section) that previously lived only as files linked from the README,
+    never actually reachable from inside the running app itself. Returns a
+    list of dicts (never raises -- a brief missing on disk is just skipped,
+    same "degrade, don't fabricate" pattern as fx_daily/ACLED/Comtrade)."""
+    briefs = [
+        {
+            "file": "briefs/sovereign-debt-and-political-instability.md",
+            "title": "Sovereign Debt and Political Instability",
+            "subtitle": "Three Case Studies in Fiscal-Political Feedback Loops: Pakistan, Sri Lanka, and Bangladesh",
+            "date": "September 2026",
+            "kind": "Case Study",
+            "abstract": (
+                "Three of South Asia's most fiscally stressed economies confirm that sovereign debt "
+                "distress and political instability reinforce each other -- but not via a single causal "
+                "arrow: Sri Lanka is the textbook version, Pakistan is chronic rather than acute, and "
+                "Bangladesh inverts the sequence outright."
+            ),
+        },
+        {
+            "file": "briefs/mena-geopolitical-risk-brief-issue-01.md",
+            "title": "MENA Geopolitical Risk Brief",
+            "subtitle": "Monthly Series — Issue No. 1, September 2026 Edition",
+            "date": "September 2026",
+            "kind": "Monthly Digest",
+            "abstract": (
+                "A regional snapshot and top risk-movers table across the 20 MENA economies this app "
+                "tracks, with 2-3 spotlighted conflicts driving the largest year-over-year score changes "
+                "this issue -- the first of a planned recurring series."
+            ),
+        },
+    ]
+    for brief in briefs:
+        try:
+            with open(brief["file"], encoding="utf-8") as f:
+                brief["content"] = f.read()
+        except FileNotFoundError:
+            brief["content"] = None
+    return [b for b in briefs if b["content"]]
+
+
+RESEARCH_BRIEFS = load_research_briefs()
 
 REQUIRED_COLUMNS = {
     "scored": ["country", "country_code", "risk_score", "risk_tier", "risk_rank", "risk_score_factors_used"],
@@ -1367,9 +1446,10 @@ st.markdown(
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
     ["Regional Overview", "Country Deep Dive", "Compare Countries", "Live Conflicts",
-     "Geo-Economic Interdependence", "Shock Scenario Lab", "Methodology", "Drivers Analysis"]
+     "Geo-Economic Interdependence", "Shock Scenario Lab", "Methodology", "Drivers Analysis",
+     "Research & Reports"]
 )
 
 # ================= TAB 1: OVERVIEW =================
@@ -1845,7 +1925,7 @@ with tab2:
                 )
 
     with c2:
-        st.markdown('<div class="section-tag">All 10 Factors</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-tag">All {len(FACTOR_COLS)} Factors</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title">Risk Factor Breakdown</div>', unsafe_allow_html=True)
         radar_factors = [f for f in FACTOR_COLS if pd.notna(driver_row[f])]
         radar_values = [driver_row[f] for f in radar_factors]
@@ -2169,7 +2249,7 @@ with tab2:
     st.markdown("<br>", unsafe_allow_html=True)
     with st.expander("🧪 Geopolitical Shock Tester — simulate a stress scenario", expanded=False):
         st.markdown(
-            f"Nudge three of the ten scored risk factors directly, in risk-score points (the same "
+            f"Nudge three of the {len(FACTOR_COLS)} scored risk factors directly, in risk-score points (the same "
             f"0-100 scale the radar chart uses), to see how a stress scenario would move {selected}'s "
             f"composite from its latest reported baseline. This is a transparent **points-based** "
             f"simulation, not a claim about real-world elasticity — no institution publishes a precise "
@@ -2335,6 +2415,9 @@ with tab2:
             f"news source. This is deliberately broader than pure macro data — a debt figure alone "
             f"doesn't explain *why* reserves fell or *why* a currency collapsed; these events do."
         )
+        _timeline_fig = build_event_timeline_figure(events)
+        if _timeline_fig is not None:
+            st.plotly_chart(_timeline_fig, use_container_width=True, config={"displayModeBar": False})
         events_by_recency = sorted(events, key=lambda e: e[0], reverse=True)
         sourced_rows = [[str(year), event, (src_name, src_url)] for year, event, src_name, src_url in events_by_recency]
         sourced_table(sourced_rows, ["Year", "Event", "Source"])
@@ -2552,7 +2635,7 @@ with tab3:
         cmp_rows = [scored[scored["country"] == name].iloc[0] for name in compare_selection]
         cmp_drivers = [drivers[drivers["country"] == name].iloc[0] for name in compare_selection]
 
-        st.markdown('<div class="section-tag">All 10 Factors, Overlaid</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-tag">All {len(FACTOR_COLS)} Factors, Overlaid</div>', unsafe_allow_html=True)
         all_labels = [FACTOR_LABELS[f] for f in FACTOR_COLS]
         fig_cmp = go.Figure()
         for i, (name, drow) in enumerate(zip(compare_selection, cmp_drivers)):
@@ -3119,6 +3202,58 @@ with tab4:
                     )
             if i < len(visible_conflicts) - 1:
                 st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">All 34 Countries, One Shared Axis</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Regional Historical Timeline</div>', unsafe_allow_html=True)
+    st.markdown(
+        "Every sourced Key Historical Context entry across all 34 tracked countries (see each country's "
+        "own Country Deep Dive page for the full per-country table), plotted on one shared timeline so "
+        "regional clustering — a wave of crises hitting multiple countries the same year — is visible at "
+        "a glance. Narrow it to specific countries, or leave the default selection for the full picture."
+    )
+    _timeline_default_countries = sorted(
+        code_to_name.get(c, c) for c in HISTORICAL_CONTEXT if HISTORICAL_CONTEXT.get(c)
+    )
+    _timeline_countries = st.multiselect(
+        "Countries", sorted(scored["country"].tolist()),
+        default=_timeline_default_countries, key="regional_timeline_countries",
+    )
+    _timeline_codes = set(scored[scored["country"].isin(_timeline_countries)]["country_code"])
+    _all_events = []
+    for code, evs in HISTORICAL_CONTEXT.items():
+        if code not in _timeline_codes:
+            continue
+        country_name = code_to_name.get(code, code)
+        for year, text, src_name, src_url in evs:
+            _all_events.append((year, country_name, text, src_name, src_url))
+    _all_events.sort(key=lambda e: e[0])
+
+    if _all_events:
+        _regional_years = [e[0] for e in _all_events]
+        _regional_countries = [e[1] for e in _all_events]
+        _regional_hover = [
+            f"<b>{yr} — {country}</b><br>{(text if len(text) <= 150 else text[:147] + '…')}<br><i>{src}</i>"
+            for yr, country, text, src, _url in _all_events
+        ]
+        _regional_fig = go.Figure()
+        _regional_fig.add_trace(go.Scatter(
+            x=_regional_years, y=_regional_countries, mode="markers",
+            marker=dict(size=9, color=ACCENT, opacity=0.75, line=dict(width=1, color=SURFACE)),
+            hovertext=_regional_hover, hoverinfo="text",
+        ))
+        _regional_fig.update_xaxes(dtick=1, tickformat="d")
+        _regional_fig.update_yaxes(title=None, automargin=True)
+        st.plotly_chart(
+            style_chart(_regional_fig, height=max(420, 22 * len(set(_regional_countries)))),
+            use_container_width=True, config={"displayModeBar": False},
+        )
+        st.caption(
+            f"{len(_all_events)} sourced events across {len(set(_regional_countries))} countries, "
+            f"{min(_regional_years)}–{max(_regional_years)}. Hover a point for the full sourced entry."
+        )
+    else:
+        st.info("No curated historical-context events on file for the selected countries.")
 
 # ================= TAB 5: GEO-ECONOMIC INTERDEPENDENCE =================
 GEO_RISK_COLOR = {"Low": "#34d399", "Moderate": "#fbbf24", "High": "#f87171", "Critical": "#dc2626"}
@@ -4640,6 +4775,52 @@ with tab8:
                         data=ed.generate_stata_code(ed.DV_COL, drv_selected_ivs),
                         file_name="drivers_analysis.do", mime="text/plain",
                     )
+
+# ================= TAB 9: RESEARCH & REPORTS =================
+with tab9:
+    st.markdown('<div class="section-tag">Analytical Products</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Research & Reports</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="narrative-box">Standalone written analytic pieces built on this tool\'s own data -- '
+        'the narrative half to this dashboard\'s quantitative half. Each draws directly on '
+        '<code>scored_data.csv</code>, <code>driver_data.csv</code>, and the curated '
+        '<code>context_data.py</code> historical-context/credit-rating/conflict records, fact-checked '
+        'per this app\'s own methodology.</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if not RESEARCH_BRIEFS:
+        st.info("No research briefs found on disk.")
+    else:
+        _brief_cols = st.columns(len(RESEARCH_BRIEFS))
+        for _bcol, _brief in zip(_brief_cols, RESEARCH_BRIEFS):
+            with _bcol:
+                st.markdown(
+                    f'<div class="stat-card" style="--card-accent:{ACCENT};">'
+                    f'<div class="stat-label">{_brief["kind"]} &middot; {_brief["date"]}</div>'
+                    f'<div style="font-family:\'Newsreader\',Georgia,serif;font-size:1.15rem;font-weight:600;'
+                    f'color:{TEXT};line-height:1.3;margin:0.3rem 0 0.5rem;">{_brief["title"]}</div>'
+                    f'<div style="font-size:0.82rem;color:{TEXT_MUTED};line-height:1.55;">{_brief["abstract"]}</div>'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="section-tag">Read In Full</div>', unsafe_allow_html=True)
+        _brief_titles = [f'{b["title"]} — {b["subtitle"]}' for b in RESEARCH_BRIEFS]
+        _brief_choice = st.radio("Select a report to read", _brief_titles, key="research_brief_choice")
+        _selected_brief = RESEARCH_BRIEFS[_brief_titles.index(_brief_choice)]
+
+        st.download_button(
+            f'\U0001f4dc Download "{_selected_brief["title"]}" (.md)',
+            data=_selected_brief["content"],
+            file_name=os.path.basename(_selected_brief["file"]),
+            mime="text/markdown",
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown(_selected_brief["content"])
 
 # ============================================================
 # FOOTER
