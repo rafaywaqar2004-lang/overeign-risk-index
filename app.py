@@ -4226,6 +4226,31 @@ with tab7:
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="section-tag">A Second, Independent Implementation</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Reproduced Independently in R</div>', unsafe_allow_html=True)
+    st.markdown(
+        "Both checks above (the PCA redundancy check and the six-crisis historical backtest) are "
+        "reproduced independently below, in R rather than Python, against the same committed "
+        "`driver_history.csv` and `scored_history.csv` — a separately written implementation "
+        "(R's `prcomp()` and `plm` package rather than this app's own `numpy`/`pandas` code), not a "
+        "restatement of the same result. Full source in this repo's `r-validation/validation.Rmd`."
+    )
+    _r_validation_path = os.path.join(os.path.dirname(__file__), "r-validation", "validation.html")
+    if os.path.exists(_r_validation_path):
+        with open(_r_validation_path, "r", encoding="utf-8") as _f:
+            components.html(_f.read(), height=900, scrolling=True)
+    else:
+        st.caption("R validation report not found at build time — see `r-validation/validation.Rmd` in the repository.")
+
+    st.markdown(
+        "A third, independent implementation of the same two checks is set up in Stata "
+        "(`stata-validation/validation.do`, with the panel data pre-exported to `.dta` format) — "
+        "run by hand rather than embedded here, since a genuinely independent hands-on run is the "
+        "point of that version. See `stata-validation/README.md` in the repository for the script "
+        "and how to run it."
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-tag">Beyond World Bank &amp; IMF</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Additional Sources Used</div>', unsafe_allow_html=True)
     _imf_fallback_count = int((scored.get("debt_to_gdp_source") == "IMF WEO (fallback)").sum()) if "debt_to_gdp_source" in scored.columns else 0
