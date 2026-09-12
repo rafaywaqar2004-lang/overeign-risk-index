@@ -180,12 +180,18 @@ What's automated, and what still needs a human:
   project's own logic, not an upstream provider silently changing its API
   shape (World Bank renaming an indicator, Comtrade changing its auth
   scheme). An occasional click-through of the live app is still worth doing.
-- **ACLED/UN Comtrade API keys (one-time per source, already mostly done):**
-  set as environment variables directly on the Render service (Dashboard →
-  service → Environment), not as GitHub secrets — those only reach the
-  nightly data-refresh Action, not the live running app. `UN_COMTRADE_API_KEY`
-  is already set; `ACLED_API_KEY`/`ACLED_EMAIL` are pending ACLED's own
-  access-approval process.
+- **ACLED/UN Comtrade API keys:** set as environment variables directly on
+  the Render service (Dashboard → service → Environment), not as GitHub
+  secrets — those only reach the nightly data-refresh Action, not the live
+  running app. `UN_COMTRADE_API_KEY` is already set. `ACLED_API_KEY`/
+  `ACLED_EMAIL` are **not** set, and this isn't a pending item: ACLED told
+  this project directly (Sept 2026, in response to a direct API-access
+  inquiry) that using their API to power a public-facing app like this one
+  "is not possible according to ACLED's Terms and Conditions... and End
+  User License Agreement" for a personal/non-commercial account. The
+  Market Signals row and the Drivers Analysis conflict-onset check both
+  degrade honestly to "Not configured" / disabled rather than pretending
+  this is temporary — see market_signals.py's module docstring.
 
 ## v6 additions
 

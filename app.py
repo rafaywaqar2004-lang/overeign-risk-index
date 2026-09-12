@@ -70,7 +70,12 @@ with st.sidebar:
             "Dive. Kept only in this browser session — never saved to disk."
         )
     with st.expander("ACLED (conflict events)", expanded=False):
-        st.caption("Free account: [acleddata.com/register](https://acleddata.com/register/)")
+        st.caption(
+            "Free account: [acleddata.com/register](https://acleddata.com/register/). Note: ACLED told "
+            "this project directly (Sept 2026) that a personal/non-commercial account isn't permitted to "
+            "power a public-facing app like this one under their Terms & Conditions — a personal key "
+            "entered here may still be rejected by ACLED's own API for that reason."
+        )
         st.text_input("ACLED email", key="acled_email_input", placeholder="you@example.com")
         st.text_input("ACLED API key", key="acled_key_input", type="password")
     with st.expander("UN Comtrade (trade concentration)", expanded=False):
@@ -4450,8 +4455,12 @@ with tab7:
                 "most recent 30-day rate to the preceding 60-day rate.",
                 "ACLED's live API (acleddata.com) — the same real integration already used elsewhere in "
                 "this codebase. Requires a free ACLED account; enter the email + key in the sidebar's "
-                "\"Market Data Settings\" to activate. Without it, this row honestly reads \"Not configured\" "
-                "rather than showing a fabricated count. The curated Live Conflicts tab is unaffected either way.",
+                "\"Market Data Settings\" to activate. As of September 2026, ACLED told this project directly "
+                "that pulling event data into a public-facing app like this one isn't permitted under their "
+                "Terms & Conditions/EULA for a personal, non-commercial account — so this row is expected to "
+                "stay \"Not configured\" rather than a temporary gap awaiting approval. Without it, this row "
+                "honestly reads \"Not configured\" rather than showing a fabricated count. The curated Live "
+                "Conflicts tab is unaffected either way.",
             ],
             [
                 "Trade Concentration (Import HHI)",
@@ -4702,8 +4711,11 @@ with tab8:
                         st.info(
                             "ACLED (Armed Conflict Location & Event Data) requires a free registered API key "
                             "which isn't configured in this deployment (`ACLED_API_KEY` / `ACLED_EMAIL`). "
-                            "Rather than approximate conflict onset with a fabricated or proxy figure, this "
-                            "check is disabled until real ACLED credentials are available — the same "
+                            "As of September 2026, ACLED told this project directly that pulling event data "
+                            "into a public-facing app like this one isn't permitted under their Terms & "
+                            "Conditions/EULA for a personal, non-commercial account — so this isn't a gap "
+                            "expected to close, just a real constraint. Rather than approximate conflict "
+                            "onset with a fabricated or proxy figure, this check stays disabled — the same "
                             "real-data-only discipline this app's Live Conflicts tab and data pipeline "
                             "already apply (see fetch_data.py's fetch_acled_events).",
                             icon="ℹ️",
