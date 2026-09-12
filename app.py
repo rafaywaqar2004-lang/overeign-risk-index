@@ -1968,7 +1968,12 @@ with tab2:
                     angularaxis=dict(
                         gridcolor="rgba(148,163,184,0.12)", color=TEXT,
                         categoryorder="array", categoryarray=all_labels,
-                        tickfont=dict(size=10),
+                        # Smaller than style_chart's usual 12px: at narrow
+                        # mobile widths, the fixed l/r margin below isn't wide
+                        # enough to fit the longest labels ("Currency
+                        # Depreciation", "Political Stability") at a larger
+                        # size without clipping at the viewport edge.
+                        tickfont=dict(size=8),
                     ),
                 ),
                 showlegend=bool(missing_factors),
@@ -2663,7 +2668,11 @@ with tab3:
                 angularaxis=dict(
                     gridcolor="rgba(148,163,184,0.12)", color=TEXT,
                     categoryorder="array", categoryarray=all_labels,
-                    tickfont=dict(size=10),
+                    # See the single-country radar chart above for why this
+                    # is smaller than style_chart's usual default: at narrow
+                    # mobile widths the fixed l/r margin below isn't wide
+                    # enough to fit the longest labels without clipping.
+                    tickfont=dict(size=8),
                 ),
             ),
             showlegend=True,
@@ -3247,7 +3256,13 @@ with tab4:
             marker=dict(size=9, color=ACCENT, opacity=0.75, line=dict(width=1, color=SURFACE)),
             hovertext=_regional_hover, hoverinfo="text",
         ))
-        _regional_fig.update_xaxes(dtick=1, tickformat="d")
+        # Same rule as the per-country timeline above: one tick per year only
+        # for a short span -- this chart's default 34-country/all-years range
+        # is 30+ years, where dtick=1 crams 30+ overlapping labels onto the
+        # axis (unreadable on any screen, and outright garbled on mobile
+        # widths); Plotly's automatic tick spacing handles that range fine.
+        _regional_year_span = (max(_regional_years) - min(_regional_years)) if _regional_years else 0
+        _regional_fig.update_xaxes(dtick=1 if _regional_year_span <= 12 else None, tickformat="d")
         _regional_fig.update_yaxes(title=None, automargin=True)
         st.plotly_chart(
             style_chart(_regional_fig, height=max(420, 22 * len(set(_regional_countries)))),
