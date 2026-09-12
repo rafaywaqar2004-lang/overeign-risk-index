@@ -50,6 +50,14 @@ this project's existing practice (see FI_RES_MOM in econometric_drivers.py).
    fabricated event count; the app's curated Live Conflicts tab is
    unaffected either way.
 
+   KNOWN CONSTRAINT (Sept 2026): a direct inquiry to ACLED's Access Team
+   about using their API for exactly this purpose received an explicit
+   "not possible according to ACLED's Terms and Conditions... and End
+   User License Agreement" for a personal/non-commercial account. This is
+   not a "pending approval" gap expected to close -- it's disclosed here
+   as a real, current constraint, matching this project's own discipline
+   of never dressing up a permanent limitation as a temporary one.
+
 3. Trade Vulnerability Index (HHI)
    A real Herfindahl-Hirschman concentration index computed from live UN
    Comtrade import-partner data (comtradeapi.un.org/data/v1), gated on a
