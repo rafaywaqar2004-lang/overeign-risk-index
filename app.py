@@ -2807,7 +2807,7 @@ with tab4:
         "debt-to-GDP or governance figure. This tab is the qualitative complement: the region's most "
         "consequential live conflicts and flashpoints, each mapped to the specific tracked countries "
         "it affects, with sourced detail on market/trade impact. **Curated and fact-checked as of "
-        "August 2026 — not a live news feed.** Type and impact classifications below are this project's "
+        "September 2026 — not a live news feed.** Type and impact classifications below are this project's "
         "own editorial judgment, applying a standard conflict-tracking taxonomy — not a third-party rating."
     )
     st.markdown("<br>", unsafe_allow_html=True)
