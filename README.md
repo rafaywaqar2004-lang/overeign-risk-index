@@ -1,5 +1,15 @@
 # MENASA Risk Monitor
 
+![MENASA Risk Monitor — live app screenshot](docs/screenshot.png)
+
+> **Problem:** Country-risk tools are usually either an opaque black-box score or a stale annual report — is there a transparent, live, sourced way to track fiscal and political risk across 34 under-covered economies?
+> **Approach:** A live 11-factor composite score (economic + governance pillars) built on real World Bank/WGI data, paired with a sourced Live Conflicts tracker, real credit-rating benchmarking, and a shock-scenario simulator — automated to refresh nightly via GitHub Actions.
+> **Result:** Backtested against six historical crises since 2010, correctly flagged 4 of 6 in the same year they began, including Sri Lanka's 2022 default and Afghanistan's 2021 collapse.
+>
+> **[Live app →](https://menasa-risk-monitor.onrender.com)**
+
+---
+
 *(formerly "Sovereign Risk Scorecard" — renamed to reflect the broader scope: risk scoring, live conflicts, country comparison, and the Geo-Economic Interdependence Dashboard)*
 
 A composite sovereign risk score for **all 34 MENA, South Asia & Horn of Africa economies**
