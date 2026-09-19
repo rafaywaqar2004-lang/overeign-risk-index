@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import numpy as np
@@ -1161,6 +1162,51 @@ def river_traces(lataxis_range=None, lonaxis_range=None):
         hoverinfo="skip", showlegend=False,
     )
     return line_trace, label_trace
+
+
+@st.cache_data
+def load_qgis_chokepoint_buffers():
+    """Real QGIS output (QgsGeometry.buffer(), a true geodesic circle in a
+    per-chokepoint azimuthal-equidistant projection) -- see
+    generate_qgis_geodata.py's own docstring. Generated offline, not
+    computed at request time; returns None if the file hasn't been
+    generated yet (e.g. a fresh clone before running that script)."""
+    try:
+        with open("geodata/qgis_chokepoint_buffers.geojson") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+
+
+@st.cache_data
+def load_qgis_country_chokepoint_distances():
+    """Real QGIS output (QgsDistanceArea, ellipsoidal WGS84) -- see
+    generate_qgis_geodata.py's own docstring."""
+    try:
+        return pd.read_csv("geodata/qgis_country_chokepoint_distances.csv")
+    except FileNotFoundError:
+        return None
+
+
+def qgis_buffer_traces(qgis_buffers: dict):
+    """One filled go.Scattergeo trace per chokepoint/radius ring, colored by
+    that chokepoint's existing risk_level (same GEO_RISK_COLOR mapping the
+    chokepoint markers themselves use)."""
+    traces = []
+    for feature in qgis_buffers["features"]:
+        props = feature["properties"]
+        cp = MARITIME_CHOKEPOINTS.get(props["chokepoint_id"])
+        color = GEO_RISK_COLOR.get(cp["risk_level"], TEXT_MUTED) if cp else TEXT_MUTED
+        coords = feature["geometry"]["coordinates"][0]
+        traces.append(go.Scattergeo(
+            lon=[pt[0] for pt in coords], lat=[pt[1] for pt in coords],
+            mode="lines", fill="toself", fillcolor=color, opacity=0.10,
+            line=dict(width=1, color=color),
+            hoverinfo="text",
+            text=f"{props['chokepoint_name']} -- {props['radius_km']:.0f}km QGIS-generated geodesic buffer",
+            showlegend=False,
+        ))
+    return traces
 
 
 FACTOR_LABELS = {
@@ -3300,6 +3346,7 @@ with tab5:
     _geo_defaults = {
         "geo_show_infra": True, "geo_show_friction": True, "geo_show_alliances": False,
         "geo_show_countries": True, "geo_show_fabs": False, "geo_show_ports": True,
+        "geo_show_qgis_buffers": False,
     }
     with geo_sub1:
         # Same pending-flag pattern as the Risk Map and Live Conflicts filter
@@ -3326,6 +3373,11 @@ with tab5:
                 show_fabs = st.checkbox("Advanced Semiconductor Fabs", value=False, key="geo_show_fabs")
             with lcol6:
                 show_ports = st.checkbox("Major Ports & Economic Hubs", value=True, key="geo_show_ports")
+            lcol7, _lcol8, _lcol9 = st.columns(3)
+            with lcol7:
+                show_qgis_buffers = st.checkbox(
+                    "Chokepoint Exposure Buffers (QGIS, 250/500/1000km)", value=False, key="geo_show_qgis_buffers",
+                )
 
         st.markdown('<div class="section-tag">Chokepoints &amp; Trade Arteries</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-title" style="font-size:1.05rem;">Interactive Trade Map</div>', unsafe_allow_html=True)
@@ -3418,6 +3470,18 @@ with tab5:
                 name="Major Ports & Hubs", showlegend=True,
             ))
 
+        if show_qgis_buffers:
+            _qgis_buffers = load_qgis_chokepoint_buffers()
+            if _qgis_buffers is not None:
+                for _trace in qgis_buffer_traces(_qgis_buffers):
+                    fig_geo.add_trace(_trace)
+            else:
+                st.info(
+                    "QGIS buffer geometry not found (geodata/qgis_chokepoint_buffers.geojson) -- "
+                    "run `python generate_qgis_geodata.py` to generate it.",
+                    icon="⚠️",
+                )
+
         if show_infra:
             cp_keys = list(MARITIME_CHOKEPOINTS.keys())
             fig_geo.add_trace(go.Scattergeo(
@@ -3495,6 +3559,31 @@ with tab5:
         )
 
         st.markdown("<br>", unsafe_allow_html=True)
+
+        with st.expander("Chokepoint Geographic Exposure (QGIS) — which of the 34 tracked economies sit closest to each chokepoint"):
+            st.caption(
+                "Real QGIS output (`QgsDistanceArea`, ellipsoidal WGS84 -- the engine behind QGIS's own "
+                "\"Measure\" tool), generated offline by `generate_qgis_geodata.py` from this page's own "
+                "already-cited chokepoint coordinates and each tracked country's capital coordinates -- see "
+                "that script's docstring for the full method. Distance only, not a risk score or a "
+                "trade-routing claim: proximity to a chokepoint doesn't mean a country's actual trade "
+                "physically transits it."
+            )
+            _qgis_dist = load_qgis_country_chokepoint_distances()
+            if _qgis_dist is None:
+                st.info("Run `python generate_qgis_geodata.py` to generate this table.", icon="⚠️")
+            else:
+                _cp_pick = st.selectbox(
+                    "Chokepoint", [MARITIME_CHOKEPOINTS[k]["name"] for k in MARITIME_CHOKEPOINTS],
+                    key="qgis_exposure_chokepoint_pick",
+                )
+                _nearest_10 = (
+                    _qgis_dist[_qgis_dist["chokepoint_name"] == _cp_pick]
+                    .sort_values("distance_km")
+                    .head(10)[["country", "distance_km"]]
+                    .rename(columns={"country": "Country", "distance_km": "Distance (km)"})
+                )
+                st.dataframe(_nearest_10, hide_index=True, use_container_width=True)
 
         with st.expander("Chokepoint Briefing — what's actually happening at each one right now"):
             for key, cp in MARITIME_CHOKEPOINTS.items():

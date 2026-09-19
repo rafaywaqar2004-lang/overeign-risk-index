@@ -1,0 +1,103 @@
+iso3,country,chokepoint_id,chokepoint_name,distance_km
+DZA,Algeria,suez_canal,Suez Canal,2792.79
+DZA,Algeria,bab_el_mandeb,Bab el-Mandeb Strait,4822.01
+DZA,Algeria,strait_of_hormuz,Strait of Hormuz,5103.33
+BHR,Bahrain,suez_canal,Suez Canal,1847.19
+BHR,Bahrain,bab_el_mandeb,Bab el-Mandeb Strait,1691.44
+BHR,Bahrain,strait_of_hormuz,Strait of Hormuz,565.94
+EGY,Egypt,suez_canal,Suez Canal,118.36
+EGY,Egypt,bab_el_mandeb,Bab el-Mandeb Strait,2300.56
+EGY,Egypt,strait_of_hormuz,Strait of Hormuz,2477.94
+IRN,Iran,suez_canal,Suez Canal,1864.66
+IRN,Iran,bab_el_mandeb,Bab el-Mandeb Strait,2685.04
+IRN,Iran,strait_of_hormuz,Strait of Hormuz,1111.89
+IRQ,Iraq,suez_canal,Suez Canal,1177.19
+IRQ,Iraq,bab_el_mandeb,Bab el-Mandeb Strait,2298.27
+IRQ,Iraq,strait_of_hormuz,Strait of Hormuz,1368.1
+ISR,Israel,suez_canal,Suez Canal,308.28
+ISR,Israel,bab_el_mandeb,Bab el-Mandeb Strait,2282.61
+ISR,Israel,strait_of_hormuz,Strait of Hormuz,2121.65
+JOR,Jordan,suez_canal,Suez Canal,377.06
+JOR,Jordan,bab_el_mandeb,Bab el-Mandeb Strait,2274.76
+JOR,Jordan,strait_of_hormuz,Strait of Hormuz,2059.3
+KWT,Kuwait,suez_canal,Suez Canal,1513.83
+KWT,Kuwait,bab_el_mandeb,Bab el-Mandeb Strait,1921.58
+KWT,Kuwait,strait_of_hormuz,Strait of Hormuz,869.99
+LBN,Lebanon,suez_canal,Suez Canal,479.03
+LBN,Lebanon,bab_el_mandeb,Bab el-Mandeb Strait,2490.2
+LBN,Lebanon,strait_of_hormuz,Strait of Hormuz,2150.86
+LBY,Libya,suez_canal,Suez Canal,1833.08
+LBY,Libya,bab_el_mandeb,Bab el-Mandeb Strait,3802.15
+LBY,Libya,strait_of_hormuz,Strait of Hormuz,4195.42
+MAR,Morocco,suez_canal,Suez Canal,3690.0
+MAR,Morocco,bab_el_mandeb,Bab el-Mandeb Strait,5585.6
+MAR,Morocco,strait_of_hormuz,Strait of Hormuz,6030.83
+OMN,Oman,suez_canal,Suez Canal,2689.36
+OMN,Oman,bab_el_mandeb,Bab el-Mandeb Strait,2005.34
+OMN,Oman,strait_of_hormuz,Strait of Hormuz,395.52
+PSE,Palestine,suez_canal,Suez Canal,312.82
+PSE,Palestine,bab_el_mandeb,Bab el-Mandeb Strait,2295.59
+PSE,Palestine,strait_of_hormuz,Strait of Hormuz,2125.96
+QAT,Qatar,suez_canal,Suez Canal,1971.69
+QAT,Qatar,bab_el_mandeb,Bab el-Mandeb Strait,1649.61
+QAT,Qatar,strait_of_hormuz,Strait of Hormuz,493.6
+SAU,Saudi Arabia,suez_canal,Suez Canal,1551.61
+SAU,Saudi Arabia,bab_el_mandeb,Bab el-Mandeb Strait,1388.2
+SAU,Saudi Arabia,strait_of_hormuz,Strait of Hormuz,982.6
+SYR,Syria,suez_canal,Suez Canal,499.91
+SYR,Syria,bab_el_mandeb,Bab el-Mandeb Strait,2425.89
+SYR,Syria,strait_of_hormuz,Strait of Hormuz,2068.64
+TUN,Tunisia,suez_canal,Suez Canal,2166.18
+TUN,Tunisia,bab_el_mandeb,Bab el-Mandeb Strait,4257.33
+TUN,Tunisia,strait_of_hormuz,Strait of Hormuz,4467.87
+ARE,UAE,suez_canal,Suez Canal,2273.68
+ARE,UAE,bab_el_mandeb,Bab el-Mandeb Strait,1755.22
+ARE,UAE,strait_of_hormuz,Strait of Hormuz,300.82
+YEM,Yemen,suez_canal,Suez Canal,2066.05
+YEM,Yemen,bab_el_mandeb,Bab el-Mandeb Strait,322.36
+YEM,Yemen,strait_of_hormuz,Strait of Hormuz,1761.43
+AFG,Afghanistan,suez_canal,Suez Canal,3472.75
+AFG,Afghanistan,bab_el_mandeb,Bab el-Mandeb Strait,3571.02
+AFG,Afghanistan,strait_of_hormuz,Strait of Hormuz,1524.34
+BGD,Bangladesh,suez_canal,Suez Canal,5741.2
+BGD,Bangladesh,bab_el_mandeb,Bab el-Mandeb Strait,5108.74
+BGD,Bangladesh,strait_of_hormuz,Strait of Hormuz,3446.65
+BTN,Bhutan,suez_canal,Suez Canal,5533.07
+BTN,Bhutan,bab_el_mandeb,Bab el-Mandeb Strait,5084.25
+BTN,Bhutan,strait_of_hormuz,Strait of Hormuz,3305.04
+IND,India,suez_canal,Suez Canal,4323.96
+IND,India,bab_el_mandeb,Bab el-Mandeb Strait,3932.09
+IND,India,strait_of_hormuz,Strait of Hormuz,2079.04
+MDV,Maldives,suez_canal,Suez Canal,5207.4
+MDV,Maldives,bab_el_mandeb,Bab el-Mandeb Strait,3447.85
+MDV,Maldives,strait_of_hormuz,Strait of Hormuz,3085.96
+NPL,Nepal,suez_canal,Suez Canal,5117.8
+NPL,Nepal,bab_el_mandeb,Bab el-Mandeb Strait,4670.62
+NPL,Nepal,strait_of_hormuz,Strait of Hormuz,2877.8
+PAK,Pakistan,suez_canal,Suez Canal,3833.66
+PAK,Pakistan,bab_el_mandeb,Bab el-Mandeb Strait,3811.96
+PAK,Pakistan,strait_of_hormuz,Strait of Hormuz,1797.4
+LKA,Sri Lanka,suez_canal,Suez Canal,5591.47
+LKA,Sri Lanka,bab_el_mandeb,Bab el-Mandeb Strait,4051.68
+LKA,Sri Lanka,strait_of_hormuz,Strait of Hormuz,3312.14
+TUR,Turkey,suez_canal,Suez Canal,1047.61
+TUR,Turkey,bab_el_mandeb,Bab el-Mandeb Strait,3200.53
+TUR,Turkey,strait_of_hormuz,Strait of Hormuz,2622.61
+SDN,Sudan,suez_canal,Suez Canal,1650.23
+SDN,Sudan,bab_el_mandeb,Bab el-Mandeb Strait,1216.09
+SDN,Sudan,strait_of_hormuz,Strait of Hormuz,2743.6
+SSD,South Sudan,suez_canal,Suez Canal,2840.2
+SSD,South Sudan,bab_el_mandeb,Bab el-Mandeb Strait,1548.84
+SSD,South Sudan,strait_of_hormuz,Strait of Hormuz,3557.48
+ETH,Ethiopia,suez_canal,Suez Canal,2467.74
+ETH,Ethiopia,bab_el_mandeb,Bab el-Mandeb Strait,635.75
+ETH,Ethiopia,strait_of_hormuz,Strait of Hormuz,2677.74
+SOM,Somalia,suez_canal,Suez Canal,3435.21
+SOM,Somalia,bab_el_mandeb,Bab el-Mandeb Strait,1186.68
+SOM,Somalia,strait_of_hormuz,Strait of Hormuz,2954.32
+DJI,Djibouti,suez_canal,Suez Canal,2371.62
+DJI,Djibouti,bab_el_mandeb,Bab el-Mandeb Strait,110.82
+DJI,Djibouti,strait_of_hormuz,Strait of Hormuz,2152.63
+ERI,Eritrea,suez_canal,Suez Canal,1809.24
+ERI,Eritrea,bab_el_mandeb,Bab el-Mandeb Strait,563.74
+ERI,Eritrea,strait_of_hormuz,Strait of Hormuz,2183.95

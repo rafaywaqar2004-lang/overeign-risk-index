@@ -402,3 +402,40 @@ never blended, and the app always discloses which granularity produced the
 number shown. Required attribution ("Rates By Exchange Rate API") is shown
 in-app next to the signal and on the Methodology page. See `fx_daily.py`
 and `market_signals.py`.
+
+## v10 additions — QGIS-generated chokepoint exposure (Trade Map)
+
+The Trade Map's chokepoint markers and coordinates already existed
+(`MARITIME_CHOKEPOINTS`, `COUNTRY_CAPITAL_COORDS` in `geoeconomic_data.py`);
+this adds real geodesic analysis on top of that existing, cited data:
+
+- **`generate_qgis_geodata.py`**: an offline PyQGIS script that runs actual
+  QGIS engines -- `QgsDistanceArea` (ellipsoidal WGS84, the same engine
+  behind QGIS's own "Measure" tool) for the country-to-chokepoint distance
+  matrix, and `QgsGeometry.buffer()` (the same GEOS engine QGIS's own
+  `native:buffer` processing algorithm calls) for the buffer rings,
+  applied in a per-chokepoint azimuthal-equidistant projection so the
+  result is a true geodesic circle. Companion to the identical approach
+  shipped in this project's sibling, the Gulf AI & Tech-Bloc Alignment
+  Tracker.
+- Output is checked into `geodata/qgis_country_chokepoint_distances.csv`
+  and `qgis_chokepoint_buffers.geojson` -- an offline/build-time step, not
+  a runtime dependency of the deployed app (QGIS itself is roughly 1GB of
+  Qt/GDAL/GRASS dependencies, not something to require on Render's free
+  tier). Regenerate after editing either source dict:
+  `QT_QPA_PLATFORM=offscreen python3 generate_qgis_geodata.py` (with QGIS
+  installed, e.g. `apt-get install qgis` on Debian/Ubuntu -- run with the
+  Python binary QGIS's own bindings were installed for, e.g.
+  `/usr/bin/python3.12` on Ubuntu 24.04).
+- **Trade Map**: a new "Chokepoint Exposure Buffers (QGIS)" layer toggle
+  draws the real buffer rings on the existing map. A new "Chokepoint
+  Geographic Exposure (QGIS)" expander shows, per chokepoint, the 10
+  tracked economies whose capital sits closest to it -- distance only, not
+  a risk score or a trade-routing claim.
+- **`validate_data.py`**: cross-checks the checked-in QGIS output against
+  an independent `pyproj` (PROJ) calculation -- agreement to well under
+  1km on every country-chokepoint pair, and every buffer ring point at its
+  stated radius -- so drift (e.g. someone edits a coordinate without
+  re-running the generation script) fails validation rather than going
+  unnoticed. `pyproj` is a dev/CI-only dependency (`requirements-dev.txt`),
+  not a runtime dependency of the deployed app.
