@@ -20,7 +20,7 @@ from context_data import (
 )
 from geoeconomic_data import (
     MARITIME_CHOKEPOINTS, CRITICAL_MINERAL_DEPENDENCIES, CORPORATE_GATEKEEPERS,
-    RESOURCE_BENCHMARKS, MENASA_COUNTRY_ALLIANCES,
+    RESOURCE_BENCHMARKS, MENASA_COUNTRY_ALLIANCES, COUNTRY_CAPITAL_COORDS,
 )
 
 URL_RE = re.compile(r"^https?://[^\s]+$")
@@ -209,6 +209,61 @@ try:
         check(col in scored.columns, f"scored_data.csv missing expected column: {col}")
 except FileNotFoundError:
     warn(False, "scored_data.csv not found — run fetch_data.py and compute_scores.py first")
+
+
+# ---------- 11. QGIS chokepoint geodata: real output, cross-checked ----------
+# geodata/qgis_*.csv/geojson are real QGIS output (QgsDistanceArea,
+# QgsGeometry.buffer() -- see generate_qgis_geodata.py's own docstring), not
+# computed here. This section proves the checked-in files are internally
+# consistent and match an independent pyproj calculation -- if someone edits
+# COUNTRY_CAPITAL_COORDS or MARITIME_CHOKEPOINTS without re-running
+# generate_qgis_geodata.py, this is what catches the resulting drift.
+try:
+    import json as _json
+    from pyproj import Geod as _Geod
+
+    _geod = _Geod(ellps="WGS84")
+
+    def _pyproj_distance_km(lon1, lat1, lon2, lat2):
+        _, _, dist_m = _geod.inv(lon1, lat1, lon2, lat2)
+        return dist_m / 1000.0
+
+    qgis_distances = pd.read_csv("geodata/qgis_country_chokepoint_distances.csv")
+    check(
+        len(qgis_distances) == len(COUNTRY_CAPITAL_COORDS) * len(MARITIME_CHOKEPOINTS),
+        f"geodata/qgis_country_chokepoint_distances.csv has {len(qgis_distances)} rows, "
+        f"expected {len(COUNTRY_CAPITAL_COORDS)} countries x {len(MARITIME_CHOKEPOINTS)} chokepoints "
+        f"= {len(COUNTRY_CAPITAL_COORDS) * len(MARITIME_CHOKEPOINTS)}",
+    )
+    max_diff_km = 0.0
+    for _, row in qgis_distances.iterrows():
+        iso3, cp_id, qgis_km = row["iso3"], row["chokepoint_id"], row["distance_km"]
+        if iso3 not in COUNTRY_CAPITAL_COORDS or cp_id not in MARITIME_CHOKEPOINTS:
+            check(False, f"geodata/qgis_country_chokepoint_distances.csv references unknown iso3/chokepoint_id: {iso3}/{cp_id}")
+            continue
+        lat, lon = COUNTRY_CAPITAL_COORDS[iso3]
+        cp = MARITIME_CHOKEPOINTS[cp_id]
+        pyproj_km = _pyproj_distance_km(lon, lat, cp["lon"], cp["lat"])
+        max_diff_km = max(max_diff_km, abs(qgis_km - pyproj_km))
+    check(max_diff_km < 1.0, f"QGIS vs. independent pyproj distance disagreement exceeds 1km (max: {max_diff_km:.3f}km) -- geodata/ is likely stale; re-run generate_qgis_geodata.py")
+
+    with open("geodata/qgis_chokepoint_buffers.geojson") as f:
+        qgis_buffers = _json.load(f)
+    seen_rings = {(feat["properties"]["chokepoint_id"], feat["properties"]["radius_km"]) for feat in qgis_buffers["features"]}
+    expected_rings = {(cp_id, r) for cp_id in MARITIME_CHOKEPOINTS for r in (250.0, 500.0, 1000.0)}
+    check(seen_rings == expected_rings, f"geodata/qgis_chokepoint_buffers.geojson is missing or has extra rings: {expected_rings.symmetric_difference(seen_rings)}")
+    for feat in qgis_buffers["features"]:
+        cp = MARITIME_CHOKEPOINTS[feat["properties"]["chokepoint_id"]]
+        radius_km = feat["properties"]["radius_km"]
+        coords = feat["geometry"]["coordinates"][0]
+        check(coords[0] == coords[-1], f"buffer ring for {feat['properties']['chokepoint_id']} at {radius_km}km is not closed")
+        for lon, lat in coords[::10]:  # sample, not every point
+            d = _pyproj_distance_km(cp["lon"], cp["lat"], lon, lat)
+            check(abs(d - radius_km) / radius_km < 0.01, f"buffer ring point for {feat['properties']['chokepoint_id']} at {radius_km}km is actually {d:.1f}km from center")
+except FileNotFoundError as e:
+    warn(False, f"QGIS geodata cross-check skipped -- {e}. Run generate_qgis_geodata.py first.")
+except ImportError:
+    warn(False, "QGIS geodata cross-check skipped -- pyproj not installed (pip install pyproj).")
 
 
 # ---------- Report ----------
