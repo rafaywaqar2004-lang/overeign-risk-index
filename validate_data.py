@@ -211,6 +211,56 @@ except FileNotFoundError:
     warn(False, "scored_data.csv not found — run fetch_data.py and compute_scores.py first")
 
 
+# ---------- 10b. Historical time series didn't silently lose a country ----------
+# Real incident, 2026-09-28: that day's automated refresh committed a
+# transient World Bank API shortfall (raw_data_long.csv came back ~1000 rows
+# short) straight to driver_history.csv/scored_history.csv, which silently
+# dropped Tunisia and the UAE from the *entire* historical series (all 16
+# years, not just the newest one) -- because compute_scores.py's per-year
+# pivot simply has no row for a country with zero fetched observations that
+# year. Check #10 above didn't catch it because it only checks
+# scored_data.csv (the current snapshot), which still had all 34 countries
+# that day. Self-healed the very next run, but nothing stopped the broken
+# commit from landing (or would stop a longer outage from landing) in the
+# meantime.
+#
+# The check below is deliberately NOT "every country must appear in the
+# newest year" -- that's a real, normal, non-bug condition (WGI/WDI
+# publication lands at different times per country, so the newest year
+# routinely has fewer reporting countries than earlier ones; as of this
+# writing 2025 itself is at 30 of 34). The actual failure signature was a
+# country vanishing from EVERY year at once, so the real check is whole-
+# history presence: has this tracked country ever reported in any year on
+# file? A country present in earlier years but absent from all of them
+# simultaneously is the incomplete-fetch pattern this incident produced,
+# not normal reporting lag.
+try:
+    driver_hist = pd.read_csv("driver_history.csv")
+    dh_codes = set(driver_hist["country_code"])
+    missing_dh = VALID_CODES - dh_codes
+    check(
+        not missing_dh,
+        f"driver_history.csv has {len(missing_dh)} of {len(VALID_CODES)} tracked countries absent from EVERY "
+        f"year on file: {sorted(missing_dh)} -- this is the 2026-09-28-style incomplete-fetch pattern, not "
+        f"normal newest-year reporting lag, and should not be committed as-is.",
+    )
+except FileNotFoundError:
+    warn(False, "driver_history.csv not found -- run compute_scores.py first")
+
+try:
+    scored_hist = pd.read_csv("scored_history.csv")
+    sh_codes = set(scored_hist["country_code"])
+    missing_sh = VALID_CODES - sh_codes
+    check(
+        not missing_sh,
+        f"scored_history.csv has {len(missing_sh)} of {len(VALID_CODES)} tracked countries absent from EVERY "
+        f"year on file: {sorted(missing_sh)} -- this is the 2026-09-28-style incomplete-fetch pattern, not "
+        f"normal newest-year reporting lag, and should not be committed as-is.",
+    )
+except FileNotFoundError:
+    warn(False, "scored_history.csv not found -- run compute_scores.py first")
+
+
 # ---------- 11. QGIS chokepoint geodata: real output, cross-checked ----------
 # geodata/qgis_*.csv/geojson are real QGIS output (QgsDistanceArea,
 # QgsGeometry.buffer() -- see generate_qgis_geodata.py's own docstring), not
