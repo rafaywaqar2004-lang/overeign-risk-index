@@ -32,23 +32,27 @@ Each entry: {
 }
 """
 
-LAST_REVIEWED = "2026-09-02"
+LAST_REVIEWED = "2026-10-01"
 
 UPCOMING_CATALYSTS = {
     'MAR': [{
         'date': '2026-09-23',
         'category': 'Election',
-        'event': 'General/legislative elections',
+        'event': 'General/legislative elections -- held, results confirmed',
         'detail': (
-            "Morocco's next general election is set for September 23, 2026 (campaign period "
-            "September 10-22). PM Aziz Akhannouch has already announced he will not seek "
-            "re-election as leader of his RNI party, so even an RNI win would not automatically "
-            "return him as head of government -- a confirmed near-term leadership-change signal, "
-            "though King Mohammed VI's position as head of state is unaffected."
+            "Morocco held its general election as scheduled on September 23, 2026. The centrist "
+            "Authenticity and Modernity Party (PAM), led by Fouzi Lekjaa, won the most seats (97), "
+            "followed by outgoing PM Aziz Akhannouch's RNI (66, down sharply from 102 in 2021), "
+            "Istiqlal (65), and a resurgent PJD under Abdelilah Benkirane (54). Akhannouch, who had "
+            "already stepped down as RNI leader, did not stand for re-election, confirming the "
+            "leadership change flagged ahead of the vote. Turnout fell to 38% -- the lowest since "
+            "2007. Government formation talks were underway as of this review; King Mohammed VI's "
+            "position as head of state is unaffected."
         ),
         'sources': [
             ('Wikipedia — 2026 Moroccan general election', 'https://en.wikipedia.org/wiki/2026_Moroccan_general_election'),
-            ('North Africa Post — Morocco to hold legislative elections on September 23', 'https://northafricapost.com/95312-morocco-to-hold-legislative-elections-on-september-23.html'),
+            ('Atalayar — PAM wins Morocco\'s legislative elections with 97 seats as voter abstention climbs to 62%', 'https://www.atalayar.com/en/articulo/politics/pam-wins-moroccos-legislative-elections-with-97-seats-voter-abstention-climbs-to-62/20260924101429229488.html'),
+            ('Morocco World News — Morocco\'s 2026 Legislative Turnout Falls to 38%, Below the 2021 Level', 'https://www.moroccoworldnews.com/2026/09/339545/moroccos-2026-legislative-turnout-falls-to-38-below-the-2021-level/'),
         ],
     }],
     'ISR': [{
@@ -112,17 +116,23 @@ UPCOMING_CATALYSTS = {
         ],
     }],
     'PAK': [{
-        'date': '2026-09 (exact dates unconfirmed)',
+        'date': '2026-09-23 (mission held; Board approval date TBA)',
         'category': 'IMF Review',
-        'event': 'Fourth EFF review / third RSF review mission',
+        'event': 'Fourth EFF review / third RSF review mission -- held, Board approval pending',
         'detail': (
-            "An IMF mission is expected in Pakistan in September 2026 to open discussions on the "
-            "fourth review of the $7bn Extended Fund Facility and the third review of the $1.4bn "
-            "Resilience and Sustainability Facility, per Pakistani press reporting; the Fund had not "
-            "confirmed exact mission dates as of this review."
+            "An IMF mission led by Iva Petrova visited Pakistan from September 23, 2026 through the "
+            "first week of October, covering the fourth review of the $7bn Extended Fund Facility, "
+            "the third review of the $1.4bn Resilience and Sustainability Facility, and an Article IV "
+            "consultation for the period through June 30, 2026. Talks covered proposed Sovereign "
+            "Wealth Fund law amendments and governance/anti-corruption commitments. If the reviews are "
+            "approved, Pakistan would gain access to roughly $1bn under the EFF and $200m under the "
+            "RSF, but IMF Executive Board approval and exact disbursement timing were not yet "
+            "confirmed as of this review."
         ),
         'sources': [
-            ('Arab News Pakistan — IMF mission expected in Pakistan in September for loan program reviews', 'https://www.arabnews.pk/node/2656146/pakistan'),
+            ('ProPakistani — IMF Mission to Visit Pakistan This Month for Biannual Review', 'https://propakistani.pk/2026/09/11/imf-mission-to-visit-pakistan-this-month-for-biannual-review/'),
+            ('Business Recorder — Aurangzeb kicks off talks with IMF mission', 'https://www.brecorder.com/news/40441769/aurangzeb-kicks-off-talks-with-imf-mission'),
+            ('The Nation — Pakistan, IMF begin talks on fourth EFF review', 'https://www.nation.com.pk/29-Sep-2026/pakistan-imf-begin-talks-fourth-eff-review'),
         ],
     }],
     'LKA': [{
