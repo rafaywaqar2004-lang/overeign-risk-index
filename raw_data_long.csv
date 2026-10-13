@@ -4177,6 +4177,22 @@ SAU,Saudi Arabia,gdp_current_usd,2013,769755733333.333
 SAU,Saudi Arabia,gdp_current_usd,2012,751921333333.333
 SAU,Saudi Arabia,gdp_current_usd,2011,680660800000.0
 SAU,Saudi Arabia,gdp_current_usd,2010,528207466666.667
+SAU,Saudi Arabia,gdp_per_capita_usd,2025,34536.6555456551
+SAU,Saudi Arabia,gdp_per_capita_usd,2024,35527.786181866
+SAU,Saudi Arabia,gdp_per_capita_usd,2023,36156.8562500172
+SAU,Saudi Arabia,gdp_per_capita_usd,2022,38510.2276211037
+SAU,Saudi Arabia,gdp_per_capita_usd,2021,31920.7653655643
+SAU,Saudi Arabia,gdp_per_capita_usd,2020,24338.8307301067
+SAU,Saudi Arabia,gdp_per_capita_usd,2019,29566.7933827436
+SAU,Saudi Arabia,gdp_per_capita_usd,2018,29360.0658968566
+SAU,Saudi Arabia,gdp_per_capita_usd,2017,23929.2907135982
+SAU,Saudi Arabia,gdp_per_capita_usd,2016,22267.7217050387
+SAU,Saudi Arabia,gdp_per_capita_usd,2015,23256.1549553531
+SAU,Saudi Arabia,gdp_per_capita_usd,2014,27805.4850319422
+SAU,Saudi Arabia,gdp_per_capita_usd,2013,27865.465604962
+SAU,Saudi Arabia,gdp_per_capita_usd,2012,28733.4375513452
+SAU,Saudi Arabia,gdp_per_capita_usd,2011,27126.7498747702
+SAU,Saudi Arabia,gdp_per_capita_usd,2010,22028.3901426586
 SAU,Saudi Arabia,total_reserves_usd,2025,505163993094.995
 SAU,Saudi Arabia,total_reserves_usd,2024,463869589071.029
 SAU,Saudi Arabia,total_reserves_usd,2023,457948635287.487
@@ -5462,22 +5478,6 @@ BGD,Bangladesh,reserves_months_imports,2013,4.90974781514543
 BGD,Bangladesh,reserves_months_imports,2012,3.85125480802238
 BGD,Bangladesh,reserves_months_imports,2011,2.78355229779505
 BGD,Bangladesh,reserves_months_imports,2010,4.32087922221626
-BGD,Bangladesh,gdp_growth,2025,3.48990671836833
-BGD,Bangladesh,gdp_growth,2024,4.22325911250161
-BGD,Bangladesh,gdp_growth,2023,5.77511237007889
-BGD,Bangladesh,gdp_growth,2022,7.09982877575158
-BGD,Bangladesh,gdp_growth,2021,6.93867912442445
-BGD,Bangladesh,gdp_growth,2020,3.44801755122445
-BGD,Bangladesh,gdp_growth,2019,7.88191515117722
-BGD,Bangladesh,gdp_growth,2018,7.31941263014136
-BGD,Bangladesh,gdp_growth,2017,6.59024999794057
-BGD,Bangladesh,gdp_growth,2016,7.11347821270093
-BGD,Bangladesh,gdp_growth,2015,6.55263987816197
-BGD,Bangladesh,gdp_growth,2014,6.0610593588495
-BGD,Bangladesh,gdp_growth,2013,6.01360565834344
-BGD,Bangladesh,gdp_growth,2012,6.52145877906443
-BGD,Bangladesh,gdp_growth,2011,6.46437912497728
-BGD,Bangladesh,gdp_growth,2010,5.57178818533122
 BGD,Bangladesh,inflation,2025,8.7687628116114
 BGD,Bangladesh,inflation,2024,10.4657482763412
 BGD,Bangladesh,inflation,2023,9.8835030377921
@@ -6943,22 +6943,6 @@ PAK,Pakistan,gdp_growth,2013,4.36686504978387
 PAK,Pakistan,gdp_growth,2012,3.02758391088629
 PAK,Pakistan,gdp_growth,2011,2.68011685421705
 PAK,Pakistan,gdp_growth,2010,1.50171752152883
-PAK,Pakistan,inflation,2025,3.54555214890892
-PAK,Pakistan,inflation,2024,12.6325318530451
-PAK,Pakistan,inflation,2023,30.7681280657005
-PAK,Pakistan,inflation,2022,19.8738599646655
-PAK,Pakistan,inflation,2021,9.49641577285205
-PAK,Pakistan,inflation,2020,9.74011619320125
-PAK,Pakistan,inflation,2019,10.5780305672024
-PAK,Pakistan,inflation,2018,5.07805725868916
-PAK,Pakistan,inflation,2017,4.08537368032608
-PAK,Pakistan,inflation,2016,3.7651191635658
-PAK,Pakistan,inflation,2015,2.52932817254228
-PAK,Pakistan,inflation,2014,7.18938402847027
-PAK,Pakistan,inflation,2013,7.69215611899564
-PAK,Pakistan,inflation,2012,9.68235186055683
-PAK,Pakistan,inflation,2011,11.9160927116277
-PAK,Pakistan,inflation,2010,12.9388705634889
 PAK,Pakistan,political_stability,2025,-1.9507331
 PAK,Pakistan,political_stability,2024,-2.0007321
 PAK,Pakistan,political_stability,2023,-1.9466079
@@ -8199,6 +8183,12 @@ SSD,South Sudan,official_exchange_rate_lcu_usd,2014,2.95
 SSD,South Sudan,official_exchange_rate_lcu_usd,2013,2.95
 SSD,South Sudan,official_exchange_rate_lcu_usd,2012,2.95
 SSD,South Sudan,official_exchange_rate_lcu_usd,2011,2.98895
+SSD,South Sudan,gdp_current_usd,2015,11997800760.2242
+SSD,South Sudan,gdp_current_usd,2014,13962212847.4576
+SSD,South Sudan,gdp_current_usd,2013,18426469016.9492
+SSD,South Sudan,gdp_current_usd,2012,11931472169.4915
+SSD,South Sudan,gdp_current_usd,2011,14907308932.7534
+SSD,South Sudan,gdp_current_usd,2010,14602072410.9506
 SSD,South Sudan,gdp_per_capita_usd,2015,1080.14718624765
 SSD,South Sudan,gdp_per_capita_usd,2014,1242.73450181032
 SSD,South Sudan,gdp_per_capita_usd,2013,1650.18943353528
