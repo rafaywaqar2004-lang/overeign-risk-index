@@ -3356,6 +3356,21 @@ OMN,Oman,gdp_per_capita_usd,2013,23458.0233840053
 OMN,Oman,gdp_per_capita_usd,2012,24642.2978768596
 OMN,Oman,gdp_per_capita_usd,2011,25188.0074151885
 OMN,Oman,gdp_per_capita_usd,2010,23570.1798147325
+OMN,Oman,total_reserves_usd,2024,18286526117.9972
+OMN,Oman,total_reserves_usd,2023,17454630668.5071
+OMN,Oman,total_reserves_usd,2022,17606348634.1577
+OMN,Oman,total_reserves_usd,2021,19730879938.0595
+OMN,Oman,total_reserves_usd,2020,15007356725.394
+OMN,Oman,total_reserves_usd,2019,16661756725.189
+OMN,Oman,total_reserves_usd,2018,17388370607.2955
+OMN,Oman,total_reserves_usd,2017,16088803822.7708
+OMN,Oman,total_reserves_usd,2016,20262241805.121
+OMN,Oman,total_reserves_usd,2015,17543980312.7004
+OMN,Oman,total_reserves_usd,2014,16324457251.6461
+OMN,Oman,total_reserves_usd,2013,15951037291.2884
+OMN,Oman,total_reserves_usd,2012,14401122657.9675
+OMN,Oman,total_reserves_usd,2011,14366193706.024
+OMN,Oman,total_reserves_usd,2010,13025235620.4615
 OMN,Oman,unemployment_rate,2025,3.251
 OMN,Oman,unemployment_rate,2024,3.203
 OMN,Oman,unemployment_rate,2023,3.176
@@ -7475,6 +7490,21 @@ LKA,Sri Lanka,youth_unemployment_rate,2010,18.684
 LKA,Sri Lanka,gini_index,2019,37.7
 LKA,Sri Lanka,gini_index,2016,39.3
 LKA,Sri Lanka,gini_index,2012,38.7
+TUR,Turkey,debt_to_gdp,2024,25.5128667788107
+TUR,Turkey,debt_to_gdp,2023,31.1237728765421
+TUR,Turkey,debt_to_gdp,2022,35.3300843740665
+TUR,Turkey,debt_to_gdp,2021,41.6375124693568
+TUR,Turkey,debt_to_gdp,2020,41.0396523893444
+TUR,Turkey,debt_to_gdp,2019,33.4600744570718
+TUR,Turkey,debt_to_gdp,2018,29.3999927208091
+TUR,Turkey,debt_to_gdp,2017,29.5734179673603
+TUR,Turkey,debt_to_gdp,2016,30.075201418508
+TUR,Turkey,debt_to_gdp,2015,29.145145266046
+TUR,Turkey,debt_to_gdp,2014,31.1206735016751
+TUR,Turkey,debt_to_gdp,2013,31.7836465280795
+TUR,Turkey,debt_to_gdp,2012,37.6997174684634
+TUR,Turkey,debt_to_gdp,2011,39.9693425323809
+TUR,Turkey,debt_to_gdp,2010,45.1797411840038
 TUR,Turkey,current_account_pct_gdp,2025,-1.89933817058389
 TUR,Turkey,current_account_pct_gdp,2024,-0.958485187243091
 TUR,Turkey,current_account_pct_gdp,2023,-3.66451360136676
