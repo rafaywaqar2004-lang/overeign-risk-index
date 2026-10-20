@@ -4225,6 +4225,22 @@ SAU,Saudi Arabia,unemployment_rate,2013,5.6
 SAU,Saudi Arabia,unemployment_rate,2012,5.622
 SAU,Saudi Arabia,unemployment_rate,2011,5.77
 SAU,Saudi Arabia,unemployment_rate,2010,5.55
+SAU,Saudi Arabia,youth_unemployment_rate,2025,10.01
+SAU,Saudi Arabia,youth_unemployment_rate,2024,11.502
+SAU,Saudi Arabia,youth_unemployment_rate,2023,13.474
+SAU,Saudi Arabia,youth_unemployment_rate,2022,15.964
+SAU,Saudi Arabia,youth_unemployment_rate,2021,19.772
+SAU,Saudi Arabia,youth_unemployment_rate,2020,29.627
+SAU,Saudi Arabia,youth_unemployment_rate,2019,25.477
+SAU,Saudi Arabia,youth_unemployment_rate,2018,30.213
+SAU,Saudi Arabia,youth_unemployment_rate,2017,31.504
+SAU,Saudi Arabia,youth_unemployment_rate,2016,24.275
+SAU,Saudi Arabia,youth_unemployment_rate,2015,28.156
+SAU,Saudi Arabia,youth_unemployment_rate,2014,28.603
+SAU,Saudi Arabia,youth_unemployment_rate,2013,26.946
+SAU,Saudi Arabia,youth_unemployment_rate,2012,24.843
+SAU,Saudi Arabia,youth_unemployment_rate,2011,25.11
+SAU,Saudi Arabia,youth_unemployment_rate,2010,24.738
 SYR,Syria,current_account_pct_gdp,2010,-0.598441906450217
 SYR,Syria,reserves_months_imports,2010,11.659017145464
 SYR,Syria,gdp_growth,2022,-0.20247264200475
@@ -8712,6 +8728,22 @@ SOM,Somalia,gdp_current_usd,2013,5062881600.00104
 SOM,Somalia,gdp_current_usd,2012,4364670159.99578
 SOM,Somalia,gdp_current_usd,2011,2906000096.93249
 SOM,Somalia,gdp_current_usd,2010,2687807003.73935
+SOM,Somalia,gdp_per_capita_usd,2025,661.173877723116
+SOM,Somalia,gdp_per_capita_usd,2024,629.538899449007
+SOM,Somalia,gdp_per_capita_usd,2023,596.885985135589
+SOM,Somalia,gdp_per_capita_usd,2022,573.141165798229
+SOM,Somalia,gdp_per_capita_usd,2021,549.056994756254
+SOM,Somalia,gdp_per_capita_usd,2020,518.16113333875
+SOM,Somalia,gdp_per_capita_usd,2019,539.954816211694
+SOM,Somalia,gdp_per_capita_usd,2018,509.497273804534
+SOM,Somalia,gdp_per_capita_usd,2017,510.939952317726
+SOM,Somalia,gdp_per_capita_usd,2016,460.928490585175
+SOM,Somalia,gdp_per_capita_usd,2015,445.583080073396
+SOM,Somalia,gdp_per_capita_usd,2014,429.431656725102
+SOM,Somalia,gdp_per_capita_usd,2013,393.398703952979
+SOM,Somalia,gdp_per_capita_usd,2012,350.261946720512
+SOM,Somalia,gdp_per_capita_usd,2011,235.325945610434
+SOM,Somalia,gdp_per_capita_usd,2010,219.202453852397
 SOM,Somalia,unemployment_rate,2025,18.948
 SOM,Somalia,unemployment_rate,2024,18.949
 SOM,Somalia,unemployment_rate,2023,18.96
