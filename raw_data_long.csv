@@ -5373,6 +5373,21 @@ AFG,Afghanistan,official_exchange_rate_lcu_usd,2013,55.3775
 AFG,Afghanistan,official_exchange_rate_lcu_usd,2012,50.9214
 AFG,Afghanistan,official_exchange_rate_lcu_usd,2011,46.747007738581
 AFG,Afghanistan,official_exchange_rate_lcu_usd,2010,46.4524610013175
+AFG,Afghanistan,gdp_current_usd,2024,17778508875.7396
+AFG,Afghanistan,gdp_current_usd,2023,17152234636.8715
+AFG,Afghanistan,gdp_current_usd,2022,14497243872.1337
+AFG,Afghanistan,gdp_current_usd,2021,14259995441.0759
+AFG,Afghanistan,gdp_current_usd,2020,19955929052.1496
+AFG,Afghanistan,gdp_current_usd,2019,18799444490.1128
+AFG,Afghanistan,gdp_current_usd,2018,18053222687.4126
+AFG,Afghanistan,gdp_current_usd,2017,18753456497.8159
+AFG,Afghanistan,gdp_current_usd,2016,18116572395.0772
+AFG,Afghanistan,gdp_current_usd,2015,19134221644.7325
+AFG,Afghanistan,gdp_current_usd,2014,20497128555.6972
+AFG,Afghanistan,gdp_current_usd,2013,20146416757.5987
+AFG,Afghanistan,gdp_current_usd,2012,19907329777.5872
+AFG,Afghanistan,gdp_current_usd,2011,17805098206.3141
+AFG,Afghanistan,gdp_current_usd,2010,15856668555.8336
 AFG,Afghanistan,gdp_per_capita_usd,2024,416.871146273728
 AFG,Afghanistan,gdp_per_capita_usd,2023,413.757894705303
 AFG,Afghanistan,gdp_per_capita_usd,2022,357.261152798144
@@ -5399,6 +5414,38 @@ AFG,Afghanistan,total_reserves_usd,2013,7288702710.90528
 AFG,Afghanistan,total_reserves_usd,2012,7152304397.72645
 AFG,Afghanistan,total_reserves_usd,2011,6344641959.56007
 AFG,Afghanistan,total_reserves_usd,2010,5162440806.75156
+AFG,Afghanistan,unemployment_rate,2025,13.351
+AFG,Afghanistan,unemployment_rate,2024,13.687
+AFG,Afghanistan,unemployment_rate,2023,14.008
+AFG,Afghanistan,unemployment_rate,2022,14.1
+AFG,Afghanistan,unemployment_rate,2021,12.006
+AFG,Afghanistan,unemployment_rate,2020,11.71
+AFG,Afghanistan,unemployment_rate,2019,11.187
+AFG,Afghanistan,unemployment_rate,2018,11.192
+AFG,Afghanistan,unemployment_rate,2017,11.184
+AFG,Afghanistan,unemployment_rate,2016,10.116
+AFG,Afghanistan,unemployment_rate,2015,9.032
+AFG,Afghanistan,unemployment_rate,2014,7.915
+AFG,Afghanistan,unemployment_rate,2013,7.921
+AFG,Afghanistan,unemployment_rate,2012,7.875
+AFG,Afghanistan,unemployment_rate,2011,7.83
+AFG,Afghanistan,unemployment_rate,2010,7.809
+AFG,Afghanistan,youth_unemployment_rate,2025,16.785
+AFG,Afghanistan,youth_unemployment_rate,2024,17.235
+AFG,Afghanistan,youth_unemployment_rate,2023,17.494
+AFG,Afghanistan,youth_unemployment_rate,2022,17.539
+AFG,Afghanistan,youth_unemployment_rate,2021,16.013
+AFG,Afghanistan,youth_unemployment_rate,2020,16.053
+AFG,Afghanistan,youth_unemployment_rate,2019,15.52
+AFG,Afghanistan,youth_unemployment_rate,2018,16.402
+AFG,Afghanistan,youth_unemployment_rate,2017,17.31
+AFG,Afghanistan,youth_unemployment_rate,2016,14.932
+AFG,Afghanistan,youth_unemployment_rate,2015,12.534
+AFG,Afghanistan,youth_unemployment_rate,2014,10.094
+AFG,Afghanistan,youth_unemployment_rate,2013,10.104
+AFG,Afghanistan,youth_unemployment_rate,2012,10.071
+AFG,Afghanistan,youth_unemployment_rate,2011,10.044
+AFG,Afghanistan,youth_unemployment_rate,2010,10.041
 BGD,Bangladesh,current_account_pct_gdp,2025,-0.0445219313220335
 BGD,Bangladesh,current_account_pct_gdp,2024,-0.669466607987832
 BGD,Bangladesh,current_account_pct_gdp,2023,-1.64602823544154
@@ -5415,6 +5462,22 @@ BGD,Bangladesh,current_account_pct_gdp,2013,1.3723251518825
 BGD,Bangladesh,current_account_pct_gdp,2012,1.93195276968292
 BGD,Bangladesh,current_account_pct_gdp,2011,-0.125842241657654
 BGD,Bangladesh,current_account_pct_gdp,2010,1.82909794723497
+BGD,Bangladesh,reserves_months_imports,2025,3.91206738611618
+BGD,Bangladesh,reserves_months_imports,2024,3.07374348965567
+BGD,Bangladesh,reserves_months_imports,2023,3.35581218289289
+BGD,Bangladesh,reserves_months_imports,2022,4.18907976493715
+BGD,Bangladesh,reserves_months_imports,2021,6.29023985723134
+BGD,Bangladesh,reserves_months_imports,2020,8.65813724626271
+BGD,Bangladesh,reserves_months_imports,2019,5.85933450460047
+BGD,Bangladesh,reserves_months_imports,2018,5.67626909607111
+BGD,Bangladesh,reserves_months_imports,2017,6.76886499116675
+BGD,Bangladesh,reserves_months_imports,2016,7.60387702099136
+BGD,Bangladesh,reserves_months_imports,2015,6.8309139901541
+BGD,Bangladesh,reserves_months_imports,2014,5.58168526462512
+BGD,Bangladesh,reserves_months_imports,2013,4.90974781514543
+BGD,Bangladesh,reserves_months_imports,2012,3.85125480802238
+BGD,Bangladesh,reserves_months_imports,2011,2.78355229779505
+BGD,Bangladesh,reserves_months_imports,2010,4.32087922221626
 BGD,Bangladesh,gdp_growth,2025,3.48990671836833
 BGD,Bangladesh,gdp_growth,2024,4.22325911250161
 BGD,Bangladesh,gdp_growth,2023,5.77511237007889
@@ -5463,6 +5526,38 @@ BGD,Bangladesh,political_stability,2013,-1.7641998
 BGD,Bangladesh,political_stability,2012,-1.4441633
 BGD,Bangladesh,political_stability,2011,-1.4283503
 BGD,Bangladesh,political_stability,2010,-1.4196558
+BGD,Bangladesh,government_effectiveness,2025,-0.4446676
+BGD,Bangladesh,government_effectiveness,2024,-0.5747472
+BGD,Bangladesh,government_effectiveness,2023,-0.4504976
+BGD,Bangladesh,government_effectiveness,2022,-0.4685866
+BGD,Bangladesh,government_effectiveness,2021,-0.421445
+BGD,Bangladesh,government_effectiveness,2020,-0.5681151
+BGD,Bangladesh,government_effectiveness,2019,-0.4643482
+BGD,Bangladesh,government_effectiveness,2018,-0.5238357
+BGD,Bangladesh,government_effectiveness,2017,-0.4766294
+BGD,Bangladesh,government_effectiveness,2016,-0.4396434
+BGD,Bangladesh,government_effectiveness,2015,-0.5451152
+BGD,Bangladesh,government_effectiveness,2014,-0.5780727
+BGD,Bangladesh,government_effectiveness,2013,-0.6409138
+BGD,Bangladesh,government_effectiveness,2012,-0.6620754
+BGD,Bangladesh,government_effectiveness,2011,-0.6987434
+BGD,Bangladesh,government_effectiveness,2010,-0.6700386
+BGD,Bangladesh,rule_of_law,2025,-0.9097061
+BGD,Bangladesh,rule_of_law,2024,-0.9499898
+BGD,Bangladesh,rule_of_law,2023,-0.8971789
+BGD,Bangladesh,rule_of_law,2022,-0.9182447
+BGD,Bangladesh,rule_of_law,2021,-0.9456395
+BGD,Bangladesh,rule_of_law,2020,-0.8637359
+BGD,Bangladesh,rule_of_law,2019,-0.905562
+BGD,Bangladesh,rule_of_law,2018,-0.8778741
+BGD,Bangladesh,rule_of_law,2017,-0.8901869
+BGD,Bangladesh,rule_of_law,2016,-0.8675921
+BGD,Bangladesh,rule_of_law,2015,-0.8117711
+BGD,Bangladesh,rule_of_law,2014,-0.8119139
+BGD,Bangladesh,rule_of_law,2013,-0.947112
+BGD,Bangladesh,rule_of_law,2012,-0.9708184
+BGD,Bangladesh,rule_of_law,2011,-0.7112683
+BGD,Bangladesh,rule_of_law,2010,-0.8340468
 BGD,Bangladesh,regulatory_quality,2025,-0.9378502
 BGD,Bangladesh,regulatory_quality,2024,-0.9562646
 BGD,Bangladesh,regulatory_quality,2023,-0.9124984
@@ -5511,6 +5606,22 @@ BGD,Bangladesh,fdi_net_inflows_pct_gdp,2013,1.73532012481503
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2012,1.18850391920183
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2011,0.983399364184761
 BGD,Bangladesh,fdi_net_inflows_pct_gdp,2010,1.06896766308322
+BGD,Bangladesh,exports_pct_gdp,2025,11.1161085689856
+BGD,Bangladesh,exports_pct_gdp,2024,10.4611878291715
+BGD,Bangladesh,exports_pct_gdp,2023,13.1571638341204
+BGD,Bangladesh,exports_pct_gdp,2022,12.8822264348985
+BGD,Bangladesh,exports_pct_gdp,2021,10.6627789004134
+BGD,Bangladesh,exports_pct_gdp,2020,10.4427880616037
+BGD,Bangladesh,exports_pct_gdp,2019,13.0947573353039
+BGD,Bangladesh,exports_pct_gdp,2018,12.6747879443391
+BGD,Bangladesh,exports_pct_gdp,2017,12.8197468906003
+BGD,Bangladesh,exports_pct_gdp,2016,13.9212044814459
+BGD,Bangladesh,exports_pct_gdp,2015,17.3366737865485
+BGD,Bangladesh,exports_pct_gdp,2014,18.9896599950107
+BGD,Bangladesh,exports_pct_gdp,2013,19.5378741098798
+BGD,Bangladesh,exports_pct_gdp,2012,20.1615888640625
+BGD,Bangladesh,exports_pct_gdp,2011,19.9220749554939
+BGD,Bangladesh,exports_pct_gdp,2010,16.0241126856916
 BGD,Bangladesh,imports_pct_gdp,2025,16.8344754735707
 BGD,Bangladesh,imports_pct_gdp,2024,16.3168879748762
 BGD,Bangladesh,imports_pct_gdp,2023,17.8258075763392
@@ -5559,6 +5670,22 @@ BGD,Bangladesh,gdp_current_usd,2013,149998957434.186
 BGD,Bangladesh,gdp_current_usd,2012,133310747603.483
 BGD,Bangladesh,gdp_current_usd,2011,128607482310.357
 BGD,Bangladesh,gdp_current_usd,2010,115275540051.262
+BGD,Bangladesh,gdp_per_capita_usd,2025,2597.34352335275
+BGD,Bangladesh,gdp_per_capita_usd,2024,2593.41611680774
+BGD,Bangladesh,gdp_per_capita_usd,2023,2551.01773827307
+BGD,Bangladesh,gdp_per_capita_usd,2022,2716.48592780431
+BGD,Bangladesh,gdp_per_capita_usd,2021,2482.84917843357
+BGD,Bangladesh,gdp_per_capita_usd,2020,2248.85078828233
+BGD,Bangladesh,gdp_per_capita_usd,2019,2129.79896954606
+BGD,Bangladesh,gdp_per_capita_usd,2018,1965.24372731467
+BGD,Bangladesh,gdp_per_capita_usd,2017,1811.08221668646
+BGD,Bangladesh,gdp_per_capita_usd,2016,1649.28380858601
+BGD,Bangladesh,gdp_per_capita_usd,2015,1224.38647668165
+BGD,Bangladesh,gdp_per_capita_usd,2014,1094.46199702838
+BGD,Bangladesh,gdp_per_capita_usd,2013,958.262989798283
+BGD,Bangladesh,gdp_per_capita_usd,2012,859.680536375497
+BGD,Bangladesh,gdp_per_capita_usd,2011,837.336944695647
+BGD,Bangladesh,gdp_per_capita_usd,2010,757.385280361508
 BGD,Bangladesh,total_reserves_usd,2025,28562651500.7356
 BGD,Bangladesh,total_reserves_usd,2024,21394795733.0405
 BGD,Bangladesh,total_reserves_usd,2023,21859709190.8892
@@ -5575,6 +5702,22 @@ BGD,Bangladesh,total_reserves_usd,2013,18087689200.0619
 BGD,Bangladesh,total_reserves_usd,2012,12754226899.6071
 BGD,Bangladesh,total_reserves_usd,2011,9174749651.1268
 BGD,Bangladesh,total_reserves_usd,2010,11174828666.952
+BGD,Bangladesh,unemployment_rate,2025,3.778
+BGD,Bangladesh,unemployment_rate,2024,3.635
+BGD,Bangladesh,unemployment_rate,2023,3.352
+BGD,Bangladesh,unemployment_rate,2022,4.593
+BGD,Bangladesh,unemployment_rate,2021,5.457
+BGD,Bangladesh,unemployment_rate,2020,5.539
+BGD,Bangladesh,unemployment_rate,2019,4.504
+BGD,Bangladesh,unemployment_rate,2018,4.439
+BGD,Bangladesh,unemployment_rate,2017,4.372
+BGD,Bangladesh,unemployment_rate,2016,4.35
+BGD,Bangladesh,unemployment_rate,2015,4.397
+BGD,Bangladesh,unemployment_rate,2014,4.417
+BGD,Bangladesh,unemployment_rate,2013,4.426
+BGD,Bangladesh,unemployment_rate,2012,4.07
+BGD,Bangladesh,unemployment_rate,2011,3.737
+BGD,Bangladesh,unemployment_rate,2010,3.379
 BGD,Bangladesh,youth_unemployment_rate,2025,9.385
 BGD,Bangladesh,youth_unemployment_rate,2024,9.097
 BGD,Bangladesh,youth_unemployment_rate,2023,7.905
@@ -5594,6 +5737,63 @@ BGD,Bangladesh,youth_unemployment_rate,2010,6.289
 BGD,Bangladesh,gini_index,2022,30.9
 BGD,Bangladesh,gini_index,2016,32.4
 BGD,Bangladesh,gini_index,2010,32.1
+BTN,Bhutan,debt_to_gdp,2020,111.007884099526
+BTN,Bhutan,debt_to_gdp,2019,90.3573525676224
+BTN,Bhutan,debt_to_gdp,2018,95.847821202237
+BTN,Bhutan,debt_to_gdp,2017,95.7786849944102
+BTN,Bhutan,debt_to_gdp,2016,92.2912012820179
+BTN,Bhutan,debt_to_gdp,2015,81.0505609933361
+BTN,Bhutan,debt_to_gdp,2014,84.9990711320017
+BTN,Bhutan,debt_to_gdp,2013,88.9492144824279
+BTN,Bhutan,debt_to_gdp,2012,67.0148156229242
+BTN,Bhutan,debt_to_gdp,2011,57.5496480907902
+BTN,Bhutan,debt_to_gdp,2010,50.9195301727763
+BTN,Bhutan,current_account_pct_gdp,2024,-19.4017852146799
+BTN,Bhutan,current_account_pct_gdp,2023,-33.9073870683129
+BTN,Bhutan,current_account_pct_gdp,2022,-27.8005472490936
+BTN,Bhutan,current_account_pct_gdp,2021,-11.5313120542653
+BTN,Bhutan,current_account_pct_gdp,2020,-15.5091108691023
+BTN,Bhutan,current_account_pct_gdp,2019,-18.3062679862316
+BTN,Bhutan,current_account_pct_gdp,2018,-18.5091513975915
+BTN,Bhutan,current_account_pct_gdp,2017,-20.854696561702
+BTN,Bhutan,current_account_pct_gdp,2016,-26.4131091642844
+BTN,Bhutan,current_account_pct_gdp,2015,-25.0627177353296
+BTN,Bhutan,current_account_pct_gdp,2014,-23.4688052620107
+BTN,Bhutan,current_account_pct_gdp,2013,-24.293493248344
+BTN,Bhutan,current_account_pct_gdp,2012,-19.1060720878636
+BTN,Bhutan,current_account_pct_gdp,2011,-26.6070202039628
+BTN,Bhutan,current_account_pct_gdp,2010,-18.9069431459851
+BTN,Bhutan,reserves_months_imports,2024,6.61474201389785
+BTN,Bhutan,reserves_months_imports,2023,4.01324933324282
+BTN,Bhutan,reserves_months_imports,2022,5.60738875203104
+BTN,Bhutan,reserves_months_imports,2021,10.4684791731149
+BTN,Bhutan,reserves_months_imports,2020,12.5303950802888
+BTN,Bhutan,reserves_months_imports,2019,9.98564557325311
+BTN,Bhutan,reserves_months_imports,2018,7.89747826994498
+BTN,Bhutan,reserves_months_imports,2017,9.88572466303795
+BTN,Bhutan,reserves_months_imports,2016,9.43703232126746
+BTN,Bhutan,reserves_months_imports,2015,9.60611724416569
+BTN,Bhutan,reserves_months_imports,2014,11.8031415958019
+BTN,Bhutan,reserves_months_imports,2013,9.26353916294241
+BTN,Bhutan,reserves_months_imports,2012,8.55745154197412
+BTN,Bhutan,reserves_months_imports,2011,6.64779532318255
+BTN,Bhutan,reserves_months_imports,2010,11.7469724513219
+BTN,Bhutan,gdp_growth,2025,8.00502716233098
+BTN,Bhutan,gdp_growth,2024,7.49856206754038
+BTN,Bhutan,gdp_growth,2023,4.63215702969933
+BTN,Bhutan,gdp_growth,2022,5.21386783786224
+BTN,Bhutan,gdp_growth,2021,4.42136738945015
+BTN,Bhutan,gdp_growth,2020,-10.2183974208569
+BTN,Bhutan,gdp_growth,2019,5.75514851246506
+BTN,Bhutan,gdp_growth,2018,3.50187185732737
+BTN,Bhutan,gdp_growth,2017,2.08684522733067
+BTN,Bhutan,gdp_growth,2016,8.47594339232963
+BTN,Bhutan,gdp_growth,2015,6.66080128866197
+BTN,Bhutan,gdp_growth,2014,5.88108550658288
+BTN,Bhutan,gdp_growth,2013,1.73634039505693
+BTN,Bhutan,gdp_growth,2012,5.16482012683895
+BTN,Bhutan,gdp_growth,2011,8.4892584842808
+BTN,Bhutan,gdp_growth,2010,11.9318738376229
 BTN,Bhutan,inflation,2025,3.55513663074987
 BTN,Bhutan,inflation,2024,2.76131569624097
 BTN,Bhutan,inflation,2023,4.22934419929251
@@ -5642,6 +5842,132 @@ BTN,Bhutan,government_effectiveness,2013,0.6292761
 BTN,Bhutan,government_effectiveness,2012,0.5049669
 BTN,Bhutan,government_effectiveness,2011,0.4461249
 BTN,Bhutan,government_effectiveness,2010,0.4105812
+BTN,Bhutan,rule_of_law,2025,0.7217758
+BTN,Bhutan,rule_of_law,2024,0.802523
+BTN,Bhutan,rule_of_law,2023,0.7359932
+BTN,Bhutan,rule_of_law,2022,0.6976428
+BTN,Bhutan,rule_of_law,2021,0.7034554
+BTN,Bhutan,rule_of_law,2020,0.6720843
+BTN,Bhutan,rule_of_law,2019,0.6818517
+BTN,Bhutan,rule_of_law,2018,0.6878012
+BTN,Bhutan,rule_of_law,2017,0.6449278
+BTN,Bhutan,rule_of_law,2016,0.5271992
+BTN,Bhutan,rule_of_law,2015,0.5211549
+BTN,Bhutan,rule_of_law,2014,0.3443848
+BTN,Bhutan,rule_of_law,2013,0.2462237
+BTN,Bhutan,rule_of_law,2012,0.1551788
+BTN,Bhutan,rule_of_law,2011,0.1723231
+BTN,Bhutan,rule_of_law,2010,0.131576
+BTN,Bhutan,regulatory_quality,2025,-0.0933992
+BTN,Bhutan,regulatory_quality,2024,-0.1136468
+BTN,Bhutan,regulatory_quality,2023,-0.114452
+BTN,Bhutan,regulatory_quality,2022,-0.1145779
+BTN,Bhutan,regulatory_quality,2021,-0.0580684
+BTN,Bhutan,regulatory_quality,2020,-0.0340604
+BTN,Bhutan,regulatory_quality,2019,-0.0684511
+BTN,Bhutan,regulatory_quality,2018,-0.0496736
+BTN,Bhutan,regulatory_quality,2017,-0.1297659
+BTN,Bhutan,regulatory_quality,2016,-0.3542871
+BTN,Bhutan,regulatory_quality,2015,-0.3941749
+BTN,Bhutan,regulatory_quality,2014,-0.8101549
+BTN,Bhutan,regulatory_quality,2013,-0.9194578
+BTN,Bhutan,regulatory_quality,2012,-0.9049799
+BTN,Bhutan,regulatory_quality,2011,-0.9299335
+BTN,Bhutan,regulatory_quality,2010,-0.9325022
+BTN,Bhutan,control_of_corruption,2025,1.4734256
+BTN,Bhutan,control_of_corruption,2024,1.4697587
+BTN,Bhutan,control_of_corruption,2023,1.3526293
+BTN,Bhutan,control_of_corruption,2022,1.3523215
+BTN,Bhutan,control_of_corruption,2021,1.3178625
+BTN,Bhutan,control_of_corruption,2020,1.3397472
+BTN,Bhutan,control_of_corruption,2019,1.4626027
+BTN,Bhutan,control_of_corruption,2018,1.4499203
+BTN,Bhutan,control_of_corruption,2017,1.4491751
+BTN,Bhutan,control_of_corruption,2016,1.1682121
+BTN,Bhutan,control_of_corruption,2015,1.0782548
+BTN,Bhutan,control_of_corruption,2014,1.0894793
+BTN,Bhutan,control_of_corruption,2013,0.7856654
+BTN,Bhutan,control_of_corruption,2012,0.8138593
+BTN,Bhutan,control_of_corruption,2011,0.7179035
+BTN,Bhutan,control_of_corruption,2010,0.7761186
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2025,0.238058616008172
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2024,0.0841982308924301
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2023,0.338339566522946
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2022,0.289904655137253
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2021,0.244983575408047
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2020,-0.113401528947433
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2019,0.475617042344246
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2018,0.10255942689779
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2017,-0.638806366922729
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2016,0.504099187674602
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2015,0.294858179551153
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2014,1.12656942719562
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2013,1.05127659163372
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2012,1.2354733641673
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2011,1.57461513860453
+BTN,Bhutan,fdi_net_inflows_pct_gdp,2010,4.40487201345335
+BTN,Bhutan,exports_pct_gdp,2024,31.4948602422141
+BTN,Bhutan,exports_pct_gdp,2023,28.3881078975658
+BTN,Bhutan,exports_pct_gdp,2022,25.4988399587876
+BTN,Bhutan,exports_pct_gdp,2021,29.1987406924537
+BTN,Bhutan,exports_pct_gdp,2020,28.0656355144502
+BTN,Bhutan,exports_pct_gdp,2019,31.4575032617598
+BTN,Bhutan,exports_pct_gdp,2018,29.1897191930732
+BTN,Bhutan,exports_pct_gdp,2017,28.4464080232377
+BTN,Bhutan,exports_pct_gdp,2016,27.1228339132394
+BTN,Bhutan,exports_pct_gdp,2015,31.5360910045004
+BTN,Bhutan,exports_pct_gdp,2014,34.1893414068432
+BTN,Bhutan,exports_pct_gdp,2013,37.4343659431634
+BTN,Bhutan,exports_pct_gdp,2012,35.7881097866179
+BTN,Bhutan,exports_pct_gdp,2011,37.9232018736818
+BTN,Bhutan,exports_pct_gdp,2010,39.3870452376357
+BTN,Bhutan,imports_pct_gdp,2024,47.8676815531182
+BTN,Bhutan,imports_pct_gdp,2023,53.3485199564153
+BTN,Bhutan,imports_pct_gdp,2022,60.0723765638263
+BTN,Bhutan,imports_pct_gdp,2021,48.3837075785288
+BTN,Bhutan,imports_pct_gdp,2020,43.7647155250135
+BTN,Bhutan,imports_pct_gdp,2019,44.6660134423907
+BTN,Bhutan,imports_pct_gdp,2018,50.550001136535
+BTN,Bhutan,imports_pct_gdp,2017,48.3419936617844
+BTN,Bhutan,imports_pct_gdp,2016,49.2619189365981
+BTN,Bhutan,imports_pct_gdp,2015,58.1030694550492
+BTN,Bhutan,imports_pct_gdp,2014,53.7449147944863
+BTN,Bhutan,imports_pct_gdp,2013,57.618172334879
+BTN,Bhutan,imports_pct_gdp,2012,58.2569173603391
+BTN,Bhutan,imports_pct_gdp,2011,64.8723983474244
+BTN,Bhutan,imports_pct_gdp,2010,65.623621455957
+BTN,Bhutan,official_exchange_rate_lcu_usd,2025,87.1584483507393
+BTN,Bhutan,official_exchange_rate_lcu_usd,2024,83.669281580941
+BTN,Bhutan,official_exchange_rate_lcu_usd,2023,82.5992764460784
+BTN,Bhutan,official_exchange_rate_lcu_usd,2022,78.6044905829915
+BTN,Bhutan,official_exchange_rate_lcu_usd,2021,73.9180128154351
+BTN,Bhutan,official_exchange_rate_lcu_usd,2020,74.0995668836052
+BTN,Bhutan,official_exchange_rate_lcu_usd,2019,70.420340535955
+BTN,Bhutan,official_exchange_rate_lcu_usd,2018,68.3894670935421
+BTN,Bhutan,official_exchange_rate_lcu_usd,2017,65.1215686450659
+BTN,Bhutan,official_exchange_rate_lcu_usd,2016,67.1953128073893
+BTN,Bhutan,official_exchange_rate_lcu_usd,2015,64.1519444632786
+BTN,Bhutan,official_exchange_rate_lcu_usd,2014,61.0295144607843
+BTN,Bhutan,official_exchange_rate_lcu_usd,2013,58.5978454166666
+BTN,Bhutan,official_exchange_rate_lcu_usd,2012,53.4372333333333
+BTN,Bhutan,official_exchange_rate_lcu_usd,2011,46.6704666666666
+BTN,Bhutan,official_exchange_rate_lcu_usd,2010,45.7258121212121
+BTN,Bhutan,gdp_current_usd,2025,3579320145.13077
+BTN,Bhutan,gdp_current_usd,2024,3346603858.7495
+BTN,Bhutan,gdp_current_usd,2023,3012896789.79753
+BTN,Bhutan,gdp_current_usd,2022,2898227743.75576
+BTN,Bhutan,gdp_current_usd,2021,2768802960.11204
+BTN,Bhutan,gdp_current_usd,2020,2457604333.90927
+BTN,Bhutan,gdp_current_usd,2019,2735683570.46155
+BTN,Bhutan,gdp_current_usd,2018,2583335721.85904
+BTN,Bhutan,gdp_current_usd,2017,2591358009.20276
+BTN,Bhutan,gdp_current_usd,2016,2357504760.78592
+BTN,Bhutan,gdp_current_usd,2015,2187815803.36833
+BTN,Bhutan,gdp_current_usd,2014,2089079570.58285
+BTN,Bhutan,gdp_current_usd,2013,1943696951.65411
+BTN,Bhutan,gdp_current_usd,2012,1973387227.96519
+BTN,Bhutan,gdp_current_usd,2011,1977728658.68259
+BTN,Bhutan,gdp_current_usd,2010,1708880730.20989
 BTN,Bhutan,gdp_per_capita_usd,2025,4492.78400306618
 BTN,Bhutan,gdp_per_capita_usd,2024,4228.05102403654
 BTN,Bhutan,gdp_per_capita_usd,2023,3831.32535564326
@@ -5658,6 +5984,22 @@ BTN,Bhutan,gdp_per_capita_usd,2013,2679.95217201538
 BTN,Bhutan,gdp_per_capita_usd,2012,2751.2128864294
 BTN,Bhutan,gdp_per_capita_usd,2011,2787.97967608562
 BTN,Bhutan,gdp_per_capita_usd,2010,2435.5798056672
+BTN,Bhutan,total_reserves_usd,2025,1193813117.88207
+BTN,Bhutan,total_reserves_usd,2024,941017689.206036
+BTN,Bhutan,total_reserves_usd,2023,654480752.429944
+BTN,Bhutan,total_reserves_usd,2022,825755411.679767
+BTN,Bhutan,total_reserves_usd,2021,1049605755.17505
+BTN,Bhutan,total_reserves_usd,2020,1426914817.73783
+BTN,Bhutan,total_reserves_usd,2019,1238371618.29551
+BTN,Bhutan,total_reserves_usd,2018,987247035.583982
+BTN,Bhutan,total_reserves_usd,2017,1206238190.85106
+BTN,Bhutan,total_reserves_usd,2016,1127277331.66277
+BTN,Bhutan,total_reserves_usd,2015,1103179128.57933
+BTN,Bhutan,total_reserves_usd,2014,1245086666.63096
+BTN,Bhutan,total_reserves_usd,2013,991306676.488434
+BTN,Bhutan,total_reserves_usd,2012,954678385.085581
+BTN,Bhutan,total_reserves_usd,2011,789643751.580541
+BTN,Bhutan,total_reserves_usd,2010,1002139101.89679
 BTN,Bhutan,unemployment_rate,2025,3.227
 BTN,Bhutan,unemployment_rate,2024,3.282
 BTN,Bhutan,unemployment_rate,2023,3.126
@@ -5690,6 +6032,34 @@ BTN,Bhutan,youth_unemployment_rate,2013,9.389
 BTN,Bhutan,youth_unemployment_rate,2012,6.982
 BTN,Bhutan,youth_unemployment_rate,2011,8.911
 BTN,Bhutan,youth_unemployment_rate,2010,8.784
+BTN,Bhutan,gini_index,2022,28.5
+BTN,Bhutan,gini_index,2017,37.4
+BTN,Bhutan,gini_index,2012,38.8
+IND,India,debt_to_gdp,2018,46.5224986659322
+IND,India,debt_to_gdp,2017,47.5836093800197
+IND,India,debt_to_gdp,2016,47.6337555915272
+IND,India,debt_to_gdp,2015,49.9647183856551
+IND,India,debt_to_gdp,2014,49.9009248748319
+IND,India,debt_to_gdp,2013,50.3118273627008
+IND,India,debt_to_gdp,2012,50.6780305618952
+IND,India,debt_to_gdp,2011,51.5565536600977
+IND,India,debt_to_gdp,2010,51.5919103003897
+IND,India,current_account_pct_gdp,2025,-0.511308076227287
+IND,India,current_account_pct_gdp,2024,-0.851289719084461
+IND,India,current_account_pct_gdp,2023,-0.912777939495826
+IND,India,current_account_pct_gdp,2022,-2.43238270956779
+IND,India,current_account_pct_gdp,2021,-1.05524166809383
+IND,India,current_account_pct_gdp,2020,1.22362111042791
+IND,India,current_account_pct_gdp,2019,-1.04961203910072
+IND,India,current_account_pct_gdp,2018,-2.42697545810527
+IND,India,current_account_pct_gdp,2017,-1.43948820320988
+IND,India,current_account_pct_gdp,2016,-0.527880606037518
+IND,India,current_account_pct_gdp,2015,-1.06754907167964
+IND,India,current_account_pct_gdp,2014,-1.33950896483452
+IND,India,current_account_pct_gdp,2013,-2.64566711733892
+IND,India,current_account_pct_gdp,2012,-5.00488971805303
+IND,India,current_account_pct_gdp,2011,-3.42928468606061
+IND,India,current_account_pct_gdp,2010,-3.25348368945179
 IND,India,reserves_months_imports,2025,7.85087469673437
 IND,India,reserves_months_imports,2024,7.52136088188696
 IND,India,reserves_months_imports,2023,7.97237314389747
@@ -5722,6 +6092,54 @@ IND,India,gdp_growth,2013,6.38610640091713
 IND,India,gdp_growth,2012,5.45638755164772
 IND,India,gdp_growth,2011,5.24131620024293
 IND,India,gdp_growth,2010,8.49758470165625
+IND,India,inflation,2025,2.39884954182294
+IND,India,inflation,2024,4.9530355097366
+IND,India,inflation,2023,5.64914318907925
+IND,India,inflation,2022,6.69903414079857
+IND,India,inflation,2021,5.13140747176363
+IND,India,inflation,2020,6.62343677628529
+IND,India,inflation,2019,3.72950573539123
+IND,India,inflation,2018,3.93882646691642
+IND,India,inflation,2017,3.32817337461304
+IND,India,inflation,2016,4.94821634062134
+IND,India,inflation,2015,4.90697344127249
+IND,India,inflation,2014,6.66565671867899
+IND,India,inflation,2013,10.0178784746104
+IND,India,inflation,2012,9.47899691419792
+IND,India,inflation,2011,8.9117933648336
+IND,India,inflation,2010,11.9893899204244
+IND,India,political_stability,2025,-0.6078803
+IND,India,political_stability,2024,-0.7058887
+IND,India,political_stability,2023,-0.8208437
+IND,India,political_stability,2022,-0.7656103
+IND,India,political_stability,2021,-0.6159965
+IND,India,political_stability,2020,-0.7238341
+IND,India,political_stability,2019,-0.5876129
+IND,India,political_stability,2018,-0.6652231
+IND,India,political_stability,2017,-0.5630854
+IND,India,political_stability,2016,-0.7241407
+IND,India,political_stability,2015,-0.7545551
+IND,India,political_stability,2014,-0.8130683
+IND,India,political_stability,2013,-1.1388815
+IND,India,political_stability,2012,-1.1136064
+IND,India,political_stability,2011,-1.1277343
+IND,India,political_stability,2010,-0.9126338
+IND,India,government_effectiveness,2025,0.5021381
+IND,India,government_effectiveness,2024,0.5080583
+IND,India,government_effectiveness,2023,0.5084481
+IND,India,government_effectiveness,2022,0.4390193
+IND,India,government_effectiveness,2021,0.358756
+IND,India,government_effectiveness,2020,0.4546407
+IND,India,government_effectiveness,2019,0.5551333
+IND,India,government_effectiveness,2018,0.5521016
+IND,India,government_effectiveness,2017,0.4244099
+IND,India,government_effectiveness,2016,0.4723672
+IND,India,government_effectiveness,2015,0.480403
+IND,India,government_effectiveness,2014,0.1523091
+IND,India,government_effectiveness,2013,0.1071809
+IND,India,government_effectiveness,2012,0.0933062
+IND,India,government_effectiveness,2011,0.1075143
+IND,India,government_effectiveness,2010,0.1129474
 IND,India,rule_of_law,2025,-0.1286599
 IND,India,rule_of_law,2024,-0.012521
 IND,India,rule_of_law,2023,-0.0665941
@@ -5770,6 +6188,86 @@ IND,India,control_of_corruption,2013,-0.4705032
 IND,India,control_of_corruption,2012,-0.5033606
 IND,India,control_of_corruption,2011,-0.4898141
 IND,India,control_of_corruption,2010,-0.3618983
+IND,India,fdi_net_inflows_pct_gdp,2025,1.03111732367627
+IND,India,fdi_net_inflows_pct_gdp,2024,0.721648483526777
+IND,India,fdi_net_inflows_pct_gdp,2023,0.802254995836756
+IND,India,fdi_net_inflows_pct_gdp,2022,1.53665241748393
+IND,India,fdi_net_inflows_pct_gdp,2021,1.41217101040888
+IND,India,fdi_net_inflows_pct_gdp,2020,2.40620322673636
+IND,India,fdi_net_inflows_pct_gdp,2019,1.78482633957161
+IND,India,fdi_net_inflows_pct_gdp,2018,1.55821483801456
+IND,India,fdi_net_inflows_pct_gdp,2017,1.50731583255894
+IND,India,fdi_net_inflows_pct_gdp,2016,1.9373641224439
+IND,India,fdi_net_inflows_pct_gdp,2015,2.09211521443253
+IND,India,fdi_net_inflows_pct_gdp,2014,1.69565958990806
+IND,India,fdi_net_inflows_pct_gdp,2013,1.5162764665975
+IND,India,fdi_net_inflows_pct_gdp,2012,1.31293453035323
+IND,India,fdi_net_inflows_pct_gdp,2011,2.0020634629993
+IND,India,fdi_net_inflows_pct_gdp,2010,1.6350340943491
+IND,India,exports_pct_gdp,2025,22.2630410669804
+IND,India,exports_pct_gdp,2024,22.0639816354399
+IND,India,exports_pct_gdp,2023,22.354801966733
+IND,India,exports_pct_gdp,2022,24.0401716365956
+IND,India,exports_pct_gdp,2021,21.3991583305515
+IND,India,exports_pct_gdp,2020,18.6824769296756
+IND,India,exports_pct_gdp,2019,18.664264897257
+IND,India,exports_pct_gdp,2018,19.9278285988562
+IND,India,exports_pct_gdp,2017,18.7917648392982
+IND,India,exports_pct_gdp,2016,19.1582349105946
+IND,India,exports_pct_gdp,2015,19.8131891564045
+IND,India,exports_pct_gdp,2014,22.9679630081172
+IND,India,exports_pct_gdp,2013,25.430861300519
+IND,India,exports_pct_gdp,2012,24.534430661418
+IND,India,exports_pct_gdp,2011,24.5404113195713
+IND,India,exports_pct_gdp,2010,22.4009332487945
+IND,India,imports_pct_gdp,2025,24.0051596190103
+IND,India,imports_pct_gdp,2024,23.8527091324349
+IND,India,imports_pct_gdp,2023,23.9681500915008
+IND,India,imports_pct_gdp,2022,26.6577666392086
+IND,India,imports_pct_gdp,2021,24.0239304534931
+IND,India,imports_pct_gdp,2020,19.0756283996012
+IND,India,imports_pct_gdp,2019,21.2411386333872
+IND,India,imports_pct_gdp,2018,23.6891407335327
+IND,India,imports_pct_gdp,2017,21.9507321152243
+IND,India,imports_pct_gdp,2016,20.9242508026814
+IND,India,imports_pct_gdp,2015,22.1097247094602
+IND,India,imports_pct_gdp,2014,25.9542227389497
+IND,India,imports_pct_gdp,2013,28.4132706461587
+IND,India,imports_pct_gdp,2012,31.2592910673332
+IND,India,imports_pct_gdp,2011,31.0834686939585
+IND,India,imports_pct_gdp,2010,26.8542732486216
+IND,India,official_exchange_rate_lcu_usd,2025,87.1584483507393
+IND,India,official_exchange_rate_lcu_usd,2024,83.669281580941
+IND,India,official_exchange_rate_lcu_usd,2023,82.5992764460784
+IND,India,official_exchange_rate_lcu_usd,2022,78.6044905829915
+IND,India,official_exchange_rate_lcu_usd,2021,73.9180128154351
+IND,India,official_exchange_rate_lcu_usd,2020,74.0995668836052
+IND,India,official_exchange_rate_lcu_usd,2019,70.420340535955
+IND,India,official_exchange_rate_lcu_usd,2018,68.3894670935421
+IND,India,official_exchange_rate_lcu_usd,2017,65.1215686450659
+IND,India,official_exchange_rate_lcu_usd,2016,67.1953128073893
+IND,India,official_exchange_rate_lcu_usd,2015,64.1519444632786
+IND,India,official_exchange_rate_lcu_usd,2014,61.0295144607843
+IND,India,official_exchange_rate_lcu_usd,2013,58.5978454166666
+IND,India,official_exchange_rate_lcu_usd,2012,53.4372333333333
+IND,India,official_exchange_rate_lcu_usd,2011,46.6704666666666
+IND,India,official_exchange_rate_lcu_usd,2010,45.7258121212121
+IND,India,gdp_current_usd,2025,3956067115771.63
+IND,India,gdp_current_usd,2024,3760813470500.86
+IND,India,gdp_current_usd,2023,3500906030644.76
+IND,India,gdp_current_usd,2022,3249938492013.47
+IND,India,gdp_current_usd,2021,3167270623260.47
+IND,India,gdp_current_usd,2020,2674851578587.27
+IND,India,gdp_current_usd,2019,2835606256558.19
+IND,India,gdp_current_usd,2018,2702929641648.74
+IND,India,gdp_current_usd,2017,2651474262755.45
+IND,India,gdp_current_usd,2016,2294796885663.16
+IND,India,gdp_current_usd,2015,2103588360044.94
+IND,India,gdp_current_usd,2014,2039126479154.52
+IND,India,gdp_current_usd,2013,1856721507621.58
+IND,India,gdp_current_usd,2012,1827637590410.41
+IND,India,gdp_current_usd,2011,1823051829894.55
+IND,India,gdp_current_usd,2010,1675615519484.96
 IND,India,gdp_per_capita_usd,2025,2702.47987141553
 IND,India,gdp_per_capita_usd,2024,2591.9916607122
 IND,India,gdp_per_capita_usd,2023,2434.44826340989
@@ -5786,6 +6284,22 @@ IND,India,gdp_per_capita_usd,2013,1432.84397512195
 IND,India,gdp_per_capita_usd,2012,1429.32199520032
 IND,India,gdp_per_capita_usd,2011,1445.46127486037
 IND,India,gdp_per_capita_usd,2010,1347.51939071367
+IND,India,total_reserves_usd,2025,700073798240.701
+IND,India,total_reserves_usd,2024,643042560625.54
+IND,India,total_reserves_usd,2023,627792750126.715
+IND,India,total_reserves_usd,2022,567298153917.14
+IND,India,total_reserves_usd,2021,638484779930.835
+IND,India,total_reserves_usd,2020,590227359928.896
+IND,India,total_reserves_usd,2019,463469902152.507
+IND,India,total_reserves_usd,2018,399167159226.681
+IND,India,total_reserves_usd,2017,412613792019.923
+IND,India,total_reserves_usd,2016,361694321972.035
+IND,India,total_reserves_usd,2015,353319061013.224
+IND,India,total_reserves_usd,2014,325081035127.89
+IND,India,total_reserves_usd,2013,298092478740.58
+IND,India,total_reserves_usd,2012,300425517446.546
+IND,India,total_reserves_usd,2011,298739463090.872
+IND,India,total_reserves_usd,2010,300480168786.345
 IND,India,unemployment_rate,2025,4.219
 IND,India,unemployment_rate,2024,4.173
 IND,India,unemployment_rate,2023,4.172
@@ -5802,6 +6316,22 @@ IND,India,unemployment_rate,2013,7.678
 IND,India,unemployment_rate,2012,7.645
 IND,India,unemployment_rate,2011,7.609
 IND,India,unemployment_rate,2010,7.631
+IND,India,youth_unemployment_rate,2025,16.022
+IND,India,youth_unemployment_rate,2024,15.746
+IND,India,youth_unemployment_rate,2023,15.595
+IND,India,youth_unemployment_rate,2022,17.732
+IND,India,youth_unemployment_rate,2021,20.824
+IND,India,youth_unemployment_rate,2020,24.666
+IND,India,youth_unemployment_rate,2019,22.947
+IND,India,youth_unemployment_rate,2018,26.003
+IND,India,youth_unemployment_rate,2017,25.591
+IND,India,youth_unemployment_rate,2016,25.23
+IND,India,youth_unemployment_rate,2015,24.959
+IND,India,youth_unemployment_rate,2014,24.709
+IND,India,youth_unemployment_rate,2013,24.473
+IND,India,youth_unemployment_rate,2012,24.135
+IND,India,youth_unemployment_rate,2011,23.641
+IND,India,youth_unemployment_rate,2010,23.299
 IND,India,gini_index,2023,23.0
 IND,India,gini_index,2022,25.5
 IND,India,gini_index,2011,28.8
@@ -5823,6 +6353,54 @@ MDV,Maldives,current_account_pct_gdp,2013,-3.86626742586717
 MDV,Maldives,current_account_pct_gdp,2012,-6.3922910977274
 MDV,Maldives,current_account_pct_gdp,2011,-13.8208553363039
 MDV,Maldives,current_account_pct_gdp,2010,-7.57604640472633
+MDV,Maldives,reserves_months_imports,2025,1.93387168959155
+MDV,Maldives,reserves_months_imports,2024,1.30532172235527
+MDV,Maldives,reserves_months_imports,2023,1.22268411034082
+MDV,Maldives,reserves_months_imports,2022,1.7561190597792
+MDV,Maldives,reserves_months_imports,2021,2.39926419178858
+MDV,Maldives,reserves_months_imports,2020,4.26800654955113
+MDV,Maldives,reserves_months_imports,2019,1.94023487520687
+MDV,Maldives,reserves_months_imports,2018,1.852367717125
+MDV,Maldives,reserves_months_imports,2017,1.81237537862056
+MDV,Maldives,reserves_months_imports,2016,1.5734155106328
+MDV,Maldives,reserves_months_imports,2015,2.17458725383259
+MDV,Maldives,reserves_months_imports,2014,2.36806725354456
+MDV,Maldives,reserves_months_imports,2013,1.59704253211411
+MDV,Maldives,reserves_months_imports,2012,1.50822865704089
+MDV,Maldives,reserves_months_imports,2011,1.54809073830575
+MDV,Maldives,reserves_months_imports,2010,2.09173932917729
+MDV,Maldives,gdp_growth,2025,6.31092335003081
+MDV,Maldives,gdp_growth,2024,3.49440422654285
+MDV,Maldives,gdp_growth,2023,4.94286301229583
+MDV,Maldives,gdp_growth,2022,13.8260895184139
+MDV,Maldives,gdp_growth,2021,37.507870124321
+MDV,Maldives,gdp_growth,2020,-32.9088287752921
+MDV,Maldives,gdp_growth,2019,6.92305989050099
+MDV,Maldives,gdp_growth,2018,8.5689555834747
+MDV,Maldives,gdp_growth,2017,7.07442863215275
+MDV,Maldives,gdp_growth,2016,6.37528306716864
+MDV,Maldives,gdp_growth,2015,3.86813536494475
+MDV,Maldives,gdp_growth,2014,7.86068643108074
+MDV,Maldives,gdp_growth,2013,6.97496226412528
+MDV,Maldives,gdp_growth,2012,2.38928797963442
+MDV,Maldives,gdp_growth,2011,8.84342600490342
+MDV,Maldives,gdp_growth,2010,6.7854678229144
+MDV,Maldives,inflation,2025,4.00578494118751
+MDV,Maldives,inflation,2024,1.41093527910134
+MDV,Maldives,inflation,2023,2.90372427754586
+MDV,Maldives,inflation,2022,2.33054046477249
+MDV,Maldives,inflation,2021,0.543149688737012
+MDV,Maldives,inflation,2020,-1.3697742556981
+MDV,Maldives,inflation,2019,0.220029731065383
+MDV,Maldives,inflation,2018,-0.133373386117594
+MDV,Maldives,inflation,2017,2.81747338234508
+MDV,Maldives,inflation,2016,0.502509413611612
+MDV,Maldives,inflation,2015,0.953206658777606
+MDV,Maldives,inflation,2014,2.12000175718134
+MDV,Maldives,inflation,2013,3.80563000919429
+MDV,Maldives,inflation,2012,10.884695658563
+MDV,Maldives,inflation,2011,11.2734146055937
+MDV,Maldives,inflation,2010,6.14988536750173
 MDV,Maldives,political_stability,2025,0.0779501
 MDV,Maldives,political_stability,2024,0.0185444
 MDV,Maldives,political_stability,2023,0.0413995
@@ -5839,6 +6417,54 @@ MDV,Maldives,political_stability,2013,-0.009658
 MDV,Maldives,political_stability,2012,-0.3213688
 MDV,Maldives,political_stability,2011,-0.275569
 MDV,Maldives,political_stability,2010,-0.1413882
+MDV,Maldives,government_effectiveness,2025,-0.2410056
+MDV,Maldives,government_effectiveness,2024,-0.2447141
+MDV,Maldives,government_effectiveness,2023,-0.2448083
+MDV,Maldives,government_effectiveness,2022,-0.2449007
+MDV,Maldives,government_effectiveness,2021,0.1356451
+MDV,Maldives,government_effectiveness,2020,-0.1048777
+MDV,Maldives,government_effectiveness,2019,0.0065936
+MDV,Maldives,government_effectiveness,2018,-0.3086472
+MDV,Maldives,government_effectiveness,2017,-0.3095511
+MDV,Maldives,government_effectiveness,2016,-0.0695113
+MDV,Maldives,government_effectiveness,2015,-0.2423806
+MDV,Maldives,government_effectiveness,2014,-0.1820109
+MDV,Maldives,government_effectiveness,2013,-0.1132236
+MDV,Maldives,government_effectiveness,2012,-0.0532849
+MDV,Maldives,government_effectiveness,2011,-0.1130507
+MDV,Maldives,government_effectiveness,2010,-0.0220513
+MDV,Maldives,rule_of_law,2025,-0.010952
+MDV,Maldives,rule_of_law,2024,0.1160556
+MDV,Maldives,rule_of_law,2023,0.1200256
+MDV,Maldives,rule_of_law,2022,0.1397236
+MDV,Maldives,rule_of_law,2021,-0.1157259
+MDV,Maldives,rule_of_law,2020,-0.303136
+MDV,Maldives,rule_of_law,2019,-0.4335117
+MDV,Maldives,rule_of_law,2018,-0.5794996
+MDV,Maldives,rule_of_law,2017,-0.6390907
+MDV,Maldives,rule_of_law,2016,-0.570504
+MDV,Maldives,rule_of_law,2015,-0.6017125
+MDV,Maldives,rule_of_law,2014,-0.5009812
+MDV,Maldives,rule_of_law,2013,-0.7307659
+MDV,Maldives,rule_of_law,2012,-0.496765
+MDV,Maldives,rule_of_law,2011,-0.4458432
+MDV,Maldives,rule_of_law,2010,-0.1409904
+MDV,Maldives,regulatory_quality,2025,-0.3970683
+MDV,Maldives,regulatory_quality,2024,-0.3007781
+MDV,Maldives,regulatory_quality,2023,-0.3778007
+MDV,Maldives,regulatory_quality,2022,-0.378078
+MDV,Maldives,regulatory_quality,2021,-0.2843558
+MDV,Maldives,regulatory_quality,2020,-0.3744979
+MDV,Maldives,regulatory_quality,2019,-0.2516497
+MDV,Maldives,regulatory_quality,2018,-0.2534527
+MDV,Maldives,regulatory_quality,2017,-0.254282
+MDV,Maldives,regulatory_quality,2016,-0.2559642
+MDV,Maldives,regulatory_quality,2015,-0.3354635
+MDV,Maldives,regulatory_quality,2014,-0.294727
+MDV,Maldives,regulatory_quality,2013,-0.3105702
+MDV,Maldives,regulatory_quality,2012,-0.2859814
+MDV,Maldives,regulatory_quality,2011,-0.273362
+MDV,Maldives,regulatory_quality,2010,-0.2037174
 MDV,Maldives,control_of_corruption,2025,-0.333851
 MDV,Maldives,control_of_corruption,2024,-0.3582129
 MDV,Maldives,control_of_corruption,2023,-0.2617632
@@ -5855,6 +6481,44 @@ MDV,Maldives,control_of_corruption,2013,-0.7598772
 MDV,Maldives,control_of_corruption,2012,-0.7065938
 MDV,Maldives,control_of_corruption,2011,-0.5382375
 MDV,Maldives,control_of_corruption,2010,-0.5514743
+MDV,Maldives,fdi_net_inflows_pct_gdp,2025,11.071897165053
+MDV,Maldives,fdi_net_inflows_pct_gdp,2024,11.416720004027
+MDV,Maldives,fdi_net_inflows_pct_gdp,2023,11.5818458756845
+MDV,Maldives,fdi_net_inflows_pct_gdp,2022,11.8454662775286
+MDV,Maldives,fdi_net_inflows_pct_gdp,2021,12.238665987932
+MDV,Maldives,fdi_net_inflows_pct_gdp,2020,11.8706880719155
+MDV,Maldives,fdi_net_inflows_pct_gdp,2019,16.7834728448357
+MDV,Maldives,fdi_net_inflows_pct_gdp,2018,10.6517647807373
+MDV,Maldives,fdi_net_inflows_pct_gdp,2017,9.50514529202919
+MDV,Maldives,fdi_net_inflows_pct_gdp,2016,10.3547618700189
+MDV,Maldives,fdi_net_inflows_pct_gdp,2015,7.21577938190819
+MDV,Maldives,fdi_net_inflows_pct_gdp,2014,9.01659145068896
+MDV,Maldives,fdi_net_inflows_pct_gdp,2013,10.9503892160384
+MDV,Maldives,fdi_net_inflows_pct_gdp,2012,7.89895747225905
+MDV,Maldives,fdi_net_inflows_pct_gdp,2011,15.2659407539778
+MDV,Maldives,fdi_net_inflows_pct_gdp,2010,8.36376433060736
+MDV,Maldives,exports_pct_gdp,2024,78.214216540835
+MDV,Maldives,exports_pct_gdp,2023,74.0437692661116
+MDV,Maldives,exports_pct_gdp,2022,82.6708555603035
+MDV,Maldives,exports_pct_gdp,2021,76.0989851624572
+MDV,Maldives,exports_pct_gdp,2020,48.2411996300086
+MDV,Maldives,exports_pct_gdp,2019,65.5134179400092
+MDV,Maldives,exports_pct_gdp,2018,66.4483006480268
+MDV,Maldives,exports_pct_gdp,2017,69.0594484485378
+MDV,Maldives,exports_pct_gdp,2016,71.6136331301194
+MDV,Maldives,exports_pct_gdp,2015,76.4277887724561
+MDV,Maldives,exports_pct_gdp,2014,91.2941274036136
+MDV,Maldives,imports_pct_gdp,2024,78.2597392001761
+MDV,Maldives,imports_pct_gdp,2023,75.3062069113229
+MDV,Maldives,imports_pct_gdp,2022,79.5725773733522
+MDV,Maldives,imports_pct_gdp,2021,66.5083115338037
+MDV,Maldives,imports_pct_gdp,2020,66.1207032743183
+MDV,Maldives,imports_pct_gdp,2019,71.6118129351757
+MDV,Maldives,imports_pct_gdp,2018,76.0428278985911
+MDV,Maldives,imports_pct_gdp,2017,72.8526621264145
+MDV,Maldives,imports_pct_gdp,2016,72.7665791488222
+MDV,Maldives,imports_pct_gdp,2015,67.2927178888456
+MDV,Maldives,imports_pct_gdp,2014,74.6851237568163
 MDV,Maldives,official_exchange_rate_lcu_usd,2025,15.415677547363
 MDV,Maldives,official_exchange_rate_lcu_usd,2024,15.3891963292547
 MDV,Maldives,official_exchange_rate_lcu_usd,2023,15.3867943548386
@@ -5887,6 +6551,22 @@ MDV,Maldives,gdp_current_usd,2013,3295009237.50107
 MDV,Maldives,gdp_current_usd,2012,2886163997.20531
 MDV,Maldives,gdp_current_usd,2011,2774350240.04918
 MDV,Maldives,gdp_current_usd,2010,2588176054.6875
+MDV,Maldives,gdp_per_capita_usd,2025,14614.7208116541
+MDV,Maldives,gdp_per_capita_usd,2024,13379.3513577224
+MDV,Maldives,gdp_per_capita_usd,2023,12587.6126038651
+MDV,Maldives,gdp_per_capita_usd,2022,11786.0191492983
+MDV,Maldives,gdp_per_capita_usd,2021,10176.143882547
+MDV,Maldives,gdp_per_capita_usd,2020,7393.8886543933
+MDV,Maldives,gdp_per_capita_usd,2019,11740.2724029785
+MDV,Maldives,gdp_per_capita_usd,2018,11423.2838427029
+MDV,Maldives,gdp_per_capita_usd,2017,10509.628805812
+MDV,Maldives,gdp_per_capita_usd,2016,9947.80744731739
+MDV,Maldives,gdp_per_capita_usd,2015,9644.90655028145
+MDV,Maldives,gdp_per_capita_usd,2014,8939.07416571472
+MDV,Maldives,gdp_per_capita_usd,2013,8236.08177944126
+MDV,Maldives,gdp_per_capita_usd,2012,7461.29703686309
+MDV,Maldives,gdp_per_capita_usd,2011,7424.520410971
+MDV,Maldives,gdp_per_capita_usd,2010,7173.59601844692
 MDV,Maldives,total_reserves_usd,2025,984573591.713979
 MDV,Maldives,total_reserves_usd,2024,673885912.694607
 MDV,Maldives,total_reserves_usd,2023,590522550.56534
@@ -5937,6 +6617,10 @@ MDV,Maldives,youth_unemployment_rate,2011,22.11
 MDV,Maldives,youth_unemployment_rate,2010,23.344
 MDV,Maldives,gini_index,2019,29.3
 MDV,Maldives,gini_index,2016,31.3
+NPL,Nepal,debt_to_gdp,2021,39.9222686422289
+NPL,Nepal,debt_to_gdp,2020,39.0485631284493
+NPL,Nepal,debt_to_gdp,2019,31.7771473472895
+NPL,Nepal,debt_to_gdp,2010,33.8625212320188
 NPL,Nepal,current_account_pct_gdp,2025,10.6730207923179
 NPL,Nepal,current_account_pct_gdp,2024,3.86821171467739
 NPL,Nepal,current_account_pct_gdp,2023,2.45040193651295
@@ -5953,6 +6637,22 @@ NPL,Nepal,current_account_pct_gdp,2013,5.23137372695533
 NPL,Nepal,current_account_pct_gdp,2012,2.66070688066426
 NPL,Nepal,current_account_pct_gdp,2011,1.33775079697372
 NPL,Nepal,current_account_pct_gdp,2010,-0.797465992929109
+NPL,Nepal,reserves_months_imports,2025,15.5192743908397
+NPL,Nepal,reserves_months_imports,2024,12.971142055714
+NPL,Nepal,reserves_months_imports,2023,10.4169326092974
+NPL,Nepal,reserves_months_imports,2022,7.11844228100776
+NPL,Nepal,reserves_months_imports,2021,6.7229827208626
+NPL,Nepal,reserves_months_imports,2020,12.4797850993123
+NPL,Nepal,reserves_months_imports,2019,7.45868343240893
+NPL,Nepal,reserves_months_imports,2018,6.61464333893594
+NPL,Nepal,reserves_months_imports,2017,9.35380252386612
+NPL,Nepal,reserves_months_imports,2016,10.2885647962682
+NPL,Nepal,reserves_months_imports,2015,12.5337607363716
+NPL,Nepal,reserves_months_imports,2014,8.43501141324674
+NPL,Nepal,reserves_months_imports,2013,8.56836277441353
+NPL,Nepal,reserves_months_imports,2012,7.6089263430932
+NPL,Nepal,reserves_months_imports,2011,6.74453820987915
+NPL,Nepal,reserves_months_imports,2010,6.01052214363673
 NPL,Nepal,gdp_growth,2025,4.43073194983359
 NPL,Nepal,gdp_growth,2024,3.67787459697703
 NPL,Nepal,gdp_growth,2023,1.98254843461849
@@ -5969,6 +6669,22 @@ NPL,Nepal,gdp_growth,2013,3.52515317129149
 NPL,Nepal,gdp_growth,2012,4.67014192446953
 NPL,Nepal,gdp_growth,2011,3.42180870116162
 NPL,Nepal,gdp_growth,2010,4.81641464694573
+NPL,Nepal,inflation,2025,2.65334269811436
+NPL,Nepal,inflation,2024,4.68509654265769
+NPL,Nepal,inflation,2023,7.11587261530826
+NPL,Nepal,inflation,2022,7.6702057938028
+NPL,Nepal,inflation,2021,4.12676744440695
+NPL,Nepal,inflation,2020,5.05635826238499
+NPL,Nepal,inflation,2019,5.56616035243722
+NPL,Nepal,inflation,2018,4.40659410175714
+NPL,Nepal,inflation,2017,2.7770399830021
+NPL,Nepal,inflation,2016,8.7903433200464
+NPL,Nepal,inflation,2015,7.86890895590891
+NPL,Nepal,inflation,2014,8.36415469659562
+NPL,Nepal,inflation,2013,9.04016311917644
+NPL,Nepal,inflation,2012,9.45980980357124
+NPL,Nepal,inflation,2011,9.2270754612596
+NPL,Nepal,inflation,2010,9.32650410745395
 NPL,Nepal,political_stability,2025,-0.4431262
 NPL,Nepal,political_stability,2024,-0.3176238
 NPL,Nepal,political_stability,2023,-0.327246
@@ -5985,6 +6701,22 @@ NPL,Nepal,political_stability,2013,-1.2237599
 NPL,Nepal,political_stability,2012,-1.4710426
 NPL,Nepal,political_stability,2011,-1.5264565
 NPL,Nepal,political_stability,2010,-1.6113493
+NPL,Nepal,government_effectiveness,2025,-0.7696473
+NPL,Nepal,government_effectiveness,2024,-0.6968622
+NPL,Nepal,government_effectiveness,2023,-0.7173658
+NPL,Nepal,government_effectiveness,2022,-0.8347318
+NPL,Nepal,government_effectiveness,2021,-0.8522261
+NPL,Nepal,government_effectiveness,2020,-0.8518235
+NPL,Nepal,government_effectiveness,2019,-0.8589916
+NPL,Nepal,government_effectiveness,2018,-0.687112
+NPL,Nepal,government_effectiveness,2017,-0.7101014
+NPL,Nepal,government_effectiveness,2016,-0.8070251
+NPL,Nepal,government_effectiveness,2015,-0.9660795
+NPL,Nepal,government_effectiveness,2014,-0.7389488
+NPL,Nepal,government_effectiveness,2013,-0.8794566
+NPL,Nepal,government_effectiveness,2012,-0.9314285
+NPL,Nepal,government_effectiveness,2011,-0.6814048
+NPL,Nepal,government_effectiveness,2010,-0.5879227
 NPL,Nepal,rule_of_law,2025,-0.3062956
 NPL,Nepal,rule_of_law,2024,-0.3205355
 NPL,Nepal,rule_of_law,2023,-0.345038
@@ -6001,6 +6733,54 @@ NPL,Nepal,rule_of_law,2013,-0.6200538
 NPL,Nepal,rule_of_law,2012,-0.625412
 NPL,Nepal,rule_of_law,2011,-0.8899945
 NPL,Nepal,rule_of_law,2010,-0.9569213
+NPL,Nepal,regulatory_quality,2025,-0.6533801
+NPL,Nepal,regulatory_quality,2024,-0.6330168
+NPL,Nepal,regulatory_quality,2023,-0.6508878
+NPL,Nepal,regulatory_quality,2022,-0.6266656
+NPL,Nepal,regulatory_quality,2021,-0.664111
+NPL,Nepal,regulatory_quality,2020,-0.6904308
+NPL,Nepal,regulatory_quality,2019,-0.6047496
+NPL,Nepal,regulatory_quality,2018,-0.6254901
+NPL,Nepal,regulatory_quality,2017,-0.7114837
+NPL,Nepal,regulatory_quality,2016,-0.6919766
+NPL,Nepal,regulatory_quality,2015,-0.7468829
+NPL,Nepal,regulatory_quality,2014,-0.7644851
+NPL,Nepal,regulatory_quality,2013,-0.8552284
+NPL,Nepal,regulatory_quality,2012,-0.8106525
+NPL,Nepal,regulatory_quality,2011,-0.8308502
+NPL,Nepal,regulatory_quality,2010,-0.8592518
+NPL,Nepal,control_of_corruption,2025,-0.773002
+NPL,Nepal,control_of_corruption,2024,-0.6289663
+NPL,Nepal,control_of_corruption,2023,-0.6152287
+NPL,Nepal,control_of_corruption,2022,-0.6509075
+NPL,Nepal,control_of_corruption,2021,-0.6220063
+NPL,Nepal,control_of_corruption,2020,-0.6993748
+NPL,Nepal,control_of_corruption,2019,-0.7349159
+NPL,Nepal,control_of_corruption,2018,-0.7358393
+NPL,Nepal,control_of_corruption,2017,-0.7789732
+NPL,Nepal,control_of_corruption,2016,-0.8441188
+NPL,Nepal,control_of_corruption,2015,-0.8288883
+NPL,Nepal,control_of_corruption,2014,-0.8633975
+NPL,Nepal,control_of_corruption,2013,-0.9402605
+NPL,Nepal,control_of_corruption,2012,-0.9955512
+NPL,Nepal,control_of_corruption,2011,-0.8297585
+NPL,Nepal,control_of_corruption,2010,-0.7261404
+NPL,Nepal,fdi_net_inflows_pct_gdp,2025,0.0957346932713607
+NPL,Nepal,fdi_net_inflows_pct_gdp,2024,0.131412557108071
+NPL,Nepal,fdi_net_inflows_pct_gdp,2023,0.18227214989517
+NPL,Nepal,fdi_net_inflows_pct_gdp,2022,0.160405405048333
+NPL,Nepal,fdi_net_inflows_pct_gdp,2021,0.531690906776232
+NPL,Nepal,fdi_net_inflows_pct_gdp,2020,0.378739091402959
+NPL,Nepal,fdi_net_inflows_pct_gdp,2019,0.542801979747667
+NPL,Nepal,fdi_net_inflows_pct_gdp,2018,0.206157201926215
+NPL,Nepal,fdi_net_inflows_pct_gdp,2017,0.677439884182991
+NPL,Nepal,fdi_net_inflows_pct_gdp,2016,0.432212944008614
+NPL,Nepal,fdi_net_inflows_pct_gdp,2015,0.213029527712984
+NPL,Nepal,fdi_net_inflows_pct_gdp,2014,0.133746236524448
+NPL,Nepal,fdi_net_inflows_pct_gdp,2013,0.334712330597339
+NPL,Nepal,fdi_net_inflows_pct_gdp,2012,0.42369151125933
+NPL,Nepal,fdi_net_inflows_pct_gdp,2011,0.435814930594323
+NPL,Nepal,fdi_net_inflows_pct_gdp,2010,0.548294665887946
 NPL,Nepal,exports_pct_gdp,2025,8.82763359925247
 NPL,Nepal,exports_pct_gdp,2024,7.55423347172655
 NPL,Nepal,exports_pct_gdp,2023,7.00596728086136
@@ -6017,6 +6797,22 @@ NPL,Nepal,exports_pct_gdp,2013,9.2946586776145
 NPL,Nepal,exports_pct_gdp,2012,8.75029128721577
 NPL,Nepal,exports_pct_gdp,2011,7.80613567968357
 NPL,Nepal,exports_pct_gdp,2010,9.58253617198229
+NPL,Nepal,imports_pct_gdp,2025,33.7244112435844
+NPL,Nepal,imports_pct_gdp,2024,32.6157766909588
+NPL,Nepal,imports_pct_gdp,2023,34.5641830123854
+NPL,Nepal,imports_pct_gdp,2022,42.27101061478
+NPL,Nepal,imports_pct_gdp,2021,37.9346333063959
+NPL,Nepal,imports_pct_gdp,2020,34.1135757694721
+NPL,Nepal,imports_pct_gdp,2019,41.4695901124501
+NPL,Nepal,imports_pct_gdp,2018,40.6317459241789
+NPL,Nepal,imports_pct_gdp,2017,36.8302219662053
+NPL,Nepal,imports_pct_gdp,2016,33.9359080825022
+NPL,Nepal,imports_pct_gdp,2015,36.4511417965013
+NPL,Nepal,imports_pct_gdp,2014,35.8585994934377
+NPL,Nepal,imports_pct_gdp,2013,32.5707170600577
+NPL,Nepal,imports_pct_gdp,2012,29.1716147715423
+NPL,Nepal,imports_pct_gdp,2011,28.4906232102531
+NPL,Nepal,imports_pct_gdp,2010,36.4023696022884
 NPL,Nepal,official_exchange_rate_lcu_usd,2025,139.115437592695
 NPL,Nepal,official_exchange_rate_lcu_usd,2024,133.726644315443
 NPL,Nepal,official_exchange_rate_lcu_usd,2023,132.115460088756
@@ -6033,6 +6829,38 @@ NPL,Nepal,official_exchange_rate_lcu_usd,2013,93.0843938075485
 NPL,Nepal,official_exchange_rate_lcu_usd,2012,85.2257559923835
 NPL,Nepal,official_exchange_rate_lcu_usd,2011,74.0199999999999
 NPL,Nepal,official_exchange_rate_lcu_usd,2010,73.2623590158046
+NPL,Nepal,gdp_current_usd,2025,45489810283.1132
+NPL,Nepal,gdp_current_usd,2024,43298911699.9284
+NPL,Nepal,gdp_current_usd,2023,41049329851.0546
+NPL,Nepal,gdp_current_usd,2022,41182939519.8161
+NPL,Nepal,gdp_current_usd,2021,36924841394.2605
+NPL,Nepal,gdp_current_usd,2020,33433659301.2466
+NPL,Nepal,gdp_current_usd,2019,34186180699.0255
+NPL,Nepal,gdp_current_usd,2018,33111525237.149
+NPL,Nepal,gdp_current_usd,2017,28971588940.364
+NPL,Nepal,gdp_current_usd,2016,24524109483.5293
+NPL,Nepal,gdp_current_usd,2015,24360801286.7638
+NPL,Nepal,gdp_current_usd,2014,22731612922.1906
+NPL,Nepal,gdp_current_usd,2013,22162204924.5726
+NPL,Nepal,gdp_current_usd,2012,21703100877.1309
+NPL,Nepal,gdp_current_usd,2011,21573872420.7008
+NPL,Nepal,gdp_current_usd,2010,16002656434.4746
+NPL,Nepal,gdp_per_capita_usd,2025,1535.87781246307
+NPL,Nepal,gdp_per_capita_usd,2024,1460.28237984149
+NPL,Nepal,gdp_per_capita_usd,2023,1382.38300895424
+NPL,Nepal,gdp_per_capita_usd,2022,1385.91066002922
+NPL,Nepal,gdp_per_capita_usd,2021,1252.75076731986
+NPL,Nepal,gdp_per_capita_usd,2020,1154.21517578318
+NPL,Nepal,gdp_per_capita_usd,2019,1203.14294706401
+NPL,Nepal,gdp_per_capita_usd,2018,1179.19843190389
+NPL,Nepal,gdp_per_capita_usd,2017,1034.28374906846
+NPL,Nepal,gdp_per_capita_usd,2016,877.256454696737
+NPL,Nepal,gdp_per_capita_usd,2015,875.543635474862
+NPL,Nepal,gdp_per_capita_usd,2014,821.455224911731
+NPL,Nepal,gdp_per_capita_usd,2013,803.269595420477
+NPL,Nepal,gdp_per_capita_usd,2012,788.202937148377
+NPL,Nepal,gdp_per_capita_usd,2011,785.518656222132
+NPL,Nepal,gdp_per_capita_usd,2010,585.278491984574
 NPL,Nepal,total_reserves_usd,2025,21100332321.6852
 NPL,Nepal,total_reserves_usd,2024,15846781298.7499
 NPL,Nepal,total_reserves_usd,2023,12456122668.8947
@@ -6049,6 +6877,38 @@ NPL,Nepal,total_reserves_usd,2013,5434181403.1191
 NPL,Nepal,total_reserves_usd,2012,4417738496.06059
 NPL,Nepal,total_reserves_usd,2011,3702502162.26324
 NPL,Nepal,total_reserves_usd,2010,3002724838.4334
+NPL,Nepal,unemployment_rate,2025,10.465
+NPL,Nepal,unemployment_rate,2024,10.5
+NPL,Nepal,unemployment_rate,2023,10.437
+NPL,Nepal,unemployment_rate,2022,10.661
+NPL,Nepal,unemployment_rate,2021,12.241
+NPL,Nepal,unemployment_rate,2020,13.037
+NPL,Nepal,unemployment_rate,2019,10.477
+NPL,Nepal,unemployment_rate,2018,10.593
+NPL,Nepal,unemployment_rate,2017,10.66
+NPL,Nepal,unemployment_rate,2016,10.714
+NPL,Nepal,unemployment_rate,2015,10.643
+NPL,Nepal,unemployment_rate,2014,10.62
+NPL,Nepal,unemployment_rate,2013,10.666
+NPL,Nepal,unemployment_rate,2012,10.632
+NPL,Nepal,unemployment_rate,2011,10.627
+NPL,Nepal,unemployment_rate,2010,10.563
+NPL,Nepal,youth_unemployment_rate,2025,20.559
+NPL,Nepal,youth_unemployment_rate,2024,20.638
+NPL,Nepal,youth_unemployment_rate,2023,20.43
+NPL,Nepal,youth_unemployment_rate,2022,20.607
+NPL,Nepal,youth_unemployment_rate,2021,22.639
+NPL,Nepal,youth_unemployment_rate,2020,24.072
+NPL,Nepal,youth_unemployment_rate,2019,19.679
+NPL,Nepal,youth_unemployment_rate,2018,19.604
+NPL,Nepal,youth_unemployment_rate,2017,19.571
+NPL,Nepal,youth_unemployment_rate,2016,19.548
+NPL,Nepal,youth_unemployment_rate,2015,19.403
+NPL,Nepal,youth_unemployment_rate,2014,19.348
+NPL,Nepal,youth_unemployment_rate,2013,19.377
+NPL,Nepal,youth_unemployment_rate,2012,19.306
+NPL,Nepal,youth_unemployment_rate,2011,19.294
+NPL,Nepal,youth_unemployment_rate,2010,19.207
 NPL,Nepal,gini_index,2022,30.0
 NPL,Nepal,gini_index,2010,32.8
 PAK,Pakistan,current_account_pct_gdp,2025,-0.109990047825719
@@ -6195,6 +7055,38 @@ PAK,Pakistan,control_of_corruption,2013,-1.1287039
 PAK,Pakistan,control_of_corruption,2012,-1.2437876
 PAK,Pakistan,control_of_corruption,2011,-1.219585
 PAK,Pakistan,control_of_corruption,2010,-1.2021517
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2025,0.454693640126553
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2024,0.716885239403099
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2023,0.608281270820624
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2022,0.389980753542853
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2021,0.616039439073827
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2020,0.684695289874347
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2019,0.696146480411465
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2018,0.487745750658143
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2017,0.735837049658425
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2016,0.821349998064174
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2015,0.557734356032139
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2014,0.695308116834202
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2013,0.515353849332245
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2012,0.343453048660945
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2011,0.575055145839944
+PAK,Pakistan,fdi_net_inflows_pct_gdp,2010,1.02791108080423
+PAK,Pakistan,exports_pct_gdp,2025,9.98520671042165
+PAK,Pakistan,exports_pct_gdp,2024,10.3855031331012
+PAK,Pakistan,exports_pct_gdp,2023,10.4939587511564
+PAK,Pakistan,exports_pct_gdp,2022,10.5405902721041
+PAK,Pakistan,exports_pct_gdp,2021,9.05159988878188
+PAK,Pakistan,exports_pct_gdp,2020,9.29855944234725
+PAK,Pakistan,exports_pct_gdp,2019,9.3908635386027
+PAK,Pakistan,exports_pct_gdp,2018,8.58179960556073
+PAK,Pakistan,exports_pct_gdp,2017,8.22161134395559
+PAK,Pakistan,exports_pct_gdp,2016,8.73671639116568
+PAK,Pakistan,exports_pct_gdp,2015,9.97457095124036
+PAK,Pakistan,exports_pct_gdp,2014,11.1949717426146
+PAK,Pakistan,exports_pct_gdp,2013,12.1774992040696
+PAK,Pakistan,exports_pct_gdp,2012,11.8739641473238
+PAK,Pakistan,exports_pct_gdp,2011,13.4825548617217
+PAK,Pakistan,exports_pct_gdp,2010,12.6372245592948
 PAK,Pakistan,imports_pct_gdp,2025,17.2083306683448
 PAK,Pakistan,imports_pct_gdp,2024,17.1798277774783
 PAK,Pakistan,imports_pct_gdp,2023,17.9737337958273
@@ -6319,6 +7211,37 @@ LKA,Sri Lanka,debt_to_gdp,2013,68.353616559854
 LKA,Sri Lanka,debt_to_gdp,2012,66.747235367261
 LKA,Sri Lanka,debt_to_gdp,2011,68.5257394060365
 LKA,Sri Lanka,debt_to_gdp,2010,69.2530251841062
+LKA,Sri Lanka,current_account_pct_gdp,2025,1.57989637194729
+LKA,Sri Lanka,current_account_pct_gdp,2024,1.21195613729145
+LKA,Sri Lanka,current_account_pct_gdp,2023,1.71159541534781
+LKA,Sri Lanka,current_account_pct_gdp,2022,-1.95359411068217
+LKA,Sri Lanka,current_account_pct_gdp,2021,-3.70866603299244
+LKA,Sri Lanka,current_account_pct_gdp,2020,-1.40761495020571
+LKA,Sri Lanka,current_account_pct_gdp,2019,-2.07126631647204
+LKA,Sri Lanka,current_account_pct_gdp,2018,-2.96352841915886
+LKA,Sri Lanka,current_account_pct_gdp,2017,-2.44676434907529
+LKA,Sri Lanka,current_account_pct_gdp,2016,-1.97999493165089
+LKA,Sri Lanka,current_account_pct_gdp,2015,-2.21267766608825
+LKA,Sri Lanka,current_account_pct_gdp,2014,-2.4084055719608
+LKA,Sri Lanka,current_account_pct_gdp,2013,-3.30046822137756
+LKA,Sri Lanka,current_account_pct_gdp,2012,-5.69099820826854
+LKA,Sri Lanka,current_account_pct_gdp,2011,-6.81209765681019
+LKA,Sri Lanka,current_account_pct_gdp,2010,-1.83339431574737
+LKA,Sri Lanka,reserves_months_imports,2024,2.86510891041574
+LKA,Sri Lanka,reserves_months_imports,2023,2.38312008892394
+LKA,Sri Lanka,reserves_months_imports,2022,1.06429793828172
+LKA,Sri Lanka,reserves_months_imports,2021,1.59499450325141
+LKA,Sri Lanka,reserves_months_imports,2020,3.28744685628802
+LKA,Sri Lanka,reserves_months_imports,2019,3.36492073802706
+LKA,Sri Lanka,reserves_months_imports,2018,2.81773247932962
+LKA,Sri Lanka,reserves_months_imports,2017,3.42413053355998
+LKA,Sri Lanka,reserves_months_imports,2016,2.79773151721733
+LKA,Sri Lanka,reserves_months_imports,2015,3.48457714580903
+LKA,Sri Lanka,reserves_months_imports,2014,3.92468380375977
+LKA,Sri Lanka,reserves_months_imports,2013,3.84760389405601
+LKA,Sri Lanka,reserves_months_imports,2012,3.68897815263595
+LKA,Sri Lanka,reserves_months_imports,2011,3.46079601554795
+LKA,Sri Lanka,reserves_months_imports,2010,5.34354431776971
 LKA,Sri Lanka,gdp_growth,2025,4.9534339114043
 LKA,Sri Lanka,gdp_growth,2024,4.99241614398109
 LKA,Sri Lanka,gdp_growth,2023,-2.0289296690344
@@ -6335,6 +7258,22 @@ LKA,Sri Lanka,gdp_growth,2013,4.0517463303875
 LKA,Sri Lanka,gdp_growth,2012,8.6321813769906
 LKA,Sri Lanka,gdp_growth,2011,8.66948301160571
 LKA,Sri Lanka,gdp_growth,2010,8.01596737040464
+LKA,Sri Lanka,inflation,2025,-4.76386036960982
+LKA,Sri Lanka,inflation,2024,-0.42936004906973
+LKA,Sri Lanka,inflation,2023,16.5411742279831
+LKA,Sri Lanka,inflation,2022,49.7211021114327
+LKA,Sri Lanka,inflation,2021,7.01478071238194
+LKA,Sri Lanka,inflation,2020,6.15394508391737
+LKA,Sri Lanka,inflation,2019,3.52839358231811
+LKA,Sri Lanka,inflation,2018,2.135037737132
+LKA,Sri Lanka,inflation,2017,7.70413767850601
+LKA,Sri Lanka,inflation,2016,3.95888846593069
+LKA,Sri Lanka,inflation,2015,3.76836783062096
+LKA,Sri Lanka,inflation,2014,3.17900228236059
+LKA,Sri Lanka,inflation,2013,6.90845034828452
+LKA,Sri Lanka,inflation,2012,7.54291373239437
+LKA,Sri Lanka,inflation,2011,6.7167684358854
+LKA,Sri Lanka,inflation,2010,6.2176488930462
 LKA,Sri Lanka,political_stability,2025,-0.0428179
 LKA,Sri Lanka,political_stability,2024,-0.2354926
 LKA,Sri Lanka,political_stability,2023,-0.675161
@@ -6351,6 +7290,22 @@ LKA,Sri Lanka,political_stability,2013,-0.8393824
 LKA,Sri Lanka,political_stability,2012,-0.9376308
 LKA,Sri Lanka,political_stability,2011,-0.7483842
 LKA,Sri Lanka,political_stability,2010,-0.7831169
+LKA,Sri Lanka,government_effectiveness,2025,-0.128554
+LKA,Sri Lanka,government_effectiveness,2024,-0.2398394
+LKA,Sri Lanka,government_effectiveness,2023,-0.2656658
+LKA,Sri Lanka,government_effectiveness,2022,-0.4156215
+LKA,Sri Lanka,government_effectiveness,2021,-0.1566018
+LKA,Sri Lanka,government_effectiveness,2020,-0.0522604
+LKA,Sri Lanka,government_effectiveness,2019,0.0277236
+LKA,Sri Lanka,government_effectiveness,2018,-0.0100755
+LKA,Sri Lanka,government_effectiveness,2017,0.0807506
+LKA,Sri Lanka,government_effectiveness,2016,0.0940735
+LKA,Sri Lanka,government_effectiveness,2015,0.1918506
+LKA,Sri Lanka,government_effectiveness,2014,0.1743908
+LKA,Sri Lanka,government_effectiveness,2013,-0.0849538
+LKA,Sri Lanka,government_effectiveness,2012,-0.1115063
+LKA,Sri Lanka,government_effectiveness,2011,-0.069179
+LKA,Sri Lanka,government_effectiveness,2010,-0.0885833
 LKA,Sri Lanka,rule_of_law,2025,-0.207336
 LKA,Sri Lanka,rule_of_law,2024,-0.2844558
 LKA,Sri Lanka,rule_of_law,2023,-0.3276704
@@ -6500,6 +7455,38 @@ LKA,Sri Lanka,total_reserves_usd,2013,7500000871.53902
 LKA,Sri Lanka,total_reserves_usd,2012,7106460348.66884
 LKA,Sri Lanka,total_reserves_usd,2011,6739196545.08981
 LKA,Sri Lanka,total_reserves_usd,2010,7195358507.0
+LKA,Sri Lanka,unemployment_rate,2025,4.005
+LKA,Sri Lanka,unemployment_rate,2024,4.239
+LKA,Sri Lanka,unemployment_rate,2023,4.528
+LKA,Sri Lanka,unemployment_rate,2022,4.528
+LKA,Sri Lanka,unemployment_rate,2021,4.981
+LKA,Sri Lanka,unemployment_rate,2020,5.364
+LKA,Sri Lanka,unemployment_rate,2019,4.67
+LKA,Sri Lanka,unemployment_rate,2018,4.318
+LKA,Sri Lanka,unemployment_rate,2017,4.046
+LKA,Sri Lanka,unemployment_rate,2016,4.242
+LKA,Sri Lanka,unemployment_rate,2015,4.519
+LKA,Sri Lanka,unemployment_rate,2014,4.157
+LKA,Sri Lanka,unemployment_rate,2013,4.186
+LKA,Sri Lanka,unemployment_rate,2012,3.88
+LKA,Sri Lanka,unemployment_rate,2011,4.118
+LKA,Sri Lanka,unemployment_rate,2010,4.784
+LKA,Sri Lanka,youth_unemployment_rate,2025,18.578
+LKA,Sri Lanka,youth_unemployment_rate,2024,19.062
+LKA,Sri Lanka,youth_unemployment_rate,2023,20.342
+LKA,Sri Lanka,youth_unemployment_rate,2022,21.732
+LKA,Sri Lanka,youth_unemployment_rate,2021,25.371
+LKA,Sri Lanka,youth_unemployment_rate,2020,25.449
+LKA,Sri Lanka,youth_unemployment_rate,2019,20.425
+LKA,Sri Lanka,youth_unemployment_rate,2018,20.496
+LKA,Sri Lanka,youth_unemployment_rate,2017,17.391
+LKA,Sri Lanka,youth_unemployment_rate,2016,20.07
+LKA,Sri Lanka,youth_unemployment_rate,2015,19.231
+LKA,Sri Lanka,youth_unemployment_rate,2014,18.781
+LKA,Sri Lanka,youth_unemployment_rate,2013,17.939
+LKA,Sri Lanka,youth_unemployment_rate,2012,16.795
+LKA,Sri Lanka,youth_unemployment_rate,2011,16.758
+LKA,Sri Lanka,youth_unemployment_rate,2010,18.684
 LKA,Sri Lanka,gini_index,2019,37.7
 LKA,Sri Lanka,gini_index,2016,39.3
 LKA,Sri Lanka,gini_index,2012,38.7
@@ -6534,6 +7521,70 @@ TUR,Turkey,current_account_pct_gdp,2013,-5.12686124176872
 TUR,Turkey,current_account_pct_gdp,2012,-4.72096418758118
 TUR,Turkey,current_account_pct_gdp,2011,-8.81351105932507
 TUR,Turkey,current_account_pct_gdp,2010,-5.70254261669491
+TUR,Turkey,reserves_months_imports,2025,5.127654800312
+TUR,Turkey,reserves_months_imports,2024,4.69844515171534
+TUR,Turkey,reserves_months_imports,2023,4.15418696554689
+TUR,Turkey,reserves_months_imports,2022,3.87655812064327
+TUR,Turkey,reserves_months_imports,2021,4.44640226544604
+TUR,Turkey,reserves_months_imports,2020,4.6220883288877
+TUR,Turkey,reserves_months_imports,2019,5.18427528714443
+TUR,Turkey,reserves_months_imports,2018,4.21757739253257
+TUR,Turkey,reserves_months_imports,2017,4.78794864952257
+TUR,Turkey,reserves_months_imports,2016,5.43169973687983
+TUR,Turkey,reserves_months_imports,2015,5.46405803059575
+TUR,Turkey,reserves_months_imports,2014,5.46654268778751
+TUR,Turkey,reserves_months_imports,2013,5.46467548164703
+TUR,Turkey,reserves_months_imports,2012,5.52884305144565
+TUR,Turkey,reserves_months_imports,2011,4.01504832644044
+TUR,Turkey,reserves_months_imports,2010,4.98149669912826
+TUR,Turkey,gdp_growth,2025,3.60462514082589
+TUR,Turkey,gdp_growth,2024,3.3276230893799
+TUR,Turkey,gdp_growth,2023,5.04512369812289
+TUR,Turkey,gdp_growth,2022,5.44122511322401
+TUR,Turkey,gdp_growth,2021,11.811094450607
+TUR,Turkey,gdp_growth,2020,1.80306247087255
+TUR,Turkey,gdp_growth,2019,1.30162365464503
+TUR,Turkey,gdp_growth,2018,3.46815306092219
+TUR,Turkey,gdp_growth,2017,7.82585730002594
+TUR,Turkey,gdp_growth,2016,3.32366508200445
+TUR,Turkey,gdp_growth,2015,5.80557386628684
+TUR,Turkey,gdp_growth,2014,4.60079447270559
+TUR,Turkey,gdp_growth,2013,8.48825689298511
+TUR,Turkey,gdp_growth,2012,4.80762696633448
+TUR,Turkey,gdp_growth,2011,10.9799625273598
+TUR,Turkey,gdp_growth,2010,8.54219848467686
+TUR,Turkey,inflation,2025,34.8811700293777
+TUR,Turkey,inflation,2024,58.5064492168435
+TUR,Turkey,inflation,2023,53.8594084019764
+TUR,Turkey,inflation,2022,72.3088300496956
+TUR,Turkey,inflation,2021,19.5964927532842
+TUR,Turkey,inflation,2020,12.2789597724893
+TUR,Turkey,inflation,2019,15.176809642769
+TUR,Turkey,inflation,2018,16.3324781477783
+TUR,Turkey,inflation,2017,11.1443085201022
+TUR,Turkey,inflation,2016,7.7751335303658
+TUR,Turkey,inflation,2015,7.67085521554052
+TUR,Turkey,inflation,2014,8.8545718967802
+TUR,Turkey,inflation,2013,7.49308913314732
+TUR,Turkey,inflation,2012,8.89156955351783
+TUR,Turkey,inflation,2011,6.4718820256722
+TUR,Turkey,inflation,2010,8.56644062481412
+TUR,Turkey,political_stability,2025,-0.8812265
+TUR,Turkey,political_stability,2024,-0.886377
+TUR,Turkey,political_stability,2023,-0.8971265
+TUR,Turkey,political_stability,2022,-0.9496668
+TUR,Turkey,political_stability,2021,-0.9854737
+TUR,Turkey,political_stability,2020,-1.0648506
+TUR,Turkey,political_stability,2019,-1.2029715
+TUR,Turkey,political_stability,2018,-1.142298
+TUR,Turkey,political_stability,2017,-1.7058986
+TUR,Turkey,political_stability,2016,-1.7668706
+TUR,Turkey,political_stability,2015,-1.0878373
+TUR,Turkey,political_stability,2014,-0.7974653
+TUR,Turkey,political_stability,2013,-1.0022018
+TUR,Turkey,political_stability,2012,-0.8954819
+TUR,Turkey,political_stability,2011,-0.6929244
+TUR,Turkey,political_stability,2010,-0.5540597
 TUR,Turkey,government_effectiveness,2025,0.0289387
 TUR,Turkey,government_effectiveness,2024,-0.0527008
 TUR,Turkey,government_effectiveness,2023,-0.085658
@@ -6566,6 +7617,22 @@ TUR,Turkey,rule_of_law,2013,-0.1068296
 TUR,Turkey,rule_of_law,2012,-0.0970223
 TUR,Turkey,rule_of_law,2011,-0.0727889
 TUR,Turkey,rule_of_law,2010,0.0539591
+TUR,Turkey,regulatory_quality,2025,-0.1718558
+TUR,Turkey,regulatory_quality,2024,-0.1649602
+TUR,Turkey,regulatory_quality,2023,-0.1666255
+TUR,Turkey,regulatory_quality,2022,-0.1775484
+TUR,Turkey,regulatory_quality,2021,-0.0683072
+TUR,Turkey,regulatory_quality,2020,-0.1049635
+TUR,Turkey,regulatory_quality,2019,0.026219
+TUR,Turkey,regulatory_quality,2018,0.0183903
+TUR,Turkey,regulatory_quality,2017,0.1110961
+TUR,Turkey,regulatory_quality,2016,0.1203997
+TUR,Turkey,regulatory_quality,2015,0.2034535
+TUR,Turkey,regulatory_quality,2014,0.3883751
+TUR,Turkey,regulatory_quality,2013,0.478805
+TUR,Turkey,regulatory_quality,2012,0.4778445
+TUR,Turkey,regulatory_quality,2011,0.3833109
+TUR,Turkey,regulatory_quality,2010,0.3689441
 TUR,Turkey,control_of_corruption,2025,-0.5280827
 TUR,Turkey,control_of_corruption,2024,-0.5557808
 TUR,Turkey,control_of_corruption,2023,-0.4274348
@@ -8193,6 +9260,21 @@ BHR,Bahrain,currency_depreciation_pct,2022,0.0
 BHR,Bahrain,currency_depreciation_pct,2023,0.0
 BHR,Bahrain,currency_depreciation_pct,2024,0.0
 BHR,Bahrain,currency_depreciation_pct,2025,0.0
+BTN,Bhutan,currency_depreciation_pct,2011,2.065910919089558
+BTN,Bhutan,currency_depreciation_pct,2012,14.499033650117163
+BTN,Bhutan,currency_depreciation_pct,2013,9.657333962524197
+BTN,Bhutan,currency_depreciation_pct,2014,4.149758454132639
+BTN,Bhutan,currency_depreciation_pct,2015,5.116262238167855
+BTN,Bhutan,currency_depreciation_pct,2016,4.74400015396691
+BTN,Bhutan,currency_depreciation_pct,2017,-3.086144071190854
+BTN,Bhutan,currency_depreciation_pct,2018,5.0181506933398925
+BTN,Bhutan,currency_depreciation_pct,2019,2.969570503649506
+BTN,Bhutan,currency_depreciation_pct,2020,5.224664237134258
+BTN,Bhutan,currency_depreciation_pct,2021,-0.24501366985759046
+BTN,Bhutan,currency_depreciation_pct,2022,6.340102485246729
+BTN,Bhutan,currency_depreciation_pct,2023,5.082134409190228
+BTN,Bhutan,currency_depreciation_pct,2024,1.2954170797865368
+BTN,Bhutan,currency_depreciation_pct,2025,4.1701885134784025
 DJI,Djibouti,currency_depreciation_pct,2011,0.0
 DJI,Djibouti,currency_depreciation_pct,2012,0.0
 DJI,Djibouti,currency_depreciation_pct,2013,0.0
@@ -8267,6 +9349,21 @@ ETH,Ethiopia,currency_depreciation_pct,2021,25.214221689404106
 ETH,Ethiopia,currency_depreciation_pct,2022,18.34379974236282
 ETH,Ethiopia,currency_depreciation_pct,2023,5.4964085615674785
 ETH,Ethiopia,currency_depreciation_pct,2024,51.28187197065475
+IND,India,currency_depreciation_pct,2011,2.065910919089558
+IND,India,currency_depreciation_pct,2012,14.499033650117163
+IND,India,currency_depreciation_pct,2013,9.657333962524197
+IND,India,currency_depreciation_pct,2014,4.149758454132639
+IND,India,currency_depreciation_pct,2015,5.116262238167855
+IND,India,currency_depreciation_pct,2016,4.74400015396691
+IND,India,currency_depreciation_pct,2017,-3.086144071190854
+IND,India,currency_depreciation_pct,2018,5.0181506933398925
+IND,India,currency_depreciation_pct,2019,2.969570503649506
+IND,India,currency_depreciation_pct,2020,5.224664237134258
+IND,India,currency_depreciation_pct,2021,-0.24501366985759046
+IND,India,currency_depreciation_pct,2022,6.340102485246729
+IND,India,currency_depreciation_pct,2023,5.082134409190228
+IND,India,currency_depreciation_pct,2024,1.2954170797865368
+IND,India,currency_depreciation_pct,2025,4.1701885134784025
 IRN,Iran,currency_depreciation_pct,2011,3.5315383411613652
 IRN,Iran,currency_depreciation_pct,2012,14.687222502276907
 IRN,Iran,currency_depreciation_pct,2013,51.24123519005512
