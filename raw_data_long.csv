@@ -3563,22 +3563,6 @@ PSE,Palestine,fdi_net_inflows_pct_gdp,2013,1.40253913684002
 PSE,Palestine,fdi_net_inflows_pct_gdp,2012,0.515918270255689
 PSE,Palestine,fdi_net_inflows_pct_gdp,2011,2.13515604683715
 PSE,Palestine,fdi_net_inflows_pct_gdp,2010,1.85860711452246
-PSE,Palestine,exports_pct_gdp,2025,21.2278136668395
-PSE,Palestine,exports_pct_gdp,2024,21.8525432511909
-PSE,Palestine,exports_pct_gdp,2023,16.9958841111666
-PSE,Palestine,exports_pct_gdp,2022,18.4362526414651
-PSE,Palestine,exports_pct_gdp,2021,17.3411011099453
-PSE,Palestine,exports_pct_gdp,2020,15.3576234410914
-PSE,Palestine,exports_pct_gdp,2019,15.5210552426533
-PSE,Palestine,exports_pct_gdp,2018,15.961564454493
-PSE,Palestine,exports_pct_gdp,2017,15.7242063492063
-PSE,Palestine,exports_pct_gdp,2016,14.3267945006296
-PSE,Palestine,exports_pct_gdp,2015,16.0623801208096
-PSE,Palestine,exports_pct_gdp,2014,15.8230698299463
-PSE,Palestine,exports_pct_gdp,2013,15.6198438829492
-PSE,Palestine,exports_pct_gdp,2012,15.3263326889683
-PSE,Palestine,exports_pct_gdp,2011,16.0860353474401
-PSE,Palestine,exports_pct_gdp,2010,14.1228115477973
 PSE,Palestine,imports_pct_gdp,2025,53.5326292734358
 PSE,Palestine,imports_pct_gdp,2024,52.7355480773433
 PSE,Palestine,imports_pct_gdp,2023,59.1775735037644
@@ -5121,15 +5105,6 @@ YEM,Yemen,exports_pct_gdp,2013,22.3595984891919
 YEM,Yemen,exports_pct_gdp,2012,24.8637169658953
 YEM,Yemen,exports_pct_gdp,2011,30.3404241701511
 YEM,Yemen,exports_pct_gdp,2010,29.9950775630093
-YEM,Yemen,imports_pct_gdp,2018,47.3217203387932
-YEM,Yemen,imports_pct_gdp,2017,33.2816570867479
-YEM,Yemen,imports_pct_gdp,2016,26.2723415296367
-YEM,Yemen,imports_pct_gdp,2015,21.3160815388406
-YEM,Yemen,imports_pct_gdp,2014,26.7589534336227
-YEM,Yemen,imports_pct_gdp,2013,30.152279647517
-YEM,Yemen,imports_pct_gdp,2012,36.497920216673
-YEM,Yemen,imports_pct_gdp,2011,32.7190337847532
-YEM,Yemen,imports_pct_gdp,2010,34.3905592167085
 YEM,Yemen,official_exchange_rate_lcu_usd,2023,1355.11637864823
 YEM,Yemen,official_exchange_rate_lcu_usd,2022,1115.00238710662
 YEM,Yemen,official_exchange_rate_lcu_usd,2021,1028.107754329
@@ -8185,10 +8160,6 @@ SSD,South Sudan,control_of_corruption,2013,-1.4201325
 SSD,South Sudan,control_of_corruption,2012,-1.3388424
 SSD,South Sudan,control_of_corruption,2011,-1.236088
 SSD,South Sudan,control_of_corruption,2010,-0.2157375
-SSD,South Sudan,fdi_net_inflows_pct_gdp,2015,0.0012502291294692
-SSD,South Sudan,fdi_net_inflows_pct_gdp,2014,0.00741877910985015
-SSD,South Sudan,fdi_net_inflows_pct_gdp,2013,-4.30359174766787
-SSD,South Sudan,fdi_net_inflows_pct_gdp,2012,1.34937246395858
 SSD,South Sudan,exports_pct_gdp,2015,36.6513492804707
 SSD,South Sudan,exports_pct_gdp,2014,38.3916172930278
 SSD,South Sudan,exports_pct_gdp,2013,9.74075785850552
